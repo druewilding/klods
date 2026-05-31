@@ -148,7 +148,7 @@ export const examples: KlodsNode[] = [
 
   example({
     title: "Form - Radio group",
-    description: 'Wrap radios with `radioGroup` for correct `role="group"` and aria labelling.',
+    description: 'Wrap radios with `radioGroup` for correct `role="group"` and aria labeling.',
     render: () =>
       radioGroup({ legend: "Preferred contact method" }, [
         radio({ label: "Email", name: "contact", value: "email", checked: true }),
