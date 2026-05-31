@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/druewilding/klods/compare/klods-js-v1.6.0...klods-js-v1.7.0) (2026-05-31)
+
+
+### Features
+
+* Add form components ([#44](https://github.com/druewilding/klods/issues/44)) ([ec81b71](https://github.com/druewilding/klods/commit/ec81b711dbf1cd90fb029d4fb99e4b0ec77d4b3f))
+
 ## [1.6.0](https://github.com/druewilding/klods/compare/klods-js-v1.5.1...klods-js-v1.6.0) (2026-05-31)
 
 
