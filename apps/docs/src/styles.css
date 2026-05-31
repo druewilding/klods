@@ -45,11 +45,6 @@
   background: var(--klods-color-bg);
 }
 
-.docs-shell {
-  /* Fix sidebar height so the content scrolls independently. */
-  --klods-sidebar-width: 14rem;
-}
-
 .docs-section {
   scroll-margin-top: var(--klods-space-5);
 }
