@@ -151,7 +151,7 @@ function patchAriaAttrs(node: KlodsNode, attrs: KlodsAttrs): KlodsNode {
   const patchedChildren = node.children.map((child) =>
     child instanceof KlodsNode && FORM_CONTROLS.has(child.tag)
       ? new KlodsNode(child.tag, { ...child.attrs, ...attrs }, child.children)
-      : child,
+      : child
   );
   return new KlodsNode(node.tag, node.attrs, patchedChildren);
 }

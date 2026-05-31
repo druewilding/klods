@@ -509,12 +509,14 @@
   .klods-help {
     font-size: var(--klods-font-size-sm);
     color: var(--klods-color-muted);
+    margin-top: calc(var(--klods-space-1) - var(--klods-space-2));
   }
 
   .klods-error {
     font-size: var(--klods-font-size-sm);
     color: var(--klods-color-danger);
     display: none;
+    margin-top: calc(var(--klods-space-1) - var(--klods-space-2));
   }
 
   // Invalid state — red border, danger focus ring, show error, hide help
