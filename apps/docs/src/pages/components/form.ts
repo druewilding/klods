@@ -250,7 +250,7 @@ export const examples: KlodsNode[] = [
       card(
         {},
         row({ gap: 2 }, [
-          input({ type: "search", placeholder: "Search…", class: "klods-input" }),
+          input({ type: "search", placeholder: "Search for anything…", "aria-label": "Search" }),
           button({ variant: "primary" }, "Search"),
         ])
       ),
