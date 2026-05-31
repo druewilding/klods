@@ -259,6 +259,14 @@
     padding: var(--klods-space-2) var(--klods-space-3);
   }
 
+  // ── Box ──────────────────────────────────────────────────────────────
+  .klods-box {
+    padding: var(--klods-space-3);
+    background: var(--klods-color-surface-2);
+    border-radius: var(--klods-radius-sm);
+    text-align: center;
+  }
+
   .klods-muted {
     color: var(--klods-color-muted);
   }
