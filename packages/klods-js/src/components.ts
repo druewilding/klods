@@ -280,12 +280,15 @@ export type CheckboxProps = {
   disabled?: boolean;
 };
 export function checkbox(props: CheckboxProps & KlodsAttrs): KlodsNode {
-  const { label: labelText, name, value, checked, disabled, class: extraClass, ...rest } = props;
+  const { label: labelText, name, value, checked, disabled, required, form, autofocus, class: extraClass, ...rest } = props as CheckboxProps & KlodsAttrs & { required?: boolean; form?: string; autofocus?: boolean };
   const inputAttrs: KlodsAttrs = { type: "checkbox" };
   if (name !== undefined) inputAttrs.name = name;
   if (value !== undefined) inputAttrs.value = value;
   if (checked) inputAttrs.checked = true;
   if (disabled) inputAttrs.disabled = true;
+  if (required) inputAttrs.required = true;
+  if (form !== undefined) inputAttrs.form = form;
+  if (autofocus) inputAttrs.autofocus = true;
 
   return el(
     "label",
@@ -304,12 +307,15 @@ export type RadioProps = {
   disabled?: boolean;
 };
 export function radio(props: RadioProps & KlodsAttrs): KlodsNode {
-  const { label: labelText, name, value, checked, disabled, class: extraClass, ...rest } = props;
+  const { label: labelText, name, value, checked, disabled, required, form, autofocus, class: extraClass, ...rest } = props as RadioProps & KlodsAttrs & { required?: boolean; form?: string; autofocus?: boolean };
   const inputAttrs: KlodsAttrs = { type: "radio" };
   if (name !== undefined) inputAttrs.name = name;
   if (value !== undefined) inputAttrs.value = value;
   if (checked) inputAttrs.checked = true;
   if (disabled) inputAttrs.disabled = true;
+  if (required) inputAttrs.required = true;
+  if (form !== undefined) inputAttrs.form = form;
+  if (autofocus) inputAttrs.autofocus = true;
 
   return el(
     "label",
