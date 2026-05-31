@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/druewilding/klods/compare/klods-css-v1.5.0...klods-css-v1.6.0) (2026-05-31)
+
+
+### Features
+
+* Add a Section component and use it in the docs ([#28](https://github.com/druewilding/klods/issues/28)) ([f20c6eb](https://github.com/druewilding/klods/commit/f20c6ebae147565c826bc3d99475664321acb2b7))
+
 ## [1.5.0](https://github.com/druewilding/klods/compare/klods-css-v1.4.0...klods-css-v1.5.0) (2026-05-31)
 
 
