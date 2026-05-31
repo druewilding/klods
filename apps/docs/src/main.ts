@@ -109,15 +109,7 @@ function shell(): KlodsNode {
       el("span", { class: "klods-push" }),
       themeSwitcher(),
     ]),
-    sidebar({}, [
-      el("nav", { "aria-label": "Sections" }, [
-        el(
-          "ul",
-          { class: "docs-toc" },
-          SECTIONS.map(tocLink)
-        ),
-      ]),
-    ]),
+    sidebar({}, [el("nav", { "aria-label": "Sections" }, [el("ul", { class: "docs-toc" }, SECTIONS.map(tocLink))])]),
     content({ narrow: true }, [
       stack(
         { gap: 7 },
