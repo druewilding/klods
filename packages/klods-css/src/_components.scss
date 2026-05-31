@@ -171,10 +171,11 @@
 
     > .klods-button {
       border-radius: 0;
+      border-color: transparent;
       position: relative;
 
-      &:not(:first-child) {
-        margin-inline-start: -1px;
+      &:not(:last-child) {
+        border-inline-end: 1px solid var(--klods-color-border);
       }
 
       &:first-child {
