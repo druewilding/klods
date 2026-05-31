@@ -5,7 +5,7 @@
 `klods` (Danish for _block_) is a component kit with two faces:
 
 - **`klods-css`** — a single CSS file you drop into any HTML page or Rails app. BEM classes, CSS custom properties for theming, no JS required for the layout primitives.
-- **`klods`** — a tiny TypeScript builder library that produces the same markup with a typed, lego-like API:
+- **`klods-js`** — a tiny TypeScript builder library that produces the same markup with a typed, lego-like API:
 
   ```ts
   page({ sidebar: true }, [
