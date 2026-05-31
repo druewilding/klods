@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { content, footer, header, page } from "klods-js";
+import { box, content, footer, header, page } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -11,9 +11,9 @@ export const examples: KlodsNode[] = [
     title: "Narrow content",
     description: "`content({ narrow: true })` caps the main column at --klods-content-max and centres it.",
     render: () =>
-      page({}, [
+      page({ style: "--klods-content-max: 30rem;" }, [
         header({}, "Header"),
-        content({ narrow: true }, "Comfortably-narrow text column."),
+        content({ narrow: true }, box({}, "Narrow column — capped and centred.")),
         footer({}, "Footer"),
       ]),
   }),
