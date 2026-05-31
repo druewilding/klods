@@ -93,6 +93,11 @@
     }
   }
 
+  // Inline row variant
+  .klods-row--inline {
+    display: inline-flex;
+  }
+
   // Visually hidden (for a11y)
   .klods-sr-only {
     position: absolute;
