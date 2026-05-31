@@ -615,7 +615,7 @@
       left: 0.1875rem;
       width: 1.125rem; // 18px
       height: 1.125rem;
-      background: #fff;
+      background: var(--klods-color-bg);
       border-radius: 50%;
       box-shadow: var(--klods-shadow-sm);
       transition: transform var(--klods-transition);
