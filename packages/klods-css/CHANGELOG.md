@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/druewilding/klods/compare/klods-css-v1.6.3...klods-css-v1.7.0) (2026-05-31)
+
+
+### Features
+
+* Support trailing sidebar ([#41](https://github.com/druewilding/klods/issues/41)) ([afe9d7b](https://github.com/druewilding/klods/commit/afe9d7b7b0dd7536eacf699e1353d2f2a2b897ca))
+
 ## [1.6.3](https://github.com/druewilding/klods/compare/klods-css-v1.6.2...klods-css-v1.6.3) (2026-05-31)
 
 
