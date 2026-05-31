@@ -7,6 +7,7 @@ import { builder, el, KlodsNode } from "./core.js";
 // ── Nav ──────────────────────────────────────────────────────────────────
 export const nav = builder({ tag: "nav", base: "klods-nav" });
 export const navList = builder({ tag: "ul", base: "klods-nav__list" });
+export const buttonGroup = builder({ tag: "div", base: "klods-button-group" });
 export type TocProps = { sub?: boolean };
 export const toc = builder<TocProps>({ tag: "ul", base: "klods-toc", modifiers: { sub: "klods-toc--sub" } });
 export const tocItem = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>

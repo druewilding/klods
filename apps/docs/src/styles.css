@@ -44,20 +44,3 @@
   border-top: 1px solid var(--klods-color-border);
   background: var(--klods-color-bg);
 }
-
-.docs-theme-swatch {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--klods-space-2);
-  padding: var(--klods-space-2) var(--klods-space-3);
-  border: 1px solid var(--klods-color-border);
-  border-radius: var(--klods-radius-pill);
-  background: var(--klods-color-surface);
-  cursor: pointer;
-  font: inherit;
-}
-
-.docs-theme-swatch[aria-pressed="true"] {
-  background: var(--klods-color-accent);
-  color: var(--klods-color-accent-fg);
-}
