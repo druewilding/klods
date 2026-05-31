@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.3](https://github.com/druewilding/klods/compare/klods-css-v1.6.2...klods-css-v1.6.3) (2026-05-31)
+
+
+### Bug Fixes
+
+* Make the colors better for button hover states and alerts ([#38](https://github.com/druewilding/klods/issues/38)) ([4a62be4](https://github.com/druewilding/klods/commit/4a62be4ab06c78b17fb26e2058b0ac9a83de95ba))
+
 ## [1.6.2](https://github.com/druewilding/klods/compare/klods-css-v1.6.1...klods-css-v1.6.2) (2026-05-31)
 
 
