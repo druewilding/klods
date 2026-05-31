@@ -5,9 +5,9 @@
 `klods` (Danish for _block_) is a component kit with two independent packages you can use
 separately or together.
 
-📖 **[Live docs →](https://druewilding.github.io/klods/)**
+📖 **[Live docs →](https://www.druewilding.com/klods/)**
 &nbsp;&nbsp;
-🎨 **[Vanilla HTML demo →](https://druewilding.github.io/klods/vanilla.html)**
+🎨 **[Vanilla HTML demo →](https://www.druewilding.com/klods/vanilla.html)**
 
 ## Quick start
 
@@ -18,7 +18,7 @@ separately or together.
 ```
 
 Then drop in BEM classes — `klods-button--primary`, `klods-card`, `klods-table--striped`, … See
-the [vanilla demo](https://druewilding.github.io/klods/vanilla.html) for a full example.
+the [vanilla demo](https://www.druewilding.com/klods/vanilla.html) for a full example.
 
 ### npm
 
