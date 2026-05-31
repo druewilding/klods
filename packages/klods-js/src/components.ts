@@ -189,7 +189,9 @@ export function field(props: FieldProps & KlodsAttrs, renderInput: (id: string) 
   const errorId = error ? `${id}-error` : undefined;
   const isInvalid = invalid ?? !!error;
 
-  const describedBy = [helpId, errorId].filter(Boolean).join(" ") || undefined;
+  // When invalid, .klods-help is hidden by CSS — only reference the visible error.
+  // When valid, .klods-error is absent — only reference help text if present.
+  const describedBy = isInvalid ? errorId : helpId;
 
   // Inject aria attrs onto the control (or its first form-control child for wrappers).
   const inputNode = renderInput(id);
