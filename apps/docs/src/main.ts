@@ -4,7 +4,7 @@ import "klods-css/src/klods.scss";
 import "./styles.css";
 
 import type { KlodsNode } from "klods-js";
-import { content, el, footer, header, page, sidebar, stack } from "klods-js";
+import { content, el, fill, footer, header, page, push, sidebar, stack } from "klods-js";
 
 import { componentLinks, renderComponentsSection } from "./pages/components.js";
 import { renderIntroSection } from "./pages/intro.js";
@@ -85,11 +85,12 @@ function tocLink(section: Section): KlodsNode {
 function shell(): KlodsNode {
   return page({ sidebar: true, stickyHeader: true, class: "docs-shell" }, [
     header({}, [
-      el("strong", { style: "font-size: 1.25rem;" }, "klods"),
-      el("span", { class: "klods-badge" }, `v${__KLODS_VERSION__}`),
-      el("span", { class: "klods-push" }),
-      el("a", { href: "./vanilla.html", class: "klods-button klods-button--ghost" }, "Vanilla →"),
-      themeSwitcher(),
+      fill({}, [
+        el("strong", { style: "font-size: 1.25rem;" }, "klods"),
+        el("span", { class: "klods-badge" }, `v${__KLODS_VERSION__}`),
+      ]),
+      el("a", { href: "./vanilla.html", class: "klods-button klods-button--ghost" }, "Vanilla HTML demo →"),
+      fill({}, [push(), themeSwitcher()]),
     ]),
     sidebar({}, [el("nav", { "aria-label": "Sections" }, [el("ul", { class: "docs-toc" }, SECTIONS.map(tocLink))])]),
     content({ narrow: true }, [
@@ -100,7 +101,7 @@ function shell(): KlodsNode {
     ]),
     footer({}, [
       el("span", {}, "klods · MIT · "),
-      el("a", { href: "https://github.com/druewilding" }, "github.com/druewilding"),
+      el("a", { href: "https://github.com/druewilding/klods" }, "github.com/druewilding/klods"),
     ]),
   ]);
 }

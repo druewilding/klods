@@ -25,11 +25,7 @@ export function renderIntroSection(): KlodsNode {
           " for a lego-like API that produces both DOM and HTML strings.",
         ]),
       ]),
-      el(
-        "p",
-        {},
-        "Every example below is rendered live, and the source you see is the source that produced it. There is no separate playground."
-      ),
+      el("p", {}, "Every example below is rendered live, and the source you see is the source that produced it."),
     ]),
     stack({ gap: 4 }, [
       card({}, [

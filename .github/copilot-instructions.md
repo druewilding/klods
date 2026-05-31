@@ -69,6 +69,7 @@ Never add CSS without a builder. Never add a builder without a docs example. The
 - The `example({ title, description?, render })` helper in `apps/docs/src/example.ts` calls `render()` once for the live preview, reads `render.toString()` for the TypeScript pane, and calls `.toString()` on the result for the HTML pane
 - **Docs can never lie** — the code shown is the code that produced the preview
 - Build minification is disabled (`minify: false` in `apps/docs/vite.config.ts`) so `fn.toString()` returns readable source
+- **Anchor must match slug(title)** — `example()` sets `id={slug(title)}` on the card, where `slug` lowercases the title and replaces any run of non-alphanumeric characters with `-`. The `anchor` export in each page module must be the exact output of that function applied to the _first_ example's title, or the sidebar link will point nowhere. E.g. `"Fill — grow to fill available space"` → `"fill-grow-to-fill-available-space"`
 
 ## Build commands
 
