@@ -8,9 +8,9 @@ import { content, el, footer, header, page, sidebar, stack } from "klods-js";
 
 import { componentLinks, renderComponentsSection } from "./pages/components.js";
 import { renderIntroSection } from "./pages/intro.js";
-import { renderLayoutSection } from "./pages/layout.js";
+import { layoutLinks, renderLayoutSection } from "./pages/layout.js";
 import { renderThemesSection } from "./pages/themes.js";
-import { renderUtilitiesSection } from "./pages/utilities.js";
+import { renderUtilitiesSection, utilityLinks } from "./pages/utilities.js";
 
 type SubLink = { label: string; anchor: string };
 type Section = { id: string; title: string; render: () => KlodsNode; links?: SubLink[] };
@@ -21,24 +21,13 @@ const SECTIONS: Section[] = [
     id: "layout",
     title: "Layout",
     render: renderLayoutSection,
-    links: [
-      { label: "Page", anchor: "page-with-header-content-and-footer" },
-      { label: "With sidebar", anchor: "page-with-a-sidebar" },
-      { label: "Narrow content", anchor: "narrow-content" },
-    ],
+    links: layoutLinks,
   },
   {
     id: "utilities",
     title: "Utilities",
     render: renderUtilitiesSection,
-    links: [
-      { label: "stack", anchor: "stack-vertical-with-gap" },
-      { label: "cluster", anchor: "cluster-horizontal-wraps" },
-      { label: "row", anchor: "row-horizontal-no-wrap" },
-      { label: "grid", anchor: "grid-equal-columns" },
-      { label: "spread", anchor: "spread-push-children-apart" },
-      { label: "center", anchor: "center-centre-everything" },
-    ],
+    links: utilityLinks,
   },
   {
     id: "components",
