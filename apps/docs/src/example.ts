@@ -44,10 +44,13 @@ function prettyHtml(html: string): string {
 /** Strip leading whitespace common to all lines (so the TS source isn't deeply indented). */
 function dedent(source: string): string {
   const lines = source.split("\n");
-  const indents = lines.filter((l) => l.trim()).map((l) => l.match(/^[ \t]*/)?.[0].length ?? 0);
+  // Skip the first line (`() =>`) when finding the minimum — it has 0 leading
+  // whitespace and would otherwise prevent any stripping from the body lines.
+  const bodyLines = lines.slice(1);
+  const indents = bodyLines.filter((l) => l.trim()).map((l) => l.match(/^[ \t]*/)?.[0].length ?? 0);
   const min = indents.length ? Math.min(...indents) : 0;
   return lines
-    .map((l) => l.slice(min))
+    .map((l, i) => (i === 0 ? l : l.slice(min)))
     .join("\n")
     .trim();
 }
