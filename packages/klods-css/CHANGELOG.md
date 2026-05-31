@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/druewilding/klods/compare/klods-css-v1.4.0...klods-css-v1.5.0) (2026-05-31)
+
+
+### Features
+
+* Add a table of contents component ([#26](https://github.com/druewilding/klods/issues/26)) ([8145427](https://github.com/druewilding/klods/commit/814542746734e6bdb7b0a91a0d9595529a75404d))
+
 ## [1.4.0](https://github.com/druewilding/klods/compare/klods-css-v1.3.1...klods-css-v1.4.0) (2026-05-31)
 
 
