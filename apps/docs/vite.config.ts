@@ -2,7 +2,7 @@ import { createRequire } from "module";
 import { defineConfig } from "vite";
 
 const require = createRequire(import.meta.url);
-const { version: klodsVersion } = require("../../packages/klods/package.json") as { version: string };
+const { version: klodsVersion } = require("../../packages/klods-js/package.json") as { version: string };
 const { version: klodsCssVersion } = require("../../packages/klods-css/package.json") as { version: string };
 
 export default defineConfig(({ mode }) => ({

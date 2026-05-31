@@ -5,7 +5,7 @@
       "release-type": "node",
       "package-name": "klods-css"
     },
-    "packages/klods": {
+    "packages/klods-js": {
       "release-type": "node",
       "package-name": "klods-js"
     }

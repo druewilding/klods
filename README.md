@@ -23,7 +23,7 @@ Every builder accepts arbitrary `class`, `id`, `data-*`, `aria-*` and other attr
 | Package                           | Description                           |
 | --------------------------------- | ------------------------------------- |
 | [`klods-css`](packages/klods-css) | The stylesheet. Use on its own.       |
-| [`klods`](packages/klods)         | TypeScript builder API (ESM/CJS/UMD). |
+| [`klods-js`](packages/klods-js)   | TypeScript builder API (ESM/CJS/UMD). |
 | [`apps/docs`](apps/docs)          | Self-generating documentation site.   |
 
 ## Develop
