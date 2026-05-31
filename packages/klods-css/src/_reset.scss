@@ -28,6 +28,17 @@
     max-width: 100%;
   }
 
+  pre,
+  code {
+    font-family: var(--klods-font-mono);
+  }
+
+  pre {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+  }
+
   button,
   input,
   select,
