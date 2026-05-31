@@ -18,6 +18,7 @@ export const examples: KlodsNode[] = [
   }),
   example({
     title: "Elevated card",
+    description: "Add `elevated: true` to make the card stand out from the background with a shadow.",
     render: () =>
       card({ elevated: true, style: "max-width: 24rem;" }, [
         cardTitle({}, "Cosy card"),
