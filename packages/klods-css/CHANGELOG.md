@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/druewilding/klods/compare/klods-css-v1.8.0...klods-css-v1.8.1) (2026-05-31)
+
+
+### Bug Fixes
+
+* Make narrow content work as expected ([#49](https://github.com/druewilding/klods/issues/49)) ([b62d802](https://github.com/druewilding/klods/commit/b62d8024963a10a4d276f78a30e71c51d05f9e7a))
+
 ## [1.8.0](https://github.com/druewilding/klods/compare/klods-css-v1.7.0...klods-css-v1.8.0) (2026-05-31)
 
 
