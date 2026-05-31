@@ -254,10 +254,6 @@
   }
 
   // ── Prose ──────────────────────────────────────────────────────────────
-  .klods-prose {
-    max-width: 65ch;
-  }
-
   .klods-prose > * + * {
     margin-block-start: var(--klods-space-4);
   }
