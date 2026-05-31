@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.0](https://github.com/druewilding/klods/compare/klods-js-v1.4.0...klods-js-v1.5.0) (2026-05-31)
+
+
+### Features
+
+* Add a buttonGroup component of pill style ([#30](https://github.com/druewilding/klods/issues/30)) ([6e9efc4](https://github.com/druewilding/klods/commit/6e9efc458d609d993929d4fa2ed99ea86392ae03))
+* Add a Section component and use it in the docs ([#28](https://github.com/druewilding/klods/issues/28)) ([f20c6eb](https://github.com/druewilding/klods/commit/f20c6ebae147565c826bc3d99475664321acb2b7))
+
 ## [1.4.0](https://github.com/druewilding/klods/compare/klods-js-v1.3.0...klods-js-v1.4.0) (2026-05-31)
 
 
