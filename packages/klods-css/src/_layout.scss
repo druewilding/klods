@@ -44,6 +44,16 @@
     border-bottom: 1px solid var(--klods-color-border);
   }
 
+  .klods-page--sticky-header .klods-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  html:has(.klods-page--sticky-header) {
+    scroll-padding-top: var(--klods-header-height);
+  }
+
   .klods-sidebar {
     grid-area: sidebar;
     padding: var(--klods-gutter);
