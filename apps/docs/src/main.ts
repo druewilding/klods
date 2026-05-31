@@ -4,7 +4,21 @@ import "klods-css/src/klods.scss";
 import "./styles.css";
 
 import type { KlodsNode } from "klods-js";
-import { content, el, fill, footer, header, page, push, sidebar, stack, toc, tocItem, tocLink } from "klods-js";
+import {
+  content,
+  el,
+  fill,
+  footer,
+  header,
+  page,
+  push,
+  section,
+  sidebar,
+  stack,
+  toc,
+  tocItem,
+  tocLink,
+} from "klods-js";
 
 import { componentLinks, renderComponentsSection } from "./pages/components.js";
 import { renderIntroSection } from "./pages/intro.js";
@@ -95,7 +109,7 @@ function shell(): KlodsNode {
     content({ narrow: true }, [
       stack(
         { gap: 7 },
-        SECTIONS.map((s) => el("section", { id: s.id, class: "docs-section" }, [s.render()]))
+        SECTIONS.map((s) => section({ id: s.id }, [s.render()]))
       ),
     ]),
     footer({}, [
