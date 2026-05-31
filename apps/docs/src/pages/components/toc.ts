@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { el, toc } from "klods-js";
+import { toc, tocItem, tocLink } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -11,27 +11,27 @@ export const examples: KlodsNode[] = [
     title: "Table of contents - toc",
     render: () =>
       toc({}, [
-        el("li", {}, el("a", { href: "#" }, "Introduction")),
-        el("li", {}, el("a", { href: "#" }, "Getting started")),
-        el("li", {}, el("a", { href: "#" }, "Components")),
-        el("li", {}, el("a", { href: "#" }, "Layout")),
-        el("li", {}, el("a", { href: "#" }, "Utilities")),
+        tocItem({}, tocLink({ href: "#" }, "Introduction")),
+        tocItem({}, tocLink({ href: "#" }, "Getting started")),
+        tocItem({}, tocLink({ href: "#" }, "Components")),
+        tocItem({}, tocLink({ href: "#" }, "Layout")),
+        tocItem({}, tocLink({ href: "#" }, "Utilities")),
       ]),
   }),
   example({
     title: "Toc with sub-items",
     render: () =>
       toc({}, [
-        el("li", {}, el("a", { href: "#" }, "Components")),
-        el("li", {}, [
-          el("a", { href: "#" }, "Layout"),
-          el("ul", { class: "klods-toc klods-toc--sub" }, [
-            el("li", {}, el("a", { href: "#" }, "Page")),
-            el("li", {}, el("a", { href: "#" }, "Sidebar")),
-            el("li", {}, el("a", { href: "#" }, "Header")),
+        tocItem({}, tocLink({ href: "#" }, "Components")),
+        tocItem({}, [
+          tocLink({ href: "#" }, "Layout"),
+          toc({ sub: true }, [
+            tocItem({}, tocLink({ href: "#" }, "Page")),
+            tocItem({}, tocLink({ href: "#" }, "Sidebar")),
+            tocItem({}, tocLink({ href: "#" }, "Header")),
           ]),
         ]),
-        el("li", {}, el("a", { href: "#" }, "Utilities")),
+        tocItem({}, tocLink({ href: "#" }, "Utilities")),
       ]),
   }),
 ];
