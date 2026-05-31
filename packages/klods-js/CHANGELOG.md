@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.0](https://github.com/druewilding/klods/compare/klods-js-v1.7.0...klods-js-v1.8.0) (2026-05-31)
+
+
+### Features
+
+* Add text-center utility class ([#53](https://github.com/druewilding/klods/issues/53)) ([319a0cf](https://github.com/druewilding/klods/commit/319a0cf657007418e74fbbc71e2ab4efefbb9e34))
+
 ## [1.7.0](https://github.com/druewilding/klods/compare/klods-js-v1.6.0...klods-js-v1.7.0) (2026-05-31)
 
 
