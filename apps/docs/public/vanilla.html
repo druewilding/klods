@@ -8,9 +8,8 @@
   </head>
   <body>
     <div class="klods-page klods-page--with-sidebar klods-page--sticky-header">
-
       <header class="klods-header">
-        <strong style="font-size: 1.25rem;">klods</strong>
+        <strong style="font-size: 1.25rem">klods</strong>
         <span class="klods-badge klods-badge--accent">vanilla HTML</span>
         <span class="klods-push"></span>
         <a href="./" class="klods-button klods-button--ghost">← Docs</a>
@@ -18,10 +17,7 @@
 
       <aside class="klods-sidebar">
         <nav aria-label="Page sections">
-          <ul
-            class="klods-nav__list"
-            style="flex-direction: column; align-items: stretch; gap: var(--klods-space-1);"
-          >
+          <ul class="klods-nav__list" style="flex-direction: column; align-items: stretch; gap: var(--klods-space-1)">
             <li><a href="#get-started" class="klods-nav__link klods-nav__link--active">Get started</a></li>
             <li><a href="#buttons" class="klods-nav__link">Buttons</a></li>
             <li><a href="#badges" class="klods-nav__link">Badges</a></li>
@@ -37,22 +33,19 @@
 
       <main class="klods-content klods-content--narrow">
         <div class="klods-stack klods-stack--gap-8">
-
           <!-- ── Get started ─────────────────────────────────────── -->
           <section id="get-started">
             <div class="klods-stack klods-stack--gap-4">
               <div>
                 <h1>Vanilla HTML demo</h1>
                 <p class="klods-lead">
-                  One <code>&lt;link&gt;</code> tag. Plain BEM classes. No JavaScript, no build
-                  step, no dependencies.
+                  One <code>&lt;link&gt;</code> tag. Plain BEM classes. No JavaScript, no build step, no dependencies.
                 </p>
               </div>
 
               <div class="klods-alert klods-alert--info">
-                This page is built with nothing but a stylesheet from unpkg and standard HTML.
-                Drop klods-css into any Rails app, WordPress theme, or plain HTML file and start
-                building immediately.
+                This page is built with nothing but a stylesheet from unpkg and standard HTML. Drop klods-css into any
+                Rails app, WordPress theme, or plain HTML file and start building immediately.
               </div>
 
               <div class="klods-prose">
@@ -103,12 +96,8 @@
             <div class="klods-stack klods-stack--gap-3">
               <h2>Alerts</h2>
               <div class="klods-stack">
-                <div class="klods-alert klods-alert--info">
-                  <strong>Info</strong> — something worth knowing.
-                </div>
-                <div class="klods-alert klods-alert--success">
-                  <strong>Success</strong> — changes saved.
-                </div>
+                <div class="klods-alert klods-alert--info"><strong>Info</strong> — something worth knowing.</div>
+                <div class="klods-alert klods-alert--success"><strong>Success</strong> — changes saved.</div>
                 <div class="klods-alert klods-alert--warning">
                   <strong>Warning</strong> — double-check before continuing.
                 </div>
@@ -135,9 +124,7 @@
                     <p class="klods-muted">Surface colour, border, rounded corners.</p>
                   </div>
                   <div class="klods-card__footer">
-                    <button class="klods-button klods-button--primary" type="button">
-                      Action
-                    </button>
+                    <button class="klods-button klods-button--primary" type="button">Action</button>
                   </div>
                 </div>
                 <div class="klods-card klods-card--elevated">
@@ -253,10 +240,7 @@
             <div class="klods-stack klods-stack--gap-3">
               <h2>Layout</h2>
               <div class="klods-prose">
-                <p>
-                  This page itself demonstrates the full shell. The outer wrapper carries three
-                  classes:
-                </p>
+                <p>This page itself demonstrates the full shell. The outer wrapper carries three classes:</p>
                 <pre><code>&lt;div class="klods-page
            klods-page--with-sidebar
            klods-page--sticky-header"&gt;
@@ -268,16 +252,15 @@
 
 &lt;/div&gt;</code></pre>
                 <p>
-                  Add <code>klods-content--narrow</code> to cap the content width at a comfortable
-                  reading measure. Add <code>klods-content--wide</code> to stretch it to full page
-                  width.
+                  Add <code>klods-content--narrow</code> to cap the content width at a comfortable reading measure. Add
+                  <code>klods-content--wide</code> to stretch it to full page width.
                 </p>
               </div>
               <div class="klods-card">
                 <div class="klods-card__title">Utility classes</div>
                 <div class="klods-card__body klods-stack klods-stack--gap-3">
                   <div>
-                    <span class="klods-muted" style="display: block; margin-bottom: var(--klods-space-2);">
+                    <span class="klods-muted" style="display: block; margin-bottom: var(--klods-space-2)">
                       <code>klods-stack</code> — vertical flex column
                     </span>
                     <div class="klods-stack klods-stack--gap-2">
@@ -287,7 +270,7 @@
                     </div>
                   </div>
                   <div>
-                    <span class="klods-muted" style="display: block; margin-bottom: var(--klods-space-2);">
+                    <span class="klods-muted" style="display: block; margin-bottom: var(--klods-space-2)">
                       <code>klods-cluster</code> — wrapping flex row
                     </span>
                     <div class="klods-cluster klods-cluster--gap-2">
@@ -299,7 +282,7 @@
                     </div>
                   </div>
                   <div>
-                    <span class="klods-muted" style="display: block; margin-bottom: var(--klods-space-2);">
+                    <span class="klods-muted" style="display: block; margin-bottom: var(--klods-space-2)">
                       <code>klods-grid klods-grid--cols-3</code>
                     </span>
                     <div class="klods-grid klods-grid--cols-3 klods-grid--gap-2">
@@ -318,7 +301,6 @@
 
           <!-- ── Footer spacer ─────────────────────────────────── -->
           <div></div>
-
         </div>
       </main>
 
@@ -328,7 +310,6 @@
           <a href="https://github.com/druewilding/klods">github.com/druewilding/klods</a>
         </span>
       </footer>
-
     </div>
   </body>
 </html>

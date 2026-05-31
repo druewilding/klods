@@ -48,11 +48,11 @@ page({ sidebar: true, stickyHeader: true }, [
 
 ## Packages
 
-| Package                           | npm                                                                                              | Description                           |
-| --------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------- |
-| [`klods-css`](packages/klods-css) | [![npm](https://img.shields.io/npm/v/klods-css)](https://www.npmjs.com/package/klods-css)       | The stylesheet. Use it on its own.    |
-| [`klods-js`](packages/klods-js)   | [![npm](https://img.shields.io/npm/v/klods-js)](https://www.npmjs.com/package/klods-js)         | TypeScript builder API (ESM/CJS/UMD). |
-| [`apps/docs`](apps/docs)          |                                                                                                  | Self-generating documentation site.   |
+| Package                           | npm                                                                                       | Description                           |
+| --------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------- |
+| [`klods-css`](packages/klods-css) | [![npm](https://img.shields.io/npm/v/klods-css)](https://www.npmjs.com/package/klods-css) | The stylesheet. Use it on its own.    |
+| [`klods-js`](packages/klods-js)   | [![npm](https://img.shields.io/npm/v/klods-js)](https://www.npmjs.com/package/klods-js)   | TypeScript builder API (ESM/CJS/UMD). |
+| [`apps/docs`](apps/docs)          |                                                                                           | Self-generating documentation site.   |
 
 ## Develop
 
