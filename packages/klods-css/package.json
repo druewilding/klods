@@ -4,6 +4,11 @@
   "description": "klods stylesheet — drop-in CSS for layout, utilities and components.",
   "license": "MIT",
   "author": "Drue Wilding",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/druewilding/klods",
+    "directory": "packages/klods-css"
+  },
   "type": "module",
   "main": "dist/klods.css",
   "style": "dist/klods.css",
