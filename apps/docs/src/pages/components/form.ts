@@ -39,7 +39,7 @@ export const examples: KlodsNode[] = [
     description: "Add `required: true` to get the * marker and correct semantics.",
     render: () =>
       field({ label: "Username", required: true }, (id) =>
-        input({ id, type: "text", placeholder: "yourname", required: true }),
+        input({ id, type: "text", placeholder: "yourname", required: true })
       ),
   }),
 
@@ -47,9 +47,8 @@ export const examples: KlodsNode[] = [
     title: "Help text",
     description: "Use `help` to add a hint below the control.",
     render: () =>
-      field(
-        { label: "Email address", help: "We'll only use this to send your receipt." },
-        (id) => input({ id, type: "email", placeholder: "jane@example.com" }),
+      field({ label: "Email address", help: "We'll only use this to send your receipt." }, (id) =>
+        input({ id, type: "email", placeholder: "jane@example.com" })
       ),
   }),
 
@@ -60,10 +59,10 @@ export const examples: KlodsNode[] = [
     render: () =>
       stack({ gap: 4 }, [
         field({ label: "Email address", error: "Please enter a valid email address." }, (id) =>
-          input({ id, type: "email", value: "not-an-email" }),
+          input({ id, type: "email", value: "not-an-email" })
         ),
         field({ label: "Message", error: "Message must be at least 20 characters." }, (id) =>
-          textarea({ id, placeholder: "Your message…" }),
+          textarea({ id, placeholder: "Your message…" })
         ),
       ]),
   }),
@@ -75,7 +74,7 @@ export const examples: KlodsNode[] = [
       stack({ gap: 4 }, [
         field({ label: "Locked field" }, (id) => input({ id, type: "text", value: "Cannot edit", disabled: true })),
         field({ label: "Role" }, (id) =>
-          select({ id, disabled: true }, [option({ value: "" }, "Admin"), option({ value: "viewer" }, "Viewer")]),
+          select({ id, disabled: true }, [option({ value: "" }, "Admin"), option({ value: "viewer" }, "Viewer")])
         ),
       ]),
   }),
@@ -92,14 +91,14 @@ export const examples: KlodsNode[] = [
             option({ value: "de" }, "Germany"),
             option({ value: "se" }, "Sweden"),
             option({ value: "no" }, "Norway"),
-          ]),
+          ])
         ),
         field({ label: "Role", help: "Controls what the user can see and do." }, (id) =>
           select({ id }, [
             option({ value: "admin" }, "Admin"),
             option({ value: "editor" }, "Editor"),
             option({ value: "viewer" }, "Viewer"),
-          ]),
+          ])
         ),
       ]),
   }),
@@ -108,7 +107,7 @@ export const examples: KlodsNode[] = [
     title: "Textarea",
     render: () =>
       field({ label: "Message", help: "Up to 500 characters." }, (id) =>
-        textarea({ id, placeholder: "Write something nice…" }),
+        textarea({ id, placeholder: "Write something nice…" })
       ),
   }),
 
@@ -124,7 +123,7 @@ export const examples: KlodsNode[] = [
 
   example({
     title: "Radio group",
-    description: "Wrap radios with `radioGroup` for correct `role=\"group\"` and aria labelling.",
+    description: 'Wrap radios with `radioGroup` for correct `role="group"` and aria labelling.',
     render: () =>
       radioGroup({ legend: "Preferred contact method" }, [
         radio({ label: "Email", name: "contact", value: "email", checked: true }),
@@ -135,7 +134,7 @@ export const examples: KlodsNode[] = [
 
   example({
     title: "Switch",
-    description: "An accessible toggle. Uses `role=\"switch\"` on the underlying checkbox.",
+    description: 'An accessible toggle. Uses `role="switch"` on the underlying checkbox.',
     render: () =>
       stack({ gap: 3 }, [
         switchInput({ label: "Dark mode", name: "dark-mode" }),
@@ -150,12 +149,10 @@ export const examples: KlodsNode[] = [
     render: () =>
       card({}, [
         form({ onSubmit: (e: Event) => e.preventDefault() }, [
-          field({ label: "Full name", required: true }, (id) =>
-            input({ id, type: "text", placeholder: "Jane Smith" }),
-          ),
+          field({ label: "Full name", required: true }, (id) => input({ id, type: "text", placeholder: "Jane Smith" })),
           field(
             { label: "Email address", required: true, help: "We'll only use this to reply to your message." },
-            (id) => input({ id, type: "email", placeholder: "jane@example.com" }),
+            (id) => input({ id, type: "email", placeholder: "jane@example.com" })
           ),
           field({ label: "Subject" }, (id) =>
             select({ id }, [
@@ -163,11 +160,9 @@ export const examples: KlodsNode[] = [
               option({ value: "general" }, "General enquiry"),
               option({ value: "support" }, "Technical support"),
               option({ value: "billing" }, "Billing"),
-            ]),
+            ])
           ),
-          field({ label: "Message", required: true }, (id) =>
-            textarea({ id, placeholder: "How can we help you?" }),
-          ),
+          field({ label: "Message", required: true }, (id) => textarea({ id, placeholder: "How can we help you?" })),
           checkbox({ label: "I agree to the privacy policy", name: "privacy", required: true }),
           el("div", {}, [button({ variant: "primary", type: "submit" }, "Send message")]),
         ]),
@@ -189,7 +184,7 @@ export const examples: KlodsNode[] = [
               option({ value: "en" }, "English"),
               option({ value: "da" }, "Dansk"),
               option({ value: "de" }, "Deutsch"),
-            ]),
+            ])
           ),
           el("div", {}, [button({ variant: "primary" }, "Save preferences")]),
         ]),

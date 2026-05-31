@@ -151,10 +151,7 @@ export type FieldProps = {
  * )
  * ```
  */
-export function field(
-  props: FieldProps & KlodsAttrs,
-  renderInput: (id: string) => KlodsNode,
-): KlodsNode {
+export function field(props: FieldProps & KlodsAttrs, renderInput: (id: string) => KlodsNode): KlodsNode {
   const { label: labelText, id: explicitId, help, error, required, invalid, class: extraClass, ...rest } = props;
   const id = explicitId ?? `klods-field-${++_fieldCounter}`;
   const helpId = help ? `${id}-help` : undefined;
@@ -172,7 +169,7 @@ export function field(
       ...(describedBy ? { "aria-describedby": describedBy } : {}),
       ...(isInvalid ? { "aria-invalid": "true" } : {}),
     },
-    inputNode.children,
+    inputNode.children
   );
 
   const fieldClass = classNames([
@@ -220,10 +217,11 @@ export function checkbox(props: CheckboxProps & KlodsAttrs): KlodsNode {
   if (checked) inputAttrs.checked = true;
   if (disabled) inputAttrs.disabled = true;
 
-  return el("label", { ...rest, class: classNames(["klods-checkbox", classNames(extraClass as KlodsAttrs["class"])]) || undefined }, [
-    el("input", inputAttrs),
-    el("span", {}, labelText),
-  ]);
+  return el(
+    "label",
+    { ...rest, class: classNames(["klods-checkbox", classNames(extraClass as KlodsAttrs["class"])]) || undefined },
+    [el("input", inputAttrs), el("span", {}, labelText)]
+  );
 }
 
 // ── Radio ─────────────────────────────────────────────────────────────────
@@ -243,10 +241,11 @@ export function radio(props: RadioProps & KlodsAttrs): KlodsNode {
   if (checked) inputAttrs.checked = true;
   if (disabled) inputAttrs.disabled = true;
 
-  return el("label", { ...rest, class: classNames(["klods-radio", classNames(extraClass as KlodsAttrs["class"])]) || undefined }, [
-    el("input", inputAttrs),
-    el("span", {}, labelText),
-  ]);
+  return el(
+    "label",
+    { ...rest, class: classNames(["klods-radio", classNames(extraClass as KlodsAttrs["class"])]) || undefined },
+    [el("input", inputAttrs), el("span", {}, labelText)]
+  );
 }
 
 // ── Radio group ───────────────────────────────────────────────────────────
@@ -255,21 +254,14 @@ export type RadioGroupProps = {
   /** Text shown as the group heading (maps to a styled `<p>` with aria-labelledby). */
   legend?: string;
 };
-export function radioGroup(
-  props: RadioGroupProps & KlodsAttrs,
-  children: KlodsNode[],
-): KlodsNode {
+export function radioGroup(props: RadioGroupProps & KlodsAttrs, children: KlodsNode[]): KlodsNode {
   const { legend: legendText, class: extraClass, ...rest } = props;
   const legendId = legendText ? `klods-rg-${++_fieldCounter}` : undefined;
   const cls = classNames(["klods-field", classNames(extraClass as KlodsAttrs["class"])]) || undefined;
-  return el(
-    "div",
-    { ...rest, class: cls, role: "group", ...(legendId ? { "aria-labelledby": legendId } : {}) },
-    [
-      legendText ? el("p", { id: legendId, class: "klods-label" }, legendText) : null,
-      ...children,
-    ],
-  );
+  return el("div", { ...rest, class: cls, role: "group", ...(legendId ? { "aria-labelledby": legendId } : {}) }, [
+    legendText ? el("p", { id: legendId, class: "klods-label" }, legendText) : null,
+    ...children,
+  ]);
 }
 
 // ── Switch ────────────────────────────────────────────────────────────────
@@ -293,11 +285,15 @@ export function switchInput(props: SwitchProps & KlodsAttrs): KlodsNode {
   if (checked) inputAttrs.checked = true;
   if (disabled) inputAttrs.disabled = true;
 
-  return el("label", { ...rest, class: classNames(["klods-switch", classNames(extraClass as KlodsAttrs["class"])]) || undefined }, [
-    el("input", inputAttrs),
-    el("span", { class: "klods-switch__track" }),
-    el("span", { class: "klods-switch__label" }, labelText),
-  ]);
+  return el(
+    "label",
+    { ...rest, class: classNames(["klods-switch", classNames(extraClass as KlodsAttrs["class"])]) || undefined },
+    [
+      el("input", inputAttrs),
+      el("span", { class: "klods-switch__track" }),
+      el("span", { class: "klods-switch__label" }, labelText),
+    ]
+  );
 }
 
 // ── Code ─────────────────────────────────────────────────────────────────
