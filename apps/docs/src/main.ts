@@ -6,7 +6,7 @@ import "./styles.css";
 import type { KlodsNode } from "klods-js";
 import { content, el, footer, header, page, sidebar, stack } from "klods-js";
 
-import { renderComponentsSection } from "./pages/components.js";
+import { componentLinks, renderComponentsSection } from "./pages/components.js";
 import { renderIntroSection } from "./pages/intro.js";
 import { renderLayoutSection } from "./pages/layout.js";
 import { renderThemesSection } from "./pages/themes.js";
@@ -44,15 +44,7 @@ const SECTIONS: Section[] = [
     id: "components",
     title: "Components",
     render: renderComponentsSection,
-    links: [
-      { label: "Buttons", anchor: "buttons" },
-      { label: "Card", anchor: "card" },
-      { label: "Badge", anchor: "badge" },
-      { label: "Alert", anchor: "alert" },
-      { label: "Nav", anchor: "nav" },
-      { label: "Table", anchor: "table" },
-      { label: "Code", anchor: "code-inline" },
-    ],
+    links: componentLinks,
   },
   { id: "themes", title: "Themes", render: renderThemesSection },
 ];
