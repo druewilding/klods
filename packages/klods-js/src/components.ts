@@ -7,6 +7,7 @@ import { builder, el, KlodsNode } from "./core.js";
 // ── Nav ──────────────────────────────────────────────────────────────────
 export const nav = builder({ tag: "nav", base: "klods-nav" });
 export const navList = builder({ tag: "ul", base: "klods-nav__list" });
+export const toc = builder({ tag: "ul", base: "klods-toc" });
 
 export type NavLinkProps = {
   href?: string;

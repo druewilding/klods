@@ -50,42 +50,6 @@
   --klods-sidebar-width: 14rem;
 }
 
-.docs-toc {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--klods-space-1);
-}
-
-.docs-toc a {
-  display: block;
-  padding: var(--klods-space-2) var(--klods-space-3);
-  border-radius: var(--klods-radius-sm);
-  color: inherit;
-  text-decoration: none;
-}
-
-.docs-toc a:hover {
-  background: var(--klods-color-surface-2);
-}
-
-.docs-toc--sub {
-  padding-inline-start: var(--klods-space-3);
-  margin-top: var(--klods-space-1);
-}
-
-.docs-toc--sub a {
-  font-size: var(--klods-font-size-sm);
-  color: var(--klods-color-muted);
-  padding: var(--klods-space-1) var(--klods-space-3);
-}
-
-.docs-toc--sub a:hover {
-  color: var(--klods-color-fg);
-}
-
 .docs-section {
   scroll-margin-top: var(--klods-space-5);
 }

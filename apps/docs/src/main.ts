@@ -4,7 +4,7 @@ import "klods-css/src/klods.scss";
 import "./styles.css";
 
 import type { KlodsNode } from "klods-js";
-import { content, el, fill, footer, header, page, push, sidebar, stack } from "klods-js";
+import { content, el, fill, footer, header, page, push, sidebar, stack, toc } from "klods-js";
 
 import { componentLinks, renderComponentsSection } from "./pages/components.js";
 import { renderIntroSection } from "./pages/intro.js";
@@ -75,7 +75,7 @@ function tocLink(section: Section): KlodsNode {
     section.links?.length
       ? el(
           "ul",
-          { class: "docs-toc docs-toc--sub" },
+          { class: "klods-toc klods-toc--sub" },
           section.links.map((l) => el("li", {}, el("a", { href: `#${l.anchor}` }, l.label)))
         )
       : null,
@@ -92,7 +92,7 @@ function shell(): KlodsNode {
       el("a", { href: "./vanilla.html", class: "klods-button klods-button--ghost" }, "Vanilla HTML demo →"),
       fill({}, [push(), themeSwitcher()]),
     ]),
-    sidebar({}, [el("nav", { "aria-label": "Sections" }, [el("ul", { class: "docs-toc" }, SECTIONS.map(tocLink))])]),
+    sidebar({}, [el("nav", { "aria-label": "Sections" }, [toc({}, SECTIONS.map(tocLink))])]),
     content({ narrow: true }, [
       stack(
         { gap: 7 },
