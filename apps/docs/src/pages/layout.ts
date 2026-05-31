@@ -1,40 +1,25 @@
 import type { KlodsNode } from "klods-js";
-import { content, el, footer, header, page, sidebar, stack } from "klods-js";
+import { el, stack } from "klods-js";
 
-import { example } from "../example.js";
+export interface LayoutModule {
+  label: string;
+  anchor: string;
+  examples: KlodsNode[];
+}
+
+// Eagerly import all layout files; numbered prefixes (01-, 02-…) preserve intentional order.
+const modules = import.meta.glob<LayoutModule>("./layout/*.ts", { eager: true });
+
+const layouts = Object.values(modules);
+
+export type LayoutLink = { label: string; anchor: string };
+
+export const layoutLinks: LayoutLink[] = layouts.map((m) => ({ label: m.label, anchor: m.anchor }));
 
 export function renderLayoutSection(): KlodsNode {
   return stack({ gap: 5 }, [
     el("h2", {}, "Layout"),
     el("p", { class: "klods-lead" }, "The four corners of every page: header, sidebar, content, footer."),
-
-    example({
-      title: "Page with header, content and footer",
-      description: "The simplest layout. Uses CSS Grid under the hood and works without JS.",
-      render: () => page({}, [header({}, "Header"), content({}, "Main content"), footer({}, "Footer")]),
-    }),
-
-    example({
-      title: "Page with a sidebar",
-      description: "Add `sidebar: true` to grow a sidebar column. Add `sidebarRight: true` to flip it.",
-      render: () =>
-        page({ sidebar: true }, [
-          header({}, "Header"),
-          sidebar({}, "Sidebar"),
-          content({}, "Main content"),
-          footer({}, "Footer"),
-        ]),
-    }),
-
-    example({
-      title: "Narrow content",
-      description: "`content({ narrow: true })` caps the main column at --klods-content-max and centres it.",
-      render: () =>
-        page({}, [
-          header({}, "Header"),
-          content({ narrow: true }, "Comfortably-narrow text column."),
-          footer({}, "Footer"),
-        ]),
-    }),
+    ...layouts.flatMap((m) => m.examples),
   ]);
 }

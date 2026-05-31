@@ -50,11 +50,12 @@
   --klods-sidebar-width: 14rem;
 }
 
-.docs-shell .klods-sidebar {
+/* Sidebar stretches to fill full page height (CSS Grid default).
+   The nav inside is sticky so links stay in view while scrolling. */
+.docs-shell .klods-sidebar > nav {
   position: sticky;
-  top: 0;
-  align-self: start;
-  max-height: 100dvh;
+  top: var(--klods-gutter);
+  max-height: calc(100dvh - var(--klods-gutter) * 2);
   overflow-y: auto;
 }
 
@@ -77,6 +78,21 @@
 
 .docs-toc a:hover {
   background: var(--klods-color-surface-2);
+}
+
+.docs-toc--sub {
+  padding-inline-start: var(--klods-space-3);
+  margin-top: var(--klods-space-1);
+}
+
+.docs-toc--sub a {
+  font-size: var(--klods-font-size-sm);
+  color: var(--klods-color-muted);
+  padding: var(--klods-space-1) var(--klods-space-3);
+}
+
+.docs-toc--sub a:hover {
+  color: var(--klods-color-fg);
 }
 
 .docs-section {

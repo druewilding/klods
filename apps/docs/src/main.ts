@@ -6,17 +6,35 @@ import "./styles.css";
 import type { KlodsNode } from "klods-js";
 import { content, el, footer, header, page, sidebar, stack } from "klods-js";
 
-import { renderComponentsSection } from "./pages/components.js";
+import { componentLinks, renderComponentsSection } from "./pages/components.js";
 import { renderIntroSection } from "./pages/intro.js";
-import { renderLayoutSection } from "./pages/layout.js";
+import { layoutLinks, renderLayoutSection } from "./pages/layout.js";
 import { renderThemesSection } from "./pages/themes.js";
-import { renderUtilitiesSection } from "./pages/utilities.js";
+import { renderUtilitiesSection, utilityLinks } from "./pages/utilities.js";
 
-const SECTIONS: Array<{ id: string; title: string; render: () => KlodsNode }> = [
+type SubLink = { label: string; anchor: string };
+type Section = { id: string; title: string; render: () => KlodsNode; links?: SubLink[] };
+
+const SECTIONS: Section[] = [
   { id: "intro", title: "Intro", render: renderIntroSection },
-  { id: "layout", title: "Layout", render: renderLayoutSection },
-  { id: "utilities", title: "Utilities", render: renderUtilitiesSection },
-  { id: "components", title: "Components", render: renderComponentsSection },
+  {
+    id: "layout",
+    title: "Layout",
+    render: renderLayoutSection,
+    links: layoutLinks,
+  },
+  {
+    id: "utilities",
+    title: "Utilities",
+    render: renderUtilitiesSection,
+    links: utilityLinks,
+  },
+  {
+    id: "components",
+    title: "Components",
+    render: renderComponentsSection,
+    links: componentLinks,
+  },
   { id: "themes", title: "Themes", render: renderThemesSection },
 ];
 
@@ -51,8 +69,17 @@ function themeSwitcher(): KlodsNode {
   ]);
 }
 
-function tocLink(id: string, label: string): KlodsNode {
-  return el("li", {}, [el("a", { href: `#${id}` }, label)]);
+function tocLink(section: Section): KlodsNode {
+  return el("li", {}, [
+    el("a", { href: `#${section.id}` }, section.title),
+    section.links?.length
+      ? el(
+          "ul",
+          { class: "docs-toc docs-toc--sub" },
+          section.links.map((l) => el("li", {}, el("a", { href: `#${l.anchor}` }, l.label)))
+        )
+      : null,
+  ]);
 }
 
 function shell(): KlodsNode {
@@ -63,15 +90,7 @@ function shell(): KlodsNode {
       el("span", { class: "klods-push" }),
       themeSwitcher(),
     ]),
-    sidebar({}, [
-      el("nav", { "aria-label": "Sections" }, [
-        el(
-          "ul",
-          { class: "docs-toc" },
-          SECTIONS.map((s) => tocLink(s.id, s.title))
-        ),
-      ]),
-    ]),
+    sidebar({}, [el("nav", { "aria-label": "Sections" }, [el("ul", { class: "docs-toc" }, SECTIONS.map(tocLink))])]),
     content({ narrow: true }, [
       stack(
         { gap: 7 },

@@ -86,3 +86,35 @@ export function alert(props?: (AlertProps & KlodsAttrs) | null, children?: Klods
 export const prose = builder({ tag: "div", base: "klods-prose" });
 export const muted = builder({ tag: "span", base: "klods-muted" });
 export const lead = builder({ tag: "p", base: "klods-lead" });
+
+// ── Table ────────────────────────────────────────────────────────────────
+export type TableProps = {
+  striped?: boolean;
+  dense?: boolean;
+};
+export const table = builder<TableProps>({
+  tag: "table",
+  base: "klods-table",
+  modifiers: {
+    striped: "klods-table--striped",
+    dense: "klods-table--dense",
+  },
+});
+export const thead = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
+  el("thead", attrs ?? {}, children);
+export const tbody = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
+  el("tbody", attrs ?? {}, children);
+export const tr = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
+  el("tr", attrs ?? {}, children);
+export const th = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
+  el("th", attrs ?? {}, children);
+export const td = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
+  el("td", attrs ?? {}, children);
+
+// ── Code ─────────────────────────────────────────────────────────────────
+export function codeBlock(attrs?: KlodsAttrs | null, content?: KlodsChild | KlodsChild[]): KlodsNode {
+  return el("pre", attrs ?? {}, el("code", {}, content));
+}
+export function inlineCode(attrs?: KlodsAttrs | null, content?: KlodsChild | KlodsChild[]): KlodsNode {
+  return el("code", attrs ?? {}, content);
+}

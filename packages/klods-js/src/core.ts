@@ -205,7 +205,7 @@ export function el(tag: string, attrs: KlodsAttrs = {}, children: KlodsChild | K
  * attributes; everything else passes through untouched, so consumers can attach
  * arbitrary `id`, `data-*`, `aria-*`, event handlers, `style`, etc.
  */
-export function builder<P extends Record<string, unknown> = Record<string, never>>(options: {
+export function builder<P extends Record<string, unknown> = Record<never, never>>(options: {
   tag: string;
   base: string;
   /** Map of prop name → class (or function returning a class) when the prop is truthy. */
