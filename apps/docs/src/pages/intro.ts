@@ -37,7 +37,7 @@ export function renderIntroSection(): KlodsNode {
         cardBody({}, [
           el("pre", {}, el("code", {}, "npm install klods klods-css")),
           el("p", { class: "klods-muted" }, "Or for a vanilla HTML/Rails project, just link the CSS:"),
-          el("pre", {}, el("code", {}, '<link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css">')),
+          el("pre", {}, el("code", {}, "<link rel=\"stylesheet\" href=\"https://unpkg.com/klods-css/dist/klods.min.css\">")),
         ]),
       ]),
     ]),

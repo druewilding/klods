@@ -1,3 +1,8 @@
+// Import the SCSS source directly so the docs site can run without a
+// pre-built klods-css. In production consumers would just use `klods-css`.
+import "klods-css/src/klods.scss";
+import "./styles.css";
+
 import type { KlodsNode } from "klods";
 import { content, el, footer, header, page, sidebar, stack } from "klods";
 
@@ -6,11 +11,6 @@ import { renderIntroSection } from "./pages/intro.js";
 import { renderLayoutSection } from "./pages/layout.js";
 import { renderThemesSection } from "./pages/themes.js";
 import { renderUtilitiesSection } from "./pages/utilities.js";
-
-// Import the SCSS source directly so the docs site can run without a
-// pre-built klods-css. In production consumers would just use `klods-css`.
-import "klods-css/src/klods.scss";
-import "./styles.css";
 
 const SECTIONS: Array<{ id: string; title: string; render: () => KlodsNode }> = [
   { id: "intro", title: "Intro", render: renderIntroSection },

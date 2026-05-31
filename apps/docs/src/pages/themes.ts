@@ -10,7 +10,7 @@ export function renderThemesSection(): KlodsNode {
         "Themes are pure CSS-variable overrides keyed off ",
         el("code", {}, "[data-theme]"),
         ". Set ",
-        el("code", {}, 'data-theme="dark"'),
+        el("code", {}, "data-theme=\"dark\""),
         " on ",
         el("code", {}, "<html>"),
         " (or any container) and every klods component re-skins.",

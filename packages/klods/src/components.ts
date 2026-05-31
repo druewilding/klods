@@ -1,8 +1,8 @@
 // First wave of components: nav, card, button, badge, alert, prose helpers.
 // All match the BEM classes shipped by klods-css.
 
-import { builder, el, KlodsNode } from "./core.js";
 import type { KlodsAttrs, KlodsChild } from "./core.js";
+import { builder, el, KlodsNode } from "./core.js";
 
 // ── Nav ──────────────────────────────────────────────────────────────────
 export const nav = builder({ tag: "nav", base: "klods-nav" });
