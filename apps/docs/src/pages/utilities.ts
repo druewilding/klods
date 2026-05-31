@@ -10,7 +10,7 @@ const box = (label: string): KlodsNode =>
       style:
         "padding:var(--klods-space-3);background:var(--klods-color-surface-2);border-radius:var(--klods-radius-sm);min-width:4rem;text-align:center;",
     },
-    label,
+    label
   );
 
 export function renderUtilitiesSection(): KlodsNode {
@@ -51,11 +51,7 @@ export function renderUtilitiesSection(): KlodsNode {
 
     example({
       title: "center — centre everything",
-      render: () =>
-        center(
-          { style: "min-height: 8rem; background: var(--klods-color-surface);" },
-          box("centred"),
-        ),
+      render: () => center({ style: "min-height: 8rem; background: var(--klods-color-surface);" }, box("centred")),
     }),
   ]);
 }

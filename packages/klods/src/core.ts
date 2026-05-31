@@ -5,16 +5,7 @@
 // Both are produced from the same KlodsNode tree, so the docs site can show the
 // TS source, the rendered HTML and the live preview from one source of truth.
 
-export type KlodsChild =
-  | string
-  | number
-  | bigint
-  | boolean
-  | null
-  | undefined
-  | KlodsNode
-  | Node
-  | KlodsChild[];
+export type KlodsChild = string | number | bigint | boolean | null | undefined | KlodsNode | Node | KlodsChild[];
 
 export type KlodsAttrs = {
   class?: string | string[] | Record<string, boolean | undefined> | undefined;
@@ -82,7 +73,10 @@ export function classNames(input: KlodsAttrs["class"]): string {
 
 /** Merge two class values (used internally to combine builder defaults + user-supplied). */
 export function mergeClasses(...inputs: Array<KlodsAttrs["class"]>): string {
-  return inputs.map((c) => classNames(c)).filter(Boolean).join(" ");
+  return inputs
+    .map((c) => classNames(c))
+    .filter(Boolean)
+    .join(" ");
 }
 
 function styleToString(style: string | Partial<CSSStyleDeclaration>): string {
@@ -237,7 +231,8 @@ export function builder<P extends Record<string, unknown> = Record<string, never
       }
     }
     const finalClass = mergeClasses(base, ...modClasses, userProps.class);
-    const resolvedChildren = children !== undefined ? children : (userProps.children as KlodsChild | KlodsChild[] | undefined) ?? [];
+    const resolvedChildren =
+      children !== undefined ? children : ((userProps.children as KlodsChild | KlodsChild[] | undefined) ?? []);
     delete passthrough.children;
     return new KlodsNode(tag, { ...passthrough, class: finalClass || undefined }, resolvedChildren);
   };

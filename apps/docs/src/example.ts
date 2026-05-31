@@ -44,11 +44,12 @@ function prettyHtml(html: string): string {
 /** Strip leading whitespace common to all lines (so the TS source isn't deeply indented). */
 function dedent(source: string): string {
   const lines = source.split("\n");
-  const indents = lines
-    .filter((l) => l.trim())
-    .map((l) => l.match(/^[ \t]*/)?.[0].length ?? 0);
+  const indents = lines.filter((l) => l.trim()).map((l) => l.match(/^[ \t]*/)?.[0].length ?? 0);
   const min = indents.length ? Math.min(...indents) : 0;
-  return lines.map((l) => l.slice(min)).join("\n").trim();
+  return lines
+    .map((l) => l.slice(min))
+    .join("\n")
+    .trim();
 }
 
 export function example(spec: ExampleSpec): KlodsNode {
@@ -58,9 +59,7 @@ export function example(spec: ExampleSpec): KlodsNode {
 
   return card({ class: "docs-example" }, [
     cardTitle({}, spec.title),
-    spec.description
-      ? el("p", { class: "klods-muted docs-example__desc" }, spec.description)
-      : null,
+    spec.description ? el("p", { class: "klods-muted docs-example__desc" }, spec.description) : null,
     cardBody({ class: "docs-example__body" }, [
       el("section", { class: "docs-example__preview", "aria-label": "Live preview" }, [result]),
       el("details", { class: "docs-example__source", open: true }, [

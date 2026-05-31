@@ -11,10 +11,10 @@ import { content, footer, header, nav, navLink, navList, page, sidebar } from "k
 import "klods-css";
 
 page({ sidebar: true }, [
-  header({}, nav({}, navList({}, [
-    navLink({ href: "/", active: true }, "Home"),
-    navLink({ href: "/about" }, "About"),
-  ]))),
+  header(
+    {},
+    nav({}, navList({}, [navLink({ href: "/", active: true }, "Home"), navLink({ href: "/about" }, "About")]))
+  ),
   sidebar({}, "filters here"),
   content({ narrow: true }, "Hello world"),
   footer({}, "© 2026"),

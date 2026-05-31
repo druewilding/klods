@@ -6,11 +6,7 @@ export function renderIntroSection(): KlodsNode {
     el("h1", {}, "klods"),
     lead({}, "Tiny, opinionated, fully themeable HTML/CSS/JS pieces that snap together like lego."),
     prose({}, [
-      el("p", {}, [
-        "klods (Danish for ",
-        el("em", {}, "block"),
-        ") gives you two ways to build:",
-      ]),
+      el("p", {}, ["klods (Danish for ", el("em", {}, "block"), ") gives you two ways to build:"]),
       el("ul", {}, [
         el("li", {}, [
           el("strong", {}, "Plain HTML"),
@@ -25,11 +21,15 @@ export function renderIntroSection(): KlodsNode {
         el("li", {}, [
           el("strong", {}, "Typed builders"),
           " — ",
-          el("code", {}, "import { page, header, … } from \"klods\""),
+          el("code", {}, 'import { page, header, … } from "klods"'),
           " for a lego-like API that produces both DOM and HTML strings.",
         ]),
       ]),
-      el("p", {}, "Every example below is rendered live, and the source you see is the source that produced it. There is no separate playground."),
+      el(
+        "p",
+        {},
+        "Every example below is rendered live, and the source you see is the source that produced it. There is no separate playground."
+      ),
     ]),
     stack({ gap: 4 }, [
       card({}, [
@@ -37,7 +37,11 @@ export function renderIntroSection(): KlodsNode {
         cardBody({}, [
           el("pre", {}, el("code", {}, "npm install klods klods-css")),
           el("p", { class: "klods-muted" }, "Or for a vanilla HTML/Rails project, just link the CSS:"),
-          el("pre", {}, el("code", {}, "<link rel=\"stylesheet\" href=\"https://unpkg.com/klods-css/dist/klods.min.css\">")),
+          el(
+            "pre",
+            {},
+            el("code", {}, '<link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css">')
+          ),
         ]),
       ]),
     ]),

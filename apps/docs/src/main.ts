@@ -45,8 +45,8 @@ function themeSwitcher(): KlodsNode {
             }
           },
         },
-        t.label,
-      ),
+        t.label
+      )
     ),
   ]);
 }
@@ -68,12 +68,15 @@ function shell(): KlodsNode {
         el(
           "ul",
           { class: "docs-toc" },
-          SECTIONS.map((s) => tocLink(s.id, s.title)),
+          SECTIONS.map((s) => tocLink(s.id, s.title))
         ),
       ]),
     ]),
     content({ narrow: true }, [
-      stack({ gap: 7 }, SECTIONS.map((s) => el("section", { id: s.id, class: "docs-section" }, [s.render()]))),
+      stack(
+        { gap: 7 },
+        SECTIONS.map((s) => el("section", { id: s.id, class: "docs-section" }, [s.render()]))
+      ),
     ]),
     footer({}, [
       el("span", {}, "klods · MIT · "),

@@ -91,7 +91,7 @@ export function renderComponentsSection(): KlodsNode {
             "aria-label": "Save the document",
             onClick: () => alert({}, "(no-op in the docs)"),
           },
-          "Save",
+          "Save"
         ),
     }),
   ]);
