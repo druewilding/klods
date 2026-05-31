@@ -83,7 +83,7 @@ function tocLink(section: Section): KlodsNode {
 }
 
 function shell(): KlodsNode {
-  return page({ sidebar: true, class: "docs-shell" }, [
+  return page({ sidebar: true, stickyHeader: true, class: "docs-shell" }, [
     header({}, [
       el("strong", { style: "font-size: 1.25rem;" }, "klods"),
       el("span", { class: "klods-badge" }, `v${__KLODS_VERSION__}`),
