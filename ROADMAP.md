@@ -2,26 +2,35 @@
 
 A phased plan for getting klods from "scaffold that works" to "stable v1 you can build real apps with". Each phase ships a meaningful, releasable improvement; phases roughly correspond to minor versions.
 
-## Phase 0 — v0 (done ✅)
+## Phase 0 — v0 → v1.0 (done ✅)
 
-Monorepo, `klods-css` with layout / utilities / first components, `klods-js` TS builders, self-generating docs, 6 passing tests, three working themes (`dark`, `playful`, `brutalist`).
+Monorepo, `klods-css` with layout / utilities / first components, `klods-js` TS builders, self-generating docs, 6 passing tests, three working themes (`dark`, `playful`, `brutalist`). Shipped as **v1.0.0** with the GitHub repo (`druewilding/klods`), Actions CI, Changesets, and npm publishing all set up from day one.
 
 ---
 
-## Phase 1 — Ship v0.1 publicly
+## Phase 1 — Ship publicly (done ✅)
 
-Get it out the door before adding more surface area. Smaller surface = easier feedback.
-
-1. **Plain-HTML demo page** in the docs (`/vanilla.html`) using only `<link rel="stylesheet">` and BEM classes — proves the no-JS path. This is the page Rails users will copy from.
-2. **Cheat-sheet page** in the docs — one-screen reference of every class and modifier (the "I always forget" page).
-3. **Initialise git repo** in `klods/`, push to a new GitHub repo `druewilding/klods`.
-4. **GitHub Actions CI** — lint + format check + test + build on every PR.
-5. **Changesets** for independent versioning of `klods-css` and `klods-js`.
-6. **Publish v0.1.0** of `klods-css` and `klods-js` to npm.
-7. **Deploy docs** to GitHub Pages from `apps/docs/dist` via Actions.
-8. **README polish** — screenshot, one-liner installer, the "lego" pitch.
+1. ✅ **Plain-HTML demo page** in the docs (`/vanilla.html`) — no-JS path using only BEM classes.
+2. ✅ **Git repo** initialised and pushed to `druewilding/klods`.
+3. ✅ **GitHub Actions CI** — lint + format check + test + build on every PR (`ci.yml`).
+4. ✅ **Changesets** for independent versioning of `klods-css` and `klods-js` (`release.yml`).
+5. ✅ **Published to npm** — `klods-css` and `klods-js` live; now at v1.6.3 / v1.5.1.
+6. ✅ **Deploy docs** to GitHub Pages from `apps/docs/dist` via Actions (`docs.yml`).
+7. ✅ **README polish** — screenshot, one-liner installer, the "lego" pitch.
 
 **Outcome:** anyone can `npm install klods-js klods-css` or `<link>` the CSS today.
+
+---
+
+## Post-Phase-1 additions (v1.1 – v1.5)
+
+Components and features added incrementally before moving to full form support:
+
+- **v1.1** — `box` component
+- **v1.2** — `stickyHeader` layout modifier
+- **v1.3** — `fill` and `push` utilities
+- **v1.4** — `toc`, `tocItem`, `tocLink` (table of contents component)
+- **v1.5** — `section` layout component; `buttonGroup` with pill styling and `aria-pressed` support; `prose`, `lead`, `muted` text components; `row({ inline })` variant; URL-persistent theme switcher on docs and vanilla.html; tinted alert backgrounds via `color-mix()`; `sidebarPosition: "leading" | "trailing"` (RTL-friendly replacement for `sidebarRight`)
 
 ---
 
@@ -55,11 +64,11 @@ Native-first; smallest possible JS.
 
 ## Phase 4 — Data display
 
-1. **Table** — `klods-table` with zebra / borderless / dense modifiers, plus `tableCell({ align })`. Typed path: `rows: T[]` + `columns: Column<T>[]`; raw `<thead>` / `<tbody>` still possible.
+1. ✅ **Table** — `klods-table` component with docs examples.
 2. **List** — `list`, `listItem` with leading / trailing slot conventions.
 3. **Description list** — `descList`, `descTerm`, `descDetail`.
 4. **Avatar** — image with fallback initials, sizes.
-5. **KBD / code block** helpers — already partly there; promote to first-class.
+5. **KBD / code block** helpers — `klods-code` partly there via `code.ts`; promote to first-class.
 
 ---
 
@@ -70,6 +79,8 @@ Native-first; smallest possible JS.
 3. **Reduced motion** — honour `prefers-reduced-motion` for transitions / animations.
 4. **Print styles** — `@layer klods.print` with sensible defaults.
 5. **Density modifier** — `[data-density="compact"]` shrinks all spacing tokens.
+
+_Partially done: `data-theme` switching with URL persistence ships in v1.5. The builder page and scoped tokens are still to come._
 
 ---
 
@@ -120,8 +131,13 @@ The lowest-risk, highest-leverage path is:
 
 ## Status
 
-| Phase | Status      |
-| ----- | ----------- |
-| 0     | ✅ done     |
-| 1     | next        |
-| 2–8   | not started |
+| Phase           | Status                  |
+| --------------- | ----------------------- |
+| 0               | ✅ done                 |
+| 1               | ✅ done                 |
+| Post-Phase-1    | ✅ done (v1.1–v1.5)     |
+| 2 (forms)       | next                    |
+| 3 (interactive) | not started             |
+| 4 (data)        | partial (table done)    |
+| 5 (theming)     | partial (switcher done) |
+| 6–8             | not started             |
