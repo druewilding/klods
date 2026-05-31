@@ -84,6 +84,8 @@ function themeSwitcher(): KlodsNode {
               if (active) params.set("theme", active);
               else params.delete("theme");
               history.replaceState(null, "", `${location.pathname}${params.size ? `?${params}` : ""}`);
+              const vanillaLink = document.getElementById("vanilla-link") as HTMLAnchorElement | null;
+              if (vanillaLink) vanillaLink.href = active ? `./vanilla.html?theme=${active}` : "./vanilla.html";
               for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-theme-id]")) {
                 btn.setAttribute("aria-pressed", String((btn.dataset.themeId ?? "") === active));
               }
@@ -115,7 +117,15 @@ function shell(): KlodsNode {
         el("strong", { style: "font-size: 1.25rem;" }, "klods"),
         el("span", { class: "klods-badge" }, `v${__KLODS_VERSION__}`),
       ]),
-      el("a", { href: "./vanilla.html", class: "klods-button klods-button--ghost" }, "Vanilla HTML demo →"),
+      el(
+        "a",
+        {
+          id: "vanilla-link",
+          href: initialTheme ? `./vanilla.html?theme=${initialTheme}` : "./vanilla.html",
+          class: "klods-button klods-button--ghost",
+        },
+        "Vanilla HTML demo →"
+      ),
       fill({}, [push(), themeSwitcher()]),
     ]),
     sidebar({}, [el("nav", { "aria-label": "Sections" }, [toc({}, SECTIONS.map(sectionTocItem))])]),
