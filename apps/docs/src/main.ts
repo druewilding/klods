@@ -13,6 +13,7 @@ import {
   header,
   page,
   push,
+  row,
   section,
   sidebar,
   stack,
@@ -61,7 +62,9 @@ const THEMES: Array<{ id: string; label: string }> = [
 ];
 
 function themeSwitcher(): KlodsNode {
-  return buttonGroup({ "aria-label": "Theme" }, [
+  return row({ inline: true, gap: 2 }, [
+    el("span", { id: "theme-label", class: "klods-muted" }, "Theme:"),
+    buttonGroup({ "aria-labelledby": "theme-label" }, [
     ...THEMES.map((t) =>
       el(
         "button",
@@ -85,6 +88,7 @@ function themeSwitcher(): KlodsNode {
         t.label
       )
     ),
+    ]),
   ]);
 }
 

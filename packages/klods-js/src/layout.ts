@@ -59,10 +59,11 @@ export const cluster = builder<GapProp>({
   modifiers: { gap: gapModifier("klods-cluster") },
 });
 
-export const row = builder<GapProp>({
+type RowProps = GapProp & { inline?: boolean };
+export const row = builder<RowProps>({
   tag: "div",
   base: "klods-row",
-  modifiers: { gap: gapModifier("klods-row") },
+  modifiers: { gap: gapModifier("klods-row"), inline: "klods-row--inline" },
 });
 
 export type GridProps = GapProp & {
