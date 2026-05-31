@@ -3,8 +3,8 @@
 import "klods-css/src/klods.scss";
 import "./styles.css";
 
-import type { KlodsNode } from "klods";
-import { content, el, footer, header, page, sidebar, stack } from "klods";
+import type { KlodsNode } from "klods-js";
+import { content, el, footer, header, page, sidebar, stack } from "klods-js";
 
 import { renderComponentsSection } from "./pages/components.js";
 import { renderIntroSection } from "./pages/intro.js";

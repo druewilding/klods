@@ -1,5 +1,5 @@
-import type { KlodsNode } from "klods";
-import { center, cluster, el, grid, row, spread, stack } from "klods";
+import type { KlodsNode } from "klods-js";
+import { center, cluster, el, grid, row, spread, stack } from "klods-js";
 
 import { example } from "../example.js";
 

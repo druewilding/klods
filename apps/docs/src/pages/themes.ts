@@ -1,5 +1,5 @@
-import type { KlodsNode } from "klods";
-import { card, cardBody, cardTitle, el, prose, stack } from "klods";
+import type { KlodsNode } from "klods-js";
+import { card, cardBody, cardTitle, el, prose, stack } from "klods-js";
 
 export function renderThemesSection(): KlodsNode {
   return stack({ gap: 5 }, [

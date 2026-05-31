@@ -39,8 +39,8 @@ jobs:
       - name: Build klods-css
         run: npm run build --workspace packages/klods-css
 
-      - name: Build klods
-        run: npm run build --workspace packages/klods
+      - name: Build klods-js
+        run: npm run build --workspace packages/klods-js
 
       - name: Build docs
         run: npm run build --workspace apps/docs

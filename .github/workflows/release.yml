@@ -17,9 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       klods_css_released: ${{ steps.rp.outputs['packages/klods-css--release_created'] }}
-      klods_released: ${{ steps.rp.outputs['packages/klods--release_created'] }}
+      klods_released: ${{ steps.rp.outputs['packages/klods-js--release_created'] }}
       klods_css_version: ${{ steps.rp.outputs['packages/klods-css--version'] }}
-      klods_version: ${{ steps.rp.outputs['packages/klods--version'] }}
+      klods_version: ${{ steps.rp.outputs['packages/klods-js--version'] }}
 
     steps:
       - uses: googleapis/release-please-action@v4
@@ -75,9 +75,9 @@ jobs:
         run: npm ci
 
       - name: Build klods
-        run: npm run build --workspace packages/klods
+        run: npm run build --workspace packages/klods-js
 
-      - name: Publish klods@${{ needs.release-please.outputs.klods_version }}
-        run: npm publish --workspace packages/klods --access public --provenance
+      - name: Publish klods-js@${{ needs.release-please.outputs.klods_version }}
+        run: npm publish --workspace packages/klods-js --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

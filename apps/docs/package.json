@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "happy-dom": "20.9.0",
-    "klods": "*",
+    "klods-js": "*",
     "klods-css": "*"
   },
   "devDependencies": {

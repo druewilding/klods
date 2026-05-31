@@ -1,4 +1,4 @@
-import type { KlodsNode } from "klods";
+import type { KlodsNode } from "klods-js";
 import {
   alert,
   badge,
@@ -13,7 +13,7 @@ import {
   navLink,
   navList,
   stack,
-} from "klods";
+} from "klods-js";
 
 import { example } from "../example.js";
 
