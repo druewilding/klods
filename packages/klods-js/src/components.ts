@@ -93,6 +93,7 @@ export function alert(props?: (AlertProps & KlodsAttrs) | null, children?: Klods
 export const prose = builder({ tag: "div", base: "klods-prose" });
 export const muted = builder({ tag: "span", base: "klods-muted" });
 export const lead = builder({ tag: "p", base: "klods-lead" });
+export const textCenter = builder({ tag: "div", base: "klods-text-center" });
 
 // ── Table ────────────────────────────────────────────────────────────────
 export type TableProps = {

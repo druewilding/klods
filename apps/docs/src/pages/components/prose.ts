@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { el, lead, muted, prose } from "klods-js";
+import { el, lead, muted, prose, textCenter } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -28,5 +28,9 @@ export const examples: KlodsNode[] = [
   example({
     title: "Muted",
     render: () => el("p", {}, ["Regular text followed by ", muted({}, "muted text"), " for secondary information."]),
+  }),
+  example({
+    title: "Text center",
+    render: () => textCenter({}, [el("p", {}, "This text is centred using the text-center utility.")]),
   }),
 ];
