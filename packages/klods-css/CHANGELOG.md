@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/druewilding/klods/compare/klods-css-v1.6.1...klods-css-v1.6.2) (2026-05-31)
+
+
+### Bug Fixes
+
+* Remove the max-width constraint of klods-prose ([#35](https://github.com/druewilding/klods/issues/35)) ([3bbe8b7](https://github.com/druewilding/klods/commit/3bbe8b7e02e39443500d67a3407b8d5f30ace62b))
+
 ## [1.6.1](https://github.com/druewilding/klods/compare/klods-css-v1.6.0...klods-css-v1.6.1) (2026-05-31)
 
 
