@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/druewilding/klods/compare/klods-css-v1.3.0...klods-css-v1.3.1) (2026-05-31)
+
+
+### Bug Fixes
+
+* Keep the sidebar in view at all times ([#21](https://github.com/druewilding/klods/issues/21)) ([0c92619](https://github.com/druewilding/klods/commit/0c92619ed57b43ec5b36e34147f25504dfd0f0d7))
+
 ## [1.3.0](https://github.com/druewilding/klods/compare/klods-css-v1.2.0...klods-css-v1.3.0) (2026-05-31)
 
 
