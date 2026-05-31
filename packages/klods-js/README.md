@@ -1,4 +1,4 @@
-# klods
+# klods-js
 
 Tiny, typed, lego-like builder API. Pairs with [`klods-css`](../klods-css).
 
