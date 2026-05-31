@@ -75,15 +75,60 @@
               </div>
 
               <div class="klods-alert klods-alert--info">
-                This page is built with nothing but a stylesheet from unpkg and standard HTML. Drop klods-css into any
-                Rails app, WordPress theme, or plain HTML file and start building immediately.
+                This page is built with nothing but a stylesheet from unpkg and standard HTML. You can add
+                <code>klods-css</code> into any Rails app, WordPress theme, or plain HTML file and start building
+                immediately. This is not an exhaustive demo — <a id="full-docs-link" href="./">see the full docs</a> for
+                every component and option available.
               </div>
 
               <div class="klods-prose">
-                <p>Add the stylesheet to your <code>&lt;head&gt;</code>:</p>
-                <pre><code>&lt;link rel="stylesheet"
-  href="https://unpkg.com/klods-css/dist/klods.min.css"&gt;</code></pre>
-                <p>Then use the classes shown below.</p>
+                <h2>Get started</h2>
+                <p>A simple page structure with header, sidebar, content and footer looks like this:</p>
+                <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+    &lt;title&gt;My page&lt;/title&gt;
+    &lt;link rel="stylesheet"
+      href="https://unpkg.com/klods-css/dist/klods.min.css" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div class="klods-page
+                klods-page--with-sidebar
+                klods-page--sticky-header"&gt;
+
+      &lt;header class="klods-header"&gt;
+        &lt;strong&gt;My app&lt;/strong&gt;
+      &lt;/header&gt;
+
+      &lt;aside class="klods-sidebar"&gt;
+        &lt;nav&gt;
+          &lt;ul class="klods-nav__list"&gt;
+            &lt;li&gt;&lt;a href="/" class="klods-nav__link klods-nav__link--active"&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/about" class="klods-nav__link"&gt;About&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/nav&gt;
+      &lt;/aside&gt;
+
+      &lt;main class="klods-content"&gt;
+        &lt;h1&gt;Hello, klods&lt;/h1&gt;
+        &lt;button class="klods-button klods-button--primary" type="button"&gt;
+          Get started
+        &lt;/button&gt;
+      &lt;/main&gt;
+
+      &lt;footer class="klods-footer"&gt;
+        &lt;span&gt;© 2026 My app&lt;/span&gt;
+      &lt;/footer&gt;
+
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                <p>
+                  The <code>klods-page</code> wrapper carries three classes to enable the sidebar and sticky header. The
+                  content area is flexible and will fill the remaining space.
+                </p>
               </div>
             </div>
           </section>
@@ -363,6 +408,8 @@
 
       const docsLink = document.getElementById("docs-link");
       if (docsLink) docsLink.href = docsHref(active);
+      const fullDocsLink = document.getElementById("full-docs-link");
+      if (fullDocsLink) fullDocsLink.href = docsHref(active);
     }
 
     // Restore from URL on load
