@@ -8,8 +8,8 @@ import { builder, KlodsNode } from "./core.js";
 export type PageProps = {
   /** Render with a sidebar column. */
   sidebar?: boolean;
-  /** Place the sidebar on the right (only meaningful with `sidebar: true`). */
-  sidebarRight?: boolean;
+  /** Which side the sidebar appears on. Defaults to `"leading"` (inline-start). */
+  sidebarPosition?: "leading" | "trailing";
   /** Keep the header pinned to the top of the viewport while the page scrolls. */
   stickyHeader?: boolean;
 };
@@ -19,7 +19,7 @@ export const page = builder<PageProps>({
   base: "klods-page",
   modifiers: {
     sidebar: "klods-page--with-sidebar",
-    sidebarRight: "klods-page--sidebar-right",
+    sidebarPosition: (v) => (v === "trailing" ? "klods-page--sidebar-trailing" : undefined),
     stickyHeader: "klods-page--sticky-header",
   },
 });
