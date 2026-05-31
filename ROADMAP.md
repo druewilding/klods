@@ -4,7 +4,7 @@ A phased plan for getting klods from "scaffold that works" to "stable v1 you can
 
 ## Phase 0 — v0 (done ✅)
 
-Monorepo, `klods-css` with layout / utilities / first components, `klods` TS builders, self-generating docs, 6 passing tests, three working themes (`dark`, `playful`, `brutalist`).
+Monorepo, `klods-css` with layout / utilities / first components, `klods-js` TS builders, self-generating docs, 6 passing tests, three working themes (`dark`, `playful`, `brutalist`).
 
 ---
 
@@ -16,12 +16,12 @@ Get it out the door before adding more surface area. Smaller surface = easier fe
 2. **Cheat-sheet page** in the docs — one-screen reference of every class and modifier (the "I always forget" page).
 3. **Initialise git repo** in `klods/`, push to a new GitHub repo `druewilding/klods`.
 4. **GitHub Actions CI** — lint + format check + test + build on every PR.
-5. **Changesets** for independent versioning of `klods-css` and `klods`.
-6. **Publish v0.1.0** of `klods-css` and `klods` to npm.
+5. **Changesets** for independent versioning of `klods-css` and `klods-js`.
+6. **Publish v0.1.0** of `klods-css` and `klods-js` to npm.
 7. **Deploy docs** to GitHub Pages from `apps/docs/dist` via Actions.
 8. **README polish** — screenshot, one-liner installer, the "lego" pitch.
 
-**Outcome:** anyone can `npm install klods klods-css` or `<link>` the CSS today.
+**Outcome:** anyone can `npm install klods-js klods-css` or `<link>` the CSS today.
 
 ---
 
@@ -78,7 +78,7 @@ Native-first; smallest possible JS.
 1. **CDN-friendly UMD bundle** — already built; add a `<script>`-tag example in docs and pin a jsDelivr / unpkg URL.
 2. **Tailwind preset** (optional) — exports spacing / colour tokens as a Tailwind config.
 3. **Rails example app** in `examples/rails-todo` — a tiny Rails 7 app using only `klods-css` via importmap. Doubles as a regression test.
-4. **Express / HTML example app** in `examples/express-ssr` — uses `klods` server-side via `.toString()`. Demonstrates SSR.
+4. **Express / HTML example app** in `examples/express-ssr` — uses `klods-js` server-side via `.toString()`. Demonstrates SSR.
 5. **CodeSandbox templates** linked from the docs.
 
 ---
@@ -87,7 +87,7 @@ Native-first; smallest possible JS.
 
 1. **Visual regression tests** — Playwright, screenshot every example in every theme, fail PRs on unintended changes. Reuses the `playwright-cucumber-template` setup.
 2. **a11y audit** — axe-core on every docs example in CI.
-3. **Bundle-size budget** — fail CI if `klods-css` > 25 kB min or `klods` ESM > 15 kB min.
+3. **Bundle-size budget** — fail CI if `klods-css` > 25 kB min or `klods-js` ESM > 15 kB min.
 4. **Type tests** — `tsd` or `expect-type` to verify the public API never silently changes.
 5. **Migration & contribution guides** in the repo.
 
