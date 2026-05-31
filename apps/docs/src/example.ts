@@ -52,12 +52,19 @@ function dedent(source: string): string {
     .trim();
 }
 
+function slug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 export function example(spec: ExampleSpec): KlodsNode {
   const result = spec.render();
   const tsSource = dedent(spec.render.toString());
   const htmlSource = prettyHtml(result.toString());
 
-  return card({ class: "docs-example" }, [
+  return card({ class: "docs-example", id: slug(spec.title) }, [
     cardTitle({}, spec.title),
     spec.description ? el("p", { class: "klods-muted docs-example__desc" }, spec.description) : null,
     cardBody({ class: "docs-example__body" }, [

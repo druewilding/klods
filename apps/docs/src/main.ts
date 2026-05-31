@@ -12,11 +12,48 @@ import { renderLayoutSection } from "./pages/layout.js";
 import { renderThemesSection } from "./pages/themes.js";
 import { renderUtilitiesSection } from "./pages/utilities.js";
 
-const SECTIONS: Array<{ id: string; title: string; render: () => KlodsNode }> = [
+type SubLink = { label: string; anchor: string };
+type Section = { id: string; title: string; render: () => KlodsNode; links?: SubLink[] };
+
+const SECTIONS: Section[] = [
   { id: "intro", title: "Intro", render: renderIntroSection },
-  { id: "layout", title: "Layout", render: renderLayoutSection },
-  { id: "utilities", title: "Utilities", render: renderUtilitiesSection },
-  { id: "components", title: "Components", render: renderComponentsSection },
+  {
+    id: "layout",
+    title: "Layout",
+    render: renderLayoutSection,
+    links: [
+      { label: "Page", anchor: "page-with-header-content-and-footer" },
+      { label: "With sidebar", anchor: "page-with-a-sidebar" },
+      { label: "Narrow content", anchor: "narrow-content" },
+    ],
+  },
+  {
+    id: "utilities",
+    title: "Utilities",
+    render: renderUtilitiesSection,
+    links: [
+      { label: "stack", anchor: "stack-vertical-with-gap" },
+      { label: "cluster", anchor: "cluster-horizontal-wraps" },
+      { label: "row", anchor: "row-horizontal-no-wrap" },
+      { label: "grid", anchor: "grid-equal-columns" },
+      { label: "spread", anchor: "spread-push-children-apart" },
+      { label: "center", anchor: "center-centre-everything" },
+    ],
+  },
+  {
+    id: "components",
+    title: "Components",
+    render: renderComponentsSection,
+    links: [
+      { label: "Buttons", anchor: "buttons" },
+      { label: "Card", anchor: "card" },
+      { label: "Badge", anchor: "badge" },
+      { label: "Alert", anchor: "alert" },
+      { label: "Nav", anchor: "nav" },
+      { label: "Table", anchor: "table" },
+      { label: "Code", anchor: "code-inline" },
+    ],
+  },
   { id: "themes", title: "Themes", render: renderThemesSection },
 ];
 
@@ -51,8 +88,17 @@ function themeSwitcher(): KlodsNode {
   ]);
 }
 
-function tocLink(id: string, label: string): KlodsNode {
-  return el("li", {}, [el("a", { href: `#${id}` }, label)]);
+function tocLink(section: Section): KlodsNode {
+  return el("li", {}, [
+    el("a", { href: `#${section.id}` }, section.title),
+    section.links?.length
+      ? el(
+          "ul",
+          { class: "docs-toc docs-toc--sub" },
+          section.links.map((l) => el("li", {}, el("a", { href: `#${l.anchor}` }, l.label)))
+        )
+      : null,
+  ]);
 }
 
 function shell(): KlodsNode {
@@ -68,7 +114,7 @@ function shell(): KlodsNode {
         el(
           "ul",
           { class: "docs-toc" },
-          SECTIONS.map((s) => tocLink(s.id, s.title))
+          SECTIONS.map(tocLink)
         ),
       ]),
     ]),
