@@ -34,16 +34,31 @@ Components and features added incrementally before moving to full form support:
 
 ---
 
-## Phase 2 — Forms wave
+## Phase 2 — Forms wave (done ✅)
 
 Forms are the highest-value missing piece for real apps.
 
-1. **CSS BEM**: `klods-form`, `klods-field`, `klods-label`, `klods-input`, `klods-select`, `klods-textarea`, `klods-checkbox`, `klods-radio`, `klods-switch`, `klods-help`, `klods-error`. Modifiers for size (`--sm` / `--lg`) and state (`--invalid`); inline vs stacked.
-2. **Builders**: `form`, `field({ label, help, error, required }, input(...))` — `field` is opinionated and handles label association, `aria-describedby` for help, `aria-invalid` for errors. Plus `input`, `select`, `option`, `textarea`, `checkbox`, `radio`, `radioGroup`, `switch`.
-3. **A11y baked in** — auto-generated `id`s when missing, `for` / `aria-labelledby` linking, focus styles using accent colour.
-4. **Examples**: a contact form, a settings panel, a search bar with button.
+1. ✅ **CSS BEM**: `klods-form`, `klods-field`, `klods-label`, `klods-input`, `klods-select`, `klods-textarea`, `klods-checkbox`, `klods-radio`, `klods-switch`, `klods-help`, `klods-error`. Modifiers for size (`--sm` / `--lg`) and state (`--invalid`); inline vs stacked.
+2. ✅ **Builders**: `form`, `field({ label, help, error, required }, input(...))` — `field` is opinionated and handles label association, `aria-describedby` for help, `aria-invalid` for errors. Plus `input`, `select`, `option`, `textarea`, `checkbox`, `radio`, `radioGroup`, `switch`.
+3. ✅ **A11y baked in** — auto-generated `id`s when missing, `for` / `aria-labelledby` linking, focus styles using accent colour.
+4. ✅ **Examples**: a contact form, a settings panel, a search bar with button.
 
 **Outcome:** klods covers ~80% of typical app screens.
+
+---
+
+## Phase 2b — Responsive / mobile
+
+The layout and components work on desktop but break down on smaller viewports. Make everything usable on mobile before shipping interactive components.
+
+1. **Layout breakpoints** — add responsive spacing and column behaviour so `klods-page`, `klods-header`, `klods-sidebar`, and `klods-content` stack sensibly on small screens.
+2. **Sidebar collapse** — sidebar hidden by default on mobile; a simple `data-sidebar-open` toggle (JS helper + CSS) reveals it as a drawer or slide-in panel.
+3. **Form fields** — inputs, selects, and textareas should be full-width on mobile without extra effort; tap target sizes meet WCAG 2.5.8 (24 × 24 px minimum).
+4. **Navigation** — `klods-nav__list` wraps or collapses to a hamburger-style menu on narrow viewports.
+5. **Tables** — `klods-table` gets a horizontal scroll wrapper or card-stacking mode for small screens.
+6. **Docs** — the docs site itself should be fully usable on a phone.
+
+**Outcome:** klods is production-ready for mobile-first apps.
 
 ---
 
@@ -123,11 +138,12 @@ The lowest-risk, highest-leverage path is:
 
 1. **Phase 1** in full → cut v0.1.0 and put klods in the world.
 2. **Phase 2 (forms)** → unlocks "I can build a real app with this."
-3. **Phase 3 (interactive)** → unlocks dialogs / toasts / tabs that every app needs.
-4. **Phase 7 hooks (CI, bundle budget)** alongside, so each release stays honest.
-5. **Phase 4 + 5** in parallel as time allows.
-6. **Phase 6** once the API has settled.
-7. **Phase 8** — v1.0.
+3. **Phase 2b (responsive)** → make it actually usable on mobile.
+4. **Phase 3 (interactive)** → unlocks dialogs / toasts / tabs that every app needs.
+5. **Phase 7 hooks (CI, bundle budget)** alongside, so each release stays honest.
+6. **Phase 4 + 5** in parallel as time allows.
+7. **Phase 6** once the API has settled.
+8. **Phase 8** — v1.0.
 
 ## Status
 
@@ -136,7 +152,8 @@ The lowest-risk, highest-leverage path is:
 | 0               | ✅ done                 |
 | 1               | ✅ done                 |
 | Post-Phase-1    | ✅ done (v1.1–v1.5)     |
-| 2 (forms)       | next                    |
+| 2 (forms)       | ✅ done                 |
+| 2b (responsive) | next                    |
 | 3 (interactive) | not started             |
 | 4 (data)        | partial (table done)    |
 | 5 (theming)     | partial (switcher done) |
