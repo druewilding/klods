@@ -88,6 +88,7 @@ function shell(): KlodsNode {
       el("strong", { style: "font-size: 1.25rem;" }, "klods"),
       el("span", { class: "klods-badge" }, `v${__KLODS_VERSION__}`),
       el("span", { class: "klods-push" }),
+      el("a", { href: "./vanilla.html", class: "klods-button klods-button--ghost" }, "Vanilla →"),
       themeSwitcher(),
     ]),
     sidebar({}, [el("nav", { "aria-label": "Sections" }, [el("ul", { class: "docs-toc" }, SECTIONS.map(tocLink))])]),
