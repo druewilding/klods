@@ -1,5 +1,5 @@
-import type { KlodsNode } from "klods";
-import { content, el, footer, header, page, sidebar, stack } from "klods";
+import type { KlodsNode } from "klods-js";
+import { content, el, footer, header, page, sidebar, stack } from "klods-js";
 
 import { example } from "../example.js";
 

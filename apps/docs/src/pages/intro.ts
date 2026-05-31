@@ -1,5 +1,5 @@
-import type { KlodsNode } from "klods";
-import { card, cardBody, cardTitle, el, lead, prose, stack } from "klods";
+import type { KlodsNode } from "klods-js";
+import { card, cardBody, cardTitle, el, lead, prose, stack } from "klods-js";
 
 export function renderIntroSection(): KlodsNode {
   return stack({ gap: 5 }, [
@@ -21,7 +21,7 @@ export function renderIntroSection(): KlodsNode {
         el("li", {}, [
           el("strong", {}, "Typed builders"),
           " — ",
-          el("code", {}, 'import { page, header, … } from "klods"'),
+          el("code", {}, 'import { page, header, … } from "klods-js"'),
           " for a lego-like API that produces both DOM and HTML strings.",
         ]),
       ]),
@@ -35,7 +35,7 @@ export function renderIntroSection(): KlodsNode {
       card({}, [
         cardTitle({}, "Install"),
         cardBody({}, [
-          el("pre", {}, el("code", {}, "npm install klods klods-css")),
+          el("pre", {}, el("code", {}, "npm install klods-js klods-css")),
           el("p", { class: "klods-muted" }, "Or for a vanilla HTML/Rails project, just link the CSS:"),
           el(
             "pre",

@@ -3,11 +3,11 @@
 Tiny, typed, lego-like builder API. Pairs with [`klods-css`](../klods-css).
 
 ```sh
-npm install klods klods-css
+npm install klods-js klods-css
 ```
 
 ```ts
-import { content, footer, header, nav, navLink, navList, page, sidebar } from "klods";
+import { content, footer, header, nav, navLink, navList, page, sidebar } from "klods-js";
 import "klods-css";
 
 page({ sidebar: true }, [

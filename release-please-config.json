@@ -7,7 +7,7 @@
     },
     "packages/klods": {
       "release-type": "node",
-      "package-name": "klods"
+      "package-name": "klods-js"
     }
   }
 }
