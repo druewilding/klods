@@ -6,12 +6,14 @@ import {
   el,
   field,
   form,
+  grid,
   input,
   option,
   radio,
   radioGroup,
   row,
   select,
+  spread,
   stack,
   switchInput,
   textarea,
@@ -145,26 +147,39 @@ export const examples: KlodsNode[] = [
 
   example({
     title: "Contact form",
-    description: "A complete form combining field, input, textarea, select, checkbox, and button.",
+    description:
+      "A complete form using `grid` to lay out pairs of fields side by side. Names and contact details share a row; the message and actions sit full-width below.",
     render: () =>
       card({}, [
         form({ onSubmit: (e: Event) => e.preventDefault() }, [
-          field({ label: "Full name", required: true }, (id) => input({ id, type: "text", placeholder: "Jane Smith" })),
-          field(
-            { label: "Email address", required: true, help: "We'll only use this to reply to your message." },
-            (id) => input({ id, type: "email", placeholder: "jane@example.com" })
+          grid({ cols: 2, gap: 4 }, [
+            field({ label: "First name", required: true }, (id) =>
+              input({ id, type: "text", placeholder: "Jane" }),
+            ),
+            field({ label: "Last name", required: true }, (id) =>
+              input({ id, type: "text", placeholder: "Smith" }),
+            ),
+          ]),
+          grid({ cols: 2, gap: 4 }, [
+            field({ label: "Email address", required: true }, (id) =>
+              input({ id, type: "email", placeholder: "jane@example.com" }),
+            ),
+            field({ label: "Subject" }, (id) =>
+              select({ id }, [
+                option({ value: "" }, "— choose a topic —"),
+                option({ value: "general" }, "General enquiry"),
+                option({ value: "support" }, "Technical support"),
+                option({ value: "billing" }, "Billing"),
+              ]),
+            ),
+          ]),
+          field({ label: "Message", required: true }, (id) =>
+            textarea({ id, placeholder: "How can we help you?" }),
           ),
-          field({ label: "Subject" }, (id) =>
-            select({ id }, [
-              option({ value: "" }, "— choose a topic —"),
-              option({ value: "general" }, "General enquiry"),
-              option({ value: "support" }, "Technical support"),
-              option({ value: "billing" }, "Billing"),
-            ])
-          ),
-          field({ label: "Message", required: true }, (id) => textarea({ id, placeholder: "How can we help you?" })),
-          checkbox({ label: "I agree to the privacy policy", name: "privacy", required: true }),
-          el("div", {}, [button({ variant: "primary", type: "submit" }, "Send message")]),
+          spread({}, [
+            checkbox({ label: "I agree to the privacy policy", name: "privacy", required: true }),
+            button({ variant: "primary", type: "submit" }, "Send message"),
+          ]),
         ]),
       ]),
   }),
