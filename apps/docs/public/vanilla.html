@@ -13,8 +13,37 @@
           <strong style="font-size: 1.25rem">klods</strong>
           <span class="klods-badge">vanilla HTML demo</span>
         </div>
-        <a href="./" class="klods-button klods-button--ghost">← Docs</a>
-        <div class="klods-fill"></div>
+        <a id="docs-link" href="./" class="klods-button klods-button--ghost">← Docs</a>
+        <div class="klods-fill">
+          <span class="klods-push"></span>
+          <div class="klods-row klods-row--inline klods-row--gap-2">
+            <span id="theme-label" class="klods-muted">Theme:</span>
+            <div class="klods-button-group" aria-labelledby="theme-label">
+              <button type="button" class="klods-button klods-button--ghost" data-theme-id="" aria-pressed="true">
+                Default
+              </button>
+              <button type="button" class="klods-button klods-button--ghost" data-theme-id="dark" aria-pressed="false">
+                Dark
+              </button>
+              <button
+                type="button"
+                class="klods-button klods-button--ghost"
+                data-theme-id="playful"
+                aria-pressed="false"
+              >
+                Playful
+              </button>
+              <button
+                type="button"
+                class="klods-button klods-button--ghost"
+                data-theme-id="brutalist"
+                aria-pressed="false"
+              >
+                Brutalist
+              </button>
+            </div>
+          </div>
+        </div>
       </header>
 
       <aside class="klods-sidebar">
@@ -314,4 +343,35 @@
       </footer>
     </div>
   </body>
+  <script>
+    function docsHref(theme) {
+      return theme ? "./?theme=" + theme : "./";
+    }
+
+    function applyTheme(themeId) {
+      if (themeId) document.documentElement.setAttribute("data-theme", themeId);
+      else document.documentElement.removeAttribute("data-theme");
+
+      const active = document.documentElement.getAttribute("data-theme") ?? "";
+
+      const qs = active ? "theme=" + active : "";
+      history.replaceState(null, "", location.pathname + (qs ? "?" + qs : ""));
+
+      for (const btn of document.querySelectorAll("[data-theme-id]")) {
+        btn.setAttribute("aria-pressed", String((btn.dataset.themeId ?? "") === active));
+      }
+
+      const docsLink = document.getElementById("docs-link");
+      if (docsLink) docsLink.href = docsHref(active);
+    }
+
+    // Restore from URL on load
+    const initialTheme = new URLSearchParams(location.search).get("theme") ?? "";
+    applyTheme(initialTheme);
+
+    // Wire up buttons
+    for (const btn of document.querySelectorAll("[data-theme-id]")) {
+      btn.addEventListener("click", () => applyTheme(btn.dataset.themeId ?? ""));
+    }
+  </script>
 </html>
