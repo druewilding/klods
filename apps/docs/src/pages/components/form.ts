@@ -20,11 +20,11 @@ import {
 import { example } from "../../example.js";
 
 export const label = "Form";
-export const anchor = "form";
+export const anchor = "form-text-inputs";
 
 export const examples: KlodsNode[] = [
   example({
-    title: "Text inputs",
+    title: "Form - Text inputs",
     description: "Basic text controls with placeholder and label.",
     render: () =>
       stack({ gap: 4 }, [
@@ -35,7 +35,7 @@ export const examples: KlodsNode[] = [
   }),
 
   example({
-    title: "Required field",
+    title: "Form - Required field",
     description: "Add `required: true` to get the * marker and correct semantics.",
     render: () =>
       field({ label: "Username", required: true }, (id) =>
@@ -44,7 +44,7 @@ export const examples: KlodsNode[] = [
   }),
 
   example({
-    title: "Help text",
+    title: "Form - Help text",
     description: "Use `help` to add a hint below the control.",
     render: () =>
       field({ label: "Email address", help: "We'll only use this to send your receipt." }, (id) =>
@@ -53,7 +53,7 @@ export const examples: KlodsNode[] = [
   }),
 
   example({
-    title: "Invalid state",
+    title: "Form - Invalid state",
     description:
       "Set `error` to show a validation message and apply the invalid styling. `aria-invalid` and `aria-describedby` are wired automatically.",
     render: () =>
@@ -68,7 +68,7 @@ export const examples: KlodsNode[] = [
   }),
 
   example({
-    title: "Disabled",
+    title: "Form - Input disabled",
     description: "Pass `disabled` on the control itself.",
     render: () =>
       stack({ gap: 4 }, [
@@ -80,7 +80,7 @@ export const examples: KlodsNode[] = [
   }),
 
   example({
-    title: "Select",
+    title: "Form - Select and option",
     description: "Use `select` and `option` for dropdowns.",
     render: () =>
       stack({ gap: 4 }, [
@@ -104,7 +104,7 @@ export const examples: KlodsNode[] = [
   }),
 
   example({
-    title: "Textarea",
+    title: "Form - Textarea",
     render: () =>
       field({ label: "Message", help: "Up to 500 characters." }, (id) =>
         textarea({ id, placeholder: "Write something nice…" })
@@ -112,7 +112,7 @@ export const examples: KlodsNode[] = [
   }),
 
   example({
-    title: "Checkbox",
+    title: "Form - Checkbox",
     render: () =>
       stack({ gap: 2 }, [
         checkbox({ label: "I agree to the terms and conditions", name: "terms" }),
@@ -122,7 +122,7 @@ export const examples: KlodsNode[] = [
   }),
 
   example({
-    title: "Radio group",
+    title: "Form - Radio group",
     description: 'Wrap radios with `radioGroup` for correct `role="group"` and aria labelling.',
     render: () =>
       radioGroup({ legend: "Preferred contact method" }, [
@@ -133,7 +133,7 @@ export const examples: KlodsNode[] = [
   }),
 
   example({
-    title: "Switch",
+    title: "Form - Switch",
     description: 'An accessible toggle. Uses `role="switch"` on the underlying checkbox.',
     render: () =>
       stack({ gap: 3 }, [
@@ -195,9 +195,12 @@ export const examples: KlodsNode[] = [
     title: "Search bar",
     description: "An input paired with a button in a row.",
     render: () =>
-      row({ gap: 2 }, [
-        input({ type: "search", placeholder: "Search…", class: "klods-input" }),
-        button({ variant: "primary" }, "Search"),
-      ]),
+      card(
+        {},
+        row({ gap: 2 }, [
+          input({ type: "search", placeholder: "Search…", class: "klods-input" }),
+          button({ variant: "primary" }, "Search"),
+        ])
+      ),
   }),
 ];
