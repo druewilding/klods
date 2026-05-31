@@ -50,15 +50,6 @@
   --klods-sidebar-width: 14rem;
 }
 
-/* Sidebar stretches to fill full page height (CSS Grid default).
-   The nav inside is sticky so links stay in view while scrolling. */
-.docs-shell .klods-sidebar > nav {
-  position: sticky;
-  top: var(--klods-gutter);
-  max-height: calc(100dvh - var(--klods-gutter) * 2);
-  overflow-y: auto;
-}
-
 .docs-toc {
   list-style: none;
   padding: 0;

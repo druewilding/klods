@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>klods — vanilla HTML demo</title>
+    <link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css" />
+  </head>
+  <body>
+    <div class="klods-page klods-page--with-sidebar klods-page--sticky-header">
+      <header class="klods-header">
+        <strong style="font-size: 1.25rem">klods</strong>
+        <span class="klods-badge klods-badge--accent">vanilla HTML</span>
+        <span class="klods-push"></span>
+        <a href="./" class="klods-button klods-button--ghost">← Docs</a>
+      </header>
+
+      <aside class="klods-sidebar">
+        <nav aria-label="Page sections">
+          <ul class="klods-nav__list" style="flex-direction: column; align-items: stretch; gap: var(--klods-space-1)">
+            <li><a href="#get-started" class="klods-nav__link klods-nav__link--active">Get started</a></li>
+            <li><a href="#buttons" class="klods-nav__link">Buttons</a></li>
+            <li><a href="#badges" class="klods-nav__link">Badges</a></li>
+            <li><a href="#alerts" class="klods-nav__link">Alerts</a></li>
+            <li><a href="#cards" class="klods-nav__link">Cards</a></li>
+            <li><a href="#nav" class="klods-nav__link">Nav</a></li>
+            <li><a href="#table" class="klods-nav__link">Table</a></li>
+            <li><a href="#box" class="klods-nav__link">Box</a></li>
+            <li><a href="#layout" class="klods-nav__link">Layout</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="klods-content klods-content--narrow">
+        <div class="klods-stack klods-stack--gap-8">
+          <!-- ── Get started ─────────────────────────────────────── -->
+          <section id="get-started">
+            <div class="klods-stack klods-stack--gap-4">
+              <div>
+                <h1>Vanilla HTML demo</h1>
+                <p class="klods-lead">
+                  One <code>&lt;link&gt;</code> tag. Plain BEM classes. No JavaScript, no build step, no dependencies.
+                </p>
+              </div>
+
+              <div class="klods-alert klods-alert--info">
+                This page is built with nothing but a stylesheet from unpkg and standard HTML. Drop klods-css into any
+                Rails app, WordPress theme, or plain HTML file and start building immediately.
+              </div>
+
+              <div class="klods-prose">
+                <p>Add the stylesheet to your <code>&lt;head&gt;</code>:</p>
+                <pre><code>&lt;link rel="stylesheet"
+  href="https://unpkg.com/klods-css/dist/klods.min.css"&gt;</code></pre>
+                <p>Then use the classes shown below.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Buttons ────────────────────────────────────────── -->
+          <section id="buttons">
+            <div class="klods-stack klods-stack--gap-3">
+              <h2>Buttons</h2>
+              <div class="klods-cluster">
+                <button class="klods-button" type="button">Default</button>
+                <button class="klods-button klods-button--primary" type="button">Primary</button>
+                <button class="klods-button klods-button--danger" type="button">Danger</button>
+                <button class="klods-button klods-button--ghost" type="button">Ghost</button>
+              </div>
+              <div class="klods-prose">
+                <pre><code>&lt;button class="klods-button klods-button--primary" type="button"&gt;
+  Save
+&lt;/button&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Badges ─────────────────────────────────────────── -->
+          <section id="badges">
+            <div class="klods-stack klods-stack--gap-3">
+              <h2>Badges</h2>
+              <div class="klods-cluster">
+                <span class="klods-badge">default</span>
+                <span class="klods-badge klods-badge--accent">accent</span>
+                <span class="klods-badge klods-badge--success">success</span>
+                <span class="klods-badge klods-badge--danger">danger</span>
+              </div>
+              <div class="klods-prose">
+                <pre><code>&lt;span class="klods-badge klods-badge--success"&gt;active&lt;/span&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Alerts ─────────────────────────────────────────── -->
+          <section id="alerts">
+            <div class="klods-stack klods-stack--gap-3">
+              <h2>Alerts</h2>
+              <div class="klods-stack">
+                <div class="klods-alert klods-alert--info"><strong>Info</strong> — something worth knowing.</div>
+                <div class="klods-alert klods-alert--success"><strong>Success</strong> — changes saved.</div>
+                <div class="klods-alert klods-alert--warning">
+                  <strong>Warning</strong> — double-check before continuing.
+                </div>
+                <div class="klods-alert klods-alert--danger">
+                  <strong>Danger</strong> — this action is irreversible.
+                </div>
+              </div>
+              <div class="klods-prose">
+                <pre><code>&lt;div class="klods-alert klods-alert--success"&gt;
+  Changes saved.
+&lt;/div&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Cards ─────────────────────────────────────────── -->
+          <section id="cards">
+            <div class="klods-stack klods-stack--gap-3">
+              <h2>Cards</h2>
+              <div class="klods-grid klods-grid--cols-2 klods-grid--gap-4">
+                <div class="klods-card">
+                  <div class="klods-card__title">Standard</div>
+                  <div class="klods-card__body">
+                    <p class="klods-muted">Surface colour, border, rounded corners.</p>
+                  </div>
+                  <div class="klods-card__footer">
+                    <button class="klods-button klods-button--primary" type="button">Action</button>
+                  </div>
+                </div>
+                <div class="klods-card klods-card--elevated">
+                  <div class="klods-card__title">Elevated</div>
+                  <div class="klods-card__body">
+                    <p class="klods-muted">Drop shadow instead of border.</p>
+                  </div>
+                  <div class="klods-card__footer">
+                    <button class="klods-button" type="button">Action</button>
+                  </div>
+                </div>
+              </div>
+              <div class="klods-prose">
+                <pre><code>&lt;div class="klods-card klods-card--elevated"&gt;
+  &lt;div class="klods-card__title"&gt;Title&lt;/div&gt;
+  &lt;div class="klods-card__body"&gt;Content&lt;/div&gt;
+  &lt;div class="klods-card__footer"&gt;…&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Nav ───────────────────────────────────────────── -->
+          <section id="nav">
+            <div class="klods-stack klods-stack--gap-3">
+              <h2>Nav</h2>
+              <nav aria-label="Example nav">
+                <ul class="klods-nav__list">
+                  <li><a href="#" class="klods-nav__link klods-nav__link--active">Home</a></li>
+                  <li><a href="#" class="klods-nav__link">Projects</a></li>
+                  <li><a href="#" class="klods-nav__link">Team</a></li>
+                  <li><a href="#" class="klods-nav__link">Settings</a></li>
+                </ul>
+              </nav>
+              <div class="klods-prose">
+                <pre><code>&lt;nav&gt;
+  &lt;ul class="klods-nav__list"&gt;
+    &lt;li&gt;&lt;a href="/" class="klods-nav__link klods-nav__link--active"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/about" class="klods-nav__link"&gt;About&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Table ─────────────────────────────────────────── -->
+          <section id="table">
+            <div class="klods-stack klods-stack--gap-3">
+              <h2>Table</h2>
+              <table class="klods-table klods-table--striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Joined</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Alice</td>
+                    <td>Engineer</td>
+                    <td><span class="klods-badge klods-badge--success">active</span></td>
+                    <td class="klods-muted">Jan 2024</td>
+                  </tr>
+                  <tr>
+                    <td>Bob</td>
+                    <td>Designer</td>
+                    <td><span class="klods-badge klods-badge--accent">away</span></td>
+                    <td class="klods-muted">Mar 2024</td>
+                  </tr>
+                  <tr>
+                    <td>Carol</td>
+                    <td>Manager</td>
+                    <td><span class="klods-badge klods-badge--danger">inactive</span></td>
+                    <td class="klods-muted">Aug 2023</td>
+                  </tr>
+                  <tr>
+                    <td>Dave</td>
+                    <td>Engineer</td>
+                    <td><span class="klods-badge klods-badge--success">active</span></td>
+                    <td class="klods-muted">Nov 2023</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="klods-prose">
+                <pre><code>&lt;table class="klods-table klods-table--striped"&gt;
+  &lt;thead&gt;…&lt;/thead&gt;
+  &lt;tbody&gt;…&lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Box ───────────────────────────────────────────── -->
+          <section id="box">
+            <div class="klods-stack klods-stack--gap-3">
+              <h2>Box</h2>
+              <div class="klods-grid klods-grid--cols-4 klods-grid--gap-3">
+                <div class="klods-box">alpha</div>
+                <div class="klods-box">beta</div>
+                <div class="klods-box">gamma</div>
+                <div class="klods-box">delta</div>
+              </div>
+              <div class="klods-prose">
+                <pre><code>&lt;div class="klods-box"&gt;content&lt;/div&gt;</code></pre>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Layout ────────────────────────────────────────── -->
+          <section id="layout">
+            <div class="klods-stack klods-stack--gap-3">
+              <h2>Layout</h2>
+              <div class="klods-prose">
+                <p>This page itself demonstrates the full shell. The outer wrapper carries three classes:</p>
+                <pre><code>&lt;div class="klods-page
+           klods-page--with-sidebar
+           klods-page--sticky-header"&gt;
+
+  &lt;header class="klods-header"&gt;…&lt;/header&gt;
+  &lt;aside  class="klods-sidebar"&gt;…&lt;/aside&gt;
+  &lt;main   class="klods-content"&gt;…&lt;/main&gt;
+  &lt;footer class="klods-footer"&gt;…&lt;/footer&gt;
+
+&lt;/div&gt;</code></pre>
+                <p>
+                  Add <code>klods-content--narrow</code> to cap the content width at a comfortable reading measure. Add
+                  <code>klods-content--wide</code> to stretch it to full page width.
+                </p>
+              </div>
+              <div class="klods-card">
+                <div class="klods-card__title">Utility classes</div>
+                <div class="klods-card__body klods-stack klods-stack--gap-3">
+                  <div>
+                    <span class="klods-muted" style="display: block; margin-bottom: var(--klods-space-2)">
+                      <code>klods-stack</code> — vertical flex column
+                    </span>
+                    <div class="klods-stack klods-stack--gap-2">
+                      <div class="klods-box">one</div>
+                      <div class="klods-box">two</div>
+                      <div class="klods-box">three</div>
+                    </div>
+                  </div>
+                  <div>
+                    <span class="klods-muted" style="display: block; margin-bottom: var(--klods-space-2)">
+                      <code>klods-cluster</code> — wrapping flex row
+                    </span>
+                    <div class="klods-cluster klods-cluster--gap-2">
+                      <div class="klods-box">alpha</div>
+                      <div class="klods-box">beta</div>
+                      <div class="klods-box">gamma</div>
+                      <div class="klods-box">delta</div>
+                      <div class="klods-box">epsilon</div>
+                    </div>
+                  </div>
+                  <div>
+                    <span class="klods-muted" style="display: block; margin-bottom: var(--klods-space-2)">
+                      <code>klods-grid klods-grid--cols-3</code>
+                    </span>
+                    <div class="klods-grid klods-grid--cols-3 klods-grid--gap-2">
+                      <div class="klods-box">A</div>
+                      <div class="klods-box">B</div>
+                      <div class="klods-box">C</div>
+                      <div class="klods-box">D</div>
+                      <div class="klods-box">E</div>
+                      <div class="klods-box">F</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ── Footer spacer ─────────────────────────────────── -->
+          <div></div>
+        </div>
+      </main>
+
+      <footer class="klods-footer">
+        <span>
+          klods · MIT ·
+          <a href="https://github.com/druewilding/klods">github.com/druewilding/klods</a>
+        </span>
+      </footer>
+    </div>
+  </body>
+</html>
