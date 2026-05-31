@@ -61,6 +61,21 @@
     border-right: 1px solid var(--klods-color-border);
   }
 
+  // Direct children of the sidebar are sticky so they stay in view
+  // while the main content scrolls. Works for any element (<nav>, <div>, etc.).
+  .klods-sidebar > * {
+    position: sticky;
+    top: var(--klods-gutter);
+    max-height: calc(100dvh - var(--klods-gutter) * 2);
+    overflow-y: auto;
+  }
+
+  // Offset the sticky top when the header is also sticky.
+  .klods-page--sticky-header .klods-sidebar > * {
+    top: calc(var(--klods-header-height) + var(--klods-gutter));
+    max-height: calc(100dvh - var(--klods-header-height) - var(--klods-gutter) * 2);
+  }
+
   .klods-page--sidebar-right .klods-sidebar {
     border-right: none;
     border-left: 1px solid var(--klods-color-border);
