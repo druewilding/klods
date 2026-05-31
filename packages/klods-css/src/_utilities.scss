@@ -66,8 +66,11 @@
     margin-inline-start: auto;
   }
 
-  // Fill the parent
+  // Fill the parent — also a flex row so push() and cluster children work inside it.
   .klods-fill {
+    display: flex;
+    align-items: center;
+    gap: var(--klods-space-4);
     flex: 1 1 auto;
     min-width: 0;
     min-height: 0;
