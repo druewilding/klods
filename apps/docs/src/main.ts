@@ -73,7 +73,10 @@ function sectionTocItem(section: Section): KlodsNode {
   return tocItem({}, [
     tocLink({ href: `#${section.id}` }, section.title),
     section.links?.length
-      ? toc({ sub: true }, section.links.map((l) => tocItem({}, tocLink({ href: `#${l.anchor}` }, l.label))))
+      ? toc(
+          { sub: true },
+          section.links.map((l) => tocItem({}, tocLink({ href: `#${l.anchor}` }, l.label)))
+        )
       : null,
   ]);
 }
