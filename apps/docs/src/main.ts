@@ -129,7 +129,7 @@ function shell(): KlodsNode {
       fill({}, [push(), themeSwitcher()]),
     ]),
     sidebar({}, [el("nav", { "aria-label": "Sections" }, [toc({}, SECTIONS.map(sectionTocItem))])]),
-    content({ narrow: true }, [
+    content({}, [
       stack(
         { gap: 7 },
         SECTIONS.map((s) => section({ id: s.id }, [s.render()]))
