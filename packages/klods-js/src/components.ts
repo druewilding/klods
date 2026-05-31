@@ -272,9 +272,11 @@ export type SwitchProps = {
   value?: string;
   checked?: boolean;
   disabled?: boolean;
+  /** Flips the layout: label on the left, track on the right. Ideal for settings panels. */
+  reverse?: boolean;
 };
 export function switchInput(props: SwitchProps & KlodsAttrs): KlodsNode {
-  const { label: labelText, name, value, checked, disabled, class: extraClass, ...rest } = props;
+  const { label: labelText, name, value, checked, disabled, reverse, class: extraClass, ...rest } = props;
   const inputAttrs: KlodsAttrs = {
     type: "checkbox",
     class: "klods-switch__input",
@@ -287,7 +289,15 @@ export function switchInput(props: SwitchProps & KlodsAttrs): KlodsNode {
 
   return el(
     "label",
-    { ...rest, class: classNames(["klods-switch", classNames(extraClass as KlodsAttrs["class"])]) || undefined },
+    {
+      ...rest,
+      class:
+        classNames([
+          "klods-switch",
+          reverse ? "klods-switch--reverse" : "",
+          classNames(extraClass as KlodsAttrs["class"]),
+        ]) || undefined,
+    },
     [
       el("input", inputAttrs),
       el("span", { class: "klods-switch__track" }),

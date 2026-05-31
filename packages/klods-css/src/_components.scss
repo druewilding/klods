@@ -596,4 +596,13 @@
   .klods-switch__label {
     line-height: var(--klods-line-height-tight);
   }
+
+  // Reverse layout — label on the left, track on the right.
+  // Use inside settings panels where the label describes the setting.
+  .klods-switch--reverse {
+    display: flex;
+    width: 100%;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
 }
