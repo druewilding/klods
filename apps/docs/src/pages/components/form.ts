@@ -67,7 +67,7 @@ export const examples: KlodsNode[] = [
           input({ id, type: "email", value: "not-an-email" })
         ),
         field({ label: "Message", error: "Message must be at least 20 characters." }, (id) =>
-          textarea({ id, placeholder: "Your message…" })
+          textarea({ id, placeholder: "Your message…" }, "Too short")
         ),
       ]),
   }),
@@ -79,7 +79,10 @@ export const examples: KlodsNode[] = [
       stack({ gap: 4 }, [
         field({ label: "Locked field" }, (id) => input({ id, type: "text", value: "Cannot edit", disabled: true })),
         field({ label: "Role" }, (id) =>
-          select({ id, disabled: true }, [option({ value: "" }, "Admin"), option({ value: "viewer" }, "Viewer")])
+          select({ id, disabled: true }, [
+            option({ value: "" }, "Admin"),
+            option({ selected: true, value: "viewer" }, "Viewer"),
+          ])
         ),
       ]),
   }),
@@ -92,7 +95,7 @@ export const examples: KlodsNode[] = [
         field({ label: "Country" }, (id) =>
           select({ id }, [
             option({ value: "" }, "— choose —"),
-            option({ value: "dk" }, "Denmark"),
+            option({ selected: true, value: "dk" }, "Denmark"),
             option({ value: "de" }, "Germany"),
             option({ value: "se" }, "Sweden"),
             option({ value: "no" }, "Norway"),
@@ -120,17 +123,16 @@ export const examples: KlodsNode[] = [
     title: "Form - Input types",
     description: "The `input` builder works with any native `type`. Each renders with the same base styling.",
     render: () =>
-      grid({ cols: 2, gap: 4 }, [
+      grid({ fit: true, gap: 4 }, [
         field({ label: "Date" }, (id) => input({ id, type: "date" })),
         field({ label: "Time" }, (id) => input({ id, type: "time" })),
-        field({ label: "Number", help: "Between 1 and 100." }, (id) =>
-          input({ id, type: "number", min: "1", max: "100", value: "42" })
-        ),
+        field({ label: "Datetime-local" }, (id) => input({ id, type: "datetime-local" })),
+        field({ label: "Number" }, (id) => input({ id, type: "number", min: "1", max: "100", value: "42" })),
         field({ label: "Range" }, (id) => input({ id, type: "range", min: "0", max: "100", value: "60" })),
         field({ label: "Color" }, (id) => input({ id, type: "color", value: "#6c63ff" })),
-        field({ label: "Phone" }, (id) => input({ id, type: "tel", placeholder: "+45 12 34 56 78" })),
-        field({ label: "URL" }, (id) => input({ id, type: "url", placeholder: "https://example.com" })),
+        field({ label: "Tel" }, (id) => input({ id, type: "tel", placeholder: "+45 12 34 56 78" })),
         field({ label: "File" }, (id) => input({ id, type: "file" })),
+        field({ label: "URL" }, (id) => input({ id, type: "url", placeholder: "https://example.com" })),
       ]),
   }),
 
@@ -220,12 +222,6 @@ export const examples: KlodsNode[] = [
         cardTitle({}, "Preferences"),
         grid({ cols: 2, gap: 5 }, [
           stack({ gap: 3 }, [
-            el("p", { class: "klods-label" }, "Notifications"),
-            switchInput({ label: "Enable notifications", name: "notif", checked: true }),
-            switchInput({ label: "Email digest", name: "digest" }),
-            switchInput({ label: "Push alerts", name: "push", checked: true }),
-          ]),
-          stack({ gap: 3 }, [
             el("p", { class: "klods-label" }, "Account"),
             switchInput({ label: "Public profile", name: "public" }),
             field({ label: "Language" }, (id) =>
@@ -235,6 +231,12 @@ export const examples: KlodsNode[] = [
                 option({ value: "de" }, "Deutsch"),
               ])
             ),
+          ]),
+          stack({ gap: 3 }, [
+            el("p", { class: "klods-label" }, "Notifications"),
+            switchInput({ label: "Enable notifications", name: "notif", checked: true }),
+            switchInput({ label: "Email digest", name: "digest" }),
+            switchInput({ label: "Push alerts", name: "push", checked: true }),
           ]),
         ]),
         cardFooter({}, [push({}), button({ variant: "primary" }, "Save preferences")]),
