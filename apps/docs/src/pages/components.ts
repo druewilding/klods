@@ -132,8 +132,7 @@ export function renderComponentsSection(): KlodsNode {
 
     example({
       title: "Code — inline",
-      render: () =>
-        el("p", {}, ["Run ", inlineCode({}, "npm install klods-js klods-css"), " to get started."]),
+      render: () => el("p", {}, ["Run ", inlineCode({}, "npm install klods-js klods-css"), " to get started."]),
     }),
 
     example({
@@ -141,7 +140,7 @@ export function renderComponentsSection(): KlodsNode {
       render: () =>
         codeBlock(
           {},
-          `import { page, header, content } from "klods-js";\n\npage({}, [\n  header({}, "Hello"),\n  content({}, "World"),\n]).render(document.body);`
+          'import { page, header, content } from "klods-js";\n\npage({}, [\n  header({}, "Hello"),\n  content({}, "World"),\n]).render(document.body);'
         ),
     }),
   ]);

@@ -88,6 +88,7 @@ npm run format:check        # Prettier --check (for CI)
 ## Releasing
 
 Releases are fully automated:
+
 - **Release Please** watches commits on `main` and opens a Release PR per package when there are releasable changes
 - Merging the Release PR creates a GitHub Release + tag and triggers npm publish with provenance
 - Packages version independently — `klods-css` and `klods-js` have separate changelogs and semver
