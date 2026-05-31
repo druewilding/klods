@@ -5,6 +5,7 @@ import "./styles.css";
 
 import type { KlodsNode } from "klods-js";
 import {
+  buttonGroup,
   content,
   el,
   fill,
@@ -60,19 +61,18 @@ const THEMES: Array<{ id: string; label: string }> = [
 ];
 
 function themeSwitcher(): KlodsNode {
-  return el("div", { class: "klods-cluster", role: "group", "aria-label": "Theme" }, [
-    el("strong", {}, "Theme:"),
+  return buttonGroup({ "aria-label": "Theme" }, [
     ...THEMES.map((t) =>
       el(
         "button",
         {
-          class: "docs-theme-swatch",
+          class: "klods-button klods-button--ghost",
           type: "button",
           "data-theme-id": t.id,
           "aria-pressed": (document.documentElement.getAttribute("data-theme") ?? "") === t.id,
           onClick: () => {
             document.documentElement.setAttribute("data-theme", t.id);
-            for (const btn of document.querySelectorAll<HTMLButtonElement>(".docs-theme-swatch")) {
+            for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-theme-id]")) {
               btn.setAttribute("aria-pressed", String(btn.dataset.themeId === t.id));
             }
           },

@@ -163,6 +163,42 @@
     background: var(--klods-color-surface-2);
   }
 
+  // ── Button group ───────────────────────────────────────────────────────
+  .klods-button-group {
+    display: inline-flex;
+
+    > .klods-button {
+      border-radius: 0;
+      position: relative;
+
+      &:not(:first-child) {
+        margin-inline-start: -1px;
+      }
+
+      &:first-child {
+        border-start-start-radius: var(--klods-radius-pill);
+        border-end-start-radius: var(--klods-radius-pill);
+      }
+
+      &:last-child {
+        border-start-end-radius: var(--klods-radius-pill);
+        border-end-end-radius: var(--klods-radius-pill);
+      }
+
+      &:hover,
+      &:focus-visible {
+        z-index: 1;
+      }
+
+      &[aria-pressed="true"] {
+        background: var(--klods-color-accent);
+        color: var(--klods-color-accent-fg);
+        border-color: var(--klods-color-accent);
+        z-index: 1;
+      }
+    }
+  }
+
   // ── Badge ──────────────────────────────────────────────────────────────
   .klods-badge {
     display: inline-flex;
