@@ -24,11 +24,12 @@ export default defineConfig(({ mode }) => ({
   build: {
     outDir: "dist",
     target: "es2022",
+    // Disable minification so example() can read back fn.toString() correctly.
+    // Identifier mangling would rename `stack` → `N` etc. and break the TS pane.
+    minify: false,
   },
 
   esbuild: {
-    // Preserve function source so example() can read it back via fn.toString().
     keepNames: true,
-    minifyIdentifiers: false,
   },
 }));
