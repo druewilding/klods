@@ -242,10 +242,7 @@ export function input(props: InputProps & KlodsAttrs): KlodsNode {
     (rest.id as string | undefined) ??
     slugId(
       "klods-input",
-      (rest["aria-label"] as string | undefined) ??
-        (rest.placeholder as string | undefined) ??
-        type ??
-        "field"
+      (rest["aria-label"] as string | undefined) ?? (rest.placeholder as string | undefined) ?? type ?? "field"
     );
 
   if (type === "range") {
@@ -292,7 +289,12 @@ export function input(props: InputProps & KlodsAttrs): KlodsNode {
   });
 }
 
-export const select = builder({ tag: "select", base: "klods-select" });
+const selectEl = builder({ tag: "select", base: "klods-select" });
+export function select(attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode {
+  // Wrap in a positioning parent so ::after can render the chevron arrow
+  // via mask-image + var(--klods-color-muted) without a baked-in color.
+  return el("div", { class: "klods-select-wrapper" }, selectEl(attrs, children));
+}
 
 export const option = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
   el("option", attrs ?? {}, children);
