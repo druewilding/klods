@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/druewilding/klods/compare/klods-js-v1.5.0...klods-js-v1.5.1) (2026-05-31)
+
+
+### Bug Fixes
+
+* Show the default theme as active, and document prose, lead and muted ([#32](https://github.com/druewilding/klods/issues/32)) ([c148fa3](https://github.com/druewilding/klods/commit/c148fa32e1bb950195b5894366cb17dbd478e1da))
+
 ## [1.5.0](https://github.com/druewilding/klods/compare/klods-js-v1.4.0...klods-js-v1.5.0) (2026-05-31)
 
 
