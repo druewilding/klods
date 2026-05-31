@@ -120,7 +120,21 @@ export const td = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild
 
 // ── Forms ────────────────────────────────────────────────────────────────
 
-let _fieldCounter = 0;
+// Converts a label string to a stable, URL-safe id segment.
+// "Email address" → "email-address", "First name" → "first-name"
+// Falls back to a djb2 hash when the label produces no alphanumeric slug
+// (e.g. empty string or all-symbol text), keeping IDs deterministic.
+function slugId(prefix: string, text: string): string {
+  const safe = text ?? "";
+  const slug = safe
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  if (slug) return `${prefix}-${slug}`;
+  let h = 5381;
+  for (let i = 0; i < safe.length; i++) h = ((h << 5) + h + safe.charCodeAt(i)) | 0;
+  return `${prefix}-${(h >>> 0).toString(36)}`;
+}
 
 export const form = builder({ tag: "form", base: "klods-form" });
 
@@ -170,7 +184,7 @@ function patchAriaAttrs(node: KlodsNode, attrs: KlodsAttrs): KlodsNode {
  */
 export function field(props: FieldProps & KlodsAttrs, renderInput: (id: string) => KlodsNode): KlodsNode {
   const { label: labelText, id: explicitId, help, error, required, invalid, class: extraClass, ...rest } = props;
-  const id = explicitId ?? `klods-field-${++_fieldCounter}`;
+  const id = explicitId ?? slugId("klods-field", labelText);
   const helpId = help ? `${id}-help` : undefined;
   const errorId = error ? `${id}-error` : undefined;
   const isInvalid = invalid ?? !!error;
@@ -222,12 +236,23 @@ export function input(props: InputProps & KlodsAttrs): KlodsNode {
   const cls = (extra: string) =>
     classNames(["klods-input", extra, classNames(extraClass as KlodsAttrs["class"])]) || undefined;
 
+  const id =
+    (rest.id as string | undefined) ??
+    slugId(
+      "klods-input",
+      (rest["aria-label"] as string | undefined) ??
+        (rest.placeholder as string | undefined) ??
+        type ??
+        "field"
+    );
+
   if (type === "range") {
     const initial = (rest.value as string) ?? "50";
     return el("span", { class: cls("klods-input--range") }, [
       el("input", {
         type: "range",
         ...rest,
+        id,
         oninput: (e: Event) => {
           const inp = e.target as HTMLInputElement;
           inp.closest(".klods-input--range")?.querySelector("output")?.textContent !== undefined &&
@@ -235,7 +260,7 @@ export function input(props: InputProps & KlodsAttrs): KlodsNode {
           (userOninput as ((e: Event) => void) | undefined)?.(e);
         },
       }),
-      el("output", { for: rest.id as string | undefined }, initial),
+      el("output", { for: id }, initial),
     ]);
   }
 
@@ -245,6 +270,7 @@ export function input(props: InputProps & KlodsAttrs): KlodsNode {
       el("input", {
         type: "color",
         ...rest,
+        id,
         oninput: (e: Event) => {
           const inp = e.target as HTMLInputElement;
           inp.closest(".klods-input--color")?.querySelector("output")?.textContent !== undefined &&
@@ -252,13 +278,14 @@ export function input(props: InputProps & KlodsAttrs): KlodsNode {
           (userOninput as ((e: Event) => void) | undefined)?.(e);
         },
       }),
-      el("output", { for: rest.id as string | undefined }, initial),
+      el("output", { for: id }, initial),
     ]);
   }
 
   return new KlodsNode("input", {
     type,
     ...rest,
+    id,
     class: cls(""),
   });
 }
@@ -280,7 +307,18 @@ export type CheckboxProps = {
   disabled?: boolean;
 };
 export function checkbox(props: CheckboxProps & KlodsAttrs): KlodsNode {
-  const { label: labelText, name, value, checked, disabled, required, form, autofocus, class: extraClass, ...rest } = props as CheckboxProps & KlodsAttrs & { required?: boolean; form?: string; autofocus?: boolean };
+  const {
+    label: labelText,
+    name,
+    value,
+    checked,
+    disabled,
+    required,
+    form,
+    autofocus,
+    class: extraClass,
+    ...rest
+  } = props as CheckboxProps & KlodsAttrs & { required?: boolean; form?: string; autofocus?: boolean };
   const inputAttrs: KlodsAttrs = { type: "checkbox" };
   if (name !== undefined) inputAttrs.name = name;
   if (value !== undefined) inputAttrs.value = value;
@@ -307,7 +345,18 @@ export type RadioProps = {
   disabled?: boolean;
 };
 export function radio(props: RadioProps & KlodsAttrs): KlodsNode {
-  const { label: labelText, name, value, checked, disabled, required, form, autofocus, class: extraClass, ...rest } = props as RadioProps & KlodsAttrs & { required?: boolean; form?: string; autofocus?: boolean };
+  const {
+    label: labelText,
+    name,
+    value,
+    checked,
+    disabled,
+    required,
+    form,
+    autofocus,
+    class: extraClass,
+    ...rest
+  } = props as RadioProps & KlodsAttrs & { required?: boolean; form?: string; autofocus?: boolean };
   const inputAttrs: KlodsAttrs = { type: "radio" };
   if (name !== undefined) inputAttrs.name = name;
   if (value !== undefined) inputAttrs.value = value;
@@ -332,7 +381,7 @@ export type RadioGroupProps = {
 };
 export function radioGroup(props: RadioGroupProps & KlodsAttrs, children: KlodsNode[]): KlodsNode {
   const { legend: legendText, class: extraClass, ...rest } = props;
-  const legendId = legendText ? `klods-rg-${++_fieldCounter}` : undefined;
+  const legendId = legendText ? slugId("klods-rg", legendText) : undefined;
   const cls = classNames(["klods-field", classNames(extraClass as KlodsAttrs["class"])]) || undefined;
   return el("div", { ...rest, class: cls, role: "group", ...(legendId ? { "aria-labelledby": legendId } : {}) }, [
     legendText ? el("p", { id: legendId, class: "klods-label" }, legendText) : null,
