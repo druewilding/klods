@@ -212,6 +212,53 @@
     background: transparent;
   }
 
+  // ── Code ──────────────────────────────────────────────────────────────
+  code {
+    font-size: 0.9em;
+    padding: 0.1em 0.35em;
+    background: var(--klods-color-surface-2);
+    border-radius: var(--klods-radius-sm);
+  }
+
+  pre {
+    padding: var(--klods-space-4);
+    background: var(--klods-color-surface-2);
+    border-radius: var(--klods-radius-md);
+  }
+
+  pre code {
+    padding: 0;
+    background: transparent;
+    font-size: inherit;
+  }
+
+  // ── Table ─────────────────────────────────────────────────────────────
+  .klods-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .klods-table th,
+  .klods-table td {
+    padding: var(--klods-space-3) var(--klods-space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--klods-color-border);
+  }
+
+  .klods-table th {
+    font-weight: 600;
+    background: var(--klods-color-surface);
+  }
+
+  .klods-table--striped tbody tr:nth-child(even) td {
+    background: var(--klods-color-surface);
+  }
+
+  .klods-table--dense th,
+  .klods-table--dense td {
+    padding: var(--klods-space-2) var(--klods-space-3);
+  }
+
   .klods-muted {
     color: var(--klods-color-muted);
   }
