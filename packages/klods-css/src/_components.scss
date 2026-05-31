@@ -126,11 +126,12 @@
     cursor: pointer;
     transition:
       background var(--klods-transition),
+      filter var(--klods-transition),
       transform var(--klods-transition);
   }
 
   .klods-button:hover {
-    background: var(--klods-color-border);
+    filter: brightness(0.95);
   }
 
   .klods-button:active {
@@ -154,6 +155,11 @@
     border-color: transparent;
   }
 
+  .klods-button--danger:hover {
+    filter: brightness(0.9);
+    background: var(--klods-color-danger);
+  }
+
   .klods-button--ghost {
     background: transparent;
     border-color: transparent;
@@ -161,6 +167,7 @@
 
   .klods-button--ghost:hover {
     background: var(--klods-color-surface-2);
+    filter: none;
   }
 
   // ── Button group ───────────────────────────────────────────────────────
@@ -239,18 +246,22 @@
 
   .klods-alert--info {
     border-color: var(--klods-color-info);
+    background: color-mix(in srgb, var(--klods-color-info) 12%, var(--klods-color-surface));
   }
 
   .klods-alert--success {
     border-color: var(--klods-color-success);
+    background: color-mix(in srgb, var(--klods-color-success) 12%, var(--klods-color-surface));
   }
 
   .klods-alert--warning {
     border-color: var(--klods-color-warning);
+    background: color-mix(in srgb, var(--klods-color-warning) 12%, var(--klods-color-surface));
   }
 
   .klods-alert--danger {
     border-color: var(--klods-color-danger);
+    background: color-mix(in srgb, var(--klods-color-danger) 12%, var(--klods-color-surface));
   }
 
   // ── Prose ──────────────────────────────────────────────────────────────
