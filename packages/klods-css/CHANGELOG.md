@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/druewilding/klods/compare/klods-css-v1.3.1...klods-css-v1.4.0) (2026-05-31)
+
+
+### Features
+
+* Add fill and push utilities and documentation ([#24](https://github.com/druewilding/klods/issues/24)) ([7f7faf7](https://github.com/druewilding/klods/commit/7f7faf73b882edd1476ce499f7baaef05f828101))
+
 ## [1.3.1](https://github.com/druewilding/klods/compare/klods-css-v1.3.0...klods-css-v1.3.1) (2026-05-31)
 
 
