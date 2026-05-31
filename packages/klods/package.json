@@ -1,6 +1,6 @@
 {
   "name": "klods",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Tiny, typed, lego-like builder API for klods components.",
   "license": "MIT",
   "author": "Drue Wilding",
