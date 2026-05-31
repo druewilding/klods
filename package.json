@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "eslint": "^9.39.1",
-    "eslint-config-plus-prettier": "^4.2.5",
+    "eslint-config-plus-prettier": "^4.2.15",
     "prettier": "^3.7.4",
     "typescript": "^5.6.3"
   }
