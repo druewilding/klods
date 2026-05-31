@@ -189,7 +189,21 @@ export function field(props: FieldProps & KlodsAttrs, renderInput: (id: string) 
 }
 
 export type InputProps = {
-  type?: "text" | "email" | "password" | "number" | "tel" | "url" | "search" | "date" | "time";
+  type?:
+    | "text"
+    | "email"
+    | "password"
+    | "number"
+    | "tel"
+    | "url"
+    | "search"
+    | "date"
+    | "time"
+    | "datetime-local"
+    | "range"
+    | "color"
+    | "file"
+    | "hidden";
 };
 export const input = builder<InputProps>({ tag: "input", base: "klods-input" });
 

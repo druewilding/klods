@@ -117,6 +117,26 @@ export const examples: KlodsNode[] = [
   }),
 
   example({
+    title: "Form - Input types",
+    description: "The `input` builder works with any native `type`. Each renders with the same base styling.",
+    render: () =>
+      grid({ cols: 2, gap: 4 }, [
+        field({ label: "Date" }, (id) => input({ id, type: "date" })),
+        field({ label: "Time" }, (id) => input({ id, type: "time" })),
+        field({ label: "Number", help: "Between 1 and 100." }, (id) =>
+          input({ id, type: "number", min: "1", max: "100", value: "42" })
+        ),
+        field({ label: "Range", help: "Drag to pick a value." }, (id) =>
+          input({ id, type: "range", min: "0", max: "100", value: "60" })
+        ),
+        field({ label: "Colour" }, (id) => input({ id, type: "color", value: "#6c63ff" })),
+        field({ label: "Phone" }, (id) => input({ id, type: "tel", placeholder: "+45 12 34 56 78" })),
+        field({ label: "URL" }, (id) => input({ id, type: "url", placeholder: "https://example.com" })),
+        field({ label: "File" }, (id) => input({ id, type: "file" })),
+      ]),
+  }),
+
+  example({
     title: "Form - Checkbox",
     render: () =>
       stack({ gap: 2 }, [
