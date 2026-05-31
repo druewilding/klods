@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/druewilding/klods/compare/klods-css-v1.0.1...klods-css-v1.1.0) (2026-05-31)
+
+
+### Features
+
+* Add table styles, pre styles, and a max-width for content ([#11](https://github.com/druewilding/klods/issues/11)) ([15b87cd](https://github.com/druewilding/klods/commit/15b87cdd1b890b7d7a34ccc5f904f34419c3cba3))
+
 ## [1.0.1](https://github.com/druewilding/klods/compare/klods-css-v1.0.0...klods-css-v1.0.1) (2026-05-31)
 
 
