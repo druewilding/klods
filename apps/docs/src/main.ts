@@ -65,29 +65,29 @@ function themeSwitcher(): KlodsNode {
   return row({ inline: true, gap: 2 }, [
     el("span", { id: "theme-label", class: "klods-muted" }, "Theme:"),
     buttonGroup({ "aria-labelledby": "theme-label" }, [
-    ...THEMES.map((t) =>
-      el(
-        "button",
-        {
-          class: "klods-button klods-button--ghost",
-          type: "button",
-          "data-theme-id": t.id,
-          "aria-pressed": String((document.documentElement.getAttribute("data-theme") ?? "") === t.id),
-          onClick: () => {
-            if (t.id) {
-              document.documentElement.setAttribute("data-theme", t.id);
-            } else {
-              document.documentElement.removeAttribute("data-theme");
-            }
-            const active = document.documentElement.getAttribute("data-theme") ?? "";
-            for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-theme-id]")) {
-              btn.setAttribute("aria-pressed", String((btn.dataset.themeId ?? "") === active));
-            }
+      ...THEMES.map((t) =>
+        el(
+          "button",
+          {
+            class: "klods-button klods-button--ghost",
+            type: "button",
+            "data-theme-id": t.id,
+            "aria-pressed": String((document.documentElement.getAttribute("data-theme") ?? "") === t.id),
+            onClick: () => {
+              if (t.id) {
+                document.documentElement.setAttribute("data-theme", t.id);
+              } else {
+                document.documentElement.removeAttribute("data-theme");
+              }
+              const active = document.documentElement.getAttribute("data-theme") ?? "";
+              for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-theme-id]")) {
+                btn.setAttribute("aria-pressed", String((btn.dataset.themeId ?? "") === active));
+              }
+            },
           },
-        },
-        t.label
-      )
-    ),
+          t.label
+        )
+      ),
     ]),
   ]);
 }
