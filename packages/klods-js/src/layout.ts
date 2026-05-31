@@ -39,6 +39,7 @@ export const content = builder<ContentProps>({
 });
 
 export const footer = builder({ tag: "footer", base: "klods-footer" });
+export const section = builder({ tag: "section", base: "klods-section" });
 
 // ── Layout utilities ─────────────────────────────────────────────────────
 type GapProp = { gap?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 };

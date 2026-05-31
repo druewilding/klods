@@ -45,16 +45,6 @@
   background: var(--klods-color-bg);
 }
 
-.docs-section {
-  scroll-margin-top: var(--klods-space-5);
-}
-
-.docs-section + .docs-section {
-  margin-block-start: var(--klods-space-7);
-  padding-block-start: var(--klods-space-6);
-  border-block-start: 1px solid var(--klods-color-border);
-}
-
 .docs-theme-swatch {
   display: inline-flex;
   align-items: center;
