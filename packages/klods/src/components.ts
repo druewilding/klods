@@ -1,0 +1,88 @@
+// First wave of components: nav, card, button, badge, alert, prose helpers.
+// All match the BEM classes shipped by klods-css.
+
+import { builder, el, KlodsNode } from "./core.js";
+import type { KlodsAttrs, KlodsChild } from "./core.js";
+
+// ── Nav ──────────────────────────────────────────────────────────────────
+export const nav = builder({ tag: "nav", base: "klods-nav" });
+export const navList = builder({ tag: "ul", base: "klods-nav__list" });
+
+export type NavLinkProps = {
+  href?: string;
+  active?: boolean;
+};
+const navLinkBuilder = builder<NavLinkProps>({
+  tag: "a",
+  base: "klods-nav__link",
+  modifiers: { active: "klods-nav__link--active" },
+});
+export function navLink(props?: (NavLinkProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode {
+  // Wrap each link in <li> so it's idiomatic inside <ul class="klods-nav__list">.
+  return el("li", {}, [navLinkBuilder(props ?? null, children)]);
+}
+
+// ── Card ─────────────────────────────────────────────────────────────────
+export type CardProps = {
+  elevated?: boolean;
+};
+export const card = builder<CardProps>({
+  tag: "div",
+  base: "klods-card",
+  modifiers: { elevated: "klods-card--elevated" },
+});
+export const cardTitle = builder({ tag: "h3", base: "klods-card__title" });
+export const cardBody = builder({ tag: "div", base: "klods-card__body" });
+export const cardFooter = builder({ tag: "div", base: "klods-card__footer" });
+
+// ── Button ───────────────────────────────────────────────────────────────
+export type ButtonProps = {
+  variant?: "default" | "primary" | "danger" | "ghost";
+  type?: "button" | "submit" | "reset";
+};
+const buttonBase = builder<ButtonProps>({
+  tag: "button",
+  base: "klods-button",
+  modifiers: {
+    variant: (v) => (v && v !== "default" ? `klods-button--${v}` : undefined),
+  },
+});
+export function button(props?: (ButtonProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode {
+  // Default `type="button"` so it never accidentally submits a form.
+  const merged = { type: "button", ...(props ?? {}) } as ButtonProps & KlodsAttrs;
+  return buttonBase(merged, children);
+}
+
+// ── Badge ────────────────────────────────────────────────────────────────
+export type BadgeProps = {
+  variant?: "default" | "accent" | "success" | "danger";
+};
+export const badge = builder<BadgeProps>({
+  tag: "span",
+  base: "klods-badge",
+  modifiers: {
+    variant: (v) => (v && v !== "default" ? `klods-badge--${v}` : undefined),
+  },
+});
+
+// ── Alert ────────────────────────────────────────────────────────────────
+export type AlertProps = {
+  variant?: "default" | "info" | "success" | "warning" | "danger";
+};
+const alertBase = builder<AlertProps>({
+  tag: "div",
+  base: "klods-alert",
+  modifiers: {
+    variant: (v) => (v && v !== "default" ? `klods-alert--${v}` : undefined),
+  },
+});
+export function alert(props?: (AlertProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode {
+  // role=alert by default for assistive tech, overridable.
+  const merged = { role: "alert", ...(props ?? {}) } as AlertProps & KlodsAttrs;
+  return alertBase(merged, children);
+}
+
+// ── Prose helpers ────────────────────────────────────────────────────────
+export const prose = builder({ tag: "div", base: "klods-prose" });
+export const muted = builder({ tag: "span", base: "klods-muted" });
+export const lead = builder({ tag: "p", base: "klods-lead" });

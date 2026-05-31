@@ -1,0 +1,28 @@
+{
+  "name": "klods",
+  "version": "0.0.0",
+  "private": true,
+  "description": "klods — a tiny, opinionated, fully themeable HTML/CSS/JS component library that feels like building with lego.",
+  "license": "MIT",
+  "author": "Drue Wilding",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "dev": "npm run dev --workspace apps/docs",
+    "lint": "eslint .",
+    "lint:check": "eslint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.1",
+    "eslint-config-plus-prettier": "^4.2.5",
+    "prettier": "^3.7.4",
+    "typescript": "^5.6.3"
+  }
+}

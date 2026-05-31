@@ -1,0 +1,29 @@
+{
+  "name": "klods-css",
+  "version": "0.0.0",
+  "description": "klods stylesheet — drop-in CSS for layout, utilities and components.",
+  "license": "MIT",
+  "author": "Drue Wilding",
+  "type": "module",
+  "main": "dist/klods.css",
+  "style": "dist/klods.css",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./dist/klods.css",
+    "./min": "./dist/klods.min.css",
+    "./src/*": "./src/*"
+  },
+  "scripts": {
+    "build": "npm run build:css && npm run build:min",
+    "build:css": "sass src/klods.scss dist/klods.css --style=expanded --no-source-map",
+    "build:min": "sass src/klods.scss dist/klods.min.css --style=compressed --no-source-map",
+    "dev": "sass src/klods.scss dist/klods.css --watch --style=expanded"
+  },
+  "devDependencies": {
+    "sass": "^1.81.0"
+  }
+}

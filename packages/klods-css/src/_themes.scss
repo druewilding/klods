@@ -1,0 +1,47 @@
+// Themes are pure token overrides. Apply with [data-theme="..."] on <html> or any
+// container. Default (no attribute) is the light theme defined in _tokens.scss.
+
+@layer klods.themes {
+  [data-theme="dark"] {
+    --klods-color-bg: #0f1115;
+    --klods-color-fg: #ececef;
+    --klods-color-muted: #9aa0aa;
+    --klods-color-surface: #181b22;
+    --klods-color-surface-2: #1f232c;
+    --klods-color-border: #2a2f3a;
+    --klods-color-accent: #8a8aff;
+    --klods-color-accent-fg: #0f1115;
+  }
+
+  [data-theme="playful"] {
+    --klods-color-bg: #fff7fb;
+    --klods-color-fg: #2a1a3a;
+    --klods-color-surface: #ffe8f3;
+    --klods-color-surface-2: #ffd6ea;
+    --klods-color-border: #f4bfd9;
+    --klods-color-accent: #e63990;
+    --klods-color-accent-fg: #ffffff;
+    --klods-radius-sm: 8px;
+    --klods-radius-md: 16px;
+    --klods-radius-lg: 28px;
+    --klods-font-sans: "Comic Sans MS", "Comic Sans", ui-rounded, system-ui, sans-serif;
+  }
+
+  [data-theme="brutalist"] {
+    --klods-color-bg: #ffffff;
+    --klods-color-fg: #000000;
+    --klods-color-surface: #ffffff;
+    --klods-color-surface-2: #f0f0f0;
+    --klods-color-border: #000000;
+    --klods-color-accent: #ffe600;
+    --klods-color-accent-fg: #000000;
+    --klods-radius-sm: 0;
+    --klods-radius-md: 0;
+    --klods-radius-lg: 0;
+    --klods-radius-pill: 0;
+    --klods-shadow-sm: 4px 4px 0 #000;
+    --klods-shadow-md: 6px 6px 0 #000;
+    --klods-shadow-lg: 10px 10px 0 #000;
+    --klods-font-sans: "Courier New", ui-monospace, monospace;
+  }
+}
