@@ -1,0 +1,83 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  # release-please watches commits on main and opens (or updates) a "Release PR"
+  # for each package. When that PR is merged, it creates a GitHub Release and tag.
+  release-please:
+    name: Release Please
+    runs-on: ubuntu-latest
+    outputs:
+      klods_css_released: ${{ steps.rp.outputs['packages/klods-css--release_created'] }}
+      klods_released: ${{ steps.rp.outputs['packages/klods--release_created'] }}
+      klods_css_version: ${{ steps.rp.outputs['packages/klods-css--version'] }}
+      klods_version: ${{ steps.rp.outputs['packages/klods--version'] }}
+
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: rp
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  # Publishes klods-css to npm when its release PR is merged.
+  publish-klods-css:
+    name: Publish klods-css to npm
+    needs: release-please
+    if: needs.release-please.outputs.klods_css_released == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build klods-css
+        run: npm run build --workspace packages/klods-css
+
+      - name: Publish klods-css@${{ needs.release-please.outputs.klods_css_version }}
+        run: npm publish --workspace packages/klods-css --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  # Publishes klods to npm when its release PR is merged.
+  publish-klods:
+    name: Publish klods to npm
+    needs: release-please
+    if: needs.release-please.outputs.klods_released == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build klods
+        run: npm run build --workspace packages/klods
+
+      - name: Publish klods@${{ needs.release-please.outputs.klods_version }}
+        run: npm publish --workspace packages/klods --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

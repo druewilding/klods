@@ -59,7 +59,8 @@ function shell(): KlodsNode {
   return page({ sidebar: true, class: "docs-shell" }, [
     header({}, [
       el("strong", { style: "font-size: 1.25rem;" }, "klods"),
-      el("span", { class: "klods-muted klods-push" }, "lego-feeling component kit"),
+      el("span", { class: "klods-badge" }, `v${__KLODS_VERSION__}`),
+      el("span", { class: "klods-push" }),
       themeSwitcher(),
     ]),
     sidebar({}, [

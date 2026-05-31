@@ -11,7 +11,7 @@
     "apps/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
+    "build": "npm run build --workspace packages/klods-css && npm run build --workspace packages/klods && npm run build --workspace apps/docs",
     "dev": "npm run dev --workspace apps/docs",
     "lint": "eslint .",
     "lint:check": "eslint",

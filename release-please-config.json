@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "packages": {
+    "packages/klods-css": {
+      "release-type": "node",
+      "package-name": "klods-css"
+    },
+    "packages/klods": {
+      "release-type": "node",
+      "package-name": "klods"
+    }
+  }
+}
