@@ -118,3 +118,6 @@ export function codeBlock(attrs?: KlodsAttrs | null, content?: KlodsChild | Klod
 export function inlineCode(attrs?: KlodsAttrs | null, content?: KlodsChild | KlodsChild[]): KlodsNode {
   return el("code", attrs ?? {}, content);
 }
+
+// ── Box ──────────────────────────────────────────────────────────────────
+export const box = builder({ tag: "div", base: "klods-box" });
