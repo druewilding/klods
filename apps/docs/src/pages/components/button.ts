@@ -3,12 +3,12 @@ import { alert, button, cluster } from "klods-js";
 
 import { example } from "../../example.js";
 
-export const label = "Buttons";
-export const anchor = "buttons";
+export const label = "Button";
+export const anchor = "button";
 
 export const examples: KlodsNode[] = [
   example({
-    title: "Buttons",
+    title: "Button",
     render: () =>
       cluster({}, [
         button({}, "Default"),
