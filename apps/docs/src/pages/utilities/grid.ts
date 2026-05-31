@@ -9,7 +9,8 @@ export const anchor = "grid-equal-columns";
 export const examples: KlodsNode[] = [
   example({
     title: "Grid — equal columns",
-    render: () => grid({ cols: 3, gap: 3 }, [box({}, "1"), box({}, "2"), box({}, "3"), box({}, "4"), box({}, "5"), box({}, "6")]),
+    render: () =>
+      grid({ cols: 3, gap: 3 }, [box({}, "1"), box({}, "2"), box({}, "3"), box({}, "4"), box({}, "5"), box({}, "6")]),
   }),
 
   example({
