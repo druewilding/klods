@@ -8,6 +8,16 @@
   margin: 0;
 }
 
+/* Prevent nested klods-page examples from escaping the preview box */
+.docs-example__preview .klods-page {
+  min-height: 20rem;
+}
+
+.docs-example__preview .klods-header {
+  position: static;
+  z-index: 0;
+}
+
 .docs-example__body {
   display: flex;
   flex-direction: column;
