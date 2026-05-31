@@ -126,42 +126,8 @@ export const examples: KlodsNode[] = [
         field({ label: "Number", help: "Between 1 and 100." }, (id) =>
           input({ id, type: "number", min: "1", max: "100", value: "42" })
         ),
-        el("div", { class: "klods-field" }, [
-          el("label", { class: "klods-label", for: "ex-range" }, "Range"),
-          el("div", { class: "klods-input", style: "display: flex; align-items: center; gap: var(--klods-space-3)" }, [
-            el("input", {
-              id: "ex-range",
-              type: "range",
-              min: "0",
-              max: "100",
-              value: "60",
-              style: "flex: 1 1 auto; accent-color: var(--klods-color-accent)",
-              oninput: (e: Event) => {
-                const inp = e.target as HTMLInputElement;
-                const out = inp.closest(".klods-field")?.querySelector("output");
-                if (out) out.textContent = inp.value;
-              },
-            }),
-            el("output", { for: "ex-range", style: "min-width: 3ch; text-align: right" }, "60"),
-          ]),
-        ]),
-        el("div", { class: "klods-field" }, [
-          el("label", { class: "klods-label", for: "ex-color" }, "Color"),
-          el("div", { class: "klods-input", style: "display: flex; align-items: center; gap: var(--klods-space-3)" }, [
-            el("input", {
-              id: "ex-color",
-              type: "color",
-              value: "#6c63ff",
-              style: "width: 2rem; height: 1.5rem; padding: 0; border: 0; background: none; cursor: pointer",
-              oninput: (e: Event) => {
-                const inp = e.target as HTMLInputElement;
-                const out = inp.closest(".klods-field")?.querySelector("output");
-                if (out) out.textContent = inp.value;
-              },
-            }),
-            el("output", { for: "ex-color" }, "#6c63ff"),
-          ]),
-        ]),
+        field({ label: "Range" }, (id) => input({ id, type: "range", min: "0", max: "100", value: "60" })),
+        field({ label: "Color" }, (id) => input({ id, type: "color", value: "#6c63ff" })),
         field({ label: "Phone" }, (id) => input({ id, type: "tel", placeholder: "+45 12 34 56 78" })),
         field({ label: "URL" }, (id) => input({ id, type: "url", placeholder: "https://example.com" })),
         field({ label: "File" }, (id) => input({ id, type: "file" })),

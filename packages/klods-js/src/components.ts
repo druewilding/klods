@@ -139,6 +139,23 @@ export type FieldProps = {
   invalid?: boolean;
 };
 
+// Form controls that can directly carry aria-describedby / aria-invalid.
+const FORM_CONTROLS = new Set(["input", "select", "textarea"]);
+
+// Injects aria attrs onto the node itself if it's a form control, or onto the
+// first form-control child if it's a wrapper (e.g. the range / color wrappers).
+function patchAriaAttrs(node: KlodsNode, attrs: KlodsAttrs): KlodsNode {
+  if (FORM_CONTROLS.has(node.tag)) {
+    return new KlodsNode(node.tag, { ...node.attrs, ...attrs }, node.children);
+  }
+  const patchedChildren = node.children.map((child) =>
+    child instanceof KlodsNode && FORM_CONTROLS.has(child.tag)
+      ? new KlodsNode(child.tag, { ...child.attrs, ...attrs }, child.children)
+      : child,
+  );
+  return new KlodsNode(node.tag, node.attrs, patchedChildren);
+}
+
 /**
  * Opinionated field wrapper. Renders a label, the control, and optional
  * help / error text. Automatically wires `for`, `id`, `aria-describedby`,
@@ -160,17 +177,12 @@ export function field(props: FieldProps & KlodsAttrs, renderInput: (id: string) 
 
   const describedBy = [helpId, errorId].filter(Boolean).join(" ") || undefined;
 
-  // Clone the input node with injected accessibility attributes.
+  // Inject aria attrs onto the control (or its first form-control child for wrappers).
   const inputNode = renderInput(id);
-  const patchedInput = new KlodsNode(
-    inputNode.tag,
-    {
-      ...inputNode.attrs,
-      ...(describedBy ? { "aria-describedby": describedBy } : {}),
-      ...(isInvalid ? { "aria-invalid": "true" } : {}),
-    },
-    inputNode.children
-  );
+  const patchedInput = patchAriaAttrs(inputNode, {
+    ...(describedBy ? { "aria-describedby": describedBy } : {}),
+    ...(isInvalid ? { "aria-invalid": "true" } : {}),
+  });
 
   const fieldClass = classNames([
     "klods-field",
@@ -205,7 +217,51 @@ export type InputProps = {
     | "file"
     | "hidden";
 };
-export const input = builder<InputProps>({ tag: "input", base: "klods-input" });
+export function input(props: InputProps & KlodsAttrs): KlodsNode {
+  const { type, class: extraClass, oninput: userOninput, ...rest } = props;
+  const cls = (extra: string) =>
+    classNames(["klods-input", extra, classNames(extraClass as KlodsAttrs["class"])]) || undefined;
+
+  if (type === "range") {
+    const initial = (rest.value as string) ?? "50";
+    return el("span", { class: cls("klods-input--range") }, [
+      el("input", {
+        type: "range",
+        ...rest,
+        oninput: (e: Event) => {
+          const inp = e.target as HTMLInputElement;
+          inp.closest(".klods-input--range")?.querySelector("output")?.textContent !== undefined &&
+            (inp.closest(".klods-input--range")!.querySelector("output")!.textContent = inp.value);
+          (userOninput as ((e: Event) => void) | undefined)?.(e);
+        },
+      }),
+      el("output", { for: rest.id as string | undefined }, initial),
+    ]);
+  }
+
+  if (type === "color") {
+    const initial = (rest.value as string) ?? "#000000";
+    return el("span", { class: cls("klods-input--color") }, [
+      el("input", {
+        type: "color",
+        ...rest,
+        oninput: (e: Event) => {
+          const inp = e.target as HTMLInputElement;
+          inp.closest(".klods-input--color")?.querySelector("output")?.textContent !== undefined &&
+            (inp.closest(".klods-input--color")!.querySelector("output")!.textContent = inp.value);
+          (userOninput as ((e: Event) => void) | undefined)?.(e);
+        },
+      }),
+      el("output", { for: rest.id as string | undefined }, initial),
+    ]);
+  }
+
+  return new KlodsNode("input", {
+    type,
+    ...rest,
+    class: cls(""),
+  });
+}
 
 export const select = builder({ tag: "select", base: "klods-select" });
 
