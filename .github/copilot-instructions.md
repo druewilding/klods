@@ -101,3 +101,7 @@ Releases are fully automated:
 - `tsup` — bundles `klods-js` to ESM + CJS + UMD + `.d.ts`
 - `vite` + `vitest` — docs site and unit tests
 - `eslint-config-plus-prettier` — shared lint/format config (Drue's own package)
+
+## Language
+
+- Always use US English spelling (e.g. "color" not "colour", "gray" not "grey", "center" not "centre")
