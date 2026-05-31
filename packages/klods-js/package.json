@@ -9,7 +9,12 @@
     "url": "https://github.com/druewilding/klods",
     "directory": "packages/klods-js"
   },
-  "keywords": ["klods", "klods-js", "component", "builder"],
+  "keywords": [
+    "klods",
+    "klods-js",
+    "component",
+    "builder"
+  ],
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
