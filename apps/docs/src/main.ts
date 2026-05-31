@@ -80,6 +80,10 @@ function themeSwitcher(): KlodsNode {
                 document.documentElement.removeAttribute("data-theme");
               }
               const active = document.documentElement.getAttribute("data-theme") ?? "";
+              const params = new URLSearchParams(location.search);
+              if (active) params.set("theme", active);
+              else params.delete("theme");
+              history.replaceState(null, "", `${location.pathname}${params.size ? `?${params}` : ""}`);
               for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-theme-id]")) {
                 btn.setAttribute("aria-pressed", String((btn.dataset.themeId ?? "") === active));
               }
@@ -127,6 +131,11 @@ function shell(): KlodsNode {
     ]),
   ]);
 }
+
+// Restore theme from URL on load (before render so aria-pressed is correct)
+const initialTheme = new URLSearchParams(location.search).get("theme") ?? "";
+if (initialTheme) document.documentElement.setAttribute("data-theme", initialTheme);
+else document.documentElement.removeAttribute("data-theme");
 
 const root = document.querySelector<HTMLDivElement>("#app");
 if (!root) throw new Error("Missing #app root");
