@@ -69,11 +69,16 @@ function themeSwitcher(): KlodsNode {
           class: "klods-button klods-button--ghost",
           type: "button",
           "data-theme-id": t.id,
-          "aria-pressed": (document.documentElement.getAttribute("data-theme") ?? "") === t.id,
+          "aria-pressed": String((document.documentElement.getAttribute("data-theme") ?? "") === t.id),
           onClick: () => {
-            document.documentElement.setAttribute("data-theme", t.id);
+            if (t.id) {
+              document.documentElement.setAttribute("data-theme", t.id);
+            } else {
+              document.documentElement.removeAttribute("data-theme");
+            }
+            const active = document.documentElement.getAttribute("data-theme") ?? "";
             for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-theme-id]")) {
-              btn.setAttribute("aria-pressed", String(btn.dataset.themeId === t.id));
+              btn.setAttribute("aria-pressed", String((btn.dataset.themeId ?? "") === active));
             }
           },
         },
