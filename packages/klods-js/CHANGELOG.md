@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/druewilding/klods/compare/klods-js-v1.0.2...klods-js-v1.0.3) (2026-05-31)
+
+
+### Bug Fixes
+
+* Use the correct package name in the README ([#8](https://github.com/druewilding/klods/issues/8)) ([44fc851](https://github.com/druewilding/klods/commit/44fc8513aa91dffc9edc0371bf8a015fe37d9497))
+
 ## [1.0.2](https://github.com/druewilding/klods/compare/klods-js-v1.0.1...klods-js-v1.0.2) (2026-05-31)
 
 
