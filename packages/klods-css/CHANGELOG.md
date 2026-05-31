@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/druewilding/klods/compare/klods-css-v1.2.0...klods-css-v1.3.0) (2026-05-31)
+
+
+### Features
+
+* Enable sticky header ([#17](https://github.com/druewilding/klods/issues/17)) ([cc6a623](https://github.com/druewilding/klods/commit/cc6a6230cfea81684a41c456eaccc81e96785d81))
+
 ## [1.2.0](https://github.com/druewilding/klods/compare/klods-css-v1.1.0...klods-css-v1.2.0) (2026-05-31)
 
 
