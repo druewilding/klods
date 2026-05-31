@@ -14,10 +14,10 @@ describe("klods builders", () => {
     );
   });
 
-  it("applies modifier classes for sidebar and sidebar-right", () => {
-    const html = page({ sidebar: true, sidebarRight: true }, [sidebar({}, "S")]).toString();
+  it("applies modifier classes for sidebar and sidebar-trailing", () => {
+    const html = page({ sidebar: true, sidebarPosition: "trailing" }, [sidebar({}, "S")]).toString();
     expect(html).toContain("klods-page--with-sidebar");
-    expect(html).toContain("klods-page--sidebar-right");
+    expect(html).toContain("klods-page--sidebar-trailing");
     expect(html).toContain('<aside class="klods-sidebar">S</aside>');
   });
 
