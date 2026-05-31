@@ -359,4 +359,241 @@
     font-size: var(--klods-font-size-lg);
     color: var(--klods-color-muted);
   }
+
+  // ── Forms ─────────────────────────────────────────────────────────────
+  // klods-form          — flex-column container for fields
+  // klods-field         — label + control + help/error wrapper
+  // klods-label         — the field label (use --required for * marker)
+  // klods-input         — styled <input>
+  // klods-select        — styled <select> with custom arrow
+  // klods-textarea      — styled <textarea>
+  // klods-help          — hint text below a control
+  // klods-error         — validation error (shown when klods-field--invalid)
+  // klods-checkbox      — labelled checkbox wrapper
+  // klods-radio         — labelled radio wrapper
+  // klods-switch        — accessible toggle switch
+
+  .klods-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--klods-space-5);
+  }
+
+  .klods-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--klods-space-2);
+  }
+
+  .klods-label {
+    font-size: var(--klods-font-size-sm);
+    font-weight: 600;
+    color: var(--klods-color-fg);
+  }
+
+  .klods-label--required::after {
+    content: " *";
+    color: var(--klods-color-danger);
+    font-weight: 400;
+  }
+
+  // Shared base styles for all text controls
+  .klods-input,
+  .klods-select,
+  .klods-textarea {
+    display: block;
+    width: 100%;
+    padding: var(--klods-space-2) var(--klods-space-3);
+    font: inherit;
+    color: var(--klods-color-fg);
+    background: var(--klods-color-bg);
+    border: 1px solid var(--klods-color-border);
+    border-radius: var(--klods-radius-sm);
+    transition:
+      border-color var(--klods-transition),
+      box-shadow var(--klods-transition);
+    appearance: none;
+  }
+
+  .klods-input::placeholder,
+  .klods-textarea::placeholder {
+    color: var(--klods-color-muted);
+  }
+
+  .klods-input:hover,
+  .klods-select:hover,
+  .klods-textarea:hover {
+    border-color: var(--klods-color-muted);
+  }
+
+  .klods-input:focus,
+  .klods-select:focus,
+  .klods-textarea:focus {
+    outline: none;
+    border-color: var(--klods-color-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--klods-color-accent) 20%, transparent);
+  }
+
+  .klods-input:disabled,
+  .klods-select:disabled,
+  .klods-textarea:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--klods-color-surface-2);
+  }
+
+  .klods-input--sm {
+    padding: var(--klods-space-1) var(--klods-space-2);
+    font-size: var(--klods-font-size-sm);
+  }
+
+  .klods-input--lg {
+    padding: var(--klods-space-3) var(--klods-space-4);
+    font-size: var(--klods-font-size-lg);
+  }
+
+  // Custom dropdown arrow
+  .klods-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--klods-space-3) center;
+    background-size: 1rem;
+    padding-inline-end: calc(var(--klods-space-3) * 2 + 1rem);
+  }
+
+  .klods-textarea {
+    resize: vertical;
+    min-height: 7rem;
+  }
+
+  .klods-help {
+    font-size: var(--klods-font-size-sm);
+    color: var(--klods-color-muted);
+  }
+
+  .klods-error {
+    font-size: var(--klods-font-size-sm);
+    color: var(--klods-color-danger);
+    display: none;
+  }
+
+  // Invalid state — red border, danger focus ring, show error, hide help
+  .klods-field--invalid .klods-input,
+  .klods-field--invalid .klods-select,
+  .klods-field--invalid .klods-textarea {
+    border-color: var(--klods-color-danger);
+  }
+
+  .klods-field--invalid .klods-input:focus,
+  .klods-field--invalid .klods-select:focus,
+  .klods-field--invalid .klods-textarea:focus {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--klods-color-danger) 20%, transparent);
+  }
+
+  .klods-field--invalid .klods-error {
+    display: block;
+  }
+
+  .klods-field--invalid .klods-help {
+    display: none;
+  }
+
+  // ── Checkbox & Radio ──────────────────────────────────────────────────
+  .klods-checkbox,
+  .klods-radio {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--klods-space-2);
+    cursor: pointer;
+    user-select: none;
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      accent-color: var(--klods-color-accent);
+      width: 1rem;
+      height: 1rem;
+      margin: 0;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    &:has(input:disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      input {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  // ── Switch ────────────────────────────────────────────────────────────
+  .klods-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--klods-space-3);
+    cursor: pointer;
+    user-select: none;
+
+    &:has(.klods-switch__input:disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .klods-switch__input {
+    // Visually hidden but still in the accessibility tree
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .klods-switch__track {
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    width: 2.5rem; // 40px
+    height: 1.5rem; // 24px
+    background: var(--klods-color-border);
+    border-radius: var(--klods-radius-pill);
+    transition: background var(--klods-transition);
+
+    // The sliding thumb
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0.1875rem; // 3px
+      left: 0.1875rem;
+      width: 1.125rem; // 18px
+      height: 1.125rem;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: var(--klods-shadow-sm);
+      transition: transform var(--klods-transition);
+    }
+  }
+
+  .klods-switch__input:checked + .klods-switch__track {
+    background: var(--klods-color-accent);
+
+    &::after {
+      transform: translateX(1rem);
+    }
+  }
+
+  .klods-switch__input:focus-visible + .klods-switch__track {
+    outline: 2px solid var(--klods-color-accent);
+    outline-offset: 2px;
+  }
+
+  .klods-switch__label {
+    line-height: var(--klods-line-height-tight);
+  }
 }
