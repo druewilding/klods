@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/druewilding/klods/compare/klods-js-v1.0.3...klods-js-v1.1.0) (2026-05-31)
+
+
+### Features
+
+* Add a box component ([#15](https://github.com/druewilding/klods/issues/15)) ([890613f](https://github.com/druewilding/klods/commit/890613f208fd2d970af9704fa9abacfe25053b75))
+
 ## [1.0.3](https://github.com/druewilding/klods/compare/klods-js-v1.0.2...klods-js-v1.0.3) (2026-05-31)
 
 
