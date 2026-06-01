@@ -2,7 +2,7 @@
 // Each builder is a thin wrapper around `builder()` from core.ts.
 
 import type { KlodsAttrs, KlodsChild } from "./core.js";
-import { builder, el, KlodsNode, raw } from "./core.js";
+import { builder, el, KlodsNode } from "./core.js";
 
 // ── Page ─────────────────────────────────────────────────────────────────
 export type PageProps = {
@@ -94,9 +94,6 @@ export function text(value: string | number): KlodsNode {
 export type { KlodsAttrs, KlodsChild };
 
 // ── Sidebar toggle ───────────────────────────────────────────────────────
-const HAMBURGER_ICON = raw(
-  '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect y="3" width="20" height="2" rx="1" fill="currentColor"/><rect y="9" width="20" height="2" rx="1" fill="currentColor"/><rect y="15" width="20" height="2" rx="1" fill="currentColor"/></svg>'
-);
 
 /**
  * Hamburger button for toggling the sidebar on mobile. Only rendered by CSS
@@ -105,12 +102,13 @@ const HAMBURGER_ICON = raw(
  * @example
  * sidebarToggle({ onClick: (e) => toggleSidebar(e.currentTarget as HTMLElement) })
  */
-export function sidebarToggle(attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode {
-  return el(
-    "button",
-    { type: "button", "aria-label": "Toggle sidebar", class: "klods-sidebar-toggle", ...(attrs ?? {}) },
-    children ?? HAMBURGER_ICON
-  );
+export function sidebarToggle(attrs?: KlodsAttrs | null): KlodsNode {
+  return el("button", {
+    type: "button",
+    "aria-label": "Toggle sidebar",
+    class: "klods-sidebar-toggle",
+    ...(attrs ?? {}),
+  });
 }
 
 /**
