@@ -100,6 +100,7 @@ export type TableProps = {
   striped?: boolean;
   dense?: boolean;
 };
+export const tableWrap = builder({ tag: "div", base: "klods-table-wrap" });
 export const table = builder<TableProps>({
   tag: "table",
   base: "klods-table",
