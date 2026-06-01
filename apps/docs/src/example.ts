@@ -16,6 +16,8 @@ export type ExampleSpec = {
   description?: string;
   /** A function that produces the KlodsNode to demo. Source is shown verbatim. */
   render: () => KlodsNode;
+  /** Set to true to hide the TypeScript and HTML source panes (e.g. for prose-only cards). */
+  hideCode?: boolean;
 };
 
 /** Tiny HTML pretty-printer for the "HTML" tab. */
@@ -72,11 +74,11 @@ export function example(spec: ExampleSpec): KlodsNode {
     spec.description ? el("p", { class: "klods-muted docs-example__desc" }, spec.description) : null,
     cardBody({ class: "docs-example__body" }, [
       el("section", { class: "docs-example__preview", "aria-label": "Live preview" }, [result]),
-      el("details", { class: "docs-example__source" }, [
+      spec.hideCode ? null : el("details", { class: "docs-example__source" }, [
         el("summary", {}, "TypeScript"),
         el("pre", {}, [el("code", { class: "language-ts" }, tsSource)]),
       ]),
-      el("details", { class: "docs-example__source" }, [
+      spec.hideCode ? null : el("details", { class: "docs-example__source" }, [
         el("summary", {}, "HTML"),
         el("pre", {}, [el("code", { class: "language-html" }, htmlSource)]),
       ]),

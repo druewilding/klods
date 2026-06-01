@@ -22,6 +22,7 @@ export const examples: KlodsNode[] = [
 
   example({
     title: "Nav — mobile sidebar pattern",
+    hideCode: true,
     render: () =>
       prose({}, [
         el("p", {}, [
