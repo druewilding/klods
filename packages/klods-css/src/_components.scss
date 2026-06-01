@@ -1,5 +1,6 @@
 // Components — first wave: nav, card, button, badge, alert, prose.
 // More to follow (forms, table, modal, tabs, breadcrumbs, toast).
+@use "tokens" as t;
 
 @layer klods.components {
   // ── Nav ────────────────────────────────────────────────────────────────
@@ -317,6 +318,12 @@
   }
 
   // ── Table ─────────────────────────────────────────────────────────────
+  // Wrap a table in .klods-table-wrap to get horizontal scroll on small screens.
+  .klods-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .klods-table {
     width: 100%;
     border-collapse: collapse;
@@ -671,5 +678,19 @@
     width: 100%;
     flex-direction: row-reverse;
     justify-content: space-between;
+  }
+
+  // ── Mobile form tap targets ────────────────────────────────────────────
+  // WCAG 2.5.8 requires a minimum 24×24px target; aim for ~44px on touch screens.
+  @media (max-width: #{t.$klods-bp-md}) {
+    .klods-input,
+    .klods-select {
+      min-height: 2.75rem; // ~44px
+    }
+
+    .klods-checkbox,
+    .klods-radio {
+      min-height: 2.75rem;
+    }
   }
 }

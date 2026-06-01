@@ -3,6 +3,7 @@
 // .klods-page is a CSS Grid container that can be:
 //   - default                          : header / main / footer
 //   - --with-sidebar                   : adds a left sidebar column
+@use "tokens" as t;
 //   - --with-sidebar.--sidebar-trailing : sidebar on the trailing side
 
 @layer klods.layout {
@@ -105,7 +106,7 @@
   }
 
   // Collapse sidebar on small screens — stack everything.
-  @media (max-width: 48rem) {
+  @media (max-width: #{t.$klods-bp-md}) {
     .klods-page--with-sidebar,
     .klods-page--with-sidebar.klods-page--sidebar-trailing {
       grid-template-columns: 1fr;
