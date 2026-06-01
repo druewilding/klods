@@ -83,15 +83,17 @@
               <div>
                 <h1>Vanilla HTML demo</h1>
                 <p class="klods-lead">
-                  One <code>&lt;link&gt;</code> tag. Plain BEM classes. No JavaScript, no build step, no dependencies.
+                  One <code>&lt;link&gt;</code> tag. Plain BEM classes. No build step, no framework required.
                 </p>
               </div>
 
+              <div class="klods-alert klods-alert--success">
+                Drop the <code>klods-css</code> stylesheet into any HTML file and start building with plain BEM classes
+                — no build step, no bundler, no framework required.
+              </div>
               <div class="klods-alert klods-alert--info">
-                This page is built with nothing but a stylesheet from unpkg and standard HTML. You can add
-                <code>klods-css</code> into any Rails app, WordPress theme, or plain HTML file and start building
-                immediately. This is not an exhaustive demo — <a id="full-docs-link" href="./">see the full docs</a> for
-                every component and option available.
+                This is not an exhaustive demo — <a id="full-docs-link" href="./">see the full docs</a> for every
+                component and option available.
               </div>
 
               <div class="klods-prose">
@@ -103,9 +105,11 @@
     &lt;meta charset="UTF-8" /&gt;
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
     &lt;title&gt;My page&lt;/title&gt;
-    &lt;link rel="stylesheet"
-      href="https://unpkg.com/klods-css/dist/klods.min.css" /&gt;
+
+    &lt;!-- Klods CSS import --&gt;
+    &lt;link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css" /&gt;
   &lt;/head&gt;
+
   &lt;body&gt;
     &lt;div class="klods-page
                 klods-page--with-sidebar
@@ -141,19 +145,18 @@
       &lt;footer class="klods-footer"&gt;
         &lt;span&gt;© 2026 My app&lt;/span&gt;
       &lt;/footer&gt;
-
     &lt;/div&gt;
 
+    &lt;!-- Optional JS import --&gt;
     &lt;script src="https://unpkg.com/klods-css/dist/klods.js"&gt;&lt;/script&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-                <p>
+                <div class="klods-alert klods-alert--info">
                   The <code>klods-sidebar-toggle</code> button is hidden by CSS on wide viewports and revealed on
-                  mobile. Add the <code>klods.js</code> script tag alongside the stylesheet and call
-                  <code>klods.toggleSidebar(this)</code> from the button's <code>onclick</code> — it handles the
-                  backdrop-dismiss and nav-link-close behaviour automatically on first call. If you are using
-                  <code>klods-js</code>, the function is already included and exported for you.
-                </p>
+                  mobile. Add the <code>klods.js</code> script tag and call <code>klods.toggleSidebar(this)</code> from
+                  the button's <code>onclick</code> — it handles the backdrop-dismiss and nav-link-close behaviour
+                  automatically on first call.
+                </div>
               </div>
             </div>
           </section>
