@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>klods — vanilla HTML demo</title>
     <link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css" />
+    <script src="https://unpkg.com/klods-css/dist/klods.js"></script>
   </head>
   <body>
     <div class="klods-page klods-page--with-sidebar klods-page--sticky-header">
       <header class="klods-header">
-        <button type="button" class="klods-sidebar-toggle" aria-label="Toggle sidebar" onclick="toggleSidebar(this)">
+        <button
+          type="button"
+          class="klods-sidebar-toggle"
+          aria-label="Toggle sidebar"
+          onclick="klods.toggleSidebar(this)"
+        >
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
             <rect y="3" width="20" height="2" rx="1" fill="currentColor" />
             <rect y="9" width="20" height="2" rx="1" fill="currentColor" />
@@ -109,7 +115,7 @@
         &lt;!-- Hamburger button — only visible on mobile via CSS --&gt;
         &lt;button type="button" class="klods-sidebar-toggle"
                 aria-label="Toggle sidebar"
-                onclick="toggleSidebar(this)"&gt;
+                onclick="klods.toggleSidebar(this)"&gt;
           &lt;svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"&gt;
             &lt;rect y="3"  width="20" height="2" rx="1" fill="currentColor"/&gt;
             &lt;rect y="9"  width="20" height="2" rx="1" fill="currentColor"/&gt;
@@ -138,36 +144,15 @@
 
     &lt;/div&gt;
 
-    &lt;script&gt;
-      function toggleSidebar(targetEl) {
-        var pageEl = targetEl.closest(".klods-page");
-        if (!pageEl) return;
-        if (!pageEl.hasAttribute("data-sidebar-wired")) {
-          pageEl.setAttribute("data-sidebar-wired", "");
-          var sidebarEl = pageEl.querySelector(":scope &gt; .klods-sidebar");
-          if (sidebarEl) {
-            sidebarEl.addEventListener("click", function(e) { e.stopPropagation(); });
-            sidebarEl.addEventListener("click", function(e) {
-              if (e.target.closest("a")) pageEl.removeAttribute("data-sidebar-open");
-            });
-          }
-          pageEl.addEventListener("click", function(e) {
-            if (!pageEl.hasAttribute("data-sidebar-open")) return;
-            var headerEl = pageEl.querySelector(":scope &gt; .klods-header");
-            if (headerEl &amp;&amp; headerEl.contains(e.target)) return;
-            pageEl.removeAttribute("data-sidebar-open");
-          });
-        }
-        if (pageEl.hasAttribute("data-sidebar-open")) pageEl.removeAttribute("data-sidebar-open");
-        else pageEl.setAttribute("data-sidebar-open", "");
-      }
-    &lt;/script&gt;
+    &lt;script src="https://unpkg.com/klods-css/dist/klods.js"&gt;&lt;/script&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
                 <p>
                   The <code>klods-sidebar-toggle</code> button is hidden by CSS on wide viewports and revealed on
-                  mobile. The <code>toggleSidebar</code> script auto-wires the backdrop-dismiss and nav-link-close
-                  behaviour on first call — no extra setup required.
+                  mobile. Add the <code>klods.js</code> script tag alongside the stylesheet and call
+                  <code>klods.toggleSidebar(this)</code> from the button's <code>onclick</code> — it handles the
+                  backdrop-dismiss and nav-link-close behaviour automatically on first call. If you are using
+                  <code>klods-js</code>, the function is already included and exported for you.
                 </p>
               </div>
             </div>
@@ -456,31 +441,6 @@
     // Wire up theme buttons
     for (const btn of document.querySelectorAll("[data-theme-id]")) {
       btn.addEventListener("click", () => applyTheme(btn.dataset.themeId ?? ""));
-    }
-
-    // Sidebar toggle — opens/closes the sidebar drawer on mobile.
-    // Auto-wires backdrop-dismiss and nav-link-close on first call.
-    function toggleSidebar(targetEl) {
-      const pageEl = targetEl.closest(".klods-page");
-      if (!pageEl) return;
-      if (!pageEl.hasAttribute("data-sidebar-wired")) {
-        pageEl.setAttribute("data-sidebar-wired", "");
-        const sidebarEl = pageEl.querySelector(":scope > .klods-sidebar");
-        if (sidebarEl) {
-          sidebarEl.addEventListener("click", (e) => e.stopPropagation());
-          sidebarEl.addEventListener("click", (e) => {
-            if (e.target.closest("a")) pageEl.removeAttribute("data-sidebar-open");
-          });
-        }
-        pageEl.addEventListener("click", (e) => {
-          if (!pageEl.hasAttribute("data-sidebar-open")) return;
-          const headerEl = pageEl.querySelector(":scope > .klods-header");
-          if (headerEl?.contains(e.target)) return;
-          pageEl.removeAttribute("data-sidebar-open");
-        });
-      }
-      if (pageEl.hasAttribute("data-sidebar-open")) pageEl.removeAttribute("data-sidebar-open");
-      else pageEl.setAttribute("data-sidebar-open", "");
     }
   </script>
 </html>
