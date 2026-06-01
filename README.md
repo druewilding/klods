@@ -2,6 +2,8 @@
 
 > Tiny, opinionated, fully themeable HTML/CSS/JS pieces that snap together like lego.
 
+<img src="apps/docs/public/klods-icon.svg" width="24" height="24" alt="klods logo" />
+
 `klods` (Danish for _block_) is a component kit with two independent packages you can use
 separately or together.
 

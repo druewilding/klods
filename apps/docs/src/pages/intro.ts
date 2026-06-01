@@ -1,10 +1,13 @@
 import type { KlodsNode } from "klods-js";
-import { card, cardBody, cardTitle, el, lead, prose, stack } from "klods-js";
+import { alert, card, cardBody, cardTitle, el, lead, prose, stack } from "klods-js";
 
 export function renderIntroSection(): KlodsNode {
-  return stack({ gap: 5 }, [
-    el("h1", {}, "klods"),
-    lead({}, "Tiny, opinionated, fully themeable HTML/CSS/JS pieces that snap together like lego."),
+  return stack({ gap: 4 }, [
+    el("div", {}, [
+      el("h1", {}, "klods"),
+      el("h2", {}, "Full documentation"),
+      lead({}, "Tiny, opinionated, fully themeable HTML/CSS/JS pieces that snap together like lego."),
+    ]),
     prose({}, [
       el("p", {}, ["klods (Danish for ", el("em", {}, "block"), ") gives you two ways to build:"]),
       el("ul", {}, [
@@ -25,9 +28,8 @@ export function renderIntroSection(): KlodsNode {
           " for a lego-like API that produces both DOM and HTML strings.",
         ]),
       ]),
-      el("p", {}, "Every example below is rendered live, and the source you see is the source that produced it."),
     ]),
-    stack({ gap: 4 }, [
+    stack({ gap: 8 }, [
       card({}, [
         cardTitle({}, "Install"),
         cardBody({}, [
@@ -40,6 +42,10 @@ export function renderIntroSection(): KlodsNode {
           ),
         ]),
       ]),
+      alert(
+        { variant: "info" },
+        "Every example below is rendered live, and the source you see is the source that produced it."
+      ),
     ]),
   ]);
 }
