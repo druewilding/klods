@@ -5,7 +5,17 @@
 // Both are produced from the same KlodsNode tree, so the docs site can show the
 // TS source, the rendered HTML and the live preview from one source of truth.
 
-export type KlodsChild = string | number | bigint | boolean | null | undefined | KlodsNode | Node | RawHtml | KlodsChild[];
+export type KlodsChild =
+  | string
+  | number
+  | bigint
+  | boolean
+  | null
+  | undefined
+  | KlodsNode
+  | Node
+  | RawHtml
+  | KlodsChild[];
 
 export type KlodsAttrs = {
   class?: string | string[] | Record<string, boolean | undefined> | undefined;
