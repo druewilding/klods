@@ -9,12 +9,19 @@
   <body>
     <div class="klods-page klods-page--with-sidebar klods-page--sticky-header">
       <header class="klods-header">
+        <button type="button" class="klods-sidebar-toggle" aria-label="Toggle sidebar" onclick="toggleSidebar(this)">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <rect y="3" width="20" height="2" rx="1" fill="currentColor" />
+            <rect y="9" width="20" height="2" rx="1" fill="currentColor" />
+            <rect y="15" width="20" height="2" rx="1" fill="currentColor" />
+          </svg>
+        </button>
         <div class="klods-fill">
           <strong style="font-size: 1.25rem">klods</strong>
-          <span class="klods-badge">vanilla HTML demo</span>
+          <span class="klods-badge">vanilla HTML</span>
         </div>
         <a id="docs-link" href="./" class="klods-button klods-button--ghost">← Docs</a>
-        <div class="klods-fill">
+        <div class="klods-fill klods-hide-tablet">
           <span class="klods-push"></span>
           <div class="klods-row klods-row--inline klods-row--gap-2">
             <span id="theme-label" class="klods-muted">Theme:</span>
@@ -83,7 +90,7 @@
 
               <div class="klods-prose">
                 <h2>Get started</h2>
-                <p>A simple page structure with header, sidebar, content and footer looks like this:</p>
+                <p>A simple page structure with a collapsible sidebar on mobile looks like this:</p>
                 <pre><code>&lt;!doctype html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
@@ -99,6 +106,16 @@
                 klods-page--sticky-header"&gt;
 
       &lt;header class="klods-header"&gt;
+        &lt;!-- Hamburger button — only visible on mobile via CSS --&gt;
+        &lt;button type="button" class="klods-sidebar-toggle"
+                aria-label="Toggle sidebar"
+                onclick="toggleSidebar(this)"&gt;
+          &lt;svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"&gt;
+            &lt;rect y="3"  width="20" height="2" rx="1" fill="currentColor"/&gt;
+            &lt;rect y="9"  width="20" height="2" rx="1" fill="currentColor"/&gt;
+            &lt;rect y="15" width="20" height="2" rx="1" fill="currentColor"/&gt;
+          &lt;/svg&gt;
+        &lt;/button&gt;
         &lt;strong&gt;My app&lt;/strong&gt;
       &lt;/header&gt;
 
@@ -113,9 +130,6 @@
 
       &lt;main class="klods-content"&gt;
         &lt;h1&gt;Hello, klods&lt;/h1&gt;
-        &lt;button class="klods-button klods-button--primary" type="button"&gt;
-          Get started
-        &lt;/button&gt;
       &lt;/main&gt;
 
       &lt;footer class="klods-footer"&gt;
@@ -123,11 +137,37 @@
       &lt;/footer&gt;
 
     &lt;/div&gt;
+
+    &lt;script&gt;
+      function toggleSidebar(targetEl) {
+        var pageEl = targetEl.closest(".klods-page");
+        if (!pageEl) return;
+        if (!pageEl.hasAttribute("data-sidebar-wired")) {
+          pageEl.setAttribute("data-sidebar-wired", "");
+          var sidebarEl = pageEl.querySelector(":scope &gt; .klods-sidebar");
+          if (sidebarEl) {
+            sidebarEl.addEventListener("click", function(e) { e.stopPropagation(); });
+            sidebarEl.addEventListener("click", function(e) {
+              if (e.target.closest("a")) pageEl.removeAttribute("data-sidebar-open");
+            });
+          }
+          pageEl.addEventListener("click", function(e) {
+            if (!pageEl.hasAttribute("data-sidebar-open")) return;
+            var headerEl = pageEl.querySelector(":scope &gt; .klods-header");
+            if (headerEl &amp;&amp; headerEl.contains(e.target)) return;
+            pageEl.removeAttribute("data-sidebar-open");
+          });
+        }
+        if (pageEl.hasAttribute("data-sidebar-open")) pageEl.removeAttribute("data-sidebar-open");
+        else pageEl.setAttribute("data-sidebar-open", "");
+      }
+    &lt;/script&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
                 <p>
-                  The <code>klods-page</code> wrapper carries three classes to enable the sidebar and sticky header. The
-                  content area is flexible and will fill the remaining space.
+                  The <code>klods-sidebar-toggle</code> button is hidden by CSS on wide viewports and revealed on
+                  mobile. The <code>toggleSidebar</code> script auto-wires the backdrop-dismiss and nav-link-close
+                  behaviour on first call — no extra setup required.
                 </p>
               </div>
             </div>
@@ -413,9 +453,34 @@
     const initialTheme = new URLSearchParams(location.search).get("theme") ?? "";
     applyTheme(initialTheme);
 
-    // Wire up buttons
+    // Wire up theme buttons
     for (const btn of document.querySelectorAll("[data-theme-id]")) {
       btn.addEventListener("click", () => applyTheme(btn.dataset.themeId ?? ""));
+    }
+
+    // Sidebar toggle — opens/closes the sidebar drawer on mobile.
+    // Auto-wires backdrop-dismiss and nav-link-close on first call.
+    function toggleSidebar(targetEl) {
+      const pageEl = targetEl.closest(".klods-page");
+      if (!pageEl) return;
+      if (!pageEl.hasAttribute("data-sidebar-wired")) {
+        pageEl.setAttribute("data-sidebar-wired", "");
+        const sidebarEl = pageEl.querySelector(":scope > .klods-sidebar");
+        if (sidebarEl) {
+          sidebarEl.addEventListener("click", (e) => e.stopPropagation());
+          sidebarEl.addEventListener("click", (e) => {
+            if (e.target.closest("a")) pageEl.removeAttribute("data-sidebar-open");
+          });
+        }
+        pageEl.addEventListener("click", (e) => {
+          if (!pageEl.hasAttribute("data-sidebar-open")) return;
+          const headerEl = pageEl.querySelector(":scope > .klods-header");
+          if (headerEl?.contains(e.target)) return;
+          pageEl.removeAttribute("data-sidebar-open");
+        });
+      }
+      if (pageEl.hasAttribute("data-sidebar-open")) pageEl.removeAttribute("data-sidebar-open");
+      else pageEl.setAttribute("data-sidebar-open", "");
     }
   </script>
 </html>
