@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/druewilding/klods/compare/klods-js-v1.9.0...klods-js-v1.10.0) (2026-06-01)
+
+
+### Features
+
+* Move the hamburger SVG directly into klods-css ([#59](https://github.com/druewilding/klods/issues/59)) ([31ea515](https://github.com/druewilding/klods/commit/31ea515f2f3b6435a0910a8a72b5a56c3eb5988a))
+
 ## [1.9.0](https://github.com/druewilding/klods/compare/klods-js-v1.8.0...klods-js-v1.9.0) (2026-06-01)
 
 
