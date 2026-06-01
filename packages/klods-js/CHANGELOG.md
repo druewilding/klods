@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/druewilding/klods/compare/klods-js-v1.8.0...klods-js-v1.9.0) (2026-06-01)
+
+
+### Features
+
+* Make klods responsive ([#55](https://github.com/druewilding/klods/issues/55)) ([89bebad](https://github.com/druewilding/klods/commit/89bebad734495132749ddd9a4c513bb2f4b707cd))
+
 ## [1.8.0](https://github.com/druewilding/klods/compare/klods-js-v1.7.0...klods-js-v1.8.0) (2026-05-31)
 
 
