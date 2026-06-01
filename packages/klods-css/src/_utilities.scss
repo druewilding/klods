@@ -128,4 +128,19 @@
       grid-template-columns: 1fr;
     }
   }
+
+  // Responsive visibility helpers
+  // klods-hide-mobile  — hidden on phones (≤ 30rem / 480px)
+  // klods-hide-tablet  — hidden on phones + tablets (≤ 48rem / 768px)
+  @media (max-width: #{t.$klods-bp-sm}) {
+    .klods-hide-mobile {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: #{t.$klods-bp-md}) {
+    .klods-hide-tablet {
+      display: none !important;
+    }
+  }
 }

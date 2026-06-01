@@ -127,9 +127,9 @@ function shell(): KlodsNode {
           href: initialTheme ? `./vanilla.html?theme=${initialTheme}` : "./vanilla.html",
           class: "klods-button klods-button--ghost",
         },
-        "Vanilla HTML demo →"
+        "Vanilla HTML →"
       ),
-      fill({}, [push(), themeSwitcher()]),
+      fill({ class: "klods-hide-tablet" }, [push(), themeSwitcher()]),
     ]),
     sidebar({}, [el("nav", { "aria-label": "Sections" }, [toc({}, SECTIONS.map(sectionTocItem))])]),
     content({}, [

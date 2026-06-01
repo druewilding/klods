@@ -1,5 +1,10 @@
 /* Docs-specific styles. The docs site is otherwise built entirely from klods. */
 
+/* Prevent the docs page itself from producing a horizontal scrollbar. */
+.docs-shell {
+  overflow-x: clip;
+}
+
 .docs-example {
   margin-block: var(--klods-space-5);
 }
