@@ -5,20 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>klods — vanilla HTML demo</title>
     <link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css" />
+    <script src="https://unpkg.com/klods-css/dist/klods.js"></script>
   </head>
   <body>
     <div class="klods-page klods-page--with-sidebar klods-page--sticky-header">
       <header class="klods-header">
+        <button
+          type="button"
+          class="klods-sidebar-toggle"
+          aria-label="Toggle sidebar"
+          onclick="klods.toggleSidebar(this)"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <rect y="3" width="20" height="2" rx="1" fill="currentColor" />
+            <rect y="9" width="20" height="2" rx="1" fill="currentColor" />
+            <rect y="15" width="20" height="2" rx="1" fill="currentColor" />
+          </svg>
+        </button>
         <div class="klods-fill">
           <strong style="font-size: 1.25rem">klods</strong>
-          <span class="klods-badge">vanilla HTML demo</span>
+          <span class="klods-badge">vanilla HTML</span>
         </div>
         <a id="docs-link" href="./" class="klods-button klods-button--ghost">← Docs</a>
-        <div class="klods-fill">
+        <div class="klods-fill klods-hide-tablet">
           <span class="klods-push"></span>
           <div class="klods-row klods-row--inline klods-row--gap-2">
-            <span id="theme-label" class="klods-muted">Theme:</span>
-            <div class="klods-button-group" aria-labelledby="theme-label">
+            <div class="klods-button-group" aria-label="Theme">
               <button type="button" class="klods-button klods-button--ghost" data-theme-id="" aria-pressed="true">
                 Default
               </button>
@@ -70,35 +82,49 @@
               <div>
                 <h1>Vanilla HTML demo</h1>
                 <p class="klods-lead">
-                  One <code>&lt;link&gt;</code> tag. Plain BEM classes. No JavaScript, no build step, no dependencies.
+                  One <code>&lt;link&gt;</code> tag. Plain BEM classes. No build step, no framework required.
                 </p>
               </div>
 
+              <div class="klods-alert klods-alert--success">
+                Drop the <code>klods-css</code> stylesheet into any HTML file and start building with plain BEM classes
+                — no build step, no bundler, no framework required.
+              </div>
               <div class="klods-alert klods-alert--info">
-                This page is built with nothing but a stylesheet from unpkg and standard HTML. You can add
-                <code>klods-css</code> into any Rails app, WordPress theme, or plain HTML file and start building
-                immediately. This is not an exhaustive demo — <a id="full-docs-link" href="./">see the full docs</a> for
-                every component and option available.
+                This is not an exhaustive demo — <a id="full-docs-link" href="./">see the full docs</a> for every
+                component and option available.
               </div>
 
               <div class="klods-prose">
                 <h2>Get started</h2>
-                <p>A simple page structure with header, sidebar, content and footer looks like this:</p>
+                <p>A simple page structure with a collapsible sidebar on mobile looks like this:</p>
                 <pre><code>&lt;!doctype html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8" /&gt;
     &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
     &lt;title&gt;My page&lt;/title&gt;
-    &lt;link rel="stylesheet"
-      href="https://unpkg.com/klods-css/dist/klods.min.css" /&gt;
+
+    &lt;!-- Klods CSS import --&gt;
+    &lt;link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css" /&gt;
   &lt;/head&gt;
+
   &lt;body&gt;
     &lt;div class="klods-page
                 klods-page--with-sidebar
                 klods-page--sticky-header"&gt;
 
       &lt;header class="klods-header"&gt;
+        &lt;!-- Hamburger button — only visible on mobile via CSS --&gt;
+        &lt;button type="button" class="klods-sidebar-toggle"
+                aria-label="Toggle sidebar"
+                onclick="klods.toggleSidebar(this)"&gt;
+          &lt;svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"&gt;
+            &lt;rect y="3"  width="20" height="2" rx="1" fill="currentColor"/&gt;
+            &lt;rect y="9"  width="20" height="2" rx="1" fill="currentColor"/&gt;
+            &lt;rect y="15" width="20" height="2" rx="1" fill="currentColor"/&gt;
+          &lt;/svg&gt;
+        &lt;/button&gt;
         &lt;strong&gt;My app&lt;/strong&gt;
       &lt;/header&gt;
 
@@ -113,22 +139,23 @@
 
       &lt;main class="klods-content"&gt;
         &lt;h1&gt;Hello, klods&lt;/h1&gt;
-        &lt;button class="klods-button klods-button--primary" type="button"&gt;
-          Get started
-        &lt;/button&gt;
       &lt;/main&gt;
 
       &lt;footer class="klods-footer"&gt;
         &lt;span&gt;© 2026 My app&lt;/span&gt;
       &lt;/footer&gt;
-
     &lt;/div&gt;
+
+    &lt;!-- Optional JS import --&gt;
+    &lt;script src="https://unpkg.com/klods-css/dist/klods.js"&gt;&lt;/script&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-                <p>
-                  The <code>klods-page</code> wrapper carries three classes to enable the sidebar and sticky header. The
-                  content area is flexible and will fill the remaining space.
-                </p>
+                <div class="klods-alert klods-alert--info">
+                  The <code>klods-sidebar-toggle</code> button is hidden by CSS on wide viewports and revealed on
+                  mobile. Add the <code>klods.js</code> script tag and call <code>klods.toggleSidebar(this)</code> from
+                  the button's <code>onclick</code> — it handles the backdrop-dismiss and nav-link-close behaviour
+                  automatically on first call.
+                </div>
               </div>
             </div>
           </section>
@@ -413,7 +440,7 @@
     const initialTheme = new URLSearchParams(location.search).get("theme") ?? "";
     applyTheme(initialTheme);
 
-    // Wire up buttons
+    // Wire up theme buttons
     for (const btn of document.querySelectorAll("[data-theme-id]")) {
       btn.addEventListener("click", () => applyTheme(btn.dataset.themeId ?? ""));
     }
