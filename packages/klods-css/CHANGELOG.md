@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/druewilding/klods/compare/klods-css-v1.10.0...klods-css-v1.11.0) (2026-06-01)
+
+
+### Features
+
+* Ship a tiny JS file to help with the sidebar toggle in vanilla HTML ([#57](https://github.com/druewilding/klods/issues/57)) ([d97f84c](https://github.com/druewilding/klods/commit/d97f84c94d3792b074a7e3219e85484de56c6e98))
+
 ## [1.10.0](https://github.com/druewilding/klods/compare/klods-css-v1.9.0...klods-css-v1.10.0) (2026-06-01)
 
 
