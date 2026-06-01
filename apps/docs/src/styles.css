@@ -28,6 +28,26 @@
   display: block !important;
   position: static !important;
   box-shadow: none !important;
+  z-index: auto !important;
+}
+
+/* Restore two-column grid inside previews regardless of viewport width.
+   Use a narrower sidebar width so the preview doesn't clip content. */
+.docs-example__preview .klods-page--with-sidebar {
+  --klods-sidebar-width: 10rem;
+  grid-template-columns: var(--klods-sidebar-width) 1fr !important;
+  grid-template-areas:
+    "header  header"
+    "sidebar content"
+    "footer  footer" !important;
+}
+.docs-example__preview .klods-page--with-sidebar.klods-page--sidebar-trailing {
+  --klods-sidebar-width: 10rem;
+  grid-template-columns: 1fr var(--klods-sidebar-width) !important;
+  grid-template-areas:
+    "header  header"
+    "content sidebar"
+    "footer  footer" !important;
 }
 
 .docs-example__body {
