@@ -125,7 +125,7 @@
       inset-block: 0;
       inset-inline-start: 0;
       width: min(18rem, 85vw);
-      z-index: 100;
+      z-index: 7; // above backdrop (5) and header (6)
       border-right: 1px solid var(--klods-color-border);
       border-bottom: none;
       overflow-y: auto;
@@ -137,12 +137,19 @@
     }
 
     // Backdrop — dims content behind the open drawer.
+    // z-index 5 keeps it below the header (6) so the toggle button stays clickable.
     .klods-page[data-sidebar-open]::before {
       content: "";
       position: fixed;
       inset: 0;
-      z-index: 99;
+      z-index: 5;
       background: rgba(0, 0, 0, 0.4);
+    }
+
+    // Give the header a stacking context so it sits above the backdrop.
+    .klods-page--with-sidebar > .klods-header {
+      position: relative;
+      z-index: 6;
     }
 
     // Sidebar sticky children don't make sense inside a scrollable drawer.
