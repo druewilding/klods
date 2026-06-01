@@ -26,27 +26,19 @@ export const examples: KlodsNode[] = [
     render: () =>
       prose({}, [
         el("p", {}, [
-          "The recommended mobile nav pattern is to pair ",
+          "The recommended mobile nav pattern is to pair a ",
           el("code", {}, "sidebarToggle"),
-          " with ",
+          " component with a ",
           el("code", {}, "toggleSidebar"),
-          ". Add a ",
+          " function. Add a ",
           el("code", {}, "sidebarToggle"),
-          " to your header and put your nav links in both the header (hidden on mobile via ",
-          el("code", {}, "klods-hide-tablet"),
-          ") and the sidebar.",
+          " to your header and put your nav links in the sidebar.",
         ]),
         el("pre", {}, el("code", {},
 `page({ sidebar: true, stickyHeader: true }, [
   header({}, [
     sidebarToggle({ onClick: (e) => toggleSidebar(e.currentTarget) }),
     fill({}, [el("strong", {}, "My App")]),
-    nav({ class: "klods-hide-tablet" }, [
-      navList({}, [
-        navLink({ href: "#" }, "Home"),
-        navLink({ href: "/about" }, "About"),
-      ]),
-    ]),
   ]),
   sidebar({}, [
     nav({}, [
