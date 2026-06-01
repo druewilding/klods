@@ -124,8 +124,8 @@ export function sidebarToggle(attrs?: KlodsAttrs | null, children?: KlodsChild |
  * @example
  * sidebarToggle({ onClick: (e) => toggleSidebar(e.currentTarget as HTMLElement) })
  */
-export function toggleSidebar(el: HTMLElement): void {
-  const pageEl = el.closest(".klods-page") as HTMLElement | null;
+export function toggleSidebar(targetEl: HTMLElement): void {
+  const pageEl = targetEl.closest(".klods-page") as HTMLElement | null;
   if (!pageEl) return;
 
   // Set up permanent listeners once per page element.
