@@ -32,8 +32,8 @@ export function navToggle(attrs?: KlodsAttrs | null, children?: KlodsChild | Klo
  * @example
  * navToggle({ onClick: (e) => toggleNav(e.currentTarget as HTMLElement) })
  */
-export function toggleNav(el: HTMLElement): void {
-  const navEl = el.closest(".klods-nav--collapse") as HTMLElement | null;
+export function toggleNav(targetEl: HTMLElement): void {
+  const navEl = targetEl.closest(".klods-nav--collapse") as HTMLElement | null;
   if (!navEl) return;
   if (navEl.hasAttribute("data-nav-open")) {
     navEl.removeAttribute("data-nav-open");
