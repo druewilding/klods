@@ -117,8 +117,13 @@ export function sidebarToggle(
 }
 
 /**
+/**
  * Toggle the open/closed state of the sidebar. Pass any element inside the
  * `.klods-page` (e.g. the toggle button itself) as the argument.
+ *
+ * On first call per page element, auto-wires two permanent listeners:
+ *  - Clicking a link inside the sidebar closes the drawer.
+ *  - Clicking the backdrop (outside the sidebar and header) closes the drawer.
  *
  * @example
  * sidebarToggle({ onClick: (e) => toggleSidebar(e.currentTarget as HTMLElement) })
@@ -126,6 +131,30 @@ export function sidebarToggle(
 export function toggleSidebar(el: HTMLElement): void {
   const pageEl = el.closest(".klods-page") as HTMLElement | null;
   if (!pageEl) return;
+
+  // Set up permanent listeners once per page element.
+  if (!pageEl.hasAttribute("data-sidebar-wired")) {
+    pageEl.setAttribute("data-sidebar-wired", "");
+    const sidebarEl = pageEl.querySelector<HTMLElement>(":scope > .klods-sidebar");
+    if (sidebarEl) {
+      // Prevent sidebar clicks reaching the backdrop listener below.
+      sidebarEl.addEventListener("click", (e) => e.stopPropagation());
+      // Close when a link inside the sidebar is clicked.
+      sidebarEl.addEventListener("click", (e) => {
+        if ((e.target as HTMLElement).closest("a")) {
+          pageEl.removeAttribute("data-sidebar-open");
+        }
+      });
+    }
+    // Close when the backdrop is clicked (outside sidebar and header).
+    pageEl.addEventListener("click", (e) => {
+      if (!pageEl.hasAttribute("data-sidebar-open")) return;
+      const headerEl = pageEl.querySelector<HTMLElement>(":scope > .klods-header");
+      if (headerEl?.contains(e.target as Node)) return;
+      pageEl.removeAttribute("data-sidebar-open");
+    });
+  }
+
   if (pageEl.hasAttribute("data-sidebar-open")) {
     pageEl.removeAttribute("data-sidebar-open");
   } else {

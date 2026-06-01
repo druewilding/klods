@@ -153,25 +153,3 @@ else document.documentElement.removeAttribute("data-theme");
 const root = document.querySelector<HTMLDivElement>("#app");
 if (!root) throw new Error("Missing #app root");
 shell().render(root);
-
-// Close the sidebar drawer when a nav link is clicked, or when the backdrop is tapped.
-const docsPage = root.querySelector<HTMLElement>(".klods-page");
-const docsSidebar = root.querySelector<HTMLElement>(".klods-page > .klods-sidebar");
-if (docsPage && docsSidebar) {
-  // Nav link click — close drawer.
-  docsSidebar.addEventListener("click", (e) => {
-    if ((e.target as HTMLElement).closest("a")) {
-      docsPage.removeAttribute("data-sidebar-open");
-    }
-  });
-
-  // Backdrop click — close drawer when clicking outside the sidebar and header.
-  // stopPropagation in the sidebar prevents this from also firing there.
-  docsSidebar.addEventListener("click", (e) => e.stopPropagation());
-  docsPage.addEventListener("click", (e) => {
-    if (!docsPage.hasAttribute("data-sidebar-open")) return;
-    const header = docsPage.querySelector(":scope > .klods-header");
-    if (header?.contains(e.target as Node)) return; // hamburger lives here
-    docsPage.removeAttribute("data-sidebar-open");
-  });
-}
