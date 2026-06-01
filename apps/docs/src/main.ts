@@ -65,7 +65,7 @@ const THEMES: Array<{ id: string; label: string }> = [
 
 function themeSwitcher(): KlodsNode {
   return row({ inline: true, gap: 2 }, [
-    buttonGroup({ "aria-labelledby": "theme-label" }, [
+    buttonGroup({ "aria-label": "Theme" }, [
       ...THEMES.map((t) =>
         el(
           "button",
