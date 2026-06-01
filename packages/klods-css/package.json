@@ -20,12 +20,14 @@
   "exports": {
     ".": "./dist/klods.css",
     "./min": "./dist/klods.min.css",
+    "./js": "./dist/klods.js",
     "./src/*": "./src/*"
   },
   "scripts": {
-    "build": "npm run build:css && npm run build:min",
+    "build": "npm run build:css && npm run build:min && npm run build:js",
     "build:css": "sass src/klods.scss dist/klods.css --style=expanded --no-source-map",
     "build:min": "sass src/klods.scss dist/klods.min.css --style=compressed --no-source-map",
+    "build:js": "cp src/klods.js dist/klods.js",
     "dev": "sass src/klods.scss dist/klods.css --watch --style=expanded"
   },
   "devDependencies": {
