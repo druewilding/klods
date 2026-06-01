@@ -3,6 +3,7 @@
 // .klods-page is a CSS Grid container that can be:
 //   - default                          : header / main / footer
 //   - --with-sidebar                   : adds a left sidebar column
+@use "tokens" as t;
 //   - --with-sidebar.--sidebar-trailing : sidebar on the trailing side
 
 @layer klods.layout {
@@ -104,22 +105,91 @@
     color: var(--klods-color-muted);
   }
 
-  // Collapse sidebar on small screens — stack everything.
-  @media (max-width: 48rem) {
+  // Collapse sidebar on small screens — render as a fixed drawer overlay.
+  // Use direct-child `>` selectors throughout so nested .klods-page examples
+  // inside the docs (or any app) are not affected.
+  @media (max-width: #{t.$klods-bp-md}) {
     .klods-page--with-sidebar,
     .klods-page--with-sidebar.klods-page--sidebar-trailing {
       grid-template-columns: 1fr;
       grid-template-areas:
         "header"
-        "sidebar"
         "content"
         "footer";
     }
 
-    .klods-sidebar {
-      border-right: none;
-      border-left: none;
-      border-bottom: 1px solid var(--klods-color-border);
+    .klods-page--with-sidebar > .klods-sidebar {
+      // Remove from flow entirely — becomes a fixed drawer.
+      display: none;
+      position: fixed;
+      inset-block: 0;
+      inset-inline-start: 0;
+      width: min(18rem, 85vw);
+      z-index: 7; // above backdrop (5) and header (6)
+      border-right: 1px solid var(--klods-color-border);
+      border-bottom: none;
+      overflow-y: auto;
+      box-shadow: var(--klods-shadow-lg);
+    }
+
+    .klods-page[data-sidebar-open] > .klods-sidebar {
+      display: block;
+    }
+
+    // Backdrop — dims content behind the open drawer.
+    // z-index 5 keeps it below the header (6) so the toggle button stays clickable.
+    .klods-page[data-sidebar-open]::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    // Give the header a stacking context so it sits above the backdrop (z-index 5).
+    // isolation: isolate creates a new stacking context without affecting position,
+    // so sticky headers remain sticky.
+    .klods-page--with-sidebar > .klods-header {
+      isolation: isolate;
+      z-index: 6;
+    }
+
+    // Sidebar sticky children don't make sense inside a scrollable drawer.
+    .klods-page--with-sidebar > .klods-sidebar > * {
+      position: static;
+      max-height: none;
+      overflow-y: visible;
+    }
+  }
+
+  // Sidebar toggle button — visible only on mobile.
+  .klods-sidebar-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--klods-space-2);
+    border-radius: var(--klods-radius-sm);
+    background: transparent;
+    border: 1px solid transparent;
+    color: inherit;
+    cursor: pointer;
+    line-height: 1;
+    transition: background var(--klods-transition);
+
+    &:hover,
+    &:focus-visible {
+      background: var(--klods-color-surface-2);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--klods-color-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (max-width: #{t.$klods-bp-md}) {
+    .klods-sidebar-toggle {
+      display: inline-flex;
     }
   }
 

@@ -1,5 +1,10 @@
 /* Docs-specific styles. The docs site is otherwise built entirely from klods. */
 
+/* Prevent the docs page itself from producing a horizontal scrollbar. */
+.docs-shell {
+  overflow-x: clip;
+}
+
 .docs-example {
   margin-block: var(--klods-space-5);
 }
@@ -16,6 +21,33 @@
 .docs-example__preview .klods-header {
   position: static;
   z-index: 0;
+}
+
+/* Undo mobile drawer treatment for sidebars inside example previews. */
+.docs-example__preview .klods-sidebar {
+  display: block !important;
+  position: static !important;
+  box-shadow: none !important;
+  z-index: auto !important;
+  width: 10rem !important;
+}
+
+/* Restore two-column grid inside previews regardless of viewport width.
+   Use a narrower sidebar width so the preview doesn't clip content. */
+.docs-example__preview .klods-page--with-sidebar {
+  grid-template-columns: var(--klods-sidebar-width) 1fr !important;
+  grid-template-areas:
+    "header  header"
+    "sidebar content"
+    "footer  footer" !important;
+}
+.docs-example__preview .klods-page--with-sidebar.klods-page--sidebar-trailing {
+  --klods-sidebar-width: 10rem;
+  grid-template-columns: 1fr var(--klods-sidebar-width) !important;
+  grid-template-areas:
+    "header  header"
+    "content sidebar"
+    "footer  footer" !important;
 }
 
 .docs-example__body {

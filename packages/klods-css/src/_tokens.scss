@@ -1,3 +1,10 @@
+// ── Breakpoints (SCSS-only — not CSS custom properties) ───────────────────
+// Used in @media queries throughout the codebase. Do not change these values
+// without auditing all media queries.
+$klods-bp-sm: 30rem; //  480px — phone landscape
+$klods-bp-md: 48rem; //  768px — tablet
+$klods-bp-lg: 64rem; // 1024px — desktop
+
 @layer klods.tokens {
   :root {
     // ── Colour ─────────────────────────────────────────────────────────────
@@ -59,5 +66,12 @@
 
     // ── Motion ─────────────────────────────────────────────────────────────
     --klods-transition: 150ms ease;
+  }
+
+  // Reduce gutter on small screens so content isn't over-padded on phones.
+  @media (max-width: #{$klods-bp-md}) {
+    :root {
+      --klods-gutter: var(--klods-space-4);
+    }
   }
 }

@@ -2,6 +2,7 @@
 //
 // Naming follows BEM-ish conventions: base class with --modifier variants.
 // All gaps default to --klods-space-4 and can be overridden with --gap-{1..8}.
+@use "tokens" as t;
 
 @layer klods.utilities {
   // Vertical stack
@@ -109,5 +110,37 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+
+  // Responsive grid column collapse — wide grids reduce on smaller screens
+  // so content never overflows on phones.
+  @media (max-width: #{t.$klods-bp-md}) {
+    .klods-grid--cols-3,
+    .klods-grid--cols-4,
+    .klods-grid--cols-5,
+    .klods-grid--cols-6 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: #{t.$klods-bp-sm}) {
+    [class*="klods-grid--cols-"] {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // Responsive visibility helpers
+  // klods-hide-mobile  — hidden on phones (≤ 30rem / 480px)
+  // klods-hide-tablet  — hidden on phones + tablets (≤ 48rem / 768px)
+  @media (max-width: #{t.$klods-bp-sm}) {
+    .klods-hide-mobile {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: #{t.$klods-bp-md}) {
+    .klods-hide-tablet {
+      display: none !important;
+    }
   }
 }

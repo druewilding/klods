@@ -2,7 +2,7 @@
 // Each builder is a thin wrapper around `builder()` from core.ts.
 
 import type { KlodsAttrs, KlodsChild } from "./core.js";
-import { builder, KlodsNode } from "./core.js";
+import { builder, el, KlodsNode, raw } from "./core.js";
 
 // ── Page ─────────────────────────────────────────────────────────────────
 export type PageProps = {
@@ -92,3 +92,68 @@ export function text(value: string | number): KlodsNode {
 
 // Re-export attribute / child types so consumers can extend a builder neatly.
 export type { KlodsAttrs, KlodsChild };
+
+// ── Sidebar toggle ───────────────────────────────────────────────────────
+const HAMBURGER_ICON = raw(
+  '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect y="3" width="20" height="2" rx="1" fill="currentColor"/><rect y="9" width="20" height="2" rx="1" fill="currentColor"/><rect y="15" width="20" height="2" rx="1" fill="currentColor"/></svg>'
+);
+
+/**
+ * Hamburger button for toggling the sidebar on mobile. Only rendered by CSS
+ * on narrow viewports. Wire up with `toggleSidebar`.
+ *
+ * @example
+ * sidebarToggle({ onClick: (e) => toggleSidebar(e.currentTarget as HTMLElement) })
+ */
+export function sidebarToggle(attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode {
+  return el(
+    "button",
+    { type: "button", "aria-label": "Toggle sidebar", class: "klods-sidebar-toggle", ...(attrs ?? {}) },
+    children ?? HAMBURGER_ICON
+  );
+}
+
+/**
+ * Toggle the open/closed state of the sidebar. Pass any element inside the
+ * `.klods-page` (e.g. the toggle button itself) as the argument.
+ *
+ * On first call per page element, auto-wires two permanent listeners:
+ *  - Clicking a link inside the sidebar closes the drawer.
+ *  - Clicking the backdrop (outside the sidebar and header) closes the drawer.
+ *
+ * @example
+ * sidebarToggle({ onClick: (e) => toggleSidebar(e.currentTarget as HTMLElement) })
+ */
+export function toggleSidebar(targetEl: HTMLElement): void {
+  const pageEl = targetEl.closest(".klods-page") as HTMLElement | null;
+  if (!pageEl) return;
+
+  // Set up permanent listeners once per page element.
+  if (!pageEl.hasAttribute("data-sidebar-wired")) {
+    pageEl.setAttribute("data-sidebar-wired", "");
+    const sidebarEl = pageEl.querySelector<HTMLElement>(":scope > .klods-sidebar");
+    if (sidebarEl) {
+      // Prevent sidebar clicks reaching the backdrop listener below.
+      sidebarEl.addEventListener("click", (e) => e.stopPropagation());
+      // Close when a link inside the sidebar is clicked.
+      sidebarEl.addEventListener("click", (e) => {
+        if ((e.target as HTMLElement).closest("a")) {
+          pageEl.removeAttribute("data-sidebar-open");
+        }
+      });
+    }
+    // Close when the backdrop is clicked (outside sidebar and header).
+    pageEl.addEventListener("click", (e) => {
+      if (!pageEl.hasAttribute("data-sidebar-open")) return;
+      const headerEl = pageEl.querySelector<HTMLElement>(":scope > .klods-header");
+      if (headerEl?.contains(e.target as Node)) return;
+      pageEl.removeAttribute("data-sidebar-open");
+    });
+  }
+
+  if (pageEl.hasAttribute("data-sidebar-open")) {
+    pageEl.removeAttribute("data-sidebar-open");
+  } else {
+    pageEl.setAttribute("data-sidebar-open", "");
+  }
+}
