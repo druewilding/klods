@@ -146,9 +146,11 @@
       background: rgba(0, 0, 0, 0.4);
     }
 
-    // Give the header a stacking context so it sits above the backdrop.
+    // Give the header a stacking context so it sits above the backdrop (z-index 5).
+    // isolation: isolate creates a new stacking context without affecting position,
+    // so sticky headers remain sticky.
     .klods-page--with-sidebar > .klods-header {
-      position: relative;
+      isolation: isolate;
       z-index: 6;
     }
 
