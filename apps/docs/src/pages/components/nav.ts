@@ -34,8 +34,13 @@ export const examples: KlodsNode[] = [
           el("code", {}, "sidebarToggle"),
           " to your header and put your nav links in the sidebar.",
         ]),
-        el("pre", {}, el("code", {},
-`page({ sidebar: true, stickyHeader: true }, [
+        el(
+          "pre",
+          {},
+          el(
+            "code",
+            {},
+            `page({ sidebar: true, stickyHeader: true }, [
   header({}, [
     sidebarToggle({ onClick: (e) => toggleSidebar(e.currentTarget) }),
     fill({}, [el("strong", {}, "My App")]),
@@ -50,7 +55,8 @@ export const examples: KlodsNode[] = [
   ]),
   content({}, [ … ]),
 ])`
-        )),
+          )
+        ),
         el("p", {}, [
           "The ",
           el("code", {}, "toggleSidebar"),

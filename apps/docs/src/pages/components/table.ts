@@ -40,11 +40,50 @@ export const examples: KlodsNode[] = [
     render: () =>
       tableWrap({}, [
         table({ style: "min-width: 52rem" }, [
-          thead({}, tr({}, [th({}, "Name"), th({}, "Role"), th({}, "Department"), th({}, "Location"), th({}, "Start date"), th({}, "Contract"), th({}, "Salary"), th({}, "Status")])),
+          thead(
+            {},
+            tr({}, [
+              th({}, "Name"),
+              th({}, "Role"),
+              th({}, "Department"),
+              th({}, "Location"),
+              th({}, "Start date"),
+              th({}, "Contract"),
+              th({}, "Salary"),
+              th({}, "Status"),
+            ])
+          ),
           tbody({}, [
-            tr({}, [td({}, "Alice"), td({}, "Engineer"), td({}, "Platform"), td({}, "Copenhagen"), td({}, "Jan 2022"), td({}, "Full-time"), td({}, "£72,000"), td({}, badge({ variant: "success" }, "active"))]),
-            tr({}, [td({}, "Bob"), td({}, "Designer"), td({}, "Product"), td({}, "Stockholm"), td({}, "Mar 2023"), td({}, "Part-time"), td({}, "£48,000"), td({}, badge({ variant: "accent" }, "away"))]),
-            tr({}, [td({}, "Carol"), td({}, "Manager"), td({}, "Engineering"), td({}, "Oslo"), td({}, "Aug 2019"), td({}, "Full-time"), td({}, "£95,000"), td({}, badge({ variant: "danger" }, "inactive"))]),
+            tr({}, [
+              td({}, "Alice"),
+              td({}, "Engineer"),
+              td({}, "Platform"),
+              td({}, "Copenhagen"),
+              td({}, "Jan 2022"),
+              td({}, "Full-time"),
+              td({}, "£72,000"),
+              td({}, badge({ variant: "success" }, "active")),
+            ]),
+            tr({}, [
+              td({}, "Bob"),
+              td({}, "Designer"),
+              td({}, "Product"),
+              td({}, "Stockholm"),
+              td({}, "Mar 2023"),
+              td({}, "Part-time"),
+              td({}, "£48,000"),
+              td({}, badge({ variant: "accent" }, "away")),
+            ]),
+            tr({}, [
+              td({}, "Carol"),
+              td({}, "Manager"),
+              td({}, "Engineering"),
+              td({}, "Oslo"),
+              td({}, "Aug 2019"),
+              td({}, "Full-time"),
+              td({}, "£95,000"),
+              td({}, badge({ variant: "danger" }, "inactive")),
+            ]),
           ]),
         ]),
       ]),

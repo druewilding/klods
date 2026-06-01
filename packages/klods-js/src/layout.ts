@@ -95,7 +95,7 @@ export type { KlodsAttrs, KlodsChild };
 
 // ── Sidebar toggle ───────────────────────────────────────────────────────
 const HAMBURGER_ICON = raw(
-  `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect y="3" width="20" height="2" rx="1" fill="currentColor"/><rect y="9" width="20" height="2" rx="1" fill="currentColor"/><rect y="15" width="20" height="2" rx="1" fill="currentColor"/></svg>`
+  '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect y="3" width="20" height="2" rx="1" fill="currentColor"/><rect y="9" width="20" height="2" rx="1" fill="currentColor"/><rect y="15" width="20" height="2" rx="1" fill="currentColor"/></svg>'
 );
 
 /**
@@ -105,10 +105,7 @@ const HAMBURGER_ICON = raw(
  * @example
  * sidebarToggle({ onClick: (e) => toggleSidebar(e.currentTarget as HTMLElement) })
  */
-export function sidebarToggle(
-  attrs?: KlodsAttrs | null,
-  children?: KlodsChild | KlodsChild[]
-): KlodsNode {
+export function sidebarToggle(attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode {
   return el(
     "button",
     { type: "button", "aria-label": "Toggle sidebar", class: "klods-sidebar-toggle", ...(attrs ?? {}) },

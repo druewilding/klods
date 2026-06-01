@@ -74,14 +74,18 @@ export function example(spec: ExampleSpec): KlodsNode {
     spec.description ? el("p", { class: "klods-muted docs-example__desc" }, spec.description) : null,
     cardBody({ class: "docs-example__body" }, [
       el("section", { class: "docs-example__preview", "aria-label": "Live preview" }, [result]),
-      spec.hideCode ? null : el("details", { class: "docs-example__source" }, [
-        el("summary", {}, "TypeScript"),
-        el("pre", {}, [el("code", { class: "language-ts" }, tsSource)]),
-      ]),
-      spec.hideCode ? null : el("details", { class: "docs-example__source" }, [
-        el("summary", {}, "HTML"),
-        el("pre", {}, [el("code", { class: "language-html" }, htmlSource)]),
-      ]),
+      spec.hideCode
+        ? null
+        : el("details", { class: "docs-example__source" }, [
+            el("summary", {}, "TypeScript"),
+            el("pre", {}, [el("code", { class: "language-ts" }, tsSource)]),
+          ]),
+      spec.hideCode
+        ? null
+        : el("details", { class: "docs-example__source" }, [
+            el("summary", {}, "HTML"),
+            el("pre", {}, [el("code", { class: "language-html" }, htmlSource)]),
+          ]),
     ]),
   ]);
 }

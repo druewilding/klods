@@ -2,7 +2,7 @@
 // All match the BEM classes shipped by klods-css.
 
 import type { KlodsAttrs, KlodsChild } from "./core.js";
-import { builder, classNames, el, raw, KlodsNode } from "./core.js";
+import { builder, classNames, el, KlodsNode, raw } from "./core.js";
 
 // ── Nav ──────────────────────────────────────────────────────────────────
 export const nav = builder({ tag: "nav", base: "klods-nav" });
@@ -10,17 +10,14 @@ export const navList = builder({ tag: "ul", base: "klods-nav__list" });
 export const buttonGroup = builder({ tag: "div", base: "klods-button-group" });
 
 const HAMBURGER_ICON = raw(
-  `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect y="3" width="20" height="2" rx="1" fill="currentColor"/><rect y="9" width="20" height="2" rx="1" fill="currentColor"/><rect y="15" width="20" height="2" rx="1" fill="currentColor"/></svg>`
+  '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect y="3" width="20" height="2" rx="1" fill="currentColor"/><rect y="9" width="20" height="2" rx="1" fill="currentColor"/><rect y="15" width="20" height="2" rx="1" fill="currentColor"/></svg>'
 );
 
 /**
  * Hamburger toggle button for `.klods-nav--collapse`. Renders a default
  * three-line icon; pass children to override. Wire up with `toggleNav`.
  */
-export function navToggle(
-  attrs?: KlodsAttrs | null,
-  children?: KlodsChild | KlodsChild[]
-): KlodsNode {
+export function navToggle(attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode {
   return el(
     "button",
     { type: "button", "aria-label": "Toggle navigation", class: "klods-nav__toggle", ...(attrs ?? {}) },
