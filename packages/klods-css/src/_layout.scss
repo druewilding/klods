@@ -106,6 +106,8 @@
   }
 
   // Collapse sidebar on small screens — render as a fixed drawer overlay.
+  // Use direct-child `>` selectors throughout so nested .klods-page examples
+  // inside the docs (or any app) are not affected.
   @media (max-width: #{t.$klods-bp-md}) {
     .klods-page--with-sidebar,
     .klods-page--with-sidebar.klods-page--sidebar-trailing {
@@ -116,7 +118,7 @@
         "footer";
     }
 
-    .klods-sidebar {
+    .klods-page--with-sidebar > .klods-sidebar {
       // Remove from flow entirely — becomes a fixed drawer.
       display: none;
       position: fixed;
@@ -130,7 +132,7 @@
       box-shadow: var(--klods-shadow-lg);
     }
 
-    .klods-page[data-sidebar-open] .klods-sidebar {
+    .klods-page[data-sidebar-open] > .klods-sidebar {
       display: block;
     }
 
@@ -144,7 +146,7 @@
     }
 
     // Sidebar sticky children don't make sense inside a scrollable drawer.
-    .klods-sidebar > * {
+    .klods-page--with-sidebar > .klods-sidebar > * {
       position: static;
       max-height: none;
       overflow-y: visible;

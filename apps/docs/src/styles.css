@@ -23,6 +23,13 @@
   z-index: 0;
 }
 
+/* Undo mobile drawer treatment for sidebars inside example previews. */
+.docs-example__preview .klods-sidebar {
+  display: block !important;
+  position: static !important;
+  box-shadow: none !important;
+}
+
 .docs-example__body {
   display: flex;
   flex-direction: column;
