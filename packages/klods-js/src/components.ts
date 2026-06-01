@@ -2,12 +2,48 @@
 // All match the BEM classes shipped by klods-css.
 
 import type { KlodsAttrs, KlodsChild } from "./core.js";
-import { builder, classNames, el, KlodsNode } from "./core.js";
+import { builder, classNames, el, raw, KlodsNode } from "./core.js";
 
 // ── Nav ──────────────────────────────────────────────────────────────────
 export const nav = builder({ tag: "nav", base: "klods-nav" });
 export const navList = builder({ tag: "ul", base: "klods-nav__list" });
 export const buttonGroup = builder({ tag: "div", base: "klods-button-group" });
+
+const HAMBURGER_ICON = raw(
+  `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect y="3" width="20" height="2" rx="1" fill="currentColor"/><rect y="9" width="20" height="2" rx="1" fill="currentColor"/><rect y="15" width="20" height="2" rx="1" fill="currentColor"/></svg>`
+);
+
+/**
+ * Hamburger toggle button for `.klods-nav--collapse`. Renders a default
+ * three-line icon; pass children to override. Wire up with `toggleNav`.
+ */
+export function navToggle(
+  attrs?: KlodsAttrs | null,
+  children?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  return el(
+    "button",
+    { type: "button", "aria-label": "Toggle navigation", class: "klods-nav__toggle", ...(attrs ?? {}) },
+    children ?? (HAMBURGER_ICON as unknown as KlodsChild)
+  );
+}
+
+/**
+ * Toggle the open/closed state of a `.klods-nav--collapse` element.
+ * Pass the toggle button element (or any element inside the nav) as the argument.
+ *
+ * @example
+ * navToggle({ onClick: (e) => toggleNav(e.currentTarget as HTMLElement) })
+ */
+export function toggleNav(el: HTMLElement): void {
+  const navEl = el.closest(".klods-nav--collapse") as HTMLElement | null;
+  if (!navEl) return;
+  if (navEl.hasAttribute("data-nav-open")) {
+    navEl.removeAttribute("data-nav-open");
+  } else {
+    navEl.setAttribute("data-nav-open", "");
+  }
+}
 export type TocProps = { sub?: boolean };
 export const toc = builder<TocProps>({ tag: "ul", base: "klods-toc", modifiers: { sub: "klods-toc--sub" } });
 export const tocItem = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>

@@ -40,6 +40,55 @@
     color: var(--klods-color-accent-fg);
   }
 
+  // ── Nav hamburger toggle ───────────────────────────────────────────────
+  // Visible only inside .klods-nav--collapse on narrow viewports.
+  .klods-nav__toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--klods-space-2);
+    border-radius: var(--klods-radius-sm);
+    background: transparent;
+    border: 1px solid transparent;
+    color: inherit;
+    cursor: pointer;
+    line-height: 1;
+    transition: background var(--klods-transition);
+
+    &:hover,
+    &:focus-visible {
+      background: var(--klods-color-surface-2);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--klods-color-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (max-width: #{t.$klods-bp-md}) {
+    .klods-nav--collapse {
+      flex-wrap: wrap;
+
+      .klods-nav__toggle {
+        display: inline-flex;
+      }
+
+      .klods-nav__list {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--klods-space-1);
+        padding-block: var(--klods-space-2);
+      }
+
+      &[data-nav-open] .klods-nav__list {
+        display: flex;
+      }
+    }
+  }
+
   // ── Toc ────────────────────────────────────────────────────────────────
   .klods-toc {
     list-style: none;
