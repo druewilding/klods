@@ -105,31 +105,45 @@
     color: var(--klods-color-muted);
   }
 
-  // Collapse sidebar on small screens — stack everything.
+  // Collapse sidebar on small screens — render as a fixed drawer overlay.
   @media (max-width: #{t.$klods-bp-md}) {
     .klods-page--with-sidebar,
     .klods-page--with-sidebar.klods-page--sidebar-trailing {
       grid-template-columns: 1fr;
       grid-template-areas:
         "header"
-        "sidebar"
         "content"
         "footer";
     }
 
     .klods-sidebar {
-      border-right: none;
-      border-left: none;
-      border-bottom: 1px solid var(--klods-color-border);
-      // Hidden by default on mobile; revealed by data-sidebar-open on the page.
+      // Remove from flow entirely — becomes a fixed drawer.
       display: none;
+      position: fixed;
+      inset-block: 0;
+      inset-inline-start: 0;
+      width: min(18rem, 85vw);
+      z-index: 100;
+      border-right: 1px solid var(--klods-color-border);
+      border-bottom: none;
+      overflow-y: auto;
+      box-shadow: var(--klods-shadow-lg);
     }
 
     .klods-page[data-sidebar-open] .klods-sidebar {
       display: block;
     }
 
-    // Sidebar sticky children don't make sense in stacked mobile layout.
+    // Backdrop — dims content behind the open drawer.
+    .klods-page[data-sidebar-open]::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    // Sidebar sticky children don't make sense inside a scrollable drawer.
     .klods-sidebar > * {
       position: static;
       max-height: none;

@@ -130,5 +130,15 @@ export function toggleSidebar(el: HTMLElement): void {
     pageEl.removeAttribute("data-sidebar-open");
   } else {
     pageEl.setAttribute("data-sidebar-open", "");
+    // Close when the user clicks the backdrop (anywhere on the page outside the sidebar).
+    const onBackdropClick = (e: MouseEvent) => {
+      const sidebar = pageEl.querySelector(".klods-sidebar");
+      if (sidebar && !sidebar.contains(e.target as Node)) {
+        pageEl.removeAttribute("data-sidebar-open");
+        pageEl.removeEventListener("click", onBackdropClick);
+      }
+    };
+    // Defer by one tick so this click event doesn't immediately re-close.
+    setTimeout(() => pageEl.addEventListener("click", onBackdropClick), 0);
   }
 }
