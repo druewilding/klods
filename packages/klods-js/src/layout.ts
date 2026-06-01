@@ -114,7 +114,6 @@ export function sidebarToggle(attrs?: KlodsAttrs | null, children?: KlodsChild |
 }
 
 /**
-/**
  * Toggle the open/closed state of the sidebar. Pass any element inside the
  * `.klods-page` (e.g. the toggle button itself) as the argument.
  *
