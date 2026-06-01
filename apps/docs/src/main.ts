@@ -16,10 +16,12 @@ import {
   row,
   section,
   sidebar,
+  sidebarToggle,
   stack,
   toc,
   tocItem,
   tocLink,
+  toggleSidebar,
 } from "klods-js";
 
 import { componentLinks, renderComponentsSection } from "./pages/components.js";
@@ -113,6 +115,7 @@ function sectionTocItem(section: Section): KlodsNode {
 function shell(): KlodsNode {
   return page({ sidebar: true, stickyHeader: true, class: "docs-shell" }, [
     header({}, [
+      sidebarToggle({ onClick: (e: MouseEvent) => toggleSidebar(e.currentTarget as HTMLElement) }),
       fill({}, [
         el("strong", { style: "font-size: 1.25rem;" }, "klods"),
         el("span", { class: "klods-badge" }, `v${__KLODS_VERSION__}`),

@@ -121,6 +121,50 @@
       border-right: none;
       border-left: none;
       border-bottom: 1px solid var(--klods-color-border);
+      // Hidden by default on mobile; revealed by data-sidebar-open on the page.
+      display: none;
+    }
+
+    .klods-page[data-sidebar-open] .klods-sidebar {
+      display: block;
+    }
+
+    // Sidebar sticky children don't make sense in stacked mobile layout.
+    .klods-sidebar > * {
+      position: static;
+      max-height: none;
+      overflow-y: visible;
+    }
+  }
+
+  // Sidebar toggle button — visible only on mobile.
+  .klods-sidebar-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--klods-space-2);
+    border-radius: var(--klods-radius-sm);
+    background: transparent;
+    border: 1px solid transparent;
+    color: inherit;
+    cursor: pointer;
+    line-height: 1;
+    transition: background var(--klods-transition);
+
+    &:hover,
+    &:focus-visible {
+      background: var(--klods-color-surface-2);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--klods-color-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (max-width: #{t.$klods-bp-md}) {
+    .klods-sidebar-toggle {
+      display: inline-flex;
     }
   }
 
