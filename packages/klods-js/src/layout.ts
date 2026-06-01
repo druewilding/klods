@@ -109,7 +109,7 @@ export function sidebarToggle(attrs?: KlodsAttrs | null, children?: KlodsChild |
   return el(
     "button",
     { type: "button", "aria-label": "Toggle sidebar", class: "klods-sidebar-toggle", ...(attrs ?? {}) },
-    children ?? (HAMBURGER_ICON as unknown as KlodsChild)
+    children ?? HAMBURGER_ICON
   );
 }
 

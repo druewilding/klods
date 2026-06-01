@@ -21,7 +21,7 @@ export function navToggle(attrs?: KlodsAttrs | null, children?: KlodsChild | Klo
   return el(
     "button",
     { type: "button", "aria-label": "Toggle navigation", class: "klods-nav__toggle", ...(attrs ?? {}) },
-    children ?? (HAMBURGER_ICON as unknown as KlodsChild)
+    children ?? HAMBURGER_ICON
   );
 }
 
