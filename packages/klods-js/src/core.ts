@@ -116,7 +116,15 @@ export class KlodsNode {
   constructor(tag: string, attrs: KlodsAttrs = {}, children: KlodsChild | KlodsChild[] = []) {
     this.tag = tag;
     this.attrs = attrs;
-    this.children = Array.isArray(children) ? children : [children];
+    // Void tags (img, br, hr, input, …) can't have children in HTML, and
+    // `.toString()` always self-closes them. Drop any children passed in at
+    // construction time so `.render()` matches that behaviour instead of
+    // silently appending invalid DOM nodes.
+    if (VOID_TAGS.has(tag)) {
+      this.children = [];
+    } else {
+      this.children = Array.isArray(children) ? children : [children];
+    }
   }
 
   /** Render to a real DOM element. If `target` is given, append to it. */
@@ -204,19 +212,22 @@ export class KlodsNode {
 /**
  * Runtime check: is `value` a props object (as opposed to a child)?
  *
- * Props are always plain object literals. Children include strings, numbers,
- * booleans, arrays, `KlodsNode`s, DOM `Node`s, `RawHtml` markers, null and
- * undefined. Everything that's a plain object and isn't one of those special
- * object shapes is treated as props.
+ * Only plain object literals (prototype is `Object.prototype` or `null`) count
+ * as props. Class instances like `Date`, `URL`, `Map`, `Set`, etc. — and of
+ * course `KlodsNode`, DOM `Node`, and arrays — are all treated as children,
+ * so a one-off `el("time", new Date().toISOString())` style call doesn't get
+ * its child silently swallowed as a "props" object.
+ *
+ * `RawHtml` markers are technically plain objects too, so they're filtered
+ * out explicitly.
  */
 export function isPropsArg(value: unknown): value is KlodsAttrs {
   if (value === null || value === undefined) return false;
   if (typeof value !== "object") return false;
   if (Array.isArray(value)) return false;
-  if (value instanceof KlodsNode) return false;
   if (isRaw(value)) return false;
-  if ("nodeType" in (value as object)) return false;
-  return true;
+  const proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null;
 }
 
 /**
