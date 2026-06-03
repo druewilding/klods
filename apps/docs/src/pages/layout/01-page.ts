@@ -10,6 +10,6 @@ export const examples: KlodsNode[] = [
   example({
     title: "Page with header, content and footer",
     description: "The simplest layout. Uses CSS Grid under the hood and works without JS.",
-    render: () => page({}, [header({}, "Header"), content({}, "Main content"), footer({}, "Footer")]),
+    render: () => page([header("Header"), content("Main content"), footer("Footer")]),
   }),
 ];

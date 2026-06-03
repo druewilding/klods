@@ -202,11 +202,68 @@ export class KlodsNode {
 }
 
 /**
+ * Runtime check: is `value` a props object (as opposed to a child)?
+ *
+ * Props are always plain object literals. Children include strings, numbers,
+ * booleans, arrays, `KlodsNode`s, DOM `Node`s, `RawHtml` markers, null and
+ * undefined. Everything that's a plain object and isn't one of those special
+ * object shapes is treated as props.
+ */
+export function isPropsArg(value: unknown): value is KlodsAttrs {
+  if (value === null || value === undefined) return false;
+  if (typeof value !== "object") return false;
+  if (Array.isArray(value)) return false;
+  if (value instanceof KlodsNode) return false;
+  if (isRaw(value)) return false;
+  if ("nodeType" in (value as object)) return false;
+  return true;
+}
+
+/**
+ * Splits a `(propsOrChildren, children?)` argument pair into a normalised
+ * `[props, children]` tuple. Used by `el`, the `builder()` factory, and any
+ * hand-written wrapper that wants to accept both `(props, children)` and
+ * `(children)` call shapes.
+ */
+export function normalizeArgs<P extends Record<string, unknown> = KlodsAttrs>(
+  a: unknown,
+  b: unknown
+): [P, KlodsChild | KlodsChild[] | undefined] {
+  if (b !== undefined || isPropsArg(a) || a === null) {
+    return [(a ?? {}) as P, b as KlodsChild | KlodsChild[] | undefined];
+  }
+  return [{} as P, a as KlodsChild | KlodsChild[] | undefined];
+}
+
+/**
  * Generic element builder. Most consumers use the named builders (page, header, …)
  * rather than calling `el` directly, but it's exported as an escape hatch.
+ *
+ * Can be called as `el("p")`, `el("p", "hi")`, `el("p", { class: "x" })`, or
+ * `el("p", { class: "x" }, "hi")` — the props/children arg is detected at runtime.
  */
-export function el(tag: string, attrs: KlodsAttrs = {}, children: KlodsChild | KlodsChild[] = []): KlodsNode {
-  return new KlodsNode(tag, attrs, children);
+export function el(tag: string): KlodsNode;
+export function el(tag: string, children: KlodsChild | KlodsChild[]): KlodsNode;
+export function el(tag: string, attrs: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function el(
+  tag: string,
+  a?: KlodsAttrs | KlodsChild | KlodsChild[] | null,
+  b?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  const [attrs, children] = normalizeArgs<KlodsAttrs>(a, b);
+  return new KlodsNode(tag, attrs, children ?? []);
+}
+
+/**
+ * Returns a no-class builder for a specific HTML tag. Used by `html.ts` and by
+ * hand-written wrappers that just want `(props?, children?)` over a fixed tag.
+ */
+export function tagBuilder(tagName: string): KlodsBuilderFn<Record<never, never>> {
+  const fn = (a?: unknown, b?: unknown): KlodsNode => {
+    const [attrs, children] = normalizeArgs<KlodsAttrs>(a, b);
+    return new KlodsNode(tagName, attrs, children ?? []);
+  };
+  return fn as KlodsBuilderFn<Record<never, never>>;
 }
 
 /**
@@ -215,16 +272,29 @@ export function el(tag: string, attrs: KlodsAttrs = {}, children: KlodsChild | K
  * attributes; everything else passes through untouched, so consumers can attach
  * arbitrary `id`, `data-*`, `aria-*`, event handlers, `style`, etc.
  */
+/**
+ * The shape of a function returned by `builder()`. Supports three call forms:
+ *   - `fn()`                          — no props, no children
+ *   - `fn(children)`                  — children only (string / array / KlodsNode / …)
+ *   - `fn(props, children?)`          — typed props plus optional children
+ */
+export type KlodsBuilderFn<P> = {
+  (): KlodsNode;
+  (children: KlodsChild | KlodsChild[]): KlodsNode;
+  (props: (P & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+};
+
 export function builder<P extends Record<string, unknown> = Record<never, never>>(options: {
   tag: string;
   base: string;
   /** Map of prop name → class (or function returning a class) when the prop is truthy. */
   modifiers?: { [K in keyof P]?: string | ((value: P[K]) => string | undefined) };
-}): (props?: (P & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]) => KlodsNode {
+}): KlodsBuilderFn<P> {
   const { tag, base, modifiers = {} } = options;
   const modifierMap = modifiers as Record<string, string | ((value: unknown) => string | undefined) | undefined>;
-  return (props, children) => {
-    const userProps = (props ?? {}) as P & KlodsAttrs;
+  const fn = (a?: unknown, b?: unknown): KlodsNode => {
+    const [props, children] = normalizeArgs<P & KlodsAttrs>(a, b);
+    const userProps = props;
     const modClasses: string[] = [];
     const passthrough: KlodsAttrs = {};
     for (const [key, value] of Object.entries(userProps)) {
@@ -246,4 +316,5 @@ export function builder<P extends Record<string, unknown> = Record<never, never>
     delete passthrough.children;
     return new KlodsNode(tag, { ...passthrough, class: finalClass || undefined }, resolvedChildren);
   };
+  return fn as KlodsBuilderFn<P>;
 }

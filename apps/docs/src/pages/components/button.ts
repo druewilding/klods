@@ -10,8 +10,8 @@ export const examples: KlodsNode[] = [
   example({
     title: "Button",
     render: () =>
-      cluster({}, [
-        button({}, "Default"),
+      cluster([
+        button("Default"),
         button({ variant: "primary" }, "Primary"),
         button({ variant: "danger" }, "Danger"),
         button({ variant: "ghost" }, "Ghost"),
@@ -29,7 +29,7 @@ export const examples: KlodsNode[] = [
           class: "my-tracker",
           "data-event": "click_save",
           "aria-label": "Save the document",
-          onClick: () => alert({}, "(no-op in the docs)"),
+          onClick: () => alert("(no-op in the docs)"),
         },
         "Save"
       ),

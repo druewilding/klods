@@ -9,6 +9,6 @@ export const anchor = "center-center-everything";
 export const examples: KlodsNode[] = [
   example({
     title: "Center — center everything",
-    render: () => center({ style: "min-height: 10rem;" }, box({}, "centered")),
+    render: () => center({ style: "min-height: 10rem;" }, box("centered")),
   }),
 ];

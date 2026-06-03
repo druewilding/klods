@@ -9,6 +9,6 @@ export const anchor = "cluster-horizontal-wraps";
 export const examples: KlodsNode[] = [
   example({
     title: "Cluster — horizontal, wraps",
-    render: () => cluster({ gap: 3 }, [box({}, "A"), box({}, "B"), box({}, "C"), box({}, "D"), box({}, "E")]),
+    render: () => cluster({ gap: 3 }, [box("A"), box("B"), box("C"), box("D"), box("E")]),
   }),
 ];

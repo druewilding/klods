@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { el, lead, muted, prose, textCenter } from "klods-js";
+import { code, h2, lead, muted, p, pre, prose, textCenter } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -10,27 +10,27 @@ export const examples: KlodsNode[] = [
   example({
     title: "Prose",
     render: () =>
-      prose({}, [
-        el("h2", {}, "A heading inside prose"),
-        el("p", {}, [
+      prose([
+        h2("A heading inside prose"),
+        p([
           "Use ",
-          el("code", {}, "klods-prose"),
+          code("klods-prose"),
           " to give a block of HTML content sensible spacing, heading rhythm, and styled inline code.",
         ]),
-        el("p", {}, "Subsequent paragraphs get automatic top margin via the adjacent-sibling selector."),
-        el("pre", {}, [el("code", {}, '<div class="klods-prose">…</div>')]),
+        p("Subsequent paragraphs get automatic top margin via the adjacent-sibling selector."),
+        pre(code('<div class="klods-prose">…</div>')),
       ]),
   }),
   example({
     title: "Lead",
-    render: () => lead({}, "A lead paragraph introduces a section with slightly larger, muted text."),
+    render: () => lead("A lead paragraph introduces a section with slightly larger, muted text."),
   }),
   example({
     title: "Muted",
-    render: () => el("p", {}, ["Regular text followed by ", muted({}, "muted text"), " for secondary information."]),
+    render: () => p(["Regular text followed by ", muted("muted text"), " for secondary information."]),
   }),
   example({
     title: "Text center",
-    render: () => textCenter({}, [el("p", {}, "This text is centred using the text-center utility.")]),
+    render: () => textCenter([p("This text is centred using the text-center utility.")]),
   }),
 ];

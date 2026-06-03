@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { el, stack } from "klods-js";
+import { h2, p, stack } from "klods-js";
 
 export interface ComponentModule {
   label: string;
@@ -18,8 +18,8 @@ export const componentLinks: ComponentLink[] = components.map((m) => ({ label: m
 
 export function renderComponentsSection(): KlodsNode {
   return stack({ gap: 5 }, [
-    el("h2", {}, "Components"),
-    el("p", { class: "klods-lead" }, "Opinionated defaults; extend any of them with class, id, data-* etc."),
+    h2("Components"),
+    p({ class: "klods-lead" }, "Opinionated defaults; extend any of them with class, id, data-* etc."),
     ...components.flatMap((m) => m.examples),
   ]);
 }

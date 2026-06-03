@@ -9,6 +9,6 @@ export const anchor = "row-horizontal-no-wrap";
 export const examples: KlodsNode[] = [
   example({
     title: "Row — horizontal, no wrap",
-    render: () => row({ gap: 3 }, [box({}, "left"), box({}, "middle"), box({}, "right")]),
+    render: () => row({ gap: 3 }, [box("left"), box("middle"), box("right")]),
   }),
 ];

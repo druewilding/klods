@@ -2,7 +2,7 @@
 // All match the BEM classes shipped by klods-css.
 
 import type { KlodsAttrs, KlodsChild } from "./core.js";
-import { builder, classNames, el, KlodsNode, raw } from "./core.js";
+import { builder, classNames, el, KlodsNode, normalizeArgs, raw, tagBuilder } from "./core.js";
 
 // ── Nav ──────────────────────────────────────────────────────────────────
 export const nav = builder({ tag: "nav", base: "klods-nav" });
@@ -17,10 +17,14 @@ const HAMBURGER_ICON = raw(
  * Hamburger toggle button for `.klods-nav--collapse`. Renders a default
  * three-line icon; pass children to override. Wire up with `toggleNav`.
  */
-export function navToggle(attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode {
+export function navToggle(): KlodsNode;
+export function navToggle(children: KlodsChild | KlodsChild[]): KlodsNode;
+export function navToggle(attrs: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function navToggle(a?: KlodsAttrs | KlodsChild | KlodsChild[] | null, b?: KlodsChild | KlodsChild[]): KlodsNode {
+  const [attrs, children] = normalizeArgs<KlodsAttrs>(a, b);
   return el(
     "button",
-    { type: "button", "aria-label": "Toggle navigation", class: "klods-nav__toggle", ...(attrs ?? {}) },
+    { type: "button", "aria-label": "Toggle navigation", class: "klods-nav__toggle", ...attrs },
     children ?? HAMBURGER_ICON
   );
 }
@@ -43,10 +47,8 @@ export function toggleNav(targetEl: HTMLElement): void {
 }
 export type TocProps = { sub?: boolean };
 export const toc = builder<TocProps>({ tag: "ul", base: "klods-toc", modifiers: { sub: "klods-toc--sub" } });
-export const tocItem = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
-  el("li", attrs ?? {}, children);
-export const tocLink = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
-  el("a", attrs ?? {}, children);
+export const tocItem = tagBuilder("li");
+export const tocLink = tagBuilder("a");
 
 export type NavLinkProps = {
   href?: string;
@@ -57,9 +59,15 @@ const navLinkBuilder = builder<NavLinkProps>({
   base: "klods-nav__link",
   modifiers: { active: "klods-nav__link--active" },
 });
-export function navLink(props?: (NavLinkProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode {
+export function navLink(props?: (NavLinkProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function navLink(children: KlodsChild | KlodsChild[]): KlodsNode;
+export function navLink(
+  a?: (NavLinkProps & KlodsAttrs) | KlodsChild | KlodsChild[] | null,
+  b?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  const [props, children] = normalizeArgs<NavLinkProps & KlodsAttrs>(a, b);
   // Wrap each link in <li> so it's idiomatic inside <ul class="klods-nav__list">.
-  return el("li", {}, [navLinkBuilder(props ?? null, children)]);
+  return el("li", {}, [navLinkBuilder(props, children)]);
 }
 
 // ── Card ─────────────────────────────────────────────────────────────────
@@ -87,9 +95,16 @@ const buttonBase = builder<ButtonProps>({
     variant: (v) => (v && v !== "default" ? `klods-button--${v}` : undefined),
   },
 });
-export function button(props?: (ButtonProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode {
+export function button(): KlodsNode;
+export function button(children: KlodsChild | KlodsChild[]): KlodsNode;
+export function button(props: (ButtonProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function button(
+  a?: (ButtonProps & KlodsAttrs) | KlodsChild | KlodsChild[] | null,
+  b?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  const [props, children] = normalizeArgs<ButtonProps & KlodsAttrs>(a, b);
   // Default `type="button"` so it never accidentally submits a form.
-  const merged = { type: "button", ...(props ?? {}) } as ButtonProps & KlodsAttrs;
+  const merged = { type: "button", ...props } as ButtonProps & KlodsAttrs;
   return buttonBase(merged, children);
 }
 
@@ -116,9 +131,16 @@ const alertBase = builder<AlertProps>({
     variant: (v) => (v && v !== "default" ? `klods-alert--${v}` : undefined),
   },
 });
-export function alert(props?: (AlertProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode {
+export function alert(): KlodsNode;
+export function alert(children: KlodsChild | KlodsChild[]): KlodsNode;
+export function alert(props: (AlertProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function alert(
+  a?: (AlertProps & KlodsAttrs) | KlodsChild | KlodsChild[] | null,
+  b?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  const [props, children] = normalizeArgs<AlertProps & KlodsAttrs>(a, b);
   // role=alert by default for assistive tech, overridable.
-  const merged = { role: "alert", ...(props ?? {}) } as AlertProps & KlodsAttrs;
+  const merged = { role: "alert", ...props } as AlertProps & KlodsAttrs;
   return alertBase(merged, children);
 }
 
@@ -142,16 +164,11 @@ export const table = builder<TableProps>({
     dense: "klods-table--dense",
   },
 });
-export const thead = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
-  el("thead", attrs ?? {}, children);
-export const tbody = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
-  el("tbody", attrs ?? {}, children);
-export const tr = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
-  el("tr", attrs ?? {}, children);
-export const th = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
-  el("th", attrs ?? {}, children);
-export const td = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
-  el("td", attrs ?? {}, children);
+export const thead = tagBuilder("thead");
+export const tbody = tagBuilder("tbody");
+export const tr = tagBuilder("tr");
+export const th = tagBuilder("th");
+export const td = tagBuilder("td");
 
 // ── Forms ────────────────────────────────────────────────────────────────
 
@@ -325,14 +342,17 @@ export function input(props: InputProps & KlodsAttrs): KlodsNode {
 }
 
 const selectEl = builder({ tag: "select", base: "klods-select" });
-export function select(attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode {
+export function select(): KlodsNode;
+export function select(children: KlodsChild | KlodsChild[]): KlodsNode;
+export function select(attrs: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function select(a?: KlodsAttrs | KlodsChild | KlodsChild[] | null, b?: KlodsChild | KlodsChild[]): KlodsNode {
+  const [attrs, children] = normalizeArgs<KlodsAttrs>(a, b);
   // Wrap in a positioning parent so ::after can render the chevron arrow
   // via mask-image + var(--klods-color-muted) without a baked-in color.
   return el("div", { class: "klods-select-wrapper" }, selectEl(attrs, children));
 }
 
-export const option = (attrs?: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode =>
-  el("option", attrs ?? {}, children);
+export const option = tagBuilder("option");
 
 export const textarea = builder({ tag: "textarea", base: "klods-textarea" });
 
@@ -471,11 +491,22 @@ export function switchInput(props: SwitchProps & KlodsAttrs): KlodsNode {
 }
 
 // ── Code ─────────────────────────────────────────────────────────────────
-export function codeBlock(attrs?: KlodsAttrs | null, content?: KlodsChild | KlodsChild[]): KlodsNode {
-  return el("pre", attrs ?? {}, el("code", {}, content));
+export function codeBlock(): KlodsNode;
+export function codeBlock(content: KlodsChild | KlodsChild[]): KlodsNode;
+export function codeBlock(attrs: KlodsAttrs | null, content?: KlodsChild | KlodsChild[]): KlodsNode;
+export function codeBlock(a?: KlodsAttrs | KlodsChild | KlodsChild[] | null, b?: KlodsChild | KlodsChild[]): KlodsNode {
+  const [attrs, content] = normalizeArgs<KlodsAttrs>(a, b);
+  return el("pre", attrs, el("code", {}, content));
 }
-export function inlineCode(attrs?: KlodsAttrs | null, content?: KlodsChild | KlodsChild[]): KlodsNode {
-  return el("code", attrs ?? {}, content);
+export function inlineCode(): KlodsNode;
+export function inlineCode(content: KlodsChild | KlodsChild[]): KlodsNode;
+export function inlineCode(attrs: KlodsAttrs | null, content?: KlodsChild | KlodsChild[]): KlodsNode;
+export function inlineCode(
+  a?: KlodsAttrs | KlodsChild | KlodsChild[] | null,
+  b?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  const [attrs, content] = normalizeArgs<KlodsAttrs>(a, b);
+  return el("code", attrs, content);
 }
 
 // ── Box ──────────────────────────────────────────────────────────────────

@@ -9,6 +9,6 @@ export const anchor = "stack-vertical-with-gap";
 export const examples: KlodsNode[] = [
   example({
     title: "Stack — vertical with gap",
-    render: () => stack({ gap: 3 }, [box({}, "one"), box({}, "two"), box({}, "three")]),
+    render: () => stack({ gap: 3 }, [box("one"), box("two"), box("three")]),
   }),
 ];

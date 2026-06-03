@@ -11,9 +11,9 @@ export const examples: KlodsNode[] = [
     title: "Card",
     render: () =>
       card({ style: "max-width: 24rem;" }, [
-        cardTitle({}, "Cosy card"),
-        cardBody({}, "Cards stack a title, a body and an optional footer with sensible spacing."),
-        cardFooter({}, [button({ variant: "primary" }, "OK"), button({}, "Cancel")]),
+        cardTitle("Cosy card"),
+        cardBody("Cards stack a title, a body and an optional footer with sensible spacing."),
+        cardFooter([button({ variant: "primary" }, "OK"), button("Cancel")]),
       ]),
   }),
   example({
@@ -21,9 +21,9 @@ export const examples: KlodsNode[] = [
     description: "Add `elevated: true` to make the card stand out from the background with a shadow.",
     render: () =>
       card({ elevated: true, style: "max-width: 24rem;" }, [
-        cardTitle({}, "Cosy card"),
-        cardBody({}, "Cards stack a title, a body and an optional footer with sensible spacing."),
-        cardFooter({}, [button({ variant: "primary" }, "OK"), button({}, "Cancel")]),
+        cardTitle("Cosy card"),
+        cardBody("Cards stack a title, a body and an optional footer with sensible spacing."),
+        cardFooter([button({ variant: "primary" }, "OK"), button("Cancel")]),
       ]),
   }),
 ];
