@@ -5,12 +5,12 @@ import {
   cardFooter,
   cardTitle,
   checkbox,
-  el,
   field,
   form,
   grid,
   input,
   option,
+  p,
   push,
   radio,
   radioGroup,
@@ -185,7 +185,7 @@ export const examples: KlodsNode[] = [
     description:
       "A complete form using `grid` to lay out pairs of fields side by side. Names and contact details share a row; the message and actions sit full-width below.",
     render: () =>
-      card({}, [
+      card([
         form({ onSubmit: (e: Event) => e.preventDefault() }, [
           grid({ cols: 2, gap: 4 }, [
             field({ label: "First name", required: true }, (id) => input({ id, type: "text", placeholder: "Jane" })),
@@ -205,7 +205,7 @@ export const examples: KlodsNode[] = [
             ),
           ]),
           field({ label: "Message", required: true }, (id) => textarea({ id, placeholder: "How can we help you?" })),
-          spread({}, [
+          spread([
             checkbox({ label: "I agree to the privacy policy", name: "privacy", required: true }),
             button({ variant: "primary", type: "submit" }, "Send message"),
           ]),
@@ -218,11 +218,11 @@ export const examples: KlodsNode[] = [
     description:
       "A two-column settings card. Each column groups related settings under a `klods-label` heading. `reverse` switches keep the toggle on the right; `cardFooter` with `push` pins the save button to the right edge.",
     render: () =>
-      card({}, [
-        cardTitle({}, "Preferences"),
+      card([
+        cardTitle("Preferences"),
         grid({ cols: 2, gap: 5 }, [
           stack({ gap: 3 }, [
-            el("p", { class: "klods-label" }, "Account"),
+            p({ class: "klods-label" }, "Account"),
             switchInput({ label: "Public profile", name: "public" }),
             field({ label: "Language" }, (id) =>
               select({ id }, [
@@ -233,13 +233,13 @@ export const examples: KlodsNode[] = [
             ),
           ]),
           stack({ gap: 3 }, [
-            el("p", { class: "klods-label" }, "Notifications"),
+            p({ class: "klods-label" }, "Notifications"),
             switchInput({ label: "Enable notifications", name: "notif", checked: true }),
             switchInput({ label: "Email digest", name: "digest" }),
             switchInput({ label: "Push alerts", name: "push", checked: true }),
           ]),
         ]),
-        cardFooter({}, [push({}), button({ variant: "primary" }, "Save preferences")]),
+        cardFooter([push({}), button({ variant: "primary" }, "Save preferences")]),
       ]),
   }),
 

@@ -5,6 +5,8 @@ import "./styles.css";
 
 import type { KlodsNode } from "klods-js";
 import {
+  a,
+  button,
   buttonGroup,
   content,
   el,
@@ -17,7 +19,9 @@ import {
   section,
   sidebar,
   sidebarToggle,
+  span,
   stack,
+  strong,
   toc,
   tocItem,
   tocLink,
@@ -67,11 +71,9 @@ function themeSwitcher(): KlodsNode {
   return row({ inline: true, gap: 2 }, [
     buttonGroup({ "aria-label": "Theme" }, [
       ...THEMES.map((t) =>
-        el(
-          "button",
+        button(
           {
-            class: "klods-button klods-button--ghost",
-            type: "button",
+            variant: "ghost",
             "data-theme-id": t.id,
             "aria-pressed": String((document.documentElement.getAttribute("data-theme") ?? "") === t.id),
             onClick: () => {
@@ -100,12 +102,12 @@ function themeSwitcher(): KlodsNode {
 }
 
 function sectionTocItem(section: Section): KlodsNode {
-  return tocItem({}, [
+  return tocItem([
     tocLink({ href: `#${section.id}` }, section.title),
     section.links?.length
       ? toc(
           { sub: true },
-          section.links.map((l) => tocItem({}, tocLink({ href: `#${l.anchor}` }, l.label)))
+          section.links.map((l) => tocItem(tocLink({ href: `#${l.anchor}` }, l.label)))
         )
       : null,
   ]);
@@ -113,14 +115,13 @@ function sectionTocItem(section: Section): KlodsNode {
 
 function shell(): KlodsNode {
   return page({ sidebar: true, stickyHeader: true, class: "docs-shell" }, [
-    header({}, [
+    header([
       sidebarToggle({ onClick: (e: MouseEvent) => toggleSidebar(e.currentTarget as HTMLElement) }),
-      fill({}, [
-        el("strong", { style: "font-size: 1.25rem;" }, "klods"),
-        el("span", { class: "klods-badge" }, `v${__KLODS_VERSION__}`),
+      fill([
+        strong({ style: "font-size: 1.25rem;" }, "klods"),
+        span({ class: "klods-badge" }, `v${__KLODS_VERSION__}`),
       ]),
-      el(
-        "a",
+      a(
         {
           id: "vanilla-link",
           href: initialTheme ? `./vanilla.html?theme=${initialTheme}` : "./vanilla.html",
@@ -130,16 +131,16 @@ function shell(): KlodsNode {
       ),
       fill({ class: "klods-hide-tablet" }, [push(), themeSwitcher()]),
     ]),
-    sidebar({}, [el("nav", { "aria-label": "Sections" }, [toc({}, SECTIONS.map(sectionTocItem))])]),
-    content({}, [
+    sidebar([el("nav", { "aria-label": "Sections" }, [toc(SECTIONS.map(sectionTocItem))])]),
+    content([
       stack(
         { gap: 7 },
         SECTIONS.map((s) => section({ id: s.id }, [s.render()]))
       ),
     ]),
-    footer({}, [
-      el("span", {}, "klods · MIT · "),
-      el("a", { href: "https://github.com/druewilding/klods" }, "github.com/druewilding/klods"),
+    footer([
+      span("klods · MIT · "),
+      a({ href: "https://github.com/druewilding/klods" }, "github.com/druewilding/klods"),
     ]),
   ]);
 }

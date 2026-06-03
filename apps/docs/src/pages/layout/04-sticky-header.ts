@@ -10,7 +10,6 @@ export const examples: KlodsNode[] = [
   example({
     title: "Sticky header",
     description: "`stickyHeader: true` keeps the header pinned to the top of the viewport as the page scrolls.",
-    render: () =>
-      page({ stickyHeader: true }, [header({}, "Sticky header"), content({}, "Main content"), footer({}, "Footer")]),
+    render: () => page({ stickyHeader: true }, [header("Sticky header"), content("Main content"), footer("Footer")]),
   }),
 ];

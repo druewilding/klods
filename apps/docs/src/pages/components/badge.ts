@@ -10,8 +10,8 @@ export const examples: KlodsNode[] = [
   example({
     title: "Badge",
     render: () =>
-      cluster({}, [
-        badge({}, "default"),
+      cluster([
+        badge("default"),
         badge({ variant: "accent" }, "accent"),
         badge({ variant: "success" }, "success"),
         badge({ variant: "danger" }, "danger"),

@@ -10,7 +10,7 @@ export const examples: KlodsNode[] = [
   example({
     title: "Alert",
     render: () =>
-      stack({}, [
+      stack([
         alert({ variant: "info" }, "Heads up — info."),
         alert({ variant: "success" }, "All good."),
         alert({ variant: "warning" }, "Be careful."),

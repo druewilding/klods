@@ -12,8 +12,8 @@ export const examples: KlodsNode[] = [
     description:
       "klods-hide-mobile hides an element on screens ≤ 480 px (phones). klods-hide-tablet hides an element on screens ≤ 768 px (phones and tablets). Resize the window to see the badges appear and disappear.",
     render: () =>
-      cluster({}, [
-        box({}, "Always visible"),
+      cluster([
+        box("Always visible"),
         badge({ class: "klods-hide-mobile", variant: "accent" }, "Hidden on mobile (≤ 480 px)"),
         badge({ class: "klods-hide-tablet", variant: "success" }, "Hidden on tablet + mobile (≤ 768 px)"),
       ]),

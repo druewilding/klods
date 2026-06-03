@@ -11,10 +11,6 @@ export const examples: KlodsNode[] = [
     title: "Narrow content",
     description: "`content({ narrow: true })` caps the main column at --klods-content-max and centres it.",
     render: () =>
-      page({}, [
-        header({}, "Header"),
-        content({ narrow: true }, box({}, "Narrow column — capped and centred.")),
-        footer({}, "Footer"),
-      ]),
+      page([header("Header"), content({ narrow: true }, box("Narrow column — capped and centred.")), footer("Footer")]),
   }),
 ];

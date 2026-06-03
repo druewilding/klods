@@ -9,6 +9,6 @@ export const anchor = "spread-push-children-apart";
 export const examples: KlodsNode[] = [
   example({
     title: "Spread — push children apart",
-    render: () => spread({}, [box({}, "start"), box({}, "end")]),
+    render: () => spread([box("start"), box("end")]),
   }),
 ];

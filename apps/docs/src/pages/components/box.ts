@@ -11,8 +11,8 @@ export const examples: KlodsNode[] = [
     title: "Box",
     render: () =>
       stack({ gap: 3 }, [
-        box({}, "A padded container with a surface background."),
-        box({}, "Great for grouping related content, call-outs, or as a visual placeholder."),
+        box("A padded container with a surface background."),
+        box("Great for grouping related content, call-outs, or as a visual placeholder."),
       ]),
   }),
 ];
