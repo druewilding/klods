@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/druewilding/klods/compare/klods-js-v1.10.0...klods-js-v2.0.0) (2026-06-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* Simplify the TypeScript builders ([#62](https://github.com/druewilding/klods/issues/62))
+
+### Features
+
+* Simplify the TypeScript builders ([#62](https://github.com/druewilding/klods/issues/62)) ([eee6aef](https://github.com/druewilding/klods/commit/eee6aefa852065779eeed5ce10898d4d5d224c50))
+
 ## [1.10.0](https://github.com/druewilding/klods/compare/klods-js-v1.9.0...klods-js-v1.10.0) (2026-06-01)
 
 
