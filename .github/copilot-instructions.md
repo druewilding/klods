@@ -35,8 +35,8 @@ Never add CSS without a builder. Never add a builder without a docs example. The
 2. **JS builder** in `packages/klods-js/src/components.ts`:
    - Use the `builder()` factory for BEM classes with modifier props
    - Export a `{Name}Props` type for any non-HTML props
-   - For wrappers with logic (e.g. defaulting `type="button"`), write a named function
-   - For bare HTML element wrappers with no BEM class, call `el()` directly
+   - For wrappers with logic (e.g. defaulting `type="button"`), write a named function with the standard three-overload signature (see "Builder call shapes" below)
+   - For bare HTML element wrappers with no BEM class, use `tagBuilder("tagName")` from `core.ts` (or, if it's already in `html.ts`, just import it)
 
 3. **Docs example** in `apps/docs/src/pages/components.ts`:
    - Import the new builder at the top of the file
@@ -57,12 +57,53 @@ Never add CSS without a builder. Never add a builder without a docs example. The
 ## JS builder conventions
 
 - `builder({ tag, base, modifiers })` — factory for BEM components with modifier props
-- `el(tag, attrs, children)` — escape hatch for raw HTML elements without BEM classes
+- `tagBuilder("tag")` — factory for plain HTML tags with no BEM class
+- `el(tag, attrs?, children?)` — escape hatch for one-off raw HTML elements
 - `KlodsAttrs` — all HTML attrs including `data-*`, `aria-*`, `style`, event handlers (`onClick` etc.)
 - `KlodsChild` — `string | number | KlodsNode | KlodsChild[] | null | undefined`
 - `.render(target?)` — mounts to DOM (appends to target or replaces `document.body`)
 - `.toString()` — returns the HTML string (safe for SSR)
 - Always export named `{Name}Props` types for any component-specific props
+
+### Builder call shapes (the lego API)
+
+Every builder — and `el()` — accepts the same three call shapes. Always prefer the shortest one that fits:
+
+```ts
+cardTitle(); // no props, no children
+cardTitle("Install"); // children only (most common!)
+cardTitle(["Save ", icon]); // an array of children counts as children
+cardTitle({ class: "x" }); // props only
+cardTitle({ class: "x" }, "Install"); // props + children
+```
+
+The first arg is detected at runtime: a plain object literal that isn't a `KlodsNode`, array, DOM `Node`, or `RawHtml` is treated as **props**; everything else is treated as **children**.
+
+**Style rules for examples and docs:**
+
+- **Drop the empty `{}`** when there are no props. Write `cardBody([…])`, not `cardBody({}, […])`.
+- **Use HTML tag shortcuts** from `klods-js` for raw HTML — `code("npm i …")`, `pre(code(…))`, `p({ class: "klods-muted" }, "…")`, `ul([li("a"), li("b")])`, `strong("important")`, `em("emphasis")`, `h1`–`h6`, etc. Available in `packages/klods-js/src/html.ts`.
+- **Don't use `el("tag", {}, …)`** when a tag shortcut exists — that's the old style.
+- **`el(...)` is still needed** for HTML tags whose names collide with klods exports: `nav`, `button`, `form`, `header`, `footer`, `section`, `aside`, `input`, `select`, `option`, `textarea`, `table`, `thead`, `tbody`, `tr`, `th`, `td`, `card`. For those use the klods component if you want klods styling, or `el("nav", …)` if you specifically want an unstyled native element.
+
+### When writing a new hand-written wrapper
+
+Match the shape of `button`, `alert`, `navToggle` etc. — three overloads + `normalizeArgs(a, b)`:
+
+```ts
+export function widget(): KlodsNode;
+export function widget(children: KlodsChild | KlodsChild[]): KlodsNode;
+export function widget(props: (WidgetProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function widget(
+  a?: (WidgetProps & KlodsAttrs) | KlodsChild | KlodsChild[] | null,
+  b?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  const [props, children] = normalizeArgs<WidgetProps & KlodsAttrs>(a, b);
+  // …
+}
+```
+
+Wrappers whose first arg must be a typed required props object (`field`, `input`, `checkbox`, `radio`) keep their single-signature shape — overloading only applies where props are entirely optional.
 
 ## Docs conventions
 

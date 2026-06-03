@@ -30,14 +30,31 @@ npm install klods-css klods-js
 
 ```ts
 import "klods-css";
-import { page, header, sidebar, content, footer, button, card } from "klods-js";
+import { card, cardBody, cardTitle, content, footer, header, page, sidebar } from "klods-js";
 
 page({ sidebar: true, stickyHeader: true }, [
-  header({}, "My App"),
-  sidebar({}, "…"),
-  content({}, card({}, button({ variant: "primary" }, "Save"))),
-  footer({}, "© 2026"),
+  header("My App"),
+  sidebar("…"),
+  content(card([cardTitle("Welcome"), cardBody("Snap blocks together.")])),
+  footer("© 2026"),
 ]).render(document.body);
+```
+
+Every builder accepts three call shapes — pick the shortest that fits:
+
+```ts
+cardTitle("Install"); // children only
+cardTitle({ class: "x" }, "Install"); // props + children
+cardTitle(); // empty
+```
+
+There are also tag shortcuts for plain HTML — `code`, `pre`, `p`, `ul`, `li`, `strong`, `em`, `h1`–`h6`, … — so the lego stays bumpy:
+
+```ts
+import { code, li, p, pre, ul } from "klods-js";
+
+p({ class: "klods-muted" }, ["Run ", code("npm i klods-js"), " to get started."]);
+ul([li("Tiny"), li("Themeable"), li("SSR-ready")]);
 ```
 
 ## Features
