@@ -13,8 +13,8 @@ Monorepo, `klods-css` with layout / utilities / first components, `klods-js` TS 
 1. ✅ **Plain-HTML demo page** in the docs (`/vanilla.html`) — no-JS path using only BEM classes.
 2. ✅ **Git repo** initialised and pushed to `druewilding/klods`.
 3. ✅ **GitHub Actions CI** — lint + format check + test + build on every PR (`ci.yml`).
-4. ✅ **Changesets** for independent versioning of `klods-css` and `klods-js` (`release.yml`).
-5. ✅ **Published to npm** — `klods-css` and `klods-js` live; now at v1.6.3 / v1.5.1.
+4. ✅ **Release Please** for independent automated versioning of `klods-css` and `klods-js` (`release.yml`).
+5. ✅ **Published to npm** — `klods-css` and `klods-js` live; now at **klods-css v1.12** / **klods-js v2.0**.
 6. ✅ **Deploy docs** to GitHub Pages from `apps/docs/dist` via Actions (`docs.yml`).
 7. ✅ **README polish** — screenshot, one-liner installer, the "lego" pitch.
 
@@ -22,7 +22,7 @@ Monorepo, `klods-css` with layout / utilities / first components, `klods-js` TS 
 
 ---
 
-## Post-Phase-1 additions (v1.1 – v1.5)
+## Post-Phase-1 additions (klods-js v1.1 – v1.10)
 
 Components and features added incrementally before moving to full form support:
 
@@ -31,6 +31,11 @@ Components and features added incrementally before moving to full form support:
 - **v1.3** — `fill` and `push` utilities
 - **v1.4** — `toc`, `tocItem`, `tocLink` (table of contents component)
 - **v1.5** — `section` layout component; `buttonGroup` with pill styling and `aria-pressed` support; `prose`, `lead`, `muted` text components; `row({ inline })` variant; URL-persistent theme switcher on docs and vanilla.html; tinted alert backgrounds via `color-mix()`; `sidebarPosition: "leading" | "trailing"` (RTL-friendly replacement for `sidebarRight`)
+- **v1.6** — Trailing-sidebar support landed in JS builders.
+- **v1.7** — Form components (Phase 2 — see below).
+- **v1.8** — `text-center` utility.
+- **v1.9** — Responsive layout, mobile sidebar drawer, hamburger nav (Phase 2b — see below).
+- **v1.10** — Hamburger SVG bundled directly in `klods-css` so the no-JS path keeps zero JS.
 
 ---
 
@@ -47,18 +52,29 @@ Forms are the highest-value missing piece for real apps.
 
 ---
 
-## Phase 2b — Responsive / mobile
+## Phase 2b — Responsive / mobile (done ✅)
 
-The layout and components work on desktop but break down on smaller viewports. Make everything usable on mobile before shipping interactive components.
+Shipped across **klods-js v1.9 / klods-css v1.10–v1.12**.
 
-1. **Layout breakpoints** — add responsive spacing and column behaviour so `klods-page`, `klods-header`, `klods-sidebar`, and `klods-content` stack sensibly on small screens.
-2. **Sidebar collapse** — sidebar hidden by default on mobile; a simple `data-sidebar-open` toggle (JS helper + CSS) reveals it as a drawer or slide-in panel.
-3. **Form fields** — inputs, selects, and textareas should be full-width on mobile without extra effort; tap target sizes meet WCAG 2.5.8 (24 × 24 px minimum).
-4. **Navigation** — `klods-nav__list` wraps or collapses to a hamburger-style menu on narrow viewports.
-5. **Tables** — `klods-table` gets a horizontal scroll wrapper or card-stacking mode for small screens.
-6. **Docs** — the docs site itself should be fully usable on a phone.
+1. ✅ **Layout breakpoints** — responsive spacing and column behaviour so `klods-page`, `klods-header`, `klods-sidebar`, and `klods-content` stack sensibly on small screens.
+2. ✅ **Sidebar collapse** — sidebar hidden by default on mobile; `data-sidebar-open` toggle (JS helper `toggleSidebar` + CSS) reveals it as a drawer. Works in vanilla HTML too via the small JS file shipped from `klods-css`.
+3. ✅ **Form fields** — full-width on mobile by default; tap targets meet WCAG 2.5.8 (24 × 24 px).
+4. ✅ **Navigation** — `klods-nav--collapse` modifier with hamburger toggle (`navToggle` builder + `toggleNav` helper). Hamburger SVG ships directly in `klods-css` so it works no-JS.
+5. ✅ **Tables** — `tableWrap` provides a horizontal scroll wrapper for narrow viewports.
+6. ✅ **Docs** — the docs site itself is fully usable on a phone.
 
 **Outcome:** klods is production-ready for mobile-first apps.
+
+---
+
+## Phase 2c — Builder ergonomics (done ✅, klods-js v2.0)
+
+A focused DX pass on the TypeScript builders. **Breaking change** — hence the v2 bump.
+
+1. ✅ **Optional props arg** — every builder and `el()` accepts `(children)` directly, so `cardTitle("Install")` replaces `cardTitle("Install")`. Detected at runtime via plain-prototype check, so class instances (`Date`, `URL`, …) still pass through as children.
+2. ✅ **HTML tag shortcuts** — new `html.ts` module exports tag-named builders (`code`, `pre`, `p`, `span`, `ul`, `li`, `strong`, `h1`–`h6`, …) so `code("npm i klods-js")` replaces `el("code", "npm i klods-js")`. Names that collide with klods components (`nav`, `button`, `form`, `header`, `footer`, `section`, `table`, …) are intentionally not re-exported — use the BEM component or `el("nav", …)` for the unstyled native element.
+3. ✅ **Void-tag safety** — `KlodsNode` constructor strips children for void tags (`img`, `br`, `hr`, `input`, …) so `.render()` and `.toString()` stay in sync.
+4. ✅ **Docs sweep** — every example in `apps/docs` rewritten to use the new shapes; the docs are the proof-of-style.
 
 ---
 
@@ -68,7 +84,7 @@ Native-first; smallest possible JS.
 
 1. **Modal** — native `<dialog>` + `showModal()`. Builder `modal({ open, onClose }, [...])` with `modalTitle`, `modalBody`, `modalActions`. Tiny `openModal(node)` / `closeModal(node)` helpers. CSS handles backdrop + animation.
 2. **Tabs** — ship the no-JS variant first (CSS-only via radio inputs or `<details>` group), layer JS-enhanced ARIA tabs on top later.
-3. **Breadcrumbs** — `breadcrumbs({}, [crumb({ href }, "Home"), crumb({}, "Now")])`.
+3. **Breadcrumbs** — `breadcrumbs([crumb({ href }, "Home"), crumb("Now")])`.
 4. **Toast** — `toast({ variant, duration }, "Saved.")` with a mount point and a tiny imperative `toast.show(...)`.
 5. **Tooltip** — using the popover API (`[popover]`) where supported, no positioning library.
 6. **Disclosure** — thin wrapper around `<details>` / `<summary>` for FAQs and the like.
@@ -119,11 +135,11 @@ _Partially done: `data-theme` switching with URL persistence ships in v1.5. The 
 
 ---
 
-## Phase 8 — v1.0
+## Phase 8 — v2.0 and beyond
 
-When phases 1–7 are stable, cut **v1.0.0**: stable APIs, stable class names, stable token names, semver promise.
+`klods-js` is already at **v2.0** (the builder-ergonomics rewrite); `klods-css` is at **v1.12** and stays on its own track. The original "v1.0 stability promise" remains the spirit of this phase: when phases 3–7 are stable, both packages should be on stable APIs, stable class names, stable token names, and a real semver promise.
 
-### Speculative / post-1.0
+### Speculative / post-stable
 
 - **Web-component wrappers** (`<klods-card>`) for users who want JS sugar without a build step.
 - **`@klods/icons`** — a tiny, themeable SVG icon set sized to the spacing scale.
@@ -134,27 +150,27 @@ When phases 1–7 are stable, cut **v1.0.0**: stable APIs, stable class names, s
 
 ## Recommended ordering
 
-The lowest-risk, highest-leverage path is:
+The lowest-risk, highest-leverage path from here:
 
-1. **Phase 1** in full → cut v0.1.0 and put klods in the world.
-2. **Phase 2 (forms)** → unlocks "I can build a real app with this."
-3. **Phase 2b (responsive)** → make it actually usable on mobile.
-4. **Phase 3 (interactive)** → unlocks dialogs / toasts / tabs that every app needs.
-5. **Phase 7 hooks (CI, bundle budget)** alongside, so each release stays honest.
-6. **Phase 4 + 5** in parallel as time allows.
-7. **Phase 6** once the API has settled.
-8. **Phase 8** — v1.0.
+1. **Phase 3 (interactive)** → unlocks dialogs / toasts / tabs that every app needs.
+2. **Phase 7 hooks (CI, bundle budget, a11y)** alongside, so each release stays honest.
+3. **Phase 4 + 5** in parallel as time allows.
+4. **Phase 6** once the API has settled.
+5. **Stability sweep** — declare APIs, classes and tokens stable.
 
 ## Status
 
-| Phase           | Status                  |
-| --------------- | ----------------------- |
-| 0               | ✅ done                 |
-| 1               | ✅ done                 |
-| Post-Phase-1    | ✅ done (v1.1–v1.5)     |
-| 2 (forms)       | ✅ done                 |
-| 2b (responsive) | next                    |
-| 3 (interactive) | not started             |
-| 4 (data)        | partial (table done)    |
-| 5 (theming)     | partial (switcher done) |
-| 6–8             | not started             |
+| Phase                   | Status                  |
+| ----------------------- | ----------------------- |
+| 0                       | ✅ done                 |
+| 1                       | ✅ done                 |
+| Post-Phase-1            | ✅ done (v1.1–v1.10)    |
+| 2 (forms)               | ✅ done                 |
+| 2b (responsive)         | ✅ done                 |
+| 2c (builder ergonomics) | ✅ done (klods-js v2.0) |
+| 3 (interactive)         | next                    |
+| 4 (data)                | partial (table done)    |
+| 5 (theming)             | partial (switcher done) |
+| 6                       | not started             |
+| 7                       | not started             |
+| 8 (stability)           | ongoing                 |
