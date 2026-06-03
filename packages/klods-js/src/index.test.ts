@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   alert,
+  br,
   button,
   card,
   cardBody,
@@ -11,6 +12,8 @@ import {
   el,
   footer,
   header,
+  hr,
+  img,
   li,
   p,
   page,
@@ -119,5 +122,40 @@ describe("html tag shortcuts", () => {
   it("compose lists", () => {
     const html = ul([li(strong("first")), li("second")]).toString();
     expect(html).toBe("<ul><li><strong>first</strong></li><li>second</li></ul>");
+  });
+
+  it("void tags drop accidental children at construction time", () => {
+    // Stray children to a void tag must not appear in the DOM or HTML output —
+    // this keeps `.render()` and `.toString()` in sync.
+    expect(el("img", "alt-ish").toString()).toBe("<img />");
+    expect(el("br", "x").toString()).toBe("<br />");
+    expect(el("hr", { class: "k" }, "should-vanish").toString()).toBe('<hr class="k" />');
+
+    const root = document.createElement("div");
+    el("img", { src: "x.png" }, "drop-me").render(root);
+    expect(root.querySelector("img")?.childNodes.length).toBe(0);
+  });
+
+  it("void tag shortcuts (br, hr, img) drop accidental children too", () => {
+    // Same guarantee for tagBuilder()-produced shortcuts in html.ts —
+    // the safeguard lives in the KlodsNode constructor, so any path through
+    // the API gets it for free.
+    expect(br("oops").toString()).toBe("<br />");
+    expect(hr({ class: "k" }, "x").toString()).toBe('<hr class="k" />');
+    expect(img({ src: "x.png", alt: "" }, "drop-me").toString()).toBe('<img src="x.png" alt="" />');
+  });
+
+  it("class instances are treated as children, not props", () => {
+    // Date / URL / Map etc. shouldn't get mis-classified as props and silently
+    // dropped. The runtime stringifies non-KlodsChild values via String(value),
+    // so this should render the date as text rather than an empty <time></time>.
+    const d = new Date("2026-06-03T00:00:00Z");
+    expect(el("time", d as unknown as string).toString()).toBe(`<time>${String(d)}</time>`);
+
+    const u = new URL("https://example.com/path");
+    expect(el("span", u as unknown as string).toString()).toBe(`<span>${String(u)}</span>`);
+
+    // raw() is a plain-shaped object but must still be a child, not props.
+    expect(el("span", raw("<em>x</em>")).toString()).toBe("<span><em>x</em></span>");
   });
 });
