@@ -556,10 +556,11 @@ export function openModal(dialogEl: HTMLElement): void {
  * Close a `.klods-modal` dialog. Pass the dialog element or any element inside it.
  */
 export function closeModal(targetEl: HTMLElement): void {
-  const dialogEl = (
-    targetEl.tagName === "DIALOG" ? targetEl : targetEl.closest("dialog.klods-modal")
-  ) as HTMLDialogElement | null;
-  if (!dialogEl) return;
+  const dialogEl =
+    targetEl instanceof HTMLDialogElement
+      ? targetEl
+      : (targetEl.closest("dialog.klods-modal") as HTMLDialogElement | null);
+  if (!dialogEl?.open) return;
   dialogEl.close();
 }
 export function inlineCode(): KlodsNode;
