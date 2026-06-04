@@ -8,7 +8,7 @@ const { version: klodsVersion } = require("../../packages/klods-js/package.json"
 const { version: klodsCssVersion } = require("../../packages/klods-css/package.json") as { version: string };
 
 export default defineConfig(({ mode }) => ({
-  plugins: [exampleSourcePlugin()],
+  plugins: [exampleSourcePlugin({ printWidth: 66 })],
   // /klods/ in production so the site lives at druewilding.com/klods.
   // Root in dev so Vite's HMR and asset paths work normally.
   base: mode === "production" ? "/klods/" : "/",
