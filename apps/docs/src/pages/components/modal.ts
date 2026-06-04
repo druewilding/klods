@@ -3,7 +3,6 @@ import {
   button,
   closeModal,
   div,
-  el,
   modal,
   modalActions,
   modalBody,

@@ -836,6 +836,19 @@
       color var(--klods-transition);
     flex-shrink: 0;
 
+    // × icon via CSS mask so no SVG needs to be baked into the JS builder.
+    &::before {
+      content: "";
+      display: block;
+      width: 16px;
+      height: 16px;
+      background-color: currentColor;
+      // stylelint-disable-next-line function-url-quotes
+      mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='black' stroke-linecap='round' stroke-width='1.75' d='M4 4l8 8M12 4L4 12'/></svg>");
+      mask-repeat: no-repeat;
+      mask-size: contain;
+    }
+
     &:hover,
     &:focus-visible {
       background: var(--klods-color-surface-2);
