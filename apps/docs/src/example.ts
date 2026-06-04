@@ -24,6 +24,12 @@ export type ExampleSpec = {
   render: () => KlodsNode;
   /** Set to true to hide the TypeScript and HTML source panes (e.g. for prose-only cards). */
   hideCode?: boolean;
+  /**
+   * Pre-formatted TypeScript source injected by the vite-plugin-example-source
+   * build plugin. When present, used instead of fn.toString() so the pane shows
+   * the original source (with types, proper indentation) rather than esbuild output.
+   */
+  _source?: string;
 };
 
 /** Tiny HTML pretty-printer for the "HTML" tab. */
@@ -80,7 +86,10 @@ function slug(title: string): string {
 
 export function example(spec: ExampleSpec): KlodsNode {
   const result = spec.render();
-  const tsSource = tabsToSpaces(dedent(stripArrow(spec.render.toString())));
+  // Prefer the pre-formatted source injected by the build plugin (preserves
+  // TypeScript types and original indentation). Fall back to fn.toString()
+  // in environments where the plugin hasn't run (e.g. vitest).
+  const tsSource = spec._source ?? tabsToSpaces(dedent(stripArrow(spec.render.toString())));
   const htmlSource = tabsToSpaces(prettyHtml(result.toString()));
 
   const tsHighlighted = hljs.highlight(tsSource, { language: "typescript" }).value;

@@ -16,7 +16,6 @@ export const examples: KlodsNode[] = [
     title: "Code — block",
     render: () =>
       codeBlock(
-        {},
         'import { page, header, content } from "klods-js";\n\npage([\n  header("Hello"),\n  content("World"),\n]).render(document.body);'
       ),
   }),
