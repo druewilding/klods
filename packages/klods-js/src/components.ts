@@ -516,9 +516,12 @@ export function modal(
   b?: KlodsChild | KlodsChild[]
 ): KlodsNode {
   const [props, children] = normalizeArgs<ModalProps & KlodsAttrs>(a, b);
-  const { open, ...rest } = props ?? {};
-  const attrs: KlodsAttrs = { class: "klods-modal", ...rest };
-  if (open) attrs.open = "";
+  const { open, class: extraClass, ...rest } = props ?? {};
+  const attrs: KlodsAttrs = {
+    ...rest,
+    class: classNames(["klods-modal", classNames(extraClass as KlodsAttrs["class"])]) || undefined,
+  };
+  if (open) attrs.open = true;
   return el("dialog", attrs, children ?? []);
 }
 
