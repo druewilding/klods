@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.0](https://github.com/druewilding/klods/compare/klods-css-v1.13.0...klods-css-v1.14.0) (2026-06-04)
+
+
+### Features
+
+* Add syntax highlighting and format the docs nicely ([#67](https://github.com/druewilding/klods/issues/67)) ([ed22251](https://github.com/druewilding/klods/commit/ed222519e0340d315a2e517b66f4a8a508b1736f))
+
 ## [1.13.0](https://github.com/druewilding/klods/compare/klods-css-v1.12.0...klods-css-v1.13.0) (2026-06-04)
 
 
