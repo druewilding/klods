@@ -498,6 +498,74 @@ export function codeBlock(a?: KlodsAttrs | KlodsChild | KlodsChild[] | null, b?:
   const [attrs, content] = normalizeArgs<KlodsAttrs>(a, b);
   return el("pre", attrs, el("code", {}, content));
 }
+
+// ── Modal ─────────────────────────────────────────────────────────────────
+// Built on the native <dialog> element. Use openModal() / closeModal() to
+// show and hide. openModal() calls .showModal() so the dialog is top-layer
+// with a backdrop; closeModal() calls .close().
+
+const MODAL_CLOSE_ICON = raw(
+  '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>'
+);
+
+export type ModalProps = {
+  /** When true, renders the dialog with the `open` attribute (non-modal inline display). */
+  open?: boolean;
+};
+export function modal(): KlodsNode;
+export function modal(children: KlodsChild | KlodsChild[]): KlodsNode;
+export function modal(props: (ModalProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function modal(
+  a?: (ModalProps & KlodsAttrs) | KlodsChild | KlodsChild[] | null,
+  b?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  const [props, children] = normalizeArgs<ModalProps & KlodsAttrs>(a, b);
+  const { open, ...rest } = props ?? {};
+  const attrs: KlodsAttrs = { class: "klods-modal", ...rest };
+  if (open) attrs.open = "";
+  return el("dialog", attrs, children ?? []);
+}
+
+export const modalPanel = builder({ tag: "div", base: "klods-modal__panel" });
+export const modalHeader = builder({ tag: "div", base: "klods-modal__header" });
+export const modalTitle = builder({ tag: "h2", base: "klods-modal__title" });
+export const modalBody = builder({ tag: "div", base: "klods-modal__body" });
+export const modalActions = builder({ tag: "div", base: "klods-modal__actions" });
+
+/** Close button with a built-in × icon. Pass children to override the icon. */
+export function modalClose(): KlodsNode;
+export function modalClose(children: KlodsChild | KlodsChild[]): KlodsNode;
+export function modalClose(props: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function modalClose(
+  a?: KlodsAttrs | KlodsChild | KlodsChild[] | null,
+  b?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  const [props, children] = normalizeArgs<KlodsAttrs>(a, b);
+  return el(
+    "button",
+    { type: "button", "aria-label": "Close", class: "klods-modal__close", ...props },
+    children ?? MODAL_CLOSE_ICON
+  );
+}
+
+/**
+ * Open a `.klods-modal` dialog as a modal overlay using the native `showModal()` API.
+ * Pass the `<dialog>` element returned by `modal().render()`.
+ */
+export function openModal(dialogEl: HTMLElement): void {
+  (dialogEl as HTMLDialogElement).showModal();
+}
+
+/**
+ * Close a `.klods-modal` dialog. Pass the dialog element or any element inside it.
+ */
+export function closeModal(targetEl: HTMLElement): void {
+  const dialogEl = (
+    targetEl.tagName === "DIALOG" ? targetEl : targetEl.closest("dialog.klods-modal")
+  ) as HTMLDialogElement | null;
+  if (!dialogEl) return;
+  dialogEl.close();
+}
 export function inlineCode(): KlodsNode;
 export function inlineCode(content: KlodsChild | KlodsChild[]): KlodsNode;
 export function inlineCode(attrs: KlodsAttrs | null, content?: KlodsChild | KlodsChild[]): KlodsNode;

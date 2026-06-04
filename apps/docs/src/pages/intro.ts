@@ -20,10 +20,7 @@ import {
 
 export function renderIntroSection(): KlodsNode {
   return stack({ gap: 4 }, [
-    div([
-      h1("klods"),
-      lead("Tiny, opinionated, fully themeable HTML/CSS/JS pieces that snap together like lego."),
-    ]),
+    div([h1("klods"), lead("Tiny, opinionated, fully themeable HTML/CSS/JS pieces that snap together like lego.")]),
     prose([
       p(["klods (Danish for ", em("block"), ") gives you two ways to build:"]),
       ul([
