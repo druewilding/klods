@@ -9,9 +9,9 @@
  * Prettier, and inject it as `_source: "..."` on the ExampleSpec object.
  * example.ts uses spec._source instead of fn.toString().
  */
-import type { Plugin } from "vite";
 import { format, resolveConfig } from "prettier";
 import * as ts from "typescript";
+import type { Plugin } from "vite";
 
 export function exampleSourcePlugin(): Plugin {
   return {
@@ -76,4 +76,3 @@ async function injectSources(code: string, id: string): Promise<string | null> {
 
   return result;
 }
-

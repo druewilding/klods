@@ -1,5 +1,6 @@
 import { createRequire } from "module";
 import { defineConfig } from "vite";
+
 import { exampleSourcePlugin } from "./vite-plugin-example-source.js";
 
 const require = createRequire(import.meta.url);
