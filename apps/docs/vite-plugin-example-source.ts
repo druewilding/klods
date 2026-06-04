@@ -9,11 +9,12 @@
  * Prettier, and inject it as `_source: "..."` on the ExampleSpec object.
  * example.ts uses spec._source instead of fn.toString().
  */
+import type { Options as PrettierOptions } from "prettier";
 import { format, resolveConfig } from "prettier";
 import * as ts from "typescript";
 import type { Plugin } from "vite";
 
-export function exampleSourcePlugin(): Plugin {
+export function exampleSourcePlugin(prettierOverrides: PrettierOptions = {}): Plugin {
   return {
     name: "klods-example-source",
     enforce: "pre",
@@ -22,7 +23,7 @@ export function exampleSourcePlugin(): Plugin {
       if (!cleanId.includes("/pages/") || !cleanId.endsWith(".ts")) return null;
       if (!code.includes("render:")) return null;
       try {
-        return await injectSources(code, cleanId);
+        return await injectSources(code, cleanId, prettierOverrides);
       } catch (e) {
         // Don't break the build — fall back to fn.toString() at runtime.
         console.warn(`[klods-example-source] Failed to process ${cleanId}:`, e);
@@ -32,7 +33,7 @@ export function exampleSourcePlugin(): Plugin {
   };
 }
 
-async function injectSources(code: string, id: string): Promise<string | null> {
+async function injectSources(code: string, id: string, prettierOverrides: PrettierOptions): Promise<string | null> {
   const prettierConfig = (await resolveConfig(id)) ?? {};
   const sf = ts.createSourceFile("x.ts", code, ts.ScriptTarget.Latest, true);
 
@@ -64,7 +65,7 @@ async function injectSources(code: string, id: string): Promise<string | null> {
   for (const { insertAt, body } of entries) {
     let formatted: string;
     try {
-      formatted = (await format(body, { ...prettierConfig, parser: "typescript" })).trim();
+      formatted = (await format(body, { ...prettierConfig, ...prettierOverrides, parser: "typescript" })).trim();
     } catch {
       formatted = body.trim();
     }
