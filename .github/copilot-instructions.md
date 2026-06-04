@@ -54,6 +54,38 @@ Never add CSS without a builder. Never add a builder without a docs example. The
 - Never use `!important`. Never hardcode colours or spacing values.
 - Themes override tokens in `_themes.scss` via `[data-theme="dark|playful|brutalist"]`
 
+### Icons in CSS vs inline SVG in JS
+
+**Use CSS `::before` + `mask-image` (data URL SVG) when:**
+
+- The icon is _component chrome_ — it always appears, the user never swaps it out (e.g. the modal × close button, the sidebar-toggle hamburger, the select chevron).
+- It must be single-color and theme automatically. Use `background-color: currentColor` so it inherits from the element's color token.
+- It must work on the no-JS vanilla HTML path with no build step.
+
+Pattern (copy from `.klods-sidebar-toggle::before` in `_layout.scss`):
+
+```scss
+&::before {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: currentColor;
+  // stylelint-disable-next-line function-url-quotes
+  mask-image: url("data:image/svg+xml,<svg …/>");
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+```
+
+**Switch to inline SVG in the JS builder when:**
+
+- The icon changes per variant (e.g. different icons for info/success/warning/danger alert variants) — the logic belongs in the builder, not in multiple CSS modifier rules.
+- The icon is multi-color or uses fills that can't be expressed with a single `currentColor`.
+- The user is expected to override or swap the icon via children.
+
+**Do not** create a `@klods/icons` package yet — users can bring Lucide, Heroicons, Phosphor etc. alongside klods today. An icon package is Phase 8 speculative work.
+
 ## JS builder conventions
 
 - `builder({ tag, base, modifiers })` — factory for BEM components with modifier props
