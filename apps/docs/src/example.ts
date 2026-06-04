@@ -8,8 +8,14 @@
 // The three panes are guaranteed to stay in sync because they all derive from
 // one source of truth: the `render` function you pass in.
 
+import hljs from "highlight.js/lib/core";
+import hljsTs from "highlight.js/lib/languages/typescript";
+import hljsXml from "highlight.js/lib/languages/xml";
+hljs.registerLanguage("typescript", hljsTs);
+hljs.registerLanguage("xml", hljsXml);
+
 import type { KlodsNode } from "klods-js";
-import { card, cardBody, cardTitle, el } from "klods-js";
+import { card, cardBody, cardTitle, el, raw } from "klods-js";
 
 export type ExampleSpec = {
   title: string;
@@ -43,18 +49,26 @@ function prettyHtml(html: string): string {
   return out.join("\n");
 }
 
+/** Strip the `() => ` arrow wrapper from a render function's source. */
+function stripArrow(source: string): string {
+  // Handles both `() => expr` and `() =>\n  expr`
+  return source.replace(/^\(\) =>\s*/, "");
+}
+
 /** Strip leading whitespace common to all lines (so the TS source isn't deeply indented). */
 function dedent(source: string): string {
   const lines = source.split("\n");
-  // Skip the first line (`() =>`) when finding the minimum — it has 0 leading
-  // whitespace and would otherwise prevent any stripping from the body lines.
-  const bodyLines = lines.slice(1);
-  const indents = bodyLines.filter((l) => l.trim()).map((l) => l.match(/^[ \t]*/)?.[0].length ?? 0);
+  const indents = lines.filter((l) => l.trim()).map((l) => l.match(/^[ \t]*/)?.[0].length ?? 0);
   const min = indents.length ? Math.min(...indents) : 0;
   return lines
-    .map((l, i) => (i === 0 ? l : l.slice(min)))
+    .map((l) => l.slice(min))
     .join("\n")
     .trim();
+}
+
+/** Convert tabs to 2 spaces. */
+function tabsToSpaces(source: string): string {
+  return source.replace(/\t/g, "  ");
 }
 
 function slug(title: string): string {
@@ -66,8 +80,11 @@ function slug(title: string): string {
 
 export function example(spec: ExampleSpec): KlodsNode {
   const result = spec.render();
-  const tsSource = dedent(spec.render.toString());
-  const htmlSource = prettyHtml(result.toString());
+  const tsSource = tabsToSpaces(dedent(stripArrow(spec.render.toString())));
+  const htmlSource = tabsToSpaces(prettyHtml(result.toString()));
+
+  const tsHighlighted = hljs.highlight(tsSource, { language: "typescript" }).value;
+  const htmlHighlighted = hljs.highlight(htmlSource, { language: "xml" }).value;
 
   return card({ class: "docs-example", id: slug(spec.title) }, [
     cardTitle({}, spec.title),
@@ -78,13 +95,13 @@ export function example(spec: ExampleSpec): KlodsNode {
         ? null
         : el("details", { class: "docs-example__source" }, [
             el("summary", {}, "TypeScript"),
-            el("pre", {}, [el("code", { class: "language-ts" }, tsSource)]),
+            el("pre", {}, [el("code", { class: "hljs language-typescript" }, raw(tsHighlighted))]),
           ]),
       spec.hideCode
         ? null
         : el("details", { class: "docs-example__source" }, [
             el("summary", {}, "HTML"),
-            el("pre", {}, [el("code", { class: "language-html" }, htmlSource)]),
+            el("pre", {}, [el("code", { class: "hljs language-xml" }, raw(htmlHighlighted))]),
           ]),
     ]),
   ]);

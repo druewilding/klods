@@ -11,6 +11,18 @@
     --klods-color-border: #2a2f3a;
     --klods-color-accent: #8a8aff;
     --klods-color-accent-fg: #0f1115;
+
+    // GitHub Dark palette
+    --klods-code-bg: #161b22;
+    --klods-code-fg: #e6edf3;
+    --klods-code-keyword: #ff7b72;
+    --klods-code-string: #a5d6ff;
+    --klods-code-comment: #8b949e;
+    --klods-code-number: #79c0ff;
+    --klods-code-type: #ffa657;
+    --klods-code-attr: #7ee787;
+    --klods-code-tag: #7ee787;
+    --klods-code-title: #d2a8ff;
   }
 
   [data-theme="playful"] {
@@ -25,6 +37,17 @@
     --klods-radius-md: 16px;
     --klods-radius-lg: 28px;
     --klods-font-sans: "Comic Sans MS", "Comic Sans", ui-rounded, system-ui, sans-serif;
+
+    --klods-code-bg: #ffeef8;
+    --klods-code-fg: #2a1a3a;
+    --klods-code-keyword: #e63990;
+    --klods-code-string: #7c3aed;
+    --klods-code-comment: #b06090;
+    --klods-code-number: #ff6b35;
+    --klods-code-type: #ff8c00;
+    --klods-code-attr: #0d9488;
+    --klods-code-tag: #0d9488;
+    --klods-code-title: #9333ea;
   }
 
   [data-theme="brutalist"] {
@@ -44,5 +67,16 @@
     --klods-shadow-md: 6px 6px 0 #000;
     --klods-shadow-lg: 10px 10px 0 #000;
     --klods-font-sans: "Courier New", ui-monospace, monospace;
+
+    --klods-code-bg: #f0f0f0;
+    --klods-code-fg: #000000;
+    --klods-code-keyword: #000000;
+    --klods-code-string: #333333;
+    --klods-code-comment: #666666;
+    --klods-code-number: #000000;
+    --klods-code-type: #000000;
+    --klods-code-attr: #000000;
+    --klods-code-tag: #000000;
+    --klods-code-title: #000000;
   }
 }

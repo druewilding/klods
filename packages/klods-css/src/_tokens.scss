@@ -66,6 +66,19 @@ $klods-bp-lg: 64rem; // 1024px — desktop
 
     // ── Motion ─────────────────────────────────────────────────────────────
     --klods-transition: 150ms ease;
+
+    // ── Code syntax ────────────────────────────────────────────────────────
+    // GitHub Light palette — maps to hljs token spans via _components.scss
+    --klods-code-bg: #f6f8fa;
+    --klods-code-fg: #24292f;
+    --klods-code-keyword: #cf222e;
+    --klods-code-string: #0a3069;
+    --klods-code-comment: #6e7781;
+    --klods-code-number: #0550ae;
+    --klods-code-type: #953800;
+    --klods-code-attr: #116329;
+    --klods-code-tag: #116329;
+    --klods-code-title: #8250df;
   }
 
   // Reduce gutter on small screens so content isn't over-padded on phones.
