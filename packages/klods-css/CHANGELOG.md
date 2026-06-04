@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.0](https://github.com/druewilding/klods/compare/klods-css-v1.12.0...klods-css-v1.13.0) (2026-06-04)
+
+
+### Features
+
+* Enable modal component ([#65](https://github.com/druewilding/klods/issues/65)) ([97b4b90](https://github.com/druewilding/klods/commit/97b4b906b86bae11a143eb747a1d73430fe91fe8))
+
 ## [1.12.0](https://github.com/druewilding/klods/compare/klods-css-v1.11.0...klods-css-v1.12.0) (2026-06-01)
 
 
