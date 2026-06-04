@@ -544,10 +544,12 @@ export function modalClose(props?: KlodsAttrs | null): KlodsNode {
 
 /**
  * Open a `.klods-modal` dialog as a modal overlay using the native `showModal()` API.
- * Pass the `<dialog>` element returned by `modal().render()`.
+ * The element must already be mounted in the document (e.g. via `.render(document.body)`).
+ * No-ops silently if the element is not a connected `<dialog>` or is already open.
  */
 export function openModal(dialogEl: HTMLElement): void {
-  (dialogEl as HTMLDialogElement).showModal();
+  if (!(dialogEl instanceof HTMLDialogElement) || !dialogEl.isConnected || dialogEl.open) return;
+  dialogEl.showModal();
 }
 
 /**
