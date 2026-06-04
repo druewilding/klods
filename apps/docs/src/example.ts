@@ -64,10 +64,13 @@ function stripArrow(source: string): string {
 /** Strip leading whitespace common to all lines (so the TS source isn't deeply indented). */
 function dedent(source: string): string {
   const lines = source.split("\n");
-  const indents = lines.filter((l) => l.trim()).map((l) => l.match(/^[ \t]*/)?.[0].length ?? 0);
+  // Skip line 0 when computing the minimum indent — after stripArrow() it has
+  // 0 leading whitespace and would otherwise prevent any stripping of body lines.
+  const bodyLines = lines.slice(1);
+  const indents = bodyLines.filter((l) => l.trim()).map((l) => l.match(/^[ \t]*/)?.[0].length ?? 0);
   const min = indents.length ? Math.min(...indents) : 0;
   return lines
-    .map((l) => l.slice(min))
+    .map((l, i) => (i === 0 ? l : l.slice(min)))
     .join("\n")
     .trim();
 }
@@ -92,8 +95,13 @@ export function example(spec: ExampleSpec): KlodsNode {
   const tsSource = spec._source ?? tabsToSpaces(dedent(stripArrow(spec.render.toString())));
   const htmlSource = tabsToSpaces(prettyHtml(result.toString()));
 
-  const tsHighlighted = hljs.highlight(tsSource, { language: "typescript" }).value;
-  const htmlHighlighted = hljs.highlight(htmlSource, { language: "xml" }).value;
+  // Only highlight when the code panes are actually shown.
+  const tsHighlighted = !spec.hideCode
+    ? hljs.highlight(tsSource, { language: "typescript", ignoreIllegals: true }).value
+    : null;
+  const htmlHighlighted = !spec.hideCode
+    ? hljs.highlight(htmlSource, { language: "xml", ignoreIllegals: true }).value
+    : null;
 
   return card({ class: "docs-example", id: slug(spec.title) }, [
     cardTitle({}, spec.title),
@@ -104,13 +112,13 @@ export function example(spec: ExampleSpec): KlodsNode {
         ? null
         : el("details", { class: "docs-example__source" }, [
             el("summary", {}, "TypeScript"),
-            el("pre", {}, [el("code", { class: "hljs language-typescript" }, raw(tsHighlighted))]),
+            el("pre", {}, [el("code", { class: "hljs language-typescript" }, raw(tsHighlighted!))]),
           ]),
       spec.hideCode
         ? null
         : el("details", { class: "docs-example__source" }, [
             el("summary", {}, "HTML"),
-            el("pre", {}, [el("code", { class: "hljs language-xml" }, raw(htmlHighlighted))]),
+            el("pre", {}, [el("code", { class: "hljs language-xml" }, raw(htmlHighlighted!))]),
           ]),
     ]),
   ]);

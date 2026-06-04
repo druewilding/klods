@@ -18,13 +18,14 @@ export function exampleSourcePlugin(): Plugin {
     name: "klods-example-source",
     enforce: "pre",
     async transform(code: string, id: string) {
-      if (!id.includes("/pages/") || !id.endsWith(".ts")) return null;
+      const cleanId = id.split("?")[0];
+      if (!cleanId.includes("/pages/") || !cleanId.endsWith(".ts")) return null;
       if (!code.includes("render:")) return null;
       try {
-        return await injectSources(code, id);
+        return await injectSources(code, cleanId);
       } catch (e) {
         // Don't break the build — fall back to fn.toString() at runtime.
-        console.warn(`[klods-example-source] Failed to process ${id}:`, e);
+        console.warn(`[klods-example-source] Failed to process ${cleanId}:`, e);
         return null;
       }
     },
@@ -32,7 +33,7 @@ export function exampleSourcePlugin(): Plugin {
 }
 
 async function injectSources(code: string, id: string): Promise<string | null> {
-  const prettierConfig = await resolveConfig(id);
+  const prettierConfig = (await resolveConfig(id)) ?? {};
   const sf = ts.createSourceFile("x.ts", code, ts.ScriptTarget.Latest, true);
 
   // Collect all render arrow function bodies.
