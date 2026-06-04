@@ -533,7 +533,13 @@ export const modalActions = builder({ tag: "div", base: "klods-modal__actions" }
 
 /** Close button — the × icon is provided by CSS via a ::before mask-image. */
 export function modalClose(props?: KlodsAttrs | null): KlodsNode {
-  return el("button", { type: "button", "aria-label": "Close", class: "klods-modal__close", ...(props ?? {}) });
+  const { class: extraClass, ...rest } = props ?? {};
+  return el("button", {
+    type: "button",
+    "aria-label": "Close",
+    ...rest,
+    class: classNames(["klods-modal__close", classNames(extraClass as KlodsAttrs["class"])]) || undefined,
+  });
 }
 
 /**
