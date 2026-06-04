@@ -8,8 +8,14 @@
 // The three panes are guaranteed to stay in sync because they all derive from
 // one source of truth: the `render` function you pass in.
 
+import hljs from "highlight.js/lib/core";
+import hljsTs from "highlight.js/lib/languages/typescript";
+import hljsXml from "highlight.js/lib/languages/xml";
+hljs.registerLanguage("typescript", hljsTs);
+hljs.registerLanguage("xml", hljsXml);
+
 import type { KlodsNode } from "klods-js";
-import { card, cardBody, cardTitle, el } from "klods-js";
+import { card, cardBody, cardTitle, el, raw } from "klods-js";
 
 export type ExampleSpec = {
   title: string;
@@ -18,6 +24,12 @@ export type ExampleSpec = {
   render: () => KlodsNode;
   /** Set to true to hide the TypeScript and HTML source panes (e.g. for prose-only cards). */
   hideCode?: boolean;
+  /**
+   * Pre-formatted TypeScript source injected by the vite-plugin-example-source
+   * build plugin. When present, used instead of fn.toString() so the pane shows
+   * the original source (with types, proper indentation) rather than esbuild output.
+   */
+  _source?: string;
 };
 
 /** Tiny HTML pretty-printer for the "HTML" tab. */
@@ -43,11 +55,17 @@ function prettyHtml(html: string): string {
   return out.join("\n");
 }
 
+/** Strip the `() => ` arrow wrapper from a render function's source. */
+function stripArrow(source: string): string {
+  // Handles both `() => expr` and `() =>\n  expr`
+  return source.replace(/^\(\) =>\s*/, "");
+}
+
 /** Strip leading whitespace common to all lines (so the TS source isn't deeply indented). */
 function dedent(source: string): string {
   const lines = source.split("\n");
-  // Skip the first line (`() =>`) when finding the minimum — it has 0 leading
-  // whitespace and would otherwise prevent any stripping from the body lines.
+  // Skip line 0 when computing the minimum indent — after stripArrow() it has
+  // 0 leading whitespace and would otherwise prevent any stripping of body lines.
   const bodyLines = lines.slice(1);
   const indents = bodyLines.filter((l) => l.trim()).map((l) => l.match(/^[ \t]*/)?.[0].length ?? 0);
   const min = indents.length ? Math.min(...indents) : 0;
@@ -55,6 +73,11 @@ function dedent(source: string): string {
     .map((l, i) => (i === 0 ? l : l.slice(min)))
     .join("\n")
     .trim();
+}
+
+/** Convert tabs to 2 spaces. */
+function tabsToSpaces(source: string): string {
+  return source.replace(/\t/g, "  ");
 }
 
 function slug(title: string): string {
@@ -66,8 +89,19 @@ function slug(title: string): string {
 
 export function example(spec: ExampleSpec): KlodsNode {
   const result = spec.render();
-  const tsSource = dedent(spec.render.toString());
-  const htmlSource = prettyHtml(result.toString());
+  // Prefer the pre-formatted source injected by the build plugin (preserves
+  // TypeScript types and original indentation). Fall back to fn.toString()
+  // in environments where the plugin hasn't run (e.g. vitest).
+  const tsSource = spec._source ?? tabsToSpaces(dedent(stripArrow(spec.render.toString())));
+  const htmlSource = tabsToSpaces(prettyHtml(result.toString()));
+
+  // Only highlight when the code panes are actually shown.
+  const tsHighlighted = !spec.hideCode
+    ? hljs.highlight(tsSource, { language: "typescript", ignoreIllegals: true }).value
+    : null;
+  const htmlHighlighted = !spec.hideCode
+    ? hljs.highlight(htmlSource, { language: "xml", ignoreIllegals: true }).value
+    : null;
 
   return card({ class: "docs-example", id: slug(spec.title) }, [
     cardTitle({}, spec.title),
@@ -78,13 +112,13 @@ export function example(spec: ExampleSpec): KlodsNode {
         ? null
         : el("details", { class: "docs-example__source" }, [
             el("summary", {}, "TypeScript"),
-            el("pre", {}, [el("code", { class: "language-ts" }, tsSource)]),
+            el("pre", {}, [el("code", { class: "hljs language-typescript" }, raw(tsHighlighted!))]),
           ]),
       spec.hideCode
         ? null
         : el("details", { class: "docs-example__source" }, [
             el("summary", {}, "HTML"),
-            el("pre", {}, [el("code", { class: "language-html" }, htmlSource)]),
+            el("pre", {}, [el("code", { class: "hljs language-xml" }, raw(htmlHighlighted!))]),
           ]),
     ]),
   ]);

@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "happy-dom": "20.9.0",
-    "klods-js": "*",
-    "klods-css": "*"
+    "highlight.js": "^11.11.1",
+    "klods-css": "*",
+    "klods-js": "*"
   },
   "devDependencies": {
+    "prettier": "^3.8.3",
     "sass": "^1.81.0",
     "typescript": "^5.6.3",
     "vite": "^8.0.14"
