@@ -8,10 +8,10 @@
 // The three panes are guaranteed to stay in sync because they all derive from
 // one source of truth: the `render` function you pass in.
 
-import hljs from "./hljs";
-
 import type { KlodsNode } from "klods-js";
 import { card, cardBody, cardTitle, el, raw } from "klods-js";
+
+import hljs from "./hljs";
 
 export type ExampleSpec = {
   title: string;

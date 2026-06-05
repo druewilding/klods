@@ -1,5 +1,3 @@
-import hljs from "../hljs";
-
 import type { KlodsNode } from "klods-js";
 import {
   alert,
@@ -20,6 +18,8 @@ import {
   strong,
   ul,
 } from "klods-js";
+
+import hljs from "../hljs";
 
 export function renderIntroSection(): KlodsNode {
   return stack({ gap: 4 }, [
