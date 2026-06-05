@@ -82,8 +82,8 @@ A focused DX pass on the TypeScript builders. **Breaking change** — hence the 
 
 Native-first; smallest possible JS.
 
-1. **Modal** — native `<dialog>` + `showModal()`. Builder `modal({ open, onClose }, [...])` with `modalTitle`, `modalBody`, `modalActions`. Tiny `openModal(node)` / `closeModal(node)` helpers. CSS handles backdrop + animation.
-2. **Tabs** — ship the no-JS variant first (CSS-only via radio inputs or `<details>` group), layer JS-enhanced ARIA tabs on top later.
+1. ✅ **Modal** — native `<dialog>` + `showModal()`. Builder `modal(...)` with `modalTitle`, `modalBody`, `modalActions`, `modalClose`. Tiny `openModal(el)` / `closeModal(el)` helpers. CSS handles backdrop + animation.
+2. ✅ **Tabs** — full ARIA tabs widget with keyboard navigation (arrow keys, Home, End). `tabs([tabPanel({ label }, ...)])` wires up tablist, roles, and show/hide. Scoped `--klods-tabs-active` token so themes can override the active color independently of accent.
 3. **Breadcrumbs** — `breadcrumbs([crumb({ href }, "Home"), crumb("Now")])`.
 4. **Toast** — `toast({ variant, duration }, "Saved.")` with a mount point and a tiny imperative `toast.show(...)`.
 5. **Tooltip** — using the popover API (`[popover]`) where supported, no positioning library.
@@ -122,6 +122,7 @@ _Partially done: `data-theme` switching with URL persistence ships in v1.5. The 
 3. **Rails example app** in `examples/rails-todo` — a tiny Rails 7 app using only `klods-css` via importmap. Doubles as a regression test.
 4. **Express / HTML example app** in `examples/express-ssr` — uses `klods-js` server-side via `.toString()`. Demonstrates SSR.
 5. **CodeSandbox templates** linked from the docs.
+6. **Pre-rendered docs** — the docs site is currently a client-side SPA (blank body with JS disabled). Two options: (a) a build-time SSG step that runs `main.ts` under Node, calls `.toString()` on every section, and writes static HTML into `dist/index.html`; or (b) a Vite SSG plugin (`vite-ssg` etc.). Option (a) is the most klods-native approach since `.toString()` is already designed for SSR. The library itself works perfectly without JS — this is purely a docs-site gap.
 
 ---
 
@@ -160,17 +161,17 @@ The lowest-risk, highest-leverage path from here:
 
 ## Status
 
-| Phase                   | Status                  |
-| ----------------------- | ----------------------- |
-| 0                       | ✅ done                 |
-| 1                       | ✅ done                 |
-| Post-Phase-1            | ✅ done (v1.1–v1.10)    |
-| 2 (forms)               | ✅ done                 |
-| 2b (responsive)         | ✅ done                 |
-| 2c (builder ergonomics) | ✅ done (klods-js v2.0) |
-| 3 (interactive)         | next                    |
-| 4 (data)                | partial (table done)    |
-| 5 (theming)             | partial (switcher done) |
-| 6                       | not started             |
-| 7                       | not started             |
-| 8 (stability)           | ongoing                 |
+| Phase                   | Status                      |
+| ----------------------- | --------------------------- |
+| 0                       | ✅ done                     |
+| 1                       | ✅ done                     |
+| Post-Phase-1            | ✅ done (v1.1–v1.10)        |
+| 2 (forms)               | ✅ done                     |
+| 2b (responsive)         | ✅ done                     |
+| 2c (builder ergonomics) | ✅ done (klods-js v2.0)     |
+| 3 (interactive)         | partial (modal ✅, tabs ✅) |
+| 4 (data)                | partial (table done)        |
+| 5 (theming)             | partial (switcher done)     |
+| 6                       | not started                 |
+| 7                       | not started                 |
+| 8 (stability)           | ongoing                     |
