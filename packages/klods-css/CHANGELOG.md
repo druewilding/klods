@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0](https://github.com/druewilding/klods/compare/klods-css-v1.14.0...klods-css-v1.15.0) (2026-06-05)
+
+
+### Features
+
+* Add tabs component ([#70](https://github.com/druewilding/klods/issues/70)) ([2deb07c](https://github.com/druewilding/klods/commit/2deb07ca506b874856733455894084d84810f49c))
+
 ## [1.14.0](https://github.com/druewilding/klods/compare/klods-css-v1.13.0...klods-css-v1.14.0) (2026-06-04)
 
 
