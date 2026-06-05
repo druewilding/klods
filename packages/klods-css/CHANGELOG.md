@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.0](https://github.com/druewilding/klods/compare/klods-css-v1.15.1...klods-css-v1.16.0) (2026-06-05)
+
+
+### Features
+
+* Implement breadcrumb component ([#78](https://github.com/druewilding/klods/issues/78)) ([3b1b0e4](https://github.com/druewilding/klods/commit/3b1b0e48e6f44e07c351c216ea5bad8508e830a9))
+
 ## [1.15.1](https://github.com/druewilding/klods/compare/klods-css-v1.15.0...klods-css-v1.15.1) (2026-06-05)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/druewilding/klods/compare/klods-js-v2.2.1...klods-js-v2.3.0) (2026-06-05)
+
+
+### Features
+
+* Implement breadcrumb component ([#78](https://github.com/druewilding/klods/issues/78)) ([3b1b0e4](https://github.com/druewilding/klods/commit/3b1b0e48e6f44e07c351c216ea5bad8508e830a9))
+
 ## [2.2.1](https://github.com/druewilding/klods/compare/klods-js-v2.2.0...klods-js-v2.2.1) (2026-06-05)
 
 
