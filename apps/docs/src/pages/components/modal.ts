@@ -33,7 +33,7 @@ export const examples: KlodsNode[] = [
           },
           "Open modal"
         ),
-        modal([
+        modal(
           modalPanel([
             modalHeader([
               modalTitle("Confirm action"),
@@ -47,8 +47,8 @@ export const examples: KlodsNode[] = [
               ),
               button({ onClick: (e: Event) => closeModal(e.currentTarget as HTMLElement) }, "Cancel"),
             ]),
-          ]),
-        ]),
+          ])
+        ),
       ]),
   }),
 
@@ -56,7 +56,7 @@ export const examples: KlodsNode[] = [
     title: "Modal — info",
     description: "A simpler modal with no footer actions — just a dismiss button in the header.",
     render: () => {
-      const dialog = modal([
+      const dialog = modal(
         modalPanel([
           modalHeader([
             modalTitle("What is klods?"),
@@ -66,8 +66,8 @@ export const examples: KlodsNode[] = [
             p("klods is a tiny, opinionated, fully themeable HTML/CSS/JS component library."),
             p("It ships two packages — klods-css for styles and klods-js for TypeScript builders."),
           ]),
-        ]),
-      ]);
+        ])
+      );
       return div([
         button(
           { onClick: (e: Event) => openModal((e.currentTarget as HTMLElement).nextElementSibling as HTMLElement) },

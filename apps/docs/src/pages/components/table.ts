@@ -41,7 +41,6 @@ export const examples: KlodsNode[] = [
       tableWrap([
         table({ style: "min-width: 52rem" }, [
           thead(
-            {},
             tr([
               th("Name"),
               th("Role"),
