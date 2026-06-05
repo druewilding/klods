@@ -436,7 +436,7 @@
       btn.addEventListener("click", () => applyTheme(btn.dataset.themeId ?? ""));
     }
 
-    // Syntax-highlight all <pre><code> blocks
-    hljs.highlightAll();
+    // Syntax-highlight all <pre><code> blocks (guard against CDN load failure)
+    if (typeof hljs !== "undefined") hljs.highlightAll();
   </script>
 </html>
