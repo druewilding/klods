@@ -7,6 +7,7 @@
     <link rel="icon" type="image/svg+xml" href="./klods-icon.svg" />
     <link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css" />
     <script src="https://unpkg.com/klods-css/dist/klods.js"></script>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/highlight.min.js"></script>
   </head>
   <body>
     <div class="klods-page klods-page--with-sidebar klods-page--sticky-header">
@@ -94,7 +95,7 @@
               <div class="klods-prose">
                 <h2>Get started</h2>
                 <p>A simple page structure with a collapsible sidebar on mobile looks like this:</p>
-                <pre><code>&lt;!doctype html&gt;
+                <pre><code class="language-xml">&lt;!doctype html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8" /&gt;
@@ -161,7 +162,7 @@
                 <button class="klods-button klods-button--ghost" type="button">Ghost</button>
               </div>
               <div class="klods-prose">
-                <pre><code>&lt;button class="klods-button klods-button--primary" type="button"&gt;
+                <pre><code class="language-xml">&lt;button class="klods-button klods-button--primary" type="button"&gt;
   Save
 &lt;/button&gt;</code></pre>
               </div>
@@ -179,7 +180,7 @@
                 <span class="klods-badge klods-badge--danger">danger</span>
               </div>
               <div class="klods-prose">
-                <pre><code>&lt;span class="klods-badge klods-badge--success"&gt;active&lt;/span&gt;</code></pre>
+                <pre><code class="language-xml">&lt;span class="klods-badge klods-badge--success"&gt;active&lt;/span&gt;</code></pre>
               </div>
             </div>
           </section>
@@ -199,7 +200,7 @@
                 </div>
               </div>
               <div class="klods-prose">
-                <pre><code>&lt;div class="klods-alert klods-alert--success"&gt;
+                <pre><code class="language-xml">&lt;div class="klods-alert klods-alert--success"&gt;
   Changes saved.
 &lt;/div&gt;</code></pre>
               </div>
@@ -231,7 +232,7 @@
                 </div>
               </div>
               <div class="klods-prose">
-                <pre><code>&lt;div class="klods-card klods-card--elevated"&gt;
+                <pre><code class="language-xml">&lt;div class="klods-card klods-card--elevated"&gt;
   &lt;div class="klods-card__title"&gt;Title&lt;/div&gt;
   &lt;div class="klods-card__body"&gt;Content&lt;/div&gt;
   &lt;div class="klods-card__footer"&gt;…&lt;/div&gt;
@@ -253,7 +254,7 @@
                 </ul>
               </nav>
               <div class="klods-prose">
-                <pre><code>&lt;nav&gt;
+                <pre><code class="language-xml">&lt;nav&gt;
   &lt;ul class="klods-nav__list"&gt;
     &lt;li&gt;&lt;a href="/" class="klods-nav__link klods-nav__link--active"&gt;Home&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href="/about" class="klods-nav__link"&gt;About&lt;/a&gt;&lt;/li&gt;
@@ -304,7 +305,7 @@
                 </tbody>
               </table>
               <div class="klods-prose">
-                <pre><code>&lt;table class="klods-table klods-table--striped"&gt;
+                <pre><code class="language-xml">&lt;table class="klods-table klods-table--striped"&gt;
   &lt;thead&gt;…&lt;/thead&gt;
   &lt;tbody&gt;…&lt;/tbody&gt;
 &lt;/table&gt;</code></pre>
@@ -323,7 +324,7 @@
                 <div class="klods-box">delta</div>
               </div>
               <div class="klods-prose">
-                <pre><code>&lt;div class="klods-box"&gt;content&lt;/div&gt;</code></pre>
+                <pre><code class="language-xml">&lt;div class="klods-box"&gt;content&lt;/div&gt;</code></pre>
               </div>
             </div>
           </section>
@@ -334,7 +335,7 @@
               <h2>Layout</h2>
               <div class="klods-prose">
                 <p>This page itself demonstrates the full shell. The outer wrapper carries three classes:</p>
-                <pre><code>&lt;div class="klods-page
+                <pre><code class="language-xml">&lt;div class="klods-page
            klods-page--with-sidebar
            klods-page--sticky-header"&gt;
 
@@ -434,5 +435,8 @@
     for (const btn of document.querySelectorAll("[data-theme-id]")) {
       btn.addEventListener("click", () => applyTheme(btn.dataset.themeId ?? ""));
     }
+
+    // Syntax-highlight all <pre><code> blocks (guard against CDN load failure)
+    if (typeof hljs !== "undefined") hljs.highlightAll();
   </script>
 </html>

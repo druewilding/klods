@@ -13,10 +13,13 @@ import {
   p,
   pre,
   prose,
+  raw,
   stack,
   strong,
   ul,
 } from "klods-js";
+
+import hljs from "../hljs";
 
 export function renderIntroSection(): KlodsNode {
   return stack({ gap: 4 }, [
@@ -48,7 +51,17 @@ export function renderIntroSection(): KlodsNode {
         cardBody([
           pre(code("npm install klods-js klods-css")),
           p({ class: "klods-muted" }, "Or for a vanilla HTML/Rails project, just link the CSS:"),
-          pre(code('<link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css">')),
+          pre(
+            code(
+              { class: "hljs language-xml" },
+              raw(
+                hljs.highlight('<link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css">', {
+                  language: "xml",
+                  ignoreIllegals: true,
+                }).value
+              )
+            )
+          ),
         ]),
       ]),
       alert(
