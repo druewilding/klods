@@ -113,7 +113,7 @@ The first arg is detected at runtime: a plain object literal that isn't a `Klods
 
 **Style rules for examples and docs:**
 
-- **Drop the empty `{}`** when there are no props. Write `cardBody([…])`, not `cardBody({}, […])`.
+- **Always use the simplest possible call shape.** Drop the empty `{}` when there are no props (`cardBody("x")` not `cardBody({}, "x")`). Skip the array when there is only one child (`section(box("x"))` not `section([box("x")])`). No-arg builders take no args (`push()` not `push({})`).
 - **Use HTML tag shortcuts** from `klods-js` for raw HTML — `code("npm i …")`, `pre(code(…))`, `p({ class: "klods-muted" }, "…")`, `ul([li("a"), li("b")])`, `strong("important")`, `em("emphasis")`, `h1`–`h6`, etc. Available in `packages/klods-js/src/html.ts`.
 - **Don't use `el("tag", {}, …)`** when a tag shortcut exists — that's the old style.
 - **`el(...)` is still needed** for HTML tags whose names collide with klods exports: `nav`, `button`, `form`, `header`, `footer`, `section`, `aside`, `input`, `select`, `option`, `textarea`, `table`, `thead`, `tbody`, `tr`, `th`, `td`, `card`. For those use the klods component if you want klods styling, or `el("nav", …)` if you specifically want an unstyled native element.
