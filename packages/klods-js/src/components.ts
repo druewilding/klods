@@ -624,7 +624,9 @@ export function activateTab(tabEl: HTMLElement): void {
   tabEl.removeAttribute("tabindex");
 
   const panelId = tabEl.getAttribute("aria-controls");
-  container.querySelectorAll<HTMLElement>("[role='tabpanel']").forEach((p) => {
+  // :scope > limits the query to direct children of this container,
+  // so nested tabs() instances are never touched.
+  container.querySelectorAll<HTMLElement>(":scope > .klods-tabs__panel[role='tabpanel']").forEach((p) => {
     if (p.id === panelId) {
       p.removeAttribute("hidden");
     } else {
@@ -686,10 +688,12 @@ export function tabs(a?: KlodsAttrs | KlodsChild | KlodsChild[] | null, b?: Klod
     (c): c is KlodsNode => c instanceof KlodsNode
   );
 
+  const ns = attrs?.id ? slugId("klods-tabs", String(attrs.id)) : "klods-tabs";
+
   const items = panels.map((panel, i) => {
     const label = (panel.attrs["data-tab-label"] as string | undefined) ?? `Tab ${i + 1}`;
-    const tabId = slugId("klods-tab", label);
-    const panelId = slugId("klods-panel", label);
+    const tabId = slugId(`${ns}-tab`, `${label}-${i + 1}`);
+    const panelId = slugId(`${ns}-panel`, `${label}-${i + 1}`);
     return { panel, label, tabId, panelId, active: i === 0 };
   });
 
@@ -716,12 +720,14 @@ export function tabs(a?: KlodsAttrs | KlodsChild | KlodsChild[] | null, b?: Klod
   );
 
   const panelNodes = items.map(({ panel, tabId, panelId, active }) => {
-    const { "data-tab-label": _label, ...panelAttrs } = panel.attrs as KlodsAttrs & { "data-tab-label"?: string };
+    const { "data-tab-label": _label, class: panelExtraClass, ...panelAttrs } = panel.attrs as KlodsAttrs & {
+      "data-tab-label"?: string;
+    };
     return new KlodsNode(
       "div",
       {
         ...panelAttrs,
-        class: "klods-tabs__panel",
+        class: classNames(["klods-tabs__panel", classNames(panelExtraClass as KlodsAttrs["class"])]) || undefined,
         role: "tabpanel",
         id: panelId,
         "aria-labelledby": tabId,
@@ -731,5 +737,10 @@ export function tabs(a?: KlodsAttrs | KlodsChild | KlodsChild[] | null, b?: Klod
     );
   });
 
-  return el("div", { class: "klods-tabs", ...attrs }, [tabList, ...panelNodes]);
+  const { class: extraClass, ...restAttrs } = attrs ?? {};
+  return el(
+    "div",
+    { ...restAttrs, class: classNames(["klods-tabs", classNames(extraClass as KlodsAttrs["class"])]) || undefined },
+    [tabList, ...panelNodes]
+  );
 }
