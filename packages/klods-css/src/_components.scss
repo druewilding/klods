@@ -978,10 +978,10 @@
     }
 
     &--active {
-      color: var(--klods-color-accent);
+      color: var(--klods-tabs-active);
 
       &::after {
-        background: var(--klods-color-accent);
+        background: var(--klods-tabs-active);
       }
     }
   }
