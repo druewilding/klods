@@ -720,7 +720,11 @@ export function tabs(a?: KlodsAttrs | KlodsChild | KlodsChild[] | null, b?: Klod
   );
 
   const panelNodes = items.map(({ panel, tabId, panelId, active }) => {
-    const { "data-tab-label": _label, class: panelExtraClass, ...panelAttrs } = panel.attrs as KlodsAttrs & {
+    const {
+      "data-tab-label": _label,
+      class: panelExtraClass,
+      ...panelAttrs
+    } = panel.attrs as KlodsAttrs & {
       "data-tab-label"?: string;
     };
     return new KlodsNode(
