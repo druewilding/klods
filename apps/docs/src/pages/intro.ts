@@ -1,6 +1,4 @@
-import hljs from "highlight.js/lib/core";
-import hljsXml from "highlight.js/lib/languages/xml";
-hljs.registerLanguage("xml", hljsXml);
+import hljs from "../hljs";
 
 import type { KlodsNode } from "klods-js";
 import {
