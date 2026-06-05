@@ -10,14 +10,14 @@ export const examples: KlodsNode[] = [
   example({
     title: "Nav",
     render: () =>
-      nav([
+      nav(
         navList([
           navLink({ href: "#", active: true }, "Home"),
           navLink({ href: "#" }, "Projects"),
           navLink({ href: "#" }, "About"),
           navLink({ href: "#" }, "Contact"),
-        ]),
-      ]),
+        ])
+      ),
   }),
 
   example({

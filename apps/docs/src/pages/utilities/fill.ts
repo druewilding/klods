@@ -17,6 +17,6 @@ export const examples: KlodsNode[] = [
   }),
   example({
     title: "Fill for left, center, right layout",
-    render: () => header([fill([box("left")]), box("center"), fill([push(), box("right")])]),
+    render: () => header([fill(box("left")), box("center"), fill([push(), box("right")])]),  
   }),
 ];

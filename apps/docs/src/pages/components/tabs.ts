@@ -11,19 +11,15 @@ export const examples: KlodsNode[] = [
     title: "Tabs",
     render: () =>
       tabs([
-        tabPanel({ label: "Account" }, [
-          stack({ gap: 3 }, [
-            p("Manage your account settings and preferences."),
-            box("Profile information goes here."),
-          ]),
-        ]),
-        tabPanel({ label: "Security" }, [
-          stack({ gap: 3 }, [
-            p("Update your password and security settings."),
-            switchInput({ label: "Two-factor authentication", name: "2fa" }),
-          ]),
-        ]),
-        tabPanel({ label: "Notifications" }, [p("Configure how and when you receive notifications.")]),
+        tabPanel({ label: "Account" }, stack({ gap: 3 }, [
+          p("Manage your account settings and preferences."),
+          box("Profile information goes here."),
+        ])),
+        tabPanel({ label: "Security" }, stack({ gap: 3 }, [
+          p("Update your password and security settings."),
+          switchInput({ label: "Two-factor authentication", name: "2fa" }),
+        ])),
+        tabPanel({ label: "Notifications" }, p("Configure how and when you receive notifications.")),
       ]),
   }),
 ];

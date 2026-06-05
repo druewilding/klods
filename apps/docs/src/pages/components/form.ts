@@ -239,7 +239,7 @@ export const examples: KlodsNode[] = [
             switchInput({ label: "Push alerts", name: "push", checked: true }),
           ]),
         ]),
-        cardFooter([push({}), button({ variant: "primary" }, "Save preferences")]),
+        cardFooter([push(), button({ variant: "primary" }, "Save preferences")]),
       ]),
   }),
 
@@ -248,7 +248,6 @@ export const examples: KlodsNode[] = [
     description: "An input paired with a button in a row.",
     render: () =>
       card(
-        {},
         row({ gap: 2 }, [
           input({ type: "search", placeholder: "Search for anything…", "aria-label": "Search" }),
           button({ variant: "primary" }, "Search"),
