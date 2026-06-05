@@ -30,7 +30,7 @@ import {
 
 describe("klods builders", () => {
   it("renders a basic page to HTML", () => {
-    const tree = page({}, [header({}, "Hi"), content({}, "Main"), footer({}, "©")]);
+    const tree = page([header("Hi"), content("Main"), footer("©")]);
     expect(tree.toString()).toBe(
       '<div class="klods-page">' +
         '<header class="klods-header">Hi</header>' +
@@ -41,7 +41,7 @@ describe("klods builders", () => {
   });
 
   it("applies modifier classes for sidebar and sidebar-trailing", () => {
-    const html = page({ sidebar: true, sidebarPosition: "trailing" }, [sidebar({}, "S")]).toString();
+    const html = page({ sidebar: true, sidebarPosition: "trailing" }, sidebar("S")).toString();
     expect(html).toContain("klods-page--with-sidebar");
     expect(html).toContain("klods-page--sidebar-trailing");
     expect(html).toContain('<aside class="klods-sidebar">S</aside>');
@@ -59,8 +59,8 @@ describe("klods builders", () => {
   });
 
   it("escapes HTML in children but not in raw()", () => {
-    expect(cardBody({}, "<script>x</script>").toString()).toContain("&lt;script&gt;x&lt;/script&gt;");
-    expect(cardBody({}, raw("<em>ok</em>")).toString()).toContain("<em>ok</em>");
+    expect(cardBody("<script>x</script>").toString()).toContain("&lt;script&gt;x&lt;/script&gt;");
+    expect(cardBody(raw("<em>ok</em>")).toString()).toContain("<em>ok</em>");
   });
 
   it("button defaults to type=button and supports variants", () => {
@@ -71,7 +71,7 @@ describe("klods builders", () => {
 
   it("renders to DOM via render()", () => {
     const root = document.createElement("div");
-    page({ sidebar: true }, [header({}, [stack({ gap: 2 }, [cardTitle({}, "T")])]), content({}, "Main")]).render(root);
+    page({ sidebar: true }, [header(stack({ gap: 2 }, cardTitle("T"))), content("Main")]).render(root);
     expect(root.querySelector(".klods-page--with-sidebar")).not.toBeNull();
     expect(root.querySelector(".klods-stack--gap-2")).not.toBeNull();
     expect(root.querySelector(".klods-card__title")?.textContent).toBe("T");
