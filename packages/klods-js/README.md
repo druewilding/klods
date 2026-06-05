@@ -56,4 +56,4 @@ Names that collide with klods components (`nav`, `button`, `form`, `header`, `fo
 - `.render(target?)` — mount to DOM.
 - `.toString()` — render to an HTML string (SSR-safe).
 
-Every builder accepts arbitrary `class`, `id`, `data-*`, `aria-*`, event handlers and any other HTML attribute. See the [docs site](../../apps/docs) for the full reference.
+Every builder accepts arbitrary `class`, `id`, `data-*`, `aria-*`, event handlers and any other HTML attribute. See the [docs site](https://www.druewilding.com/klods/) for the full reference.

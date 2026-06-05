@@ -16,4 +16,4 @@ npm install klods-css
 @import "klods-css";
 ```
 
-See the [docs site](../../apps/docs) for the full reference.
+See the [docs site](https://www.druewilding.com/klods/) for the full reference.
