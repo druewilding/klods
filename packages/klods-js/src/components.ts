@@ -788,7 +788,11 @@ export function breadcrumbs(crumbs: KlodsNode[], attrs?: KlodsAttrs): KlodsNode 
   const items = crumbs.map((crumbNode, i) => {
     const isLast = i === crumbs.length - 1;
     const href = crumbNode.attrs["data-crumb-href"] as string | undefined;
-    const { "data-crumb-href": _href, class: extraClass, ...restAttrs } = crumbNode.attrs as KlodsAttrs & {
+    const {
+      "data-crumb-href": _href,
+      class: extraClass,
+      ...restAttrs
+    } = crumbNode.attrs as KlodsAttrs & {
       "data-crumb-href"?: string;
     };
     const content: KlodsChild[] = href

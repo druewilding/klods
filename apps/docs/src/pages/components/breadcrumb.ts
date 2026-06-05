@@ -9,20 +9,11 @@ export const anchor = "breadcrumb";
 export const examples: KlodsNode[] = [
   example({
     title: "Breadcrumb",
-    render: () =>
-      breadcrumbs([
-        crumb({ href: "#" }, "Home"),
-        crumb({ href: "#" }, "Products"),
-        crumb("Widget Pro"),
-      ]),
+    render: () => breadcrumbs([crumb({ href: "#" }, "Home"), crumb({ href: "#" }, "Products"), crumb("Widget Pro")]),
   }),
 
   example({
     title: "Breadcrumb — two levels",
-    render: () =>
-      breadcrumbs([
-        crumb({ href: "#" }, "Docs"),
-        crumb("Getting started"),
-      ]),
+    render: () => breadcrumbs([crumb({ href: "#" }, "Docs"), crumb("Getting started")]),
   }),
 ];
