@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/druewilding/klods/compare/klods-js-v2.1.0...klods-js-v2.2.0) (2026-06-05)
+
+
+### Features
+
+* Add tabs component ([#70](https://github.com/druewilding/klods/issues/70)) ([2deb07c](https://github.com/druewilding/klods/commit/2deb07ca506b874856733455894084d84810f49c))
+
 ## [2.1.0](https://github.com/druewilding/klods/compare/klods-js-v2.0.0...klods-js-v2.1.0) (2026-06-04)
 
 
