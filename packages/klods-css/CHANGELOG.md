@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.15.1](https://github.com/druewilding/klods/compare/klods-css-v1.15.0...klods-css-v1.15.1) (2026-06-05)
+
+
+### Bug Fixes
+
+* Make the elevated card have a darker, bigger shadow ([#76](https://github.com/druewilding/klods/issues/76)) ([e65f6d7](https://github.com/druewilding/klods/commit/e65f6d722f53f4de760678d3708a53f69bfc1eef))
+* Make the modal backdrop darker and more blurred ([#74](https://github.com/druewilding/klods/issues/74)) ([9ea2a7a](https://github.com/druewilding/klods/commit/9ea2a7a9e5c4da4fa0da76a5d502d10d7db63d3b))
+
 ## [1.15.0](https://github.com/druewilding/klods/compare/klods-css-v1.14.0...klods-css-v1.15.0) (2026-06-05)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/druewilding/klods/compare/klods-js-v2.2.0...klods-js-v2.2.1) (2026-06-05)
+
+
+### Bug Fixes
+
+* Update formatting to the simplest possible call formats ([#72](https://github.com/druewilding/klods/issues/72)) ([c2b8a2b](https://github.com/druewilding/klods/commit/c2b8a2bae1fd16a0859742fc2b964bb4af76ad95))
+
 ## [2.2.0](https://github.com/druewilding/klods/compare/klods-js-v2.1.0...klods-js-v2.2.0) (2026-06-05)
 
 
