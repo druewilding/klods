@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.1](https://github.com/druewilding/klods/compare/klods-css-v1.15.0...klods-css-v1.15.1) (2026-06-05)
+
+
+### Bug Fixes
+
+* Make the modal backdrop darker and more blurred ([#74](https://github.com/druewilding/klods/issues/74)) ([9ea2a7a](https://github.com/druewilding/klods/commit/9ea2a7a9e5c4da4fa0da76a5d502d10d7db63d3b))
+
 ## [1.15.0](https://github.com/druewilding/klods/compare/klods-css-v1.14.0...klods-css-v1.15.0) (2026-06-05)
 
 
