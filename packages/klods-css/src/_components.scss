@@ -1010,7 +1010,8 @@
       display: inline-block;
       width: 12px;
       height: 12px;
-      background-color: var(--klods-color-muted);
+      color: var(--klods-color-muted);
+      background-color: currentColor;
       // stylelint-disable-next-line function-url-quotes
       mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M5 2l6 6-6 6'/></svg>");
       mask-repeat: no-repeat;
