@@ -795,9 +795,8 @@ export function breadcrumbs(crumbs: KlodsNode[], attrs?: KlodsAttrs): KlodsNode 
     } = crumbNode.attrs as KlodsAttrs & {
       "data-crumb-href"?: string;
     };
-    const content: KlodsChild[] = href && !isLast
-      ? [el("a", { href, class: "klods-breadcrumb__link" }, crumbNode.children)]
-      : crumbNode.children;
+    const content: KlodsChild[] =
+      href && !isLast ? [el("a", { href, class: "klods-breadcrumb__link" }, crumbNode.children)] : crumbNode.children;
     return new KlodsNode(
       "li",
       {
