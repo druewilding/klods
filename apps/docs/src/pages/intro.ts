@@ -1,3 +1,7 @@
+import hljs from "highlight.js/lib/core";
+import hljsXml from "highlight.js/lib/languages/xml";
+hljs.registerLanguage("xml", hljsXml);
+
 import type { KlodsNode } from "klods-js";
 import {
   alert,
@@ -13,6 +17,7 @@ import {
   p,
   pre,
   prose,
+  raw,
   stack,
   strong,
   ul,
@@ -48,7 +53,17 @@ export function renderIntroSection(): KlodsNode {
         cardBody([
           pre(code("npm install klods-js klods-css")),
           p({ class: "klods-muted" }, "Or for a vanilla HTML/Rails project, just link the CSS:"),
-          pre(code('<link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css">')),
+          pre(
+            code(
+              { class: "hljs language-xml" },
+              raw(
+                hljs.highlight('<link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css">', {
+                  language: "xml",
+                  ignoreIllegals: true,
+                }).value
+              )
+            )
+          ),
         ]),
       ]),
       alert(
