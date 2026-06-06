@@ -848,16 +848,16 @@ function getOrCreateRegion(): HTMLElement {
 
 function dismissToast(toastEl: HTMLElement): void {
   toastEl.setAttribute("data-dismissing", "");
-  // Wait for the exit animation to finish before removing.
-  toastEl.addEventListener(
-    "animationend",
-    () => {
-      toastEl.remove();
-    },
-    { once: true }
-  );
-  // Fallback in case animationend never fires (e.g. prefers-reduced-motion).
-  setTimeout(() => toastEl.remove(), 400);
+
+  // Read the actual animation duration from the --klods-transition token so the
+  // fallback respects user overrides. Parse "150ms" / "0.15s" → milliseconds.
+  const raw = getComputedStyle(toastEl).getPropertyValue("--klods-transition").trim();
+  const ms = raw.endsWith("ms") ? parseFloat(raw) : parseFloat(raw) * 1000;
+  const fallbackMs = (Number.isFinite(ms) ? ms : 150) + 50; // small buffer past end
+
+  // Cancel the fallback as soon as the animation fires naturally.
+  const fallback = setTimeout(() => toastEl.remove(), fallbackMs);
+  toastEl.addEventListener("animationend", () => { clearTimeout(fallback); toastEl.remove(); }, { once: true });
 }
 
 /**
