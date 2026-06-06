@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { button, clearToasts, cluster, showToast } from "klods-js";
+import { a, button, clearToasts, cluster, showToast, strong } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -27,7 +27,7 @@ export const examples: KlodsNode[] = [
           "Danger"
         ),
         button(
-          { onClick: () => { clearToasts(); showToast({ variant: "info" }, "New message from Alex."); } },
+          { onClick: () => { clearToasts(); showToast({ variant: "info" }, ["You have a ", a({ href: "#"}, "new message from Alex"), "."]); } },
           "Info"
         ),
       ]),
@@ -41,7 +41,7 @@ export const examples: KlodsNode[] = [
         {
           onClick: () => {
             clearToasts();
-            showToast({ variant: "warning", duration: 0 }, "Action required: please review the pending changes.");
+            showToast({ variant: "warning", duration: 0 }, [strong("Action required:"), " please review the pending changes."]);
           },
         },
         "Show persistent toast"

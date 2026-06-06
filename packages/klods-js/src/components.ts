@@ -869,12 +869,15 @@ function dismissToast(toastEl: HTMLElement): void {
  * @example
  * showToast("File saved.")
  * showToast({ variant: "success" }, "Changes saved.")
- * showToast({ variant: "danger", duration: 8000 }, "Something went wrong.")
+ * showToast({ variant: "info" }, ["You have a ", a({ href: "/inbox" }, "new message.")])
  */
-export function showToast(message: string): void;
-export function showToast(options: ToastOptions, message: string): void;
-export function showToast(a: ToastOptions | string, b?: string): void {
-  const [options, message] = typeof a === "string" ? [{} as ToastOptions, a] : [a, b!];
+export function showToast(message: KlodsChild | KlodsChild[]): void;
+export function showToast(options: ToastOptions, message: KlodsChild | KlodsChild[]): void;
+export function showToast(a: ToastOptions | KlodsChild | KlodsChild[], b?: KlodsChild | KlodsChild[]): void {
+  const [options, message] =
+    typeof a === "string" || a instanceof KlodsNode || Array.isArray(a)
+      ? [{} as ToastOptions, a as KlodsChild | KlodsChild[]]
+      : [a as ToastOptions, b!];
   const { variant = "default", duration = 5000 } = options;
 
   const region = getOrCreateRegion();
@@ -886,7 +889,11 @@ export function showToast(a: ToastOptions | string, b?: string): void {
 
   const body = document.createElement("span");
   body.className = "klods-toast__body";
-  body.textContent = message;
+  if (typeof message === "string" || typeof message === "number") {
+    body.textContent = String(message);
+  } else {
+    el("span", {}, message).render(body);
+  }
   toastEl.appendChild(body);
 
   const closeBtn = document.createElement("button");
