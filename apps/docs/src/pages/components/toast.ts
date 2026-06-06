@@ -54,7 +54,6 @@ export const examples: KlodsNode[] = [
           },
           "Info"
         ),
-        button({ onClick: () => clearToasts() }, "Clear toasts"),
       ]),
   }),
 
@@ -73,5 +72,11 @@ export const examples: KlodsNode[] = [
         },
         "Show persistent toast"
       ),
+  }),
+
+  example({
+    title: "Toast — clear toasts",
+    description: "Click the button to clear all visible toasts.",
+    render: () => button({ onClick: () => clearToasts() }, "Clear toasts"),
   }),
 ];
