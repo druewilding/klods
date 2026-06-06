@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { a, button, clearToasts, cluster, showToast, strong } from "klods-js";
+import { a, button, clearToasts, cluster, em, showToast, strong } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -32,7 +32,7 @@ export const examples: KlodsNode[] = [
         button(
           {
             onClick: () => {
-              showToast({ variant: "warning" }, "Your session expires in 5 minutes.");
+              showToast({ variant: "warning" }, em("Your session expires in 5 minutes."));
             },
           },
           "Warning"
