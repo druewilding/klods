@@ -1091,10 +1091,18 @@
     }
 
     // Variant left border accent
-    &--info    { border-left: 3px solid var(--klods-color-info); }
-    &--success { border-left: 3px solid var(--klods-color-success); }
-    &--warning { border-left: 3px solid var(--klods-color-warning); }
-    &--danger  { border-left: 3px solid var(--klods-color-danger); }
+    &--info {
+      border-left: 3px solid var(--klods-color-info);
+    }
+    &--success {
+      border-left: 3px solid var(--klods-color-success);
+    }
+    &--warning {
+      border-left: 3px solid var(--klods-color-warning);
+    }
+    &--danger {
+      border-left: 3px solid var(--klods-color-danger);
+    }
   }
 
   .klods-toast__body {

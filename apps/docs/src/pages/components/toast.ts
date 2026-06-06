@@ -13,21 +13,50 @@ export const examples: KlodsNode[] = [
       "Call `showToast(options, message)` to display a transient notification at the bottom-right of the page. Toasts auto-dismiss after 5s and can be closed early with the × button.",
     render: () =>
       cluster({ gap: 2 }, [
-        button({ onClick: () => { clearToasts(); showToast("File saved successfully."); } }, "Default"),
         button(
-          { onClick: () => { clearToasts(); showToast({ variant: "success" }, "Your changes have been saved."); } },
+          {
+            onClick: () => {
+              clearToasts();
+              showToast("File saved successfully.");
+            },
+          },
+          "Default"
+        ),
+        button(
+          {
+            onClick: () => {
+              clearToasts();
+              showToast({ variant: "success" }, "Your changes have been saved.");
+            },
+          },
           "Success"
         ),
         button(
-          { onClick: () => { clearToasts(); showToast({ variant: "warning" }, "Your session expires in 5 minutes."); } },
+          {
+            onClick: () => {
+              clearToasts();
+              showToast({ variant: "warning" }, "Your session expires in 5 minutes.");
+            },
+          },
           "Warning"
         ),
         button(
-          { variant: "danger", onClick: () => { clearToasts(); showToast({ variant: "danger" }, "Something went wrong. Please try again."); } },
+          {
+            variant: "danger",
+            onClick: () => {
+              clearToasts();
+              showToast({ variant: "danger" }, "Something went wrong. Please try again.");
+            },
+          },
           "Danger"
         ),
         button(
-          { onClick: () => { clearToasts(); showToast({ variant: "info" }, ["You have a ", a({ href: "#"}, "new message from Alex"), "."]); } },
+          {
+            onClick: () => {
+              clearToasts();
+              showToast({ variant: "info" }, ["You have a ", a({ href: "#" }, "new message from Alex"), "."]);
+            },
+          },
           "Info"
         ),
       ]),
@@ -41,7 +70,10 @@ export const examples: KlodsNode[] = [
         {
           onClick: () => {
             clearToasts();
-            showToast({ variant: "warning", duration: 0 }, [strong("Action required:"), " please review the pending changes."]);
+            showToast({ variant: "warning", duration: 0 }, [
+              strong("Action required:"),
+              " please review the pending changes.",
+            ]);
           },
         },
         "Show persistent toast"

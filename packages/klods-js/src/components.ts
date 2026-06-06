@@ -883,8 +883,7 @@ export function showToast(a: ToastOptions | KlodsChild | KlodsChild[], b?: Klods
   const region = getOrCreateRegion();
 
   const toastEl = document.createElement("div");
-  toastEl.className =
-    variant === "default" ? "klods-toast" : `klods-toast klods-toast--${variant}`;
+  toastEl.className = variant === "default" ? "klods-toast" : `klods-toast klods-toast--${variant}`;
   toastEl.setAttribute("role", "status");
 
   const body = document.createElement("span");
