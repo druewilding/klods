@@ -831,8 +831,6 @@ export type ToastOptions = {
   variant?: "default" | "info" | "success" | "warning" | "danger";
   /** Auto-dismiss delay in milliseconds. Defaults to 5000. Pass 0 to keep indefinitely. */
   duration?: number;
-  /** Optional accessible region label. Defaults to "Notification". */
-  message?: string;
 };
 
 function getOrCreateRegion(): HTMLElement {
