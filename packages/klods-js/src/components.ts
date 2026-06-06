@@ -874,10 +874,7 @@ function dismissToast(toastEl: HTMLElement): void {
 export function showToast(message: KlodsChild | KlodsChild[]): void;
 export function showToast(options: ToastOptions, message: KlodsChild | KlodsChild[]): void;
 export function showToast(a: ToastOptions | KlodsChild | KlodsChild[], b?: KlodsChild | KlodsChild[]): void {
-  const [options, message] =
-    typeof a === "string" || a instanceof KlodsNode || Array.isArray(a)
-      ? [{} as ToastOptions, a as KlodsChild | KlodsChild[]]
-      : [a as ToastOptions, b!];
+  const [options, message] = normalizeArgs<ToastOptions>(a, b);
   const { variant = "default", duration = 5000 } = options;
 
   const region = getOrCreateRegion();
