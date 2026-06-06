@@ -857,7 +857,14 @@ function dismissToast(toastEl: HTMLElement): void {
 
   // Cancel the fallback as soon as the animation fires naturally.
   const fallback = setTimeout(() => toastEl.remove(), fallbackMs);
-  toastEl.addEventListener("animationend", () => { clearTimeout(fallback); toastEl.remove(); }, { once: true });
+  toastEl.addEventListener(
+    "animationend",
+    () => {
+      clearTimeout(fallback);
+      toastEl.remove();
+    },
+    { once: true }
+  );
 }
 
 /**
