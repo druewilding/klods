@@ -16,7 +16,6 @@ export const examples: KlodsNode[] = [
         button(
           {
             onClick: () => {
-              clearToasts();
               showToast("File saved successfully.");
             },
           },
@@ -25,7 +24,6 @@ export const examples: KlodsNode[] = [
         button(
           {
             onClick: () => {
-              clearToasts();
               showToast({ variant: "success" }, "Your changes have been saved.");
             },
           },
@@ -34,7 +32,6 @@ export const examples: KlodsNode[] = [
         button(
           {
             onClick: () => {
-              clearToasts();
               showToast({ variant: "warning" }, "Your session expires in 5 minutes.");
             },
           },
@@ -44,7 +41,6 @@ export const examples: KlodsNode[] = [
           {
             variant: "danger",
             onClick: () => {
-              clearToasts();
               showToast({ variant: "danger" }, "Something went wrong. Please try again.");
             },
           },
@@ -53,12 +49,12 @@ export const examples: KlodsNode[] = [
         button(
           {
             onClick: () => {
-              clearToasts();
               showToast({ variant: "info" }, ["You have a ", a({ href: "#" }, "new message from Alex"), "."]);
             },
           },
           "Info"
         ),
+        button({ onClick: () => clearToasts() }, "Clear toasts"),
       ]),
   }),
 
@@ -69,7 +65,6 @@ export const examples: KlodsNode[] = [
       button(
         {
           onClick: () => {
-            clearToasts();
             showToast({ variant: "warning", duration: 0 }, [
               strong("Action required:"),
               " please review the pending changes.",
