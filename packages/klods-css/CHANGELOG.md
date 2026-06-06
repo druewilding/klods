@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.0](https://github.com/druewilding/klods/compare/klods-css-v1.16.0...klods-css-v1.17.0) (2026-06-06)
+
+
+### Features
+
+* Implement toast behaviour ([#85](https://github.com/druewilding/klods/issues/85)) ([4c9954c](https://github.com/druewilding/klods/commit/4c9954cd205eb8b1ca3e986edb8dc570c6b46a98))
+
 ## [1.16.0](https://github.com/druewilding/klods/compare/klods-css-v1.15.1...klods-css-v1.16.0) (2026-06-05)
 
 

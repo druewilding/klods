@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/druewilding/klods/compare/klods-js-v2.3.0...klods-js-v2.4.0) (2026-06-06)
+
+
+### Features
+
+* Implement toast behaviour ([#85](https://github.com/druewilding/klods/issues/85)) ([4c9954c](https://github.com/druewilding/klods/commit/4c9954cd205eb8b1ca3e986edb8dc570c6b46a98))
+
 ## [2.3.0](https://github.com/druewilding/klods/compare/klods-js-v2.2.1...klods-js-v2.3.0) (2026-06-05)
 
 
