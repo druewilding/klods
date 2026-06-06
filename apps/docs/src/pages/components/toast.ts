@@ -10,24 +10,24 @@ export const examples: KlodsNode[] = [
   example({
     title: "Toast",
     description:
-      "Call `showToast(message, options)` to display a transient notification at the bottom-right of the page. Toasts auto-dismiss after 5 s and can be closed early with the × button.",
+      "Call `showToast(options, message)` to display a transient notification at the bottom-right of the page. Toasts auto-dismiss after 5s and can be closed early with the × button.",
     render: () =>
       cluster({ gap: 2 }, [
         button({ onClick: () => { clearToasts(); showToast("File saved successfully."); } }, "Default"),
         button(
-          { onClick: () => { clearToasts(); showToast("Your changes have been saved.", { variant: "success" }); } },
+          { onClick: () => { clearToasts(); showToast({ variant: "success" }, "Your changes have been saved."); } },
           "Success"
         ),
         button(
-          { onClick: () => { clearToasts(); showToast("Your session expires in 5 minutes.", { variant: "warning" }); } },
+          { onClick: () => { clearToasts(); showToast({ variant: "warning" }, "Your session expires in 5 minutes."); } },
           "Warning"
         ),
         button(
-          { variant: "danger", onClick: () => { clearToasts(); showToast("Something went wrong. Please try again.", { variant: "danger" }); } },
+          { variant: "danger", onClick: () => { clearToasts(); showToast({ variant: "danger" }, "Something went wrong. Please try again."); } },
           "Danger"
         ),
         button(
-          { onClick: () => { clearToasts(); showToast("New message from Alex.", { variant: "info" }); } },
+          { onClick: () => { clearToasts(); showToast({ variant: "info" }, "New message from Alex."); } },
           "Info"
         ),
       ]),
@@ -41,7 +41,7 @@ export const examples: KlodsNode[] = [
         {
           onClick: () => {
             clearToasts();
-            showToast("Action required: please review the pending changes.", { variant: "warning", duration: 0 });
+            showToast({ variant: "warning", duration: 0 }, "Action required: please review the pending changes.");
           },
         },
         "Show persistent toast"

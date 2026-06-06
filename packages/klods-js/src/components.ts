@@ -867,11 +867,15 @@ function dismissToast(toastEl: HTMLElement): void {
  * at the bottom-right of the viewport on first call.
  *
  * @example
- * showToast("File saved.", { variant: "success" })
- * showToast("Something went wrong.", { variant: "danger", duration: 8000 })
+ * showToast("File saved.")
+ * showToast({ variant: "success" }, "Changes saved.")
+ * showToast({ variant: "danger", duration: 8000 }, "Something went wrong.")
  */
-export function showToast(message: string, options?: ToastOptions): void {
-  const { variant = "default", duration = 5000 } = options ?? {};
+export function showToast(message: string): void;
+export function showToast(options: ToastOptions, message: string): void;
+export function showToast(a: ToastOptions | string, b?: string): void {
+  const [options, message] = typeof a === "string" ? [{} as ToastOptions, a] : [a, b!];
+  const { variant = "default", duration = 5000 } = options;
 
   const region = getOrCreateRegion();
 
