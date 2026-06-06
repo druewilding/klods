@@ -377,7 +377,7 @@ describe("showToast / clearToasts", () => {
   });
 
   it("renders a number message", () => {
-    showToast(42 as unknown as string);
+    showToast(42);
     expect(getToasts()[0]!.querySelector(".klods-toast__body")?.textContent).toBe("42");
   });
 
