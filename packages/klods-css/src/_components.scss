@@ -1056,7 +1056,7 @@
     width: min(calc(100vw - var(--klods-space-5) * 2), 22rem);
     pointer-events: none;
 
-    @media (max-width: 480px) {
+    @media (max-width: t.$klods-bp-sm) {
       right: var(--klods-space-3);
       bottom: var(--klods-space-3);
       width: calc(100vw - var(--klods-space-3) * 2);
