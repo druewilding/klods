@@ -1049,7 +1049,7 @@
     position: fixed;
     bottom: var(--klods-space-5);
     right: var(--klods-space-5);
-    z-index: 9000;
+    z-index: 20; // above layout chrome (max 10) and modals
     display: flex;
     flex-direction: column-reverse;
     gap: var(--klods-space-2);
