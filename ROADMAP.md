@@ -85,7 +85,7 @@ Native-first; smallest possible JS.
 1. ✅ **Modal** — native `<dialog>` + `showModal()`. Builder `modal(...)` with `modalTitle`, `modalBody`, `modalActions`, `modalClose`. Tiny `openModal(el)` / `closeModal(el)` helpers. CSS handles backdrop + animation.
 2. ✅ **Tabs** — full ARIA tabs widget with keyboard navigation (arrow keys, Home, End). `tabs([tabPanel({ label }, ...)])` wires up tablist, roles, and show/hide. Scoped `--klods-tabs-active` token so themes can override the active color independently of accent.
 3. ✅ **Breadcrumbs** — `breadcrumbs([crumb({ href }, "Home"), crumb("Now")])`.
-4. ✅ **Toast** — `showToast("Saved.", { variant: "success" })` with a fixed `.klods-toast-region` mount point and auto-dismiss. `clearToasts()` helper for cleanup.
+4. ✅ **Toast** — `showToast({ variant: "success" }, "Saved.")` with a fixed `.klods-toast-region` mount point and auto-dismiss. `clearToasts()` helper for cleanup.
 5. **Tooltip** — using the popover API (`[popover]`) where supported, no positioning library.
 6. **Disclosure** — thin wrapper around `<details>` / `<summary>` for FAQs and the like.
 
