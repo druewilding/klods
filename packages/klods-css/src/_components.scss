@@ -1091,10 +1091,10 @@
     }
 
     // Variant left border accent
-    &--info    { border-left: 3px solid var(--klods-color-info,    oklch(55% 0.18 250)); }
-    &--success { border-left: 3px solid var(--klods-color-success, oklch(55% 0.18 145)); }
-    &--warning { border-left: 3px solid var(--klods-color-warning, oklch(70% 0.18  75)); }
-    &--danger  { border-left: 3px solid var(--klods-color-danger,  oklch(55% 0.22  25)); }
+    &--info    { border-left: 3px solid var(--klods-color-info); }
+    &--success { border-left: 3px solid var(--klods-color-success); }
+    &--warning { border-left: 3px solid var(--klods-color-warning); }
+    &--danger  { border-left: 3px solid var(--klods-color-danger); }
   }
 
   .klods-toast__body {
