@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
   a,
@@ -416,6 +416,42 @@ describe("showToast / clearToasts", () => {
     const btn = getToasts()[0]!.querySelector<HTMLElement>(".klods-toast__close");
     expect(btn).not.toBeNull();
     expect(btn!.getAttribute("aria-label")).toBe("Dismiss");
+  });
+
+  it("clicking the dismiss button removes the toast", () => {
+    showToast("Hi");
+    const toast = getToasts()[0]!;
+    const btn = toast.querySelector<HTMLElement>(".klods-toast__close")!;
+    btn.click();
+    // animationend won't fire in jsdom — the fallback timer removes it.
+    // Advance time past the fallback window.
+    vi.useFakeTimers();
+    btn.click();
+    vi.runAllTimers();
+    vi.useRealTimers();
+    expect(toast.isConnected).toBe(false);
+  });
+
+  it("auto-dismisses after the configured duration", () => {
+    vi.useFakeTimers();
+    showToast({ duration: 1000 }, "Bye");
+    const toast = getToasts()[0]!;
+    expect(toast.isConnected).toBe(true);
+    vi.advanceTimersByTime(1000);
+    // The auto-dismiss timer fires; animationend won't in jsdom so the fallback
+    // timer (duration of --klods-transition + buffer) also needs to elapse.
+    vi.runAllTimers();
+    vi.useRealTimers();
+    expect(toast.isConnected).toBe(false);
+  });
+
+  it("duration: 0 keeps the toast indefinitely", () => {
+    vi.useFakeTimers();
+    showToast({ duration: 0 }, "Sticky");
+    const toast = getToasts()[0]!;
+    vi.advanceTimersByTime(60_000);
+    vi.useRealTimers();
+    expect(toast.isConnected).toBe(true);
   });
 
   it("clearToasts() removes the region entirely", () => {
