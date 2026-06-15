@@ -52,7 +52,7 @@ export const examples: KlodsNode[] = [
         "The ",
         tooltip(
           { tip: "Variable-ratio intermittent reinforcement — a reward schedule that drives compulsive engagement." },
-          span({ style: "text-decoration: underline dotted; cursor: help" }, "slot-machine effect")
+          span("slot-machine effect")
         ),
         " is widely used in social media design.",
       ]),

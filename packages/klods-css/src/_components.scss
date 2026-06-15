@@ -1183,6 +1183,18 @@
     position: relative;
     display: inline-flex;
     align-items: center;
+
+    &[tabindex] {
+      cursor: help;
+      text-decoration: underline dotted var(--klods-color-muted);
+      text-underline-offset: var(--klods-space-1);
+
+      &:focus-visible {
+        outline: 2px solid var(--klods-color-accent);
+        outline-offset: 2px;
+        border-radius: var(--klods-radius-sm);
+      }
+    }
   }
 
   .klods-tooltip__tip {

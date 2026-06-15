@@ -980,6 +980,20 @@ export type TooltipProps = {
   position?: "above" | "below" | "start" | "end";
 };
 
+// Tags that are natively keyboard-focusable (tabindex not required).
+const FOCUSABLE_TAGS = new Set(["a", "button", "input", "select", "textarea", "summary"]);
+
+function hasFocusableChild(children: KlodsChild | KlodsChild[]): boolean {
+  const nodes = Array.isArray(children) ? children : [children];
+  for (const child of nodes) {
+    if (child instanceof KlodsNode) {
+      if (FOCUSABLE_TAGS.has(child.tag)) return true;
+      if (hasFocusableChild(child.children)) return true;
+    }
+  }
+  return false;
+}
+
 /**
  * Accessible tooltip. Wraps any inline content; shows a tip bubble on hover
  * and keyboard focus. Uses absolute positioning relative to the wrapper.
@@ -991,6 +1005,10 @@ export type TooltipProps = {
 export function tooltip(props: TooltipProps & KlodsAttrs, children: KlodsChild | KlodsChild[]): KlodsNode {
   const { tip, position = "above", class: extraClass, ...rest } = props;
   const id = `klods-tip-${++_tooltipCounter}`;
+
+  // If the children don't already contain a naturally focusable element,
+  // make the wrapper itself focusable so keyboard users can reach the tip.
+  const needsTabindex = !hasFocusableChild(children) && !("tabindex" in rest);
 
   // Tip is absolutely positioned inside .klods-tooltip (position: relative).
   // Visibility is toggled via data-open, same as data-nav-open / data-sidebar-open.
@@ -1010,6 +1028,7 @@ export function tooltip(props: TooltipProps & KlodsAttrs, children: KlodsChild |
       ...rest,
       class: classNames(["klods-tooltip", classNames(extraClass as KlodsAttrs["class"])]) || undefined,
       "aria-describedby": id,
+      ...(needsTabindex ? { tabindex: "0" } : {}),
       // Show on pointer enter / keyboard focus-in.
       onMouseenter: (e: Event) => {
         const tip = (e.currentTarget as HTMLElement).querySelector<HTMLElement>("[role='tooltip']");
