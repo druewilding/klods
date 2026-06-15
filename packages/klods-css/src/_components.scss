@@ -1194,6 +1194,7 @@
     font-size: var(--klods-font-size-sm);
     line-height: var(--klods-line-height-base);
     max-width: 20rem;
+    min-width: 8rem;
     white-space: normal;
     box-shadow: var(--klods-shadow-md);
     border: none;
@@ -1238,41 +1239,6 @@
 
     @media (prefers-reduced-motion: reduce) {
       transition: none;
-    }
-  }
-
-  // ── Modern path: CSS Anchor Positioning ───────────────────────────────
-  // position-anchor is applied as an inline style by the JS builder.
-  // [data-open] still controls visibility — we just override the fallback
-  // absolute offsets with position-area so the tip tracks its anchor element.
-  @supports (anchor-name: --x) {
-    .klods-tooltip__tip {
-      // Escape fallback absolute offsets; anchor positioning handles placement.
-      bottom: auto;
-      left: auto;
-      top: auto;
-      right: auto;
-      transform: none;
-
-      &--above {
-        position-area: top center;
-        margin-bottom: var(--klods-space-2);
-      }
-
-      &--below {
-        position-area: bottom center;
-        margin-top: var(--klods-space-2);
-      }
-
-      &--start {
-        position-area: left center;
-        margin-inline-end: var(--klods-space-2);
-      }
-
-      &--end {
-        position-area: right center;
-        margin-inline-start: var(--klods-space-2);
-      }
     }
   }
 }

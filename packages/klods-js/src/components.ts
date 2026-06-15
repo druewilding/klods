@@ -982,35 +982,27 @@ export type TooltipProps = {
 
 /**
  * Accessible tooltip. Wraps any inline content; shows a tip bubble on hover
- * and keyboard focus. Built on the Popover API with CSS Anchor Positioning
- * where supported; degrades gracefully in older browsers.
+ * and keyboard focus. Uses absolute positioning relative to the wrapper.
  *
  * @example
  * tooltip({ tip: "Saved to your account" }, button("Save"))
  * tooltip({ tip: "Required field", position: "end" }, span("*"))
  */
 export function tooltip(props: TooltipProps & KlodsAttrs, children: KlodsChild | KlodsChild[]): KlodsNode {
-  const { tip, position = "above", class: extraClass, style: userStyle, ...rest } = props;
+  const { tip, position = "above", class: extraClass, ...rest } = props;
   const id = `klods-tip-${++_tooltipCounter}`;
-  const anchorName = `--klods-tip-${_tooltipCounter}`;
 
-  // The tip element. Visibility is toggled via data-open (like data-nav-open,
-  // data-sidebar-open). CSS Anchor Positioning is applied as a progressive
-  // enhancement via @supports (anchor-name: --x) when available.
+  // Tip is absolutely positioned inside .klods-tooltip (position: relative).
+  // Visibility is toggled via data-open, same as data-nav-open / data-sidebar-open.
   const tipNode = el(
     "span",
     {
       id,
       role: "tooltip",
       class: `klods-tooltip__tip klods-tooltip__tip--${position}`,
-      style: `position-anchor: ${anchorName}`,
     },
     tip
   );
-
-  // Merge anchor-name into any user-supplied inline style.
-  const anchorStyle =
-    userStyle && typeof userStyle === "string" ? `anchor-name: ${anchorName}; ${userStyle}` : `anchor-name: ${anchorName}`;
 
   return el(
     "span",
@@ -1018,7 +1010,6 @@ export function tooltip(props: TooltipProps & KlodsAttrs, children: KlodsChild |
       ...rest,
       class: classNames(["klods-tooltip", classNames(extraClass as KlodsAttrs["class"])]) || undefined,
       "aria-describedby": id,
-      style: anchorStyle,
       // Show on pointer enter / keyboard focus-in.
       onMouseenter: (e: Event) => {
         const tip = (e.currentTarget as HTMLElement).querySelector<HTMLElement>("[role='tooltip']");
