@@ -1175,8 +1175,7 @@
 
   // ── Tooltip ────────────────────────────────────────────────────────────
   // Absolutely positioned relative to .klods-tooltip. JS sets/removes
-  // data-open to show/hide. CSS Anchor Positioning is a progressive
-  // enhancement inside @supports (anchor-name: --x).
+  // data-open to show/hide (consistent with data-nav-open, data-sidebar-open).
   // The `tooltip()` builder wires mouseenter / mouseleave / focusin / focusout.
 
   .klods-tooltip {

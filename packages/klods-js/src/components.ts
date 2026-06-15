@@ -920,10 +920,10 @@ export function clearToasts(): void {
 }
 
 // ── Tooltip ───────────────────────────────────────────────────────────────
-// Uses the Popover API with CSS Anchor Positioning where available.
-// Falls back to absolute positioning + data-open attribute for older browsers.
-// Event handlers are wired by the builder; call showTooltip / hideTooltip
-// directly for programmatic control.
+// Absolutely positioned relative to .klods-tooltip (position: relative).
+// Visibility is toggled via data-open — consistent with data-nav-open and
+// data-sidebar-open elsewhere in klods. Event handlers are wired by the
+// builder; call showTooltip / hideTooltip directly for programmatic control.
 
 let _tooltipCounter = 0;
 
@@ -1001,7 +1001,8 @@ function hasFocusableChild(children: KlodsChild | KlodsChild[]): boolean {
 
 /**
  * Accessible tooltip. Wraps any inline content; shows a tip bubble on hover
- * and keyboard focus. Uses absolute positioning relative to the wrapper.
+ * and keyboard focus. The tip is absolutely positioned relative to the wrapper;
+ * visibility is toggled with `data-open`.
  *
  * @example
  * tooltip({ tip: "Saved to your account" }, button("Save"))

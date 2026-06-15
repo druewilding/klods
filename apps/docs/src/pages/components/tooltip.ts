@@ -10,7 +10,7 @@ export const examples: KlodsNode[] = [
   example({
     title: "Tooltip",
     description:
-      "Wrap any inline content with `tooltip({ tip })` to show a tip bubble on hover and keyboard focus. Built on the Popover API with CSS Anchor Positioning where supported.",
+      "Wrap any inline content with `tooltip({ tip })` to show a tip bubble on hover and keyboard focus. Uses absolute positioning; visibility is toggled with `data-open`.",
     render: () =>
       cluster({ gap: 4 }, [
         tooltip({ tip: "Saved to your account" }, button("Save")),
