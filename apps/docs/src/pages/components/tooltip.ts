@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { a, badge, button, cluster, p, span, stack, tooltip } from "klods-js";
+import { a, button, cluster, p, span, stack, tooltip } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -15,7 +15,6 @@ export const examples: KlodsNode[] = [
       cluster({ gap: 4 }, [
         tooltip({ tip: "Saved to your account" }, button("Save")),
         tooltip({ tip: "Opens in a new tab" }, a({ href: "#" }, "Learn more")),
-        tooltip({ tip: "Draft — not yet published" }, badge("Draft")),
       ]),
   }),
 
