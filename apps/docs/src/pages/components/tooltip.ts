@@ -1,16 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import {
-  a,
-  badge,
-  button,
-  cluster,
-  hideTooltip,
-  p,
-  showTooltip,
-  span,
-  stack,
-  tooltip,
-} from "klods-js";
+import { a, badge, button, cluster, p, span, stack, tooltip } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -56,30 +45,6 @@ export const examples: KlodsNode[] = [
         ),
         " is widely used in social media design.",
       ]),
-  }),
-
-  example({
-    title: "Tooltip — programmatic",
-    description: "Call `showTooltip(el)` and `hideTooltip(el)` for programmatic control.",
-    render: () => {
-      const tip = tooltip({ tip: "Shown programmatically" }, span("Hover or click the button →"));
-      return cluster({ gap: 3 }, [
-        tip,
-        button(
-          {
-            onClick: (e: Event) => {
-              const tipEl = tip.render().querySelector<HTMLElement>("[role='tooltip']");
-              if (tipEl) showTooltip(tipEl);
-              setTimeout(() => {
-                if (tipEl) hideTooltip(tipEl, 0);
-              }, 2000);
-              (e.currentTarget as HTMLElement).blur();
-            },
-          },
-          "Show for 2 s"
-        ),
-      ]);
-    },
   }),
 
   example({
