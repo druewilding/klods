@@ -958,6 +958,11 @@ export function showTooltip(tipEl: HTMLElement): void {
  */
 export function hideTooltip(tipEl: HTMLElement, delay = 80): void {
   if (!tipEl?.classList.contains("klods-tooltip__tip")) return;
+  const pending = _hideTimers.get(tipEl);
+  if (pending !== undefined) {
+    clearTimeout(pending);
+    _hideTimers.delete(tipEl);
+  }
   if (delay > 0) {
     const timer = setTimeout(() => {
       _hideTimers.delete(tipEl);
