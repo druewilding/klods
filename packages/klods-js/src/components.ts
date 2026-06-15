@@ -1015,6 +1015,16 @@ export function tooltip(props: TooltipProps & KlodsAttrs, children: KlodsChild |
   // make the wrapper itself focusable so keyboard users can reach the tip.
   const needsTabindex = !hasFocusableChild(children) && !("tabindex" in rest);
 
+  // aria-describedby must be on the element that actually receives focus.
+  // When the trigger is a single focusable KlodsNode, patch it directly so
+  // assistive tech associates the tooltip with the focused control.
+  let triggerChildren: KlodsChild | KlodsChild[] = children;
+  if (!needsTabindex && children instanceof KlodsNode && FOCUSABLE_TAGS.has(children.tag)) {
+    const existing = (children.attrs as KlodsAttrs)["aria-describedby"];
+    const describedBy = existing ? `${String(existing)} ${id}` : id;
+    triggerChildren = new KlodsNode(children.tag, { ...children.attrs, "aria-describedby": describedBy }, children.children);
+  }
+
   // Tip is absolutely positioned inside .klods-tooltip (position: relative).
   // Visibility is toggled via data-open, same as data-nav-open / data-sidebar-open.
   const tipNode = el(
@@ -1032,8 +1042,9 @@ export function tooltip(props: TooltipProps & KlodsAttrs, children: KlodsChild |
     {
       ...rest,
       class: classNames(["klods-tooltip", classNames(extraClass as KlodsAttrs["class"])]) || undefined,
-      "aria-describedby": id,
-      ...(needsTabindex ? { tabindex: "0" } : {}),
+      // Only put aria-describedby on the wrapper when it is the focus target.
+      // Otherwise it lives on the patched focusable child above.
+      ...(needsTabindex ? { "aria-describedby": id, tabindex: "0" } : {}),
       // Show on pointer enter / keyboard focus-in.
       onMouseenter: (e: Event) => {
         const tip = (e.currentTarget as HTMLElement).querySelector<HTMLElement>("[role='tooltip']");
@@ -1060,6 +1071,6 @@ export function tooltip(props: TooltipProps & KlodsAttrs, children: KlodsChild |
         }
       },
     },
-    [children, tipNode]
+    [triggerChildren, tipNode]
   );
 }
