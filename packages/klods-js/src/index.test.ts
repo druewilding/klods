@@ -558,8 +558,8 @@ describe("tooltip", () => {
     tooltip({ tip: "Hi" }, span("x")).render(root);
     const tipEl = root.querySelector<HTMLElement>("[role='tooltip']")!;
     showTooltip(tipEl);
-    hideTooltip(tipEl);       // schedule a hide
-    showTooltip(tipEl);       // cancel it
+    hideTooltip(tipEl); // schedule a hide
+    showTooltip(tipEl); // cancel it
     vi.runAllTimers();
     vi.useRealTimers();
     expect(tipEl.hasAttribute("data-open")).toBe(true);
@@ -572,8 +572,8 @@ describe("tooltip", () => {
     const tipEl = root.querySelector<HTMLElement>("[role='tooltip']")!;
     showTooltip(tipEl);
     hideTooltip(tipEl);
-    hideTooltip(tipEl);       // second call cancels the first timer
-    showTooltip(tipEl);       // cancel current timer
+    hideTooltip(tipEl); // second call cancels the first timer
+    showTooltip(tipEl); // cancel current timer
     vi.runAllTimers();
     vi.useRealTimers();
     expect(tipEl.hasAttribute("data-open")).toBe(true);

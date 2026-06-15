@@ -1023,7 +1023,11 @@ export function tooltip(props: TooltipProps & KlodsAttrs, children: KlodsChild |
   if (!needsTabindex && children instanceof KlodsNode && FOCUSABLE_TAGS.has(children.tag)) {
     const existing = (children.attrs as KlodsAttrs)["aria-describedby"];
     const describedBy = existing ? `${String(existing)} ${id}` : id;
-    triggerChildren = new KlodsNode(children.tag, { ...children.attrs, "aria-describedby": describedBy }, children.children);
+    triggerChildren = new KlodsNode(
+      children.tag,
+      { ...children.attrs, "aria-describedby": describedBy },
+      children.children
+    );
   }
 
   // Tip is absolutely positioned inside .klods-tooltip (position: relative).
