@@ -1172,4 +1172,85 @@
       transform: translateY(0.5rem) scale(0.97);
     }
   }
+
+  // ── Tooltip ────────────────────────────────────────────────────────────
+  // Absolutely positioned relative to .klods-tooltip. JS sets/removes
+  // data-open to show/hide (consistent with data-nav-open, data-sidebar-open).
+  // The `tooltip()` builder wires mouseenter / mouseleave / focusin / focusout.
+
+  .klods-tooltip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+
+    &[tabindex] {
+      cursor: help;
+      text-decoration: underline dotted var(--klods-color-muted);
+      text-underline-offset: var(--klods-space-1);
+
+      &:focus-visible {
+        outline: 2px solid var(--klods-color-accent);
+        outline-offset: 2px;
+        border-radius: var(--klods-radius-sm);
+      }
+    }
+  }
+
+  .klods-tooltip__tip {
+    // Visual appearance
+    background: var(--klods-tooltip-bg);
+    color: var(--klods-tooltip-fg);
+    padding: var(--klods-space-1) var(--klods-space-3);
+    border-radius: var(--klods-radius-sm);
+    font-size: var(--klods-font-size-sm);
+    line-height: var(--klods-line-height-base);
+    width: max-content;
+    max-width: 20rem;
+    white-space: normal;
+    box-shadow: var(--klods-shadow-md);
+    border: none;
+    margin: 0;
+    z-index: 10;
+
+    // Hidden by default; toggled by JS via data-open (same pattern as
+    // data-nav-open, data-sidebar-open etc. throughout klods).
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--klods-transition);
+
+    &--above {
+      bottom: calc(100% + var(--klods-space-1));
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &--below {
+      top: calc(100% + var(--klods-space-1));
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &--start {
+      right: calc(100% + var(--klods-space-1));
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &--end {
+      left: calc(100% + var(--klods-space-1));
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &[data-open] {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
 }
