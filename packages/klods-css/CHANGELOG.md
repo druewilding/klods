@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.18.0](https://github.com/druewilding/klods/compare/klods-css-v1.17.0...klods-css-v1.18.0) (2026-06-15)
+
+
+### Features
+
+* Add tooltip ([#87](https://github.com/druewilding/klods/issues/87)) ([b284119](https://github.com/druewilding/klods/commit/b284119de4a994ec10b0b13189c7e5e9f9c7e869))
+
 ## [1.17.0](https://github.com/druewilding/klods/compare/klods-css-v1.16.0...klods-css-v1.17.0) (2026-06-06)
 
 
