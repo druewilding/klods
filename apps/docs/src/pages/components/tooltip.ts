@@ -26,7 +26,7 @@ export const examples: KlodsNode[] = [
     render: () =>
       cluster({ gap: 4 }, [
         tooltip({ tip: "Above (default)", position: "above" }, button("Above")),
-        tooltip({ tip: "Below the trigger", position: "below" }, button("Below")),
+        tooltip({ tip: "Below", position: "below" }, button("Below")),
         tooltip({ tip: "To the start", position: "start" }, button("Start")),
         tooltip({ tip: "To the end", position: "end" }, button("End")),
       ]),
