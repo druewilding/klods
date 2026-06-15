@@ -1172,4 +1172,107 @@
       transform: translateY(0.5rem) scale(0.97);
     }
   }
+
+  // ── Tooltip ────────────────────────────────────────────────────────────
+  // Absolutely positioned relative to .klods-tooltip. JS sets/removes
+  // data-open to show/hide. CSS Anchor Positioning is a progressive
+  // enhancement inside @supports (anchor-name: --x).
+  // The `tooltip()` builder wires mouseenter / mouseleave / focusin / focusout.
+
+  .klods-tooltip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .klods-tooltip__tip {
+    // Visual appearance
+    background: var(--klods-tooltip-bg);
+    color: var(--klods-tooltip-fg);
+    padding: var(--klods-space-1) var(--klods-space-3);
+    border-radius: var(--klods-radius-sm);
+    font-size: var(--klods-font-size-sm);
+    line-height: var(--klods-line-height-base);
+    max-width: 20rem;
+    white-space: normal;
+    box-shadow: var(--klods-shadow-md);
+    border: none;
+    margin: 0;
+    z-index: 10;
+
+    // Hidden by default; toggled by JS via data-open (same pattern as
+    // data-nav-open, data-sidebar-open etc. throughout klods).
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--klods-transition);
+
+    &--above {
+      bottom: calc(100% + var(--klods-space-2));
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &--below {
+      top: calc(100% + var(--klods-space-2));
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &--start {
+      right: calc(100% + var(--klods-space-2));
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &--end {
+      left: calc(100% + var(--klods-space-2));
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &[data-open] {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  // ── Modern path: CSS Anchor Positioning ───────────────────────────────
+  // position-anchor is applied as an inline style by the JS builder.
+  // [data-open] still controls visibility — we just override the fallback
+  // absolute offsets with position-area so the tip tracks its anchor element.
+  @supports (anchor-name: --x) {
+    .klods-tooltip__tip {
+      // Escape fallback absolute offsets; anchor positioning handles placement.
+      bottom: auto;
+      left: auto;
+      top: auto;
+      right: auto;
+      transform: none;
+
+      &--above {
+        position-area: top center;
+        margin-bottom: var(--klods-space-2);
+      }
+
+      &--below {
+        position-area: bottom center;
+        margin-top: var(--klods-space-2);
+      }
+
+      &--start {
+        position-area: left center;
+        margin-inline-end: var(--klods-space-2);
+      }
+
+      &--end {
+        position-area: right center;
+        margin-inline-start: var(--klods-space-2);
+      }
+    }
+  }
 }

@@ -918,3 +918,133 @@ export function showToast(a: ToastOptions | KlodsChild | KlodsChild[], b?: Klods
 export function clearToasts(): void {
   document.querySelectorAll<HTMLElement>(".klods-toast-region").forEach((r) => r.remove());
 }
+
+// ── Tooltip ───────────────────────────────────────────────────────────────
+// Uses the Popover API with CSS Anchor Positioning where available.
+// Falls back to absolute positioning + data-open attribute for older browsers.
+// Event handlers are wired by the builder; call showTooltip / hideTooltip
+// directly for programmatic control.
+
+let _tooltipCounter = 0;
+
+// WeakMap lets us cancel a pending hide when the mouse re-enters the wrapper
+// before the delay expires (handles the visual gap between trigger and tip).
+const _hideTimers = new WeakMap<HTMLElement, ReturnType<typeof setTimeout>>();
+
+function _doHideTooltip(tipEl: HTMLElement): void {
+  tipEl.removeAttribute("data-open");
+}
+
+/**
+ * Show a `.klods-tooltip__tip` element by setting `data-open`.
+ * Cancels any pending hide timer so the tip stays visible if the pointer
+ * re-enters before the delay expires.
+ */
+export function showTooltip(tipEl: HTMLElement): void {
+  if (!tipEl?.classList.contains("klods-tooltip__tip")) return;
+  const pending = _hideTimers.get(tipEl);
+  if (pending !== undefined) {
+    clearTimeout(pending);
+    _hideTimers.delete(tipEl);
+  }
+  tipEl.setAttribute("data-open", "");
+}
+
+/**
+ * Hide a `.klods-tooltip__tip` element after an optional delay (default 80 ms).
+ * The delay gives the mouse time to travel from the trigger into the tip area
+ * before the hide fires; `showTooltip` cancels it if the pointer re-enters.
+ * Pass `delay: 0` to hide immediately.
+ */
+export function hideTooltip(tipEl: HTMLElement, delay = 80): void {
+  if (!tipEl?.classList.contains("klods-tooltip__tip")) return;
+  if (delay > 0) {
+    const timer = setTimeout(() => {
+      _hideTimers.delete(tipEl);
+      _doHideTooltip(tipEl);
+    }, delay);
+    _hideTimers.set(tipEl, timer);
+  } else {
+    _doHideTooltip(tipEl);
+  }
+}
+
+export type TooltipProps = {
+  /** Tooltip content — text or markup shown in the tip bubble. */
+  tip: KlodsChild | KlodsChild[];
+  /**
+   * Preferred placement relative to the trigger. Defaults to `"above"`.
+   * In browsers with CSS Anchor Positioning the tip auto-flips if it would
+   * overflow the viewport; in fallback mode the absolute offset is fixed.
+   */
+  position?: "above" | "below" | "start" | "end";
+};
+
+/**
+ * Accessible tooltip. Wraps any inline content; shows a tip bubble on hover
+ * and keyboard focus. Built on the Popover API with CSS Anchor Positioning
+ * where supported; degrades gracefully in older browsers.
+ *
+ * @example
+ * tooltip({ tip: "Saved to your account" }, button("Save"))
+ * tooltip({ tip: "Required field", position: "end" }, span("*"))
+ */
+export function tooltip(props: TooltipProps & KlodsAttrs, children: KlodsChild | KlodsChild[]): KlodsNode {
+  const { tip, position = "above", class: extraClass, style: userStyle, ...rest } = props;
+  const id = `klods-tip-${++_tooltipCounter}`;
+  const anchorName = `--klods-tip-${_tooltipCounter}`;
+
+  // The tip element. Visibility is toggled via data-open (like data-nav-open,
+  // data-sidebar-open). CSS Anchor Positioning is applied as a progressive
+  // enhancement via @supports (anchor-name: --x) when available.
+  const tipNode = el(
+    "span",
+    {
+      id,
+      role: "tooltip",
+      class: `klods-tooltip__tip klods-tooltip__tip--${position}`,
+      style: `position-anchor: ${anchorName}`,
+    },
+    tip
+  );
+
+  // Merge anchor-name into any user-supplied inline style.
+  const anchorStyle =
+    userStyle && typeof userStyle === "string" ? `anchor-name: ${anchorName}; ${userStyle}` : `anchor-name: ${anchorName}`;
+
+  return el(
+    "span",
+    {
+      ...rest,
+      class: classNames(["klods-tooltip", classNames(extraClass as KlodsAttrs["class"])]) || undefined,
+      "aria-describedby": id,
+      style: anchorStyle,
+      // Show on pointer enter / keyboard focus-in.
+      onMouseenter: (e: Event) => {
+        const tip = (e.currentTarget as HTMLElement).querySelector<HTMLElement>("[role='tooltip']");
+        if (tip) showTooltip(tip);
+      },
+      // Hide on pointer leave — a short delay lets the mouse cross the gap
+      // between trigger and tip before the popover dismisses.
+      onMouseleave: (e: Event) => {
+        const tip = (e.currentTarget as HTMLElement).querySelector<HTMLElement>("[role='tooltip']");
+        if (tip) hideTooltip(tip);
+      },
+      // Keyboard: show when any child (or the wrapper itself) receives focus.
+      onFocusin: (e: Event) => {
+        const tip = (e.currentTarget as HTMLElement).querySelector<HTMLElement>("[role='tooltip']");
+        if (tip) showTooltip(tip);
+      },
+      // Keyboard: hide only when focus leaves the wrapper entirely.
+      onFocusout: (e: Event) => {
+        const wrapper = e.currentTarget as HTMLElement;
+        const fe = e as FocusEvent;
+        if (!wrapper.contains(fe.relatedTarget as Node | null)) {
+          const tip = wrapper.querySelector<HTMLElement>("[role='tooltip']");
+          if (tip) hideTooltip(tip, 0);
+        }
+      },
+    },
+    [children, tipNode]
+  );
+}

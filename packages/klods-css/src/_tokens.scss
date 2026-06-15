@@ -71,6 +71,8 @@ $klods-bp-lg: 64rem; // 1024px — desktop
     // These fall back to global tokens by default and can be overridden per
     // theme or per component instance.
     --klods-tabs-active: var(--klods-color-accent);
+    --klods-tooltip-bg: oklch(20% 0.01 264);
+    --klods-tooltip-fg: oklch(98% 0 0);
 
     // ── Code syntax ────────────────────────────────────────────────────────
     // GitHub Light palette — maps to hljs token spans via _components.scss

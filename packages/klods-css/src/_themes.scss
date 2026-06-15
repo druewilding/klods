@@ -16,6 +16,10 @@
     --klods-color-warning: #fbbf24;
     --klods-color-danger: #f87171;
 
+    // Tooltip flips to light-on-dark → light bg with dark text in dark theme
+    --klods-tooltip-bg: oklch(92% 0.005 264);
+    --klods-tooltip-fg: oklch(12% 0.01 264);
+
     // GitHub Dark palette
     --klods-code-bg: #161b22;
     --klods-code-fg: #e6edf3;
