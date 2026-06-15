@@ -22,7 +22,7 @@ export const examples: KlodsNode[] = [
   example({
     title: "Tooltip — placement",
     description:
-      "Set `position` to `\"above\"` (default), `\"below\"`, `\"start\"`, or `\"end\"` to control which side the tip appears on.",
+      'Set `position` to `"above"` (default), `"below"`, `"start"`, or `"end"` to control which side the tip appears on.',
     render: () =>
       cluster({ gap: 4 }, [
         tooltip({ tip: "Above (default)", position: "above" }, button("Above")),
