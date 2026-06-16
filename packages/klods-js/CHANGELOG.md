@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.0](https://github.com/druewilding/klods/compare/klods-js-v2.5.0...klods-js-v2.6.0) (2026-06-16)
+
+
+### Features
+
+* Implement details and summary components ([#91](https://github.com/druewilding/klods/issues/91)) ([fda6ceb](https://github.com/druewilding/klods/commit/fda6ceb58339c23f400ca2fc681862e446aecd8b))
+
 ## [2.5.0](https://github.com/druewilding/klods/compare/klods-js-v2.4.0...klods-js-v2.5.0) (2026-06-15)
 
 
