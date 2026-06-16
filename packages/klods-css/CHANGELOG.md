@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.19.0](https://github.com/druewilding/klods/compare/klods-css-v1.18.0...klods-css-v1.19.0) (2026-06-16)
+
+
+### Features
+
+* Implement details and summary components ([#91](https://github.com/druewilding/klods/issues/91)) ([fda6ceb](https://github.com/druewilding/klods/commit/fda6ceb58339c23f400ca2fc681862e446aecd8b))
+
 ## [1.18.0](https://github.com/druewilding/klods/compare/klods-css-v1.17.0...klods-css-v1.18.0) (2026-06-15)
 
 
