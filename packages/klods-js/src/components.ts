@@ -1079,3 +1079,10 @@ export function tooltip(props: TooltipProps & KlodsAttrs, children: KlodsChild |
     [triggerChildren, tipNode]
   );
 }
+
+// ── Details ───────────────────────────────────────────────────────────────
+// Thin builders over the native <details>/<summary> elements.
+// No JS required — the browser handles open/close natively.
+export type DetailsProps = { open?: boolean };
+export const details = builder<DetailsProps>({ tag: "details", base: "klods-details" });
+export const summary = tagBuilder("summary");
