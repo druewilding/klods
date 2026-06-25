@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.0](https://github.com/druewilding/klods/compare/klods-js-v2.6.0...klods-js-v2.7.0) (2026-06-25)
+
+
+### Features
+
+* Add list and listItem components ([#93](https://github.com/druewilding/klods/issues/93)) ([6d4d987](https://github.com/druewilding/klods/commit/6d4d987ff8b35ed2adc640c38f42956e1ddab3fb))
+
 ## [2.6.0](https://github.com/druewilding/klods/compare/klods-js-v2.5.0...klods-js-v2.6.0) (2026-06-16)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.20.0](https://github.com/druewilding/klods/compare/klods-css-v1.19.0...klods-css-v1.20.0) (2026-06-25)
+
+
+### Features
+
+* Add list and listItem components ([#93](https://github.com/druewilding/klods/issues/93)) ([6d4d987](https://github.com/druewilding/klods/commit/6d4d987ff8b35ed2adc640c38f42956e1ddab3fb))
+
 ## [1.19.0](https://github.com/druewilding/klods/compare/klods-css-v1.18.0...klods-css-v1.19.0) (2026-06-16)
 
 
