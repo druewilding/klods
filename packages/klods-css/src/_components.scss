@@ -1327,6 +1327,18 @@
     margin-inline-start: auto;
   }
 
+  // ── Icons ──────────────────────────────────────────────────────────────
+  .klods-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    svg {
+      display: block;
+    }
+  }
+
   // ── Details ────────────────────────────────────────────────────────────
   // Native <details>/<summary> styled with klods tokens.
   // Use details() + summary() builders or the .klods-details BEM class directly.

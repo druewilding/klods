@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { badge, card, cardTitle, list, listItem, raw } from "klods-js";
+import { badge, card, cardTitle, chevRightIcon, list, listItem } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -50,16 +50,12 @@ export const examples: KlodsNode[] = [
 
   example({
     title: "List — navigation",
-    render: () => {
-      const chevron = raw(
-        '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 2l6 6-6 6"/></svg>'
-      );
-      return list([
-        listItem({ href: "#", lead: "📨", trail: chevron }, "Messages"),
-        listItem({ href: "#", lead: "🔔", trail: chevron }, "Notifications"),
-        listItem({ href: "#", lead: "⚙️", trail: chevron }, "Settings"),
-      ]);
-    },
+    render: () =>
+      list([
+        listItem({ href: "#", lead: "📨", trail: chevRightIcon() }, "Messages"),
+        listItem({ href: "#", lead: "🔔", trail: chevRightIcon() }, "Notifications"),
+        listItem({ href: "#", lead: "⚙️", trail: chevRightIcon() }, "Settings"),
+      ]),
   }),
 
   example({
