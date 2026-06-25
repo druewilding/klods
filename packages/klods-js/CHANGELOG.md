@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.7.0](https://github.com/druewilding/klods/compare/klods-js-v2.6.0...klods-js-v2.7.0) (2026-06-25)
+
+
+### Features
+
+* Add a few first-party icons that can easily be reused ([#95](https://github.com/druewilding/klods/issues/95)) ([e2425a5](https://github.com/druewilding/klods/commit/e2425a524631f8841abc7f1a0ba99fc1f41a70de))
+* Add list and listItem components ([#93](https://github.com/druewilding/klods/issues/93)) ([6d4d987](https://github.com/druewilding/klods/commit/6d4d987ff8b35ed2adc640c38f42956e1ddab3fb))
+
 ## [2.6.0](https://github.com/druewilding/klods/compare/klods-js-v2.5.0...klods-js-v2.6.0) (2026-06-16)
 
 
