@@ -122,6 +122,6 @@ export const userIcon = makeIcon(
 );
 
 export const warningIcon = makeIcon(
-  '<path stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M8 3L2 13.5h12L8 3z"/><path stroke="currentColor" stroke-width="1.75" stroke-linecap="round" d="M8 7.5v2.5"/><circle cx="8" cy="11.5" r="0.75" fill="currentColor"/>',
+  '<path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 2L1.5 13.5h13L8 2z"/><path stroke="currentColor" stroke-width="1" stroke-linecap="round" d="M8 7v3"/><circle cx="8" cy="12" r="0.75" fill="currentColor"/>',
   "0 0 16 16"
 );
