@@ -92,7 +92,7 @@ export const eyeOffIcon = makeIcon(
 );
 
 export const infoCircleIcon = makeIcon(
-  '<circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path stroke="currentColor" stroke-width="1.75" stroke-linecap="round" d="M8 7.5v3.5"/><circle cx="8" cy="5.5" r="0.75" fill="currentColor"/>',
+  '<circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/><path stroke="currentColor" stroke-width="1" stroke-linecap="round" d="M8 7.5v3.5"/><circle cx="8" cy="5.5" r="0.75" fill="currentColor"/>',
   "0 0 16 16"
 );
 
