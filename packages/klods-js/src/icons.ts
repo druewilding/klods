@@ -5,15 +5,17 @@ import type { KlodsAttrs } from "./core.js";
 import { classNames, el, KlodsNode, raw } from "./core.js";
 
 export type IconProps = {
-  /** Width and height in pixels. Defaults to 16. */
-  size?: number;
+  size?: "small" | "medium" | "large";
   /** Accessible label for non-decorative icons. Omit for decorative use (aria-hidden). */
   label?: string;
 };
 
+const SIZE_PX = { small: 12, medium: 20, large: 32 } as const;
+
 function makeIcon(svgInner: string, viewBox: string) {
   return function (props?: (IconProps & KlodsAttrs) | null): KlodsNode {
-    const { size = 16, label, class: extraClass, ...rest } = props ?? {};
+    const { size = "medium", label, class: extraClass, ...rest } = props ?? {};
+    const px = SIZE_PX[size];
     const aria: KlodsAttrs = label ? { "aria-label": label, role: "img" } : { "aria-hidden": "true" };
     return el(
       "span",
@@ -23,7 +25,7 @@ function makeIcon(svgInner: string, viewBox: string) {
         class: classNames(["klods-icon", classNames(extraClass as KlodsAttrs["class"])]) || undefined,
       },
       raw(
-        `<svg width="${size}" height="${size}" viewBox="${viewBox}" fill="none" xmlns="http://www.w3.org/2000/svg">${svgInner}</svg>`
+        `<svg width="${px}" height="${px}" viewBox="${viewBox}" fill="none" xmlns="http://www.w3.org/2000/svg">${svgInner}</svg>`
       )
     );
   };

@@ -22,7 +22,7 @@ export function navToggle(a?: KlodsAttrs | KlodsChild | KlodsChild[] | null, b?:
   return el(
     "button",
     { type: "button", "aria-label": "Toggle navigation", class: "klods-nav__toggle", ...attrs },
-    children ?? menuIcon({ size: 20 })
+    children ?? menuIcon()
   );
 }
 
