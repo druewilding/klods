@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.0](https://github.com/druewilding/klods/compare/klods-js-v2.7.0...klods-js-v2.8.0) (2026-06-25)
+
+
+### Features
+
+* Add more icons ([#97](https://github.com/druewilding/klods/issues/97)) ([59e6789](https://github.com/druewilding/klods/commit/59e678968565b446ceb48e7d064999a0a79bfc31))
+
 ## [2.7.0](https://github.com/druewilding/klods/compare/klods-js-v2.6.0...klods-js-v2.7.0) (2026-06-25)
 
 
