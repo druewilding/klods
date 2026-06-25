@@ -1,7 +1,9 @@
 import type { KlodsNode } from "klods-js";
 import {
   chevDownIcon,
+  chevLeftIcon,
   chevRightIcon,
+  chevUpIcon,
   closeIcon,
   cluster,
   list,
@@ -24,7 +26,9 @@ export const examples: KlodsNode[] = [
     render: () =>
       cluster([
         stack({ gap: 2, inline: true }, [chevDownIcon(), muted("chevDownIcon")]),
+        stack({ gap: 2, inline: true }, [chevLeftIcon(), muted("chevLeftIcon")]),
         stack({ gap: 2, inline: true }, [chevRightIcon(), muted("chevRightIcon")]),
+        stack({ gap: 2, inline: true }, [chevUpIcon(), muted("chevUpIcon")]),
         stack({ gap: 2, inline: true }, [closeIcon(), muted("closeIcon")]),
         stack({ gap: 2, inline: true }, [menuIcon(), muted("menuIcon")]),
       ]),

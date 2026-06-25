@@ -36,13 +36,23 @@ export const menuIcon = makeIcon(
   "0 0 20 20"
 );
 
+export const chevDownIcon = makeIcon(
+  '<path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2 5l6 6 6-6"/>',
+  "0 0 16 16"
+);
+
+export const chevLeftIcon = makeIcon(
+  '<path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M11 2l-6 6 6 6"/>',
+  "0 0 16 16"
+);
+
 export const chevRightIcon = makeIcon(
   '<path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 2l6 6-6 6"/>',
   "0 0 16 16"
 );
 
-export const chevDownIcon = makeIcon(
-  '<path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2 5l6 6 6-6"/>',
+export const chevUpIcon = makeIcon(
+  '<path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2 11l6-6 6 6"/>',
   "0 0 16 16"
 );
 
