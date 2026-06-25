@@ -1,18 +1,31 @@
 import type { KlodsNode } from "klods-js";
 import {
+  checkCircleIcon,
   chevDownIcon,
   chevLeftIcon,
   chevRightIcon,
   chevUpIcon,
   closeIcon,
   cluster,
+  copyIcon,
+  dangerCircleIcon,
+  editIcon,
+  externalLinkIcon,
+  eyeIcon,
+  eyeOffIcon,
+  infoCircleIcon,
   list,
   listItem,
   menuIcon,
   muted,
   p,
+  plusIcon,
+  searchIcon,
   span,
   stack,
+  trashIcon,
+  userIcon,
+  warningIcon,
 } from "klods-js";
 
 import { example } from "../../example.js";
@@ -25,12 +38,25 @@ export const examples: KlodsNode[] = [
     title: "Built-in icons",
     render: () =>
       cluster([
+        stack({ gap: 2, inline: true }, [checkCircleIcon(), muted("checkCircleIcon")]),
         stack({ gap: 2, inline: true }, [chevDownIcon(), muted("chevDownIcon")]),
         stack({ gap: 2, inline: true }, [chevLeftIcon(), muted("chevLeftIcon")]),
         stack({ gap: 2, inline: true }, [chevRightIcon(), muted("chevRightIcon")]),
         stack({ gap: 2, inline: true }, [chevUpIcon(), muted("chevUpIcon")]),
         stack({ gap: 2, inline: true }, [closeIcon(), muted("closeIcon")]),
+        stack({ gap: 2, inline: true }, [copyIcon(), muted("copyIcon")]),
+        stack({ gap: 2, inline: true }, [dangerCircleIcon(), muted("dangerCircleIcon")]),
+        stack({ gap: 2, inline: true }, [editIcon(), muted("editIcon")]),
+        stack({ gap: 2, inline: true }, [externalLinkIcon(), muted("externalLinkIcon")]),
+        stack({ gap: 2, inline: true }, [eyeIcon(), muted("eyeIcon")]),
+        stack({ gap: 2, inline: true }, [eyeOffIcon(), muted("eyeOffIcon")]),
+        stack({ gap: 2, inline: true }, [infoCircleIcon(), muted("infoCircleIcon")]),
         stack({ gap: 2, inline: true }, [menuIcon(), muted("menuIcon")]),
+        stack({ gap: 2, inline: true }, [plusIcon(), muted("plusIcon")]),
+        stack({ gap: 2, inline: true }, [searchIcon(), muted("searchIcon")]),
+        stack({ gap: 2, inline: true }, [trashIcon(), muted("trashIcon")]),
+        stack({ gap: 2, inline: true }, [userIcon(), muted("userIcon")]),
+        stack({ gap: 2, inline: true }, [warningIcon(), muted("warningIcon")]),
       ]),
   }),
 
@@ -59,9 +85,9 @@ export const examples: KlodsNode[] = [
     title: "Built-in icons — in context",
     render: () =>
       list([
-        listItem({ href: "#", lead: menuIcon(), trail: chevRightIcon() }, "Navigation item"),
-        listItem({ href: "#", lead: chevDownIcon(), trail: chevRightIcon() }, "Expandable item"),
-        listItem({ href: "#", lead: closeIcon(), trail: chevRightIcon() }, "Dismissible item"),
+        listItem({ href: "#", lead: userIcon(), trail: chevRightIcon() }, "My account"),
+        listItem({ href: "#", lead: searchIcon(), trail: chevRightIcon() }, "Search"),
+        listItem({ href: "#", lead: trashIcon(), trail: chevRightIcon() }, "Trash"),
       ]),
   }),
 
