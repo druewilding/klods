@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.1](https://github.com/druewilding/klods/compare/klods-js-v2.8.0...klods-js-v2.8.1) (2026-06-25)
+
+
+### Bug Fixes
+
+* Make the infoCircleIcon more readable ([#100](https://github.com/druewilding/klods/issues/100)) ([f240cf9](https://github.com/druewilding/klods/commit/f240cf9a443edcf98f5c81ca3851d8b244610ff0))
+
 ## [2.8.0](https://github.com/druewilding/klods/compare/klods-js-v2.7.0...klods-js-v2.8.0) (2026-06-25)
 
 
