@@ -1080,6 +1080,45 @@ export function tooltip(props: TooltipProps & KlodsAttrs, children: KlodsChild |
   );
 }
 
+// ── List ─────────────────────────────────────────────────────────────────
+export type ListProps = {
+  flush?: boolean;
+};
+export const list = builder<ListProps>({
+  tag: "ul",
+  base: "klods-list",
+  modifiers: {
+    flush: "klods-list--flush",
+  },
+});
+
+export type ListItemProps = {
+  /** Content for the leading slot (icon, avatar, badge, etc.). */
+  lead?: KlodsChild | KlodsChild[];
+  /** Content for the trailing slot (badge, action, status, etc.). */
+  trail?: KlodsChild | KlodsChild[];
+};
+export function listItem(): KlodsNode;
+export function listItem(children: KlodsChild | KlodsChild[]): KlodsNode;
+export function listItem(props: (ListItemProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function listItem(
+  a?: (ListItemProps & KlodsAttrs) | KlodsChild | KlodsChild[] | null,
+  b?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  const [props, children] = normalizeArgs<ListItemProps & KlodsAttrs>(a, b);
+  const { lead, trail, class: extraClass, ...rest } = props ?? {};
+  const cls = classNames(["klods-list__item", classNames(extraClass as KlodsAttrs["class"])]) || undefined;
+
+  if (lead !== undefined || trail !== undefined) {
+    const inner: KlodsChild[] = [];
+    if (lead !== undefined) inner.push(el("span", { class: "klods-list__lead" }, lead as KlodsChild));
+    inner.push(el("span", { class: "klods-list__content" }, children ?? []));
+    if (trail !== undefined) inner.push(el("span", { class: "klods-list__trail" }, trail as KlodsChild));
+    return el("li", { ...rest, class: cls }, inner);
+  }
+  return el("li", { ...rest, class: cls }, children ?? []);
+}
+
 // ── Details ───────────────────────────────────────────────────────────────
 // Thin builders over the native <details>/<summary> elements.
 // No JS required — the browser handles open/close natively.
