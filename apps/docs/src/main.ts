@@ -29,6 +29,7 @@ import {
 } from "klods-js";
 
 import { componentLinks, renderComponentsSection } from "./pages/components.js";
+import { iconLinks, renderIconsSection } from "./pages/icons.js";
 import { renderIntroSection } from "./pages/intro.js";
 import { layoutLinks, renderLayoutSection } from "./pages/layout.js";
 import { renderThemesSection } from "./pages/themes.js";
@@ -56,6 +57,12 @@ const SECTIONS: Section[] = [
     title: "Components",
     render: renderComponentsSection,
     links: componentLinks,
+  },
+  {
+    id: "icons",
+    title: "Icons",
+    render: renderIconsSection,
+    links: iconLinks,
   },
   { id: "themes", title: "Themes", render: renderThemesSection },
 ];

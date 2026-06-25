@@ -1325,6 +1325,19 @@
     align-items: center;
     flex-shrink: 0;
     margin-inline-start: auto;
+    color: var(--klods-color-muted);
+  }
+
+  // ── Icons ──────────────────────────────────────────────────────────────
+  .klods-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    svg {
+      display: block;
+    }
   }
 
   // ── Details ────────────────────────────────────────────────────────────

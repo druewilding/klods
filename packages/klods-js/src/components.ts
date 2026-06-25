@@ -2,16 +2,13 @@
 // All match the BEM classes shipped by klods-css.
 
 import type { KlodsAttrs, KlodsChild } from "./core.js";
-import { builder, classNames, el, KlodsNode, normalizeArgs, raw, tagBuilder } from "./core.js";
+import { builder, classNames, el, KlodsNode, normalizeArgs, tagBuilder } from "./core.js";
+import { menuIcon } from "./icons.js";
 
 // ── Nav ──────────────────────────────────────────────────────────────────
 export const nav = builder({ tag: "nav", base: "klods-nav" });
 export const navList = builder({ tag: "ul", base: "klods-nav__list" });
 export const buttonGroup = builder({ tag: "div", base: "klods-button-group" });
-
-const HAMBURGER_ICON = raw(
-  '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect y="3" width="20" height="2" rx="1" fill="currentColor"/><rect y="9" width="20" height="2" rx="1" fill="currentColor"/><rect y="15" width="20" height="2" rx="1" fill="currentColor"/></svg>'
-);
 
 /**
  * Hamburger toggle button for `.klods-nav--collapse`. Renders a default
@@ -25,7 +22,7 @@ export function navToggle(a?: KlodsAttrs | KlodsChild | KlodsChild[] | null, b?:
   return el(
     "button",
     { type: "button", "aria-label": "Toggle navigation", class: "klods-nav__toggle", ...attrs },
-    children ?? HAMBURGER_ICON
+    children ?? menuIcon()
   );
 }
 
