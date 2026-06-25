@@ -99,7 +99,28 @@ Pattern (copy from `.klods-sidebar-toggle::before` in `_layout.scss`):
 - The icon is multi-color or uses fills that can't be expressed with a single `currentColor`.
 - The user is expected to override or swap the icon via children.
 
-**Do not** create a `@klods/icons` package yet — users can bring Lucide, Heroicons, Phosphor etc. alongside klods today. An icon package is Phase 8 speculative work.
+### Built-in icon builders
+
+General-purpose icons live in `packages/klods-js/src/icons.ts` and are exported from `klods-js`. To add a new icon:
+
+```ts
+export const myIcon = makeIcon(
+  '<path stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="…"/>',
+  "0 0 16 16"
+);
+```
+
+`makeIcon(svgInner, viewBox)` returns a builder with the signature `(props?) => KlodsNode`. Props:
+
+- `size?: "small" | "medium" | "large"` — renders at 12 / 20 / 32 px (default: `"medium"`)
+- `label?: string` — when set, adds `aria-label` + `role="img"`; without it the icon is `aria-hidden="true"`
+- Any `KlodsAttrs` (class, style, data-\*, …)
+
+All icons use `currentColor` for strokes/fills so they automatically inherit color from context. Keep exports alphabetically ordered in the file.
+
+**Icon docs** live in `apps/docs/src/pages/icons/` — one file per subsection (e.g. `built-in.ts`). Each file exports `anchor`, `label`, and `examples: KlodsNode[]`. The aggregator at `apps/docs/src/pages/icons.ts` picks them up via `import.meta.glob`.
+
+A separate `@klods/icons` npm package is Phase 8 speculative work — bring Lucide, Heroicons, Phosphor etc. alongside klods in the meantime.
 
 ## JS builder conventions
 
