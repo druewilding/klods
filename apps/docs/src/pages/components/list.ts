@@ -16,9 +16,9 @@ export const examples: KlodsNode[] = [
     title: "List — leading slot",
     render: () =>
       list([
-        listItem({ lead: badge({ variant: "success" }, "✓") }, "Account verified"),
-        listItem({ lead: badge({ variant: "danger" }, "!") }, "Payment required"),
-        listItem({ lead: badge("–") }, "Profile incomplete"),
+        listItem({ lead: "✅" }, "Account verified"),
+        listItem({ lead: "⚠️" }, "Payment required"),
+        listItem({ lead: "❌" }, "Profile incomplete"),
       ]),
   }),
 
