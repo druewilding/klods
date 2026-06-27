@@ -46,22 +46,40 @@ export function renderIntroSection(): KlodsNode {
       ]),
     ]),
     stack({ gap: 8 }, [
-      card([
-        cardTitle("Install"),
-        cardBody([
-          pre(code("npm install klods-js klods-css")),
-          p({ class: "klods-muted" }, "Or for a vanilla HTML/Rails project, just link the CSS:"),
-          pre(
-            code(
-              { class: "hljs language-xml" },
-              raw(
-                hljs.highlight('<link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css">', {
-                  language: "xml",
-                  ignoreIllegals: true,
-                }).value
+      stack({ gap: 4 }, [
+        card([cardTitle("Install — JavaScript / TypeScript"), cardBody([pre(code("npm install klods-js klods-css"))])]),
+        card([
+          cardTitle("Install — Ruby / Rails"),
+          cardBody([
+            pre(
+              code(
+                { class: "hljs language-ruby" },
+                raw(hljs.highlight('gem "klods-ruby"', { language: "ruby", ignoreIllegals: true }).value)
               )
-            )
-          ),
+            ),
+            p({ class: "klods-muted" }, [
+              "The Railtie makes all builders available in every ERB view — no imports needed. See ",
+              raw('<a href="https://github.com/druewilding/klods-ruby">klods-ruby on GitHub</a>'),
+              " for full documentation.",
+            ]),
+          ]),
+        ]),
+        card([
+          cardTitle("Install — Vanilla HTML"),
+          cardBody([
+            pre(
+              code(
+                { class: "hljs language-xml" },
+                raw(
+                  hljs.highlight('<link rel="stylesheet" href="https://unpkg.com/klods-css/dist/klods.min.css">', {
+                    language: "xml",
+                    ignoreIllegals: true,
+                  }).value
+                )
+              )
+            ),
+            p({ class: "klods-muted" }, "Drop in BEM classes — no build step, no JavaScript required."),
+          ]),
         ]),
       ]),
       alert(

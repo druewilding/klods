@@ -113,18 +113,17 @@ A Ruby gem that provides the same builder API as `klods-js` — same component n
 All builders use `camelCase` → `snake_case`, otherwise 1-to-1 with TypeScript. Same three call shapes. Every builder returns a `Klods::Node`; in Rails the Railtie automatically makes all builders available in every ERB view and treats `Klods::Node` as HTML-safe with no extra work from the developer.
 
 1. ✅ All components ported: card, button, badge, alert, list, breadcrumbs, tabs, form (field/input/select/checkbox/radio/radio_group/switch_input), modal, tooltip, toast, avatar, nav, table, details, dl, code helpers, box, prose, layout (page/header/sidebar/content/footer/stack/cluster/row/grid/center/spread), utilities (push/fill), sidebar_toggle, toc, icons (all 19)
-2. ✅ RSpec coverage — 128 examples, 0 failures
+2. ✅ RSpec coverage — 161 examples, 0 failures
 3. ✅ Railtie — prepends `RailsSafety` onto `Klods::Node` so `to_s` returns `html_safe`; includes `Klods::Builders` into `ActionView` so all builders are available in ERB with no imports
 4. ✅ StandardRB enforced in CI
 5. ✅ Release Please automation — `feat:`/`fix:` commits open a Release PR that publishes to RubyGems on merge
-6. ✅ Published to RubyGems as [`klods-ruby`](https://rubygems.org/gems/klods-ruby) — current version **v0.2.1**
+6. ✅ Published to RubyGems as [`klods-ruby`](https://rubygems.org/gems/klods-ruby) — current version **v1.0.0**
 7. ✅ `rails-server-template` — [`druewilding/rails-server-template`](https://github.com/druewilding/rails-server-template) smoke-tests the Railtie in a real Rails 7 app with page layout, sidebar, TOC, and API endpoint
+8. ✅ **SSR-friendly interactive components** — modal, tabs, tooltip, and toast all emit self-contained inline event handlers (`onclick`, `onmouseenter`, etc.) so they work without any client-side JS bundle. The JS is vanilla, minimal, and mirrors the klods-js behaviour exactly.
+9. ✅ **Auto-generated Ruby tabs** — every component example in the klods docs site shows a Ruby pane auto-translated from the TypeScript source via `ruby-gen.ts`.
+10. ✅ **Opinionated self-wiring builders** — `modal_trigger`, `modal_dismiss`, `modal_close`, `toast_trigger`, `clear_toasts_trigger` wire their own event handlers automatically, so call sites need no `onclick` attributes.
 
-**JS-only builders intentionally omitted** (imperative DOM APIs with no server-side equivalent): `toggleNav`, `toggleSidebar`, `openModal`, `closeModal`, `activateTab`, `showToast`, `clearToasts`. The SSR-friendly alternatives `toast_region` and `toast` are included.
-
-**Still to do:**
-
-- Add `ruby:` tabs to component examples in the klods docs site (showing Ruby equivalent of TypeScript examples)
+**Imperative helper functions intentionally omitted** (DOM APIs with no server-side equivalent): `toggleNav`, `toggleSidebar`, `openModal`, `closeModal`, `activateTab`, `showToast`, `clearToasts`. SSR-friendly alternatives are provided: `toast_trigger` / `clear_toasts_trigger` replace `showToast` / `clearToasts`; `modal_trigger` replaces the need to call `openModal` manually.
 
 ---
 
@@ -212,7 +211,7 @@ The lowest-risk, highest-leverage path from here:
 | 2c (builder ergonomics) | ✅ done (klods-js v2.0)                        |
 | 3 (interactive)         | ✅ done (modal, tabs, toast, tooltip, details) |
 | 4 (data)                | ✅ done                                        |
-| 4b (klods-ruby)         | ✅ done (v0.2.1, druewilding/klods-ruby)       |
+| 4b (klods-ruby)         | ✅ done (v1.0.0, druewilding/klods-ruby)       |
 | 4c (button as link)     | not started — see options in phase section     |
 | 5 (theming)             | partial (switcher done)                        |
 | 6                       | not started                                    |
