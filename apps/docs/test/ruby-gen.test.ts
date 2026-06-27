@@ -123,10 +123,21 @@ describe("convertArrowsToBlocks", () => {
     expect(convertArrowsToBlocks(input)).toBe(output);
   });
 
-  it("converts multi-line callback to do…end block", () => {
+  it("converts multi-line callback to do…end block at column 0", () => {
     const input = 'field({ label: "Email" }, (id) =>\n  input({ id: id, type: "email" })\n)';
+    // field is at column 0 → end at column 0, body at 2 spaces
     const output = 'field({ label: "Email" }) do |id|\n  input({ id: id, type: "email" })\nend';
     expect(convertArrowsToBlocks(input)).toBe(output);
+  });
+
+  it("indents do…end relative to the calling function's column", () => {
+    // field is inside an array, indented 2 spaces
+    const input = 'stack([\n  field({ label: "Name" }, (id) =>\n    input({ id: id, type: "text" })\n  )\n])';
+    const result = convertArrowsToBlocks(input);
+    // end must align with field (2 spaces), body at 4 spaces
+    expect(result).toContain("  field({ label: \"Name\" }) do |id|");
+    expect(result).toContain("    input({ id: id, type: \"text\" })");
+    expect(result).toContain("  end");
   });
 
   it("handles multiple callbacks in the same source", () => {
@@ -234,5 +245,30 @@ end`);
 
   it("replaces null with nil", () => {
     expect(tsToRuby("el(null)")).toBe("el(nil)");
+  });
+
+  it("strips the trailing semicolon Prettier adds to the expression", () => {
+    // Prettier formats render bodies as TS statements, adding a trailing ";"
+    expect(tsToRuby("stack([]);")).toBe("stack([])");
+    expect(tsToRuby("button({ variant: \"primary\" }, \"Save\");")).toBe(
+      "button({ variant: \"primary\" }, \"Save\")"
+    );
+  });
+
+  it("converts field callbacks with correct do…end indentation inside an array", () => {
+    const ts = `stack({ gap: 4 }, [
+  field({ label: "Full name" }, (id) =>
+    input({ id, type: "text", placeholder: "Ari Smith" })
+  ),
+  field({ label: "Email address" }, (id) =>
+    input({ id, type: "email", placeholder: "ari@example.com" })
+  ),
+]);`;
+    const ruby = tsToRuby(ts);
+    expect(ruby).toContain("  field({ label: \"Full name\" }) do |id|");
+    expect(ruby).toContain("    input({ id: id, type: \"text\", placeholder: \"Ari Smith\" })");
+    expect(ruby).toContain("  end,");
+    expect(ruby).toContain("  field({ label: \"Email address\" }) do |id|");
+    expect(ruby).not.toContain(";");
   });
 });

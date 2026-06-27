@@ -169,12 +169,28 @@ export function convertArrowsToBlocks(source: string): string {
       const isMultiLine = fullMatch.includes("\n") || body.includes("\n");
 
       if (isMultiLine) {
-        const lines = body
-          .trim()
-          .split("\n")
-          .map((l) => "  " + l)
+        // Detect the indentation of the current line so `end` aligns with
+        // the function being converted and the body is 2 spaces deeper.
+        const sofar = result.join("");
+        const lastNl = sofar.lastIndexOf("\n");
+        const currentLineText = sofar.slice(lastNl + 1);
+        const indent = /^[ \t]*/.exec(currentLineText)?.[0] ?? "";
+        const innerIndent = indent + "  ";
+
+        // Determine the original indentation of the first body line so we
+        // can preserve relative indentation within multi-line bodies.
+        const firstLineIndentLen = (/^\n*([ \t]*)/.exec(body)?.[1] ?? "").length;
+        const bodyLines = body.trim().split("\n");
+        const indented = bodyLines
+          .map((l, idx) => {
+            if (idx === 0) return innerIndent + l.trimStart();
+            // Subsequent lines: remove the original leading indent, then add innerIndent
+            const stripped = l.length >= firstLineIndentLen ? l.slice(firstLineIndentLen) : l.trimStart();
+            return innerIndent + stripped;
+          })
           .join("\n");
-        result.push(`) do |${param}|\n${lines}\nend`);
+
+        result.push(`) do |${param}|\n${indented}\n${indent}end`);
       } else {
         result.push(`) { |${param}| ${body.trim()} }`);
       }
@@ -243,5 +259,8 @@ export function tsToRuby(tsSource: string): string {
   s = convertArrowsToBlocks(s);
   s = convertCamelIdentifiers(s);
   s = s.replace(/\bnull\b/g, "nil");
-  return s.trim();
+  s = s.trim();
+  // Prettier formats the render body as a TS statement (adds ";"); strip it.
+  s = s.replace(/;$/, "");
+  return s;
 }
