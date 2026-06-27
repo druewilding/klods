@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.9.0](https://github.com/druewilding/klods/compare/klods-js-v2.8.1...klods-js-v2.9.0) (2026-06-27)
+
+
+### Features
+
+* Add avatar with initials, image and fallback icon ([#104](https://github.com/druewilding/klods/issues/104)) ([ec65f78](https://github.com/druewilding/klods/commit/ec65f78317c514e365ce0111aed0a3af4461f4f1))
+* Add description list elements and styles ([#102](https://github.com/druewilding/klods/issues/102)) ([1b4ee8e](https://github.com/druewilding/klods/commit/1b4ee8ecec4615488a9b665fbf85ab6759079bec))
+
 ## [2.8.1](https://github.com/druewilding/klods/compare/klods-js-v2.8.0...klods-js-v2.8.1) (2026-06-25)
 
 
