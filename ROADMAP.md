@@ -104,154 +104,41 @@ Native-first; smallest possible JS.
 
 ---
 
-## Phase 4b — klods-ruby
+## Phase 4b — klods-ruby (done ✅)
 
 A Ruby gem that provides the same builder API as `klods-js` — same component names, same call shapes, same HTML output — so Ruby developers can use klods in any Ruby project (Rails, Sinatra, plain ERB, HAML) without touching JavaScript.
 
-**Repo:** `druewilding/klods-ruby` — separate repository, separate gem release cycle. The contract between the two packages is the CSS class names (`klods-card`, `klods-list__item`, etc.), which never change without a major version bump on both sides.
+**Repo:** [`druewilding/klods-ruby`](https://github.com/druewilding/klods-ruby) — separate repository, separate gem release cycle. The contract between the two packages is the CSS class names (`klods-card`, `klods-list__item`, etc.), which never change without a major version bump on both sides.
 
-### API design
+All builders use `camelCase` → `snake_case`, otherwise 1-to-1 with TypeScript. Same three call shapes. Every builder returns a `Klods::Node`; in Rails the Railtie automatically makes all builders available in every ERB view and treats `Klods::Node` as HTML-safe with no extra work from the developer.
 
-`camelCase` → `snake_case`, otherwise 1-to-1 with TypeScript:
+1. ✅ All components ported: card, button, badge, alert, list, breadcrumbs, tabs, form (field/input/select/checkbox/radio/radio_group/switch_input), modal, tooltip, toast, avatar, nav, table, details, dl, code helpers, box, prose, layout (page/header/sidebar/content/footer/stack/cluster/row/grid/center/spread), utilities (push/fill), sidebar_toggle, toc, icons (all 19)
+2. ✅ RSpec coverage — 128 examples, 0 failures
+3. ✅ Railtie — prepends `RailsSafety` onto `Klods::Node` so `to_s` returns `html_safe`; includes `Klods::Builders` into `ActionView` so all builders are available in ERB with no imports
+4. ✅ StandardRB enforced in CI
+5. ✅ Release Please automation — `feat:`/`fix:` commits open a Release PR that publishes to RubyGems on merge
+6. ✅ Published to RubyGems as [`klods-ruby`](https://rubygems.org/gems/klods-ruby) — current version **v0.2.1**
+7. ✅ `rails-server-template` — [`druewilding/rails-server-template`](https://github.com/druewilding/rails-server-template) smoke-tests the Railtie in a real Rails 7 app with page layout, sidebar, TOC, and API endpoint
 
-| TypeScript                                | Ruby                                      |
-| ----------------------------------------- | ----------------------------------------- |
-| `card([cardTitle("Hello")])`              | `card([card_title("Hello")])`             |
-| `button({ variant: "danger" }, "Delete")` | `button({ variant: "danger" }, "Delete")` |
-| `listItem({ href: "/x" }, "Link")`        | `list_item({ href: "/x" }, "Link")`       |
-| `chevRightIcon()`                         | `chev_right_icon()`                       |
-| `badge({ variant: "success" }, "Done")`   | `badge({ variant: "success" }, "Done")`   |
+**JS-only builders intentionally omitted** (imperative DOM APIs with no server-side equivalent): `toggleNav`, `toggleSidebar`, `openModal`, `closeModal`, `activateTab`, `showToast`, `clearToasts`. The SSR-friendly alternatives `toast_region` and `toast` are included.
 
-Same three call shapes as TypeScript:
+**Still to do:**
+- Add `ruby:` tabs to component examples in the klods docs site (showing Ruby equivalent of TypeScript examples)
 
-```ruby
-badge()                               # no args
-badge("Done")                         # children only
-badge({ variant: "success" }, "Done") # props + children
-```
+---
 
-Each builder returns a `Klods::Node` — a thin HTML-string wrapper. `to_s` returns the raw HTML; in Rails it is automatically treated as HTML-safe via `to_str`.
+## Phase 4c — Button as link
 
-### Gem structure
+Both `klods-js` and `klods-ruby` need a way to render a button-styled link — an `<a>` element that looks like a button. Currently `button` always renders `<button>` and passing `href` silently produces invalid HTML.
 
-```
-klods-ruby/
-├── lib/
-│   ├── klods.rb           # requires everything; exposes Klods::Builders
-│   └── klods/
-│       ├── version.rb
-│       ├── node.rb        # Klods::Node — html-safe string wrapper
-│       ├── core.rb        # el(), class_names(), normalize_args()
-│       ├── builders.rb    # card, button, badge, list, list_item, …
-│       ├── icons.rb       # chev_right_icon, menu_icon, …
-│       └── railtie.rb     # optional: include Klods::Builders in ActionView
-├── spec/
-│   └── builders_spec.rb
-├── klods.gemspec
-└── Gemfile
-```
+**Needs implementation in both packages — keep HTML output identical.**
 
-### Core implementation sketch
+Options to evaluate:
+- `button({ href: "/path" }, "Go")` → renders `<a class="klods-button" href="/path">` when `href` is present (auto-detect)
+- Separate `buttonLink` / `button_link` builder
+- CSS-only: document that `<a class="klods-button">` works as-is (no builder change needed)
 
-```ruby
-# klods/node.rb
-module Klods
-  class Node
-    def initialize(html) = @html = html
-    def to_s = @html
-    def to_str = @html  # allows string interpolation and Rails html_safe detection
-  end
-end
-
-# klods/core.rb
-module Klods
-  VOID_TAGS = %w[br hr img input].freeze
-
-  def self.el(tag, attrs = {}, children = nil)
-    attr_str = attrs.map { |k, v| " #{k}=\"#{CGI.escapeHTML(v.to_s)}\"" }.join
-    return Node.new("<#{tag}#{attr_str}/>") if VOID_TAGS.include?(tag.to_s)
-    inner = Array(children).join
-    Node.new("<#{tag}#{attr_str}>#{inner}</#{tag}>")
-  end
-
-  def self.normalize_args(a = nil, b = nil)
-    a.is_a?(Hash) ? [a, b] : [{}, a]
-  end
-
-  def self.class_names(*parts)
-    parts.flatten.compact.reject(&:empty?).uniq.join(" ")
-  end
-end
-```
-
-### Rails integration
-
-The Railtie makes all builders available directly in ERB templates and helpers with no `include` needed:
-
-```ruby
-# klods/railtie.rb
-module Klods
-  class Railtie < Rails::Railtie
-    initializer "klods.include_helpers" do
-      ActiveSupport.on_load(:action_view) { include Klods::Builders }
-    end
-  end
-end
-```
-
-ERB:
-
-```erb
-<%= card([
-  card_title("Profile"),
-  card_body([@user.name, badge({ variant: "success" }, "Active")])
-]) %>
-```
-
-HAML:
-
-```haml
-= card([
-    card_title("Profile"),
-    card_body([@user.name, badge({ variant: "success" }, "Active")])
-  ])
-```
-
-Without Rails (plain Ruby):
-
-```ruby
-require 'klods'
-include Klods::Builders
-
-puts card([card_title("Hello"), card_body("World")])
-```
-
-### Docs integration
-
-The `example()` helper gains an optional `ruby:` string that, when present, renders a Ruby tab alongside the TypeScript tab. The HTML output tab is shared — both languages produce identical markup.
-
-```ts
-example({
-  title: "Card",
-  render: () => card([cardTitle("Hello"), cardBody("World")]),
-  ruby: `
-card([
-  card_title("Hello"),
-  card_body("World")
-])`.trim(),
-});
-```
-
-The Ruby snippet is written by hand — there is no equivalent of `render.toString()` for cross-language extraction. Start by adding Ruby tabs to the 5 most-used component examples; fill in the rest over time.
-
-### Starting point
-
-1. Create `druewilding/klods-ruby` with `klods.gemspec`, `lib/klods/node.rb`, `lib/klods/core.rb`.
-2. Port the 5 highest-value components first: `card`, `button`, `badge`, `alert`, `list` + `list_item`.
-3. Add RSpec coverage for every call shape of each builder — expected HTML output should match `klods-js`'s `.toString()` for the equivalent call.
-4. Wire up the Railtie and smoke-test in a blank Rails app.
-5. Add `ruby:` tabs to those same 5 examples in the docs here, verify HTML output matches.
-6. Publish to RubyGems as `klods-ruby v0.1.0` and link from the main README.
+The CSS-only path may be the right answer — the BEM class already does all the styling work, so `a({ class: "klods-button" }, "Go")` works today. If the builder approach is chosen, make sure both packages ship the change in the same release so the API stays in sync.
 
 ---
 
@@ -323,7 +210,8 @@ The lowest-risk, highest-leverage path from here:
 | 2c (builder ergonomics) | ✅ done (klods-js v2.0)                        |
 | 3 (interactive)         | ✅ done (modal, tabs, toast, tooltip, details) |
 | 4 (data)                | ✅ done                                        |
-| 4b (klods-ruby)         | not started — planned after Phase 4 complete   |
+| 4b (klods-ruby)         | ✅ done (v0.2.1, druewilding/klods-ruby)       |
+| 4c (button as link)     | not started — see options in phase section     |
 | 5 (theming)             | partial (switcher done)                        |
 | 6                       | not started                                    |
 | 7                       | not started                                    |
