@@ -176,12 +176,29 @@ export function convertArrowsToBlocks(source: string): string {
       const isMultiLine = fullMatch.includes("\n") || body.includes("\n");
 
       if (isMultiLine) {
-        // Detect the indentation of the current line so `end` aligns with
-        // the function being converted and the body is 2 spaces deeper.
+        // Scan backward through the accumulated output to find the `(` that
+        // opens the enclosing function call. That line's indentation is the
+        // correct base for `end` and the block body — using the last line
+        // of the output would be wrong when the options hash spans multiple
+        // lines (e.g. the last line before the callback would be `  }`, not
+        // the `field(` line).
         const sofar = result.join("");
-        const lastNl = sofar.lastIndexOf("\n");
-        const currentLineText = sofar.slice(lastNl + 1);
-        const indent = /^[ \t]*/.exec(currentLineText)?.[0] ?? "";
+        let scanDepth = 0;
+        let indent = "";
+        for (let k = sofar.length - 1; k >= 0; k--) {
+          const ch = sofar.charAt(k);
+          if (ch === ")" || ch === "]" || ch === "}") {
+            scanDepth++;
+          } else if (ch === "(" || ch === "[" || ch === "{") {
+            if (scanDepth === 0 && ch === "(") {
+              const prevNl = sofar.lastIndexOf("\n", k - 1);
+              const lineText = sofar.slice(prevNl + 1, k);
+              indent = /^[ \t]*/.exec(lineText)?.[0] ?? "";
+              break;
+            }
+            if (scanDepth > 0) scanDepth--;
+          }
+        }
         const innerIndent = indent + "  ";
 
         // The arrow regex consumed the trailing `\n<indent>` before the body,

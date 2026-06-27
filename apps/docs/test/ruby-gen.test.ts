@@ -145,6 +145,25 @@ describe("convertArrowsToBlocks", () => {
     expect(result).toContain("  end");
   });
 
+  it("uses the function call's indent when the options hash spans multiple lines", () => {
+    // field is at column 0 but the last line before the callback is `  }` (2-space).
+    // end must align with field (column 0), not with the closing brace.
+    const input = [
+      "field(",
+      "  {",
+      '    label: "Email",',
+      '    help: "Receipt only.",',
+      "  },",
+      "  (id) =>",
+      '    input({ id: id, type: "email" })',
+      ")",
+    ].join("\n");
+    const result = convertArrowsToBlocks(input);
+    expect(result).toContain("}) do |id|");
+    expect(result).toContain("\n  input({ id: id, type: \"email\" })\n");
+    expect(result).toMatch(/\nend$/);
+  });
+
   it("handles multiple callbacks in the same source", () => {
     const input = [
       'field({ label: "A" }, (id) => input({ id: id }))',
@@ -279,6 +298,25 @@ end`);
     required: true,
   })
 end`);
+  });
+
+  it("handles field with a multi-line options hash (end at column 0, body at 2)", () => {
+    const ts = [
+      "field(",
+      "  {",
+      '    label: "Email address",',
+      '    help: "We\'ll only use this to send your receipt.",',
+      "  },",
+      "  (id) =>",
+      '    input({ id, type: "email", placeholder: "ari@example.com" })',
+      ")",
+    ].join("\n");
+    const ruby = tsToRuby(ts);
+    // end must be at column 0, body at 2 spaces — not 2 and 4 respectively
+    expect(ruby).toContain("}) do |id|");
+    expect(ruby).toContain('  input({ id: id, type: "email", placeholder: "ari@example.com" })');
+    expect(ruby).not.toContain('    input(');
+    expect(ruby).toMatch(/\nend$/);
   });
 
   it("converts field callbacks with correct do…end indentation inside an array", () => {
