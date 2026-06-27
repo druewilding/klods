@@ -12,6 +12,7 @@
     "format:check": "prettier --check .",
     "lint": "eslint --fix",
     "lint:check": "eslint",
+    "package:lint": "npx npm-package-json-lint .",
     "test": "npm run test --workspaces --if-present"
   },
   "devDependencies": {
