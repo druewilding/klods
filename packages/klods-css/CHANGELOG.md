@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.21.1](https://github.com/druewilding/klods/compare/klods-css-v1.21.0...klods-css-v1.21.1) (2026-06-27)
+
+
+### Bug Fixes
+
+* Start using package:lint and audit dependencies on PR ([#116](https://github.com/druewilding/klods/issues/116)) ([3ee36fb](https://github.com/druewilding/klods/commit/3ee36fb3a8f833047ed2fcd0dda9a4f09cdd5d49))
+
 ## [1.21.0](https://github.com/druewilding/klods/compare/klods-css-v1.20.0...klods-css-v1.21.0) (2026-06-27)
 
 
