@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/druewilding/klods/compare/klods-js-v2.9.1...klods-js-v3.0.0) (2026-06-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* The modal invocation has changed to be compatible with klods-ruby. Please see documentation for details.
+
+### Features
+
+* Improve modals so that they work with Ruby; add Ruby documentation ([#119](https://github.com/druewilding/klods/issues/119)) ([f05497f](https://github.com/druewilding/klods/commit/f05497fbcb53b2907e1529e56a054ec1299eff65))
+
 ## [2.9.1](https://github.com/druewilding/klods/compare/klods-js-v2.9.0...klods-js-v2.9.1) (2026-06-27)
 
 
