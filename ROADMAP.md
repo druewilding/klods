@@ -123,6 +123,7 @@ All builders use `camelCase` → `snake_case`, otherwise 1-to-1 with TypeScript.
 **JS-only builders intentionally omitted** (imperative DOM APIs with no server-side equivalent): `toggleNav`, `toggleSidebar`, `openModal`, `closeModal`, `activateTab`, `showToast`, `clearToasts`. The SSR-friendly alternatives `toast_region` and `toast` are included.
 
 **Still to do:**
+
 - Add `ruby:` tabs to component examples in the klods docs site (showing Ruby equivalent of TypeScript examples)
 
 ---
@@ -134,6 +135,7 @@ Both `klods-js` and `klods-ruby` need a way to render a button-styled link — a
 **Needs implementation in both packages — keep HTML output identical.**
 
 Options to evaluate:
+
 - `button({ href: "/path" }, "Go")` → renders `<a class="klods-button" href="/path">` when `href` is present (auto-detect)
 - Separate `buttonLink` / `button_link` builder
 - CSS-only: document that `<a class="klods-button">` works as-is (no builder change needed)
