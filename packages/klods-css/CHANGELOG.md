@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.22.0](https://github.com/druewilding/klods/compare/klods-css-v1.21.1...klods-css-v1.22.0) (2026-06-27)
+
+
+### Features
+
+* Implement button with href ([#121](https://github.com/druewilding/klods/issues/121)) ([1709ecf](https://github.com/druewilding/klods/commit/1709ecf88503baa90e3f28921ffe154a03c657af))
+
 ## [1.21.1](https://github.com/druewilding/klods/compare/klods-css-v1.21.0...klods-css-v1.21.1) (2026-06-27)
 
 

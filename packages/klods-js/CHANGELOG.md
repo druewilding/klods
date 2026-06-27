@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/druewilding/klods/compare/klods-js-v3.0.0...klods-js-v3.1.0) (2026-06-27)
+
+
+### Features
+
+* Implement button with href ([#121](https://github.com/druewilding/klods/issues/121)) ([1709ecf](https://github.com/druewilding/klods/commit/1709ecf88503baa90e3f28921ffe154a03c657af))
+
 ## [3.0.0](https://github.com/druewilding/klods/compare/klods-js-v2.9.1...klods-js-v3.0.0) (2026-06-27)
 
 
