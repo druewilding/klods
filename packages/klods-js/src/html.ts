@@ -47,9 +47,6 @@ export const h6 = tagBuilder("h6");
 export const ul = tagBuilder("ul");
 export const ol = tagBuilder("ol");
 export const li = tagBuilder("li");
-export const dl = tagBuilder("dl");
-export const dt = tagBuilder("dt");
-export const dd = tagBuilder("dd");
 
 // Form bits not already covered by BEM components
 export const label = tagBuilder("label");
