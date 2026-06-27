@@ -3,7 +3,7 @@
 
 import type { KlodsAttrs, KlodsChild } from "./core.js";
 import { builder, classNames, el, KlodsNode, normalizeArgs, tagBuilder } from "./core.js";
-import { menuIcon } from "./icons.js";
+import { menuIcon, userIcon } from "./icons.js";
 
 // ── Nav ──────────────────────────────────────────────────────────────────
 export const nav = builder({ tag: "nav", base: "klods-nav" });
@@ -1128,6 +1128,52 @@ export function listItem(
   }
   if (hasSlots) return el("li", { ...rest, class: liCls }, buildSlots());
   return el("li", { ...rest, class: liCls }, children ?? []);
+}
+
+// ── Avatar ────────────────────────────────────────────────────────────────
+export type AvatarProps = {
+  /** Image URL. When present renders an <img>; otherwise falls back to initials or a generic icon. */
+  src?: string;
+  /** Accessible name. Used as alt text for images and to derive initials when no src is given. */
+  name?: string;
+  size?: "small" | "medium" | "large";
+};
+
+export function avatar(props?: (AvatarProps & KlodsAttrs) | null): KlodsNode {
+  const { src, name, size = "medium", class: extraClass, ...rest } = props ?? {};
+  const hasInitials = !src && !!name;
+  const cls =
+    classNames([
+      "klods-avatar",
+      size !== "medium" ? `klods-avatar--${size}` : "",
+      hasInitials ? "klods-avatar--initials" : "",
+      classNames(extraClass as KlodsAttrs["class"]),
+    ]) || undefined;
+
+  let content: KlodsChild;
+  if (src) {
+    content = el("img", { src, alt: name ?? "", class: "klods-avatar__img" });
+  } else if (name) {
+    const initials = name
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((w) => w[0]?.toUpperCase() ?? "")
+      .join("");
+    content = el("span", { "aria-hidden": "true" }, initials);
+  } else {
+    content = userIcon({ size: size === "small" ? "small" : "medium" });
+  }
+
+  return el(
+    "span",
+    {
+      ...rest,
+      class: cls,
+      ...(hasInitials ? { role: "img", "aria-label": name } : {}),
+    },
+    content
+  );
 }
 
 // ── Description list ─────────────────────────────────────────────────────
