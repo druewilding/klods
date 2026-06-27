@@ -29,11 +29,11 @@ jobs:
         if: runner.os == 'Linux'
         run: npm install --no-save @rollup/rollup-linux-x64-gnu@$(node -p "require('./node_modules/rollup/package.json').version")
 
-      - name: Check formatting
-        run: npm run format:check
-
       - name: Lint
         run: npm run lint:check
+
+      - name: Check formatting
+        run: npm run format:check
 
       - name: Test
         run: npm test
