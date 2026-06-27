@@ -492,8 +492,12 @@ export function codeBlock(): KlodsNode;
 export function codeBlock(content: KlodsChild | KlodsChild[]): KlodsNode;
 export function codeBlock(attrs: KlodsAttrs | null, content?: KlodsChild | KlodsChild[]): KlodsNode;
 export function codeBlock(a?: KlodsAttrs | KlodsChild | KlodsChild[] | null, b?: KlodsChild | KlodsChild[]): KlodsNode {
-  const [attrs, content] = normalizeArgs<KlodsAttrs>(a, b);
-  return el("pre", attrs, el("code", {}, content));
+  const [{ class: extraClass, ...attrs }, content] = normalizeArgs<KlodsAttrs>(a, b);
+  return el(
+    "pre",
+    { ...attrs, class: classNames(["klods-pre", classNames(extraClass as KlodsAttrs["class"])]) || undefined },
+    el("code", {}, content)
+  );
 }
 
 // ── Modal ─────────────────────────────────────────────────────────────────
@@ -567,9 +571,23 @@ export function inlineCode(
   a?: KlodsAttrs | KlodsChild | KlodsChild[] | null,
   b?: KlodsChild | KlodsChild[]
 ): KlodsNode {
-  const [attrs, content] = normalizeArgs<KlodsAttrs>(a, b);
-  return el("code", attrs, content);
+  const [{ class: extraClass, ...attrs }, content] = normalizeArgs<KlodsAttrs>(a, b);
+  return el(
+    "code",
+    { ...attrs, class: classNames(["klods-code", classNames(extraClass as KlodsAttrs["class"])]) || undefined },
+    content
+  );
 }
+
+// ── KBD ──────────────────────────────────────────────────────────────────
+export const kbd = builder({ tag: "kbd", base: "klods-kbd" });
+
+// ── Samp ─────────────────────────────────────────────────────────────────
+export const samp = builder({ tag: "samp", base: "klods-samp" });
+
+// ── Var ──────────────────────────────────────────────────────────────────
+// Named `varEl` because `var` is a reserved word in TypeScript/JavaScript.
+export const varEl = builder({ tag: "var", base: "klods-var" });
 
 // ── Box ──────────────────────────────────────────────────────────────────
 export const box = builder({ tag: "div", base: "klods-box" });

@@ -348,25 +348,60 @@
   }
 
   // ── Code ──────────────────────────────────────────────────────────────
-  code {
+  code,
+  .klods-code {
+    font-family: var(--klods-font-mono);
     font-size: 0.9em;
     padding: 0.1em 0.35em;
     background: var(--klods-color-surface-2);
     border-radius: var(--klods-radius-sm);
   }
 
-  pre {
+  pre,
+  .klods-pre {
+    font-family: var(--klods-font-mono);
     padding: var(--klods-space-4);
+    overflow-x: auto;
     background: var(--klods-code-bg);
     color: var(--klods-code-fg);
     border-radius: var(--klods-radius-md);
   }
 
-  pre code {
+  pre code,
+  .klods-pre code,
+  .klods-pre .klods-code {
     padding: 0;
     background: transparent;
     font-size: inherit;
     color: inherit;
+  }
+
+  // ── KBD ───────────────────────────────────────────────────────────────
+  .klods-kbd {
+    font-family: var(--klods-font-mono);
+    font-size: 0.875em;
+    padding: 0.1em 0.4em;
+    background: var(--klods-color-surface);
+    border: 1px solid var(--klods-color-border);
+    border-radius: var(--klods-radius-sm);
+    box-shadow: 0 1px 0 var(--klods-color-border);
+    white-space: nowrap;
+  }
+
+  // ── Samp ──────────────────────────────────────────────────────────────
+  .klods-samp {
+    font-family: var(--klods-font-mono);
+    font-size: 0.9em;
+    padding: 0.1em 0.35em;
+    background: var(--klods-color-surface-2);
+    border-radius: var(--klods-radius-sm);
+  }
+
+  // ── Var ───────────────────────────────────────────────────────────────
+  .klods-var {
+    font-family: var(--klods-font-mono);
+    font-size: 0.9em;
+    font-style: italic;
   }
 
   // ── Syntax highlighting (hljs token → klods code token) ───────────────
