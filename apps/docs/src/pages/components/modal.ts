@@ -23,49 +23,37 @@ export const examples: KlodsNode[] = [
     title: "Modal",
     description:
       "Built on the native `<dialog>` element. Use `modalTrigger` to open, `modalClose` to dismiss with the × button, and `modalDismiss` for action buttons — all wire up automatically.",
-    render: () => {
-      const dialog = modal(
-        modalPanel([
-          modalHeader([
-            modalTitle("Confirm action"),
-            modalClose(),
-          ]),
-          modalBody("Are you sure you want to continue? This action cannot be undone."),
-          modalActions([
-            modalDismiss({ variant: "primary" }, "Confirm"),
-            modalDismiss("Cancel"),
-          ]),
-        ])
-      );
-
-      return div([
+    render: () =>
+      div([
         modalTrigger({ variant: "primary" }, "Open modal"),
-        dialog,
-      ]);
-    },
+        modal(
+          modalPanel([
+            modalHeader([modalTitle("Confirm action"), modalClose()]),
+            modalBody("Are you sure you want to continue? This action cannot be undone."),
+            modalActions([
+              modalDismiss({ variant: "primary" }, "Confirm"),
+              modalDismiss("Cancel"),
+            ]),
+          ])
+        ),
+      ]),
   }),
 
   example({
     title: "Modal — info",
     description: "A simpler modal with no footer actions — just a dismiss button in the header.",
-    render: () => {
-      const dialog = modal(
-        modalPanel([
-          modalHeader([
-            modalTitle("What is klods?"),
-            modalClose(),
-          ]),
-          modalBody([
-            p("klods is a tiny, opinionated, fully themeable HTML/CSS/JS component library."),
-            p("It ships two packages — klods-css for styles and klods-js for TypeScript builders."),
-          ]),
-        ])
-      );
-
-      return div([
+    render: () =>
+      div([
         modalTrigger("Show info"),
-        dialog,
-      ]);
-    },
+        modal(
+          modalPanel([
+            modalHeader([modalTitle("What is klods?"), modalClose()]),
+            modalBody([
+              p("klods is a tiny, opinionated, fully themeable HTML/CSS/JS component library."),
+              p("It ships two packages — klods-css for styles and klods-js for TypeScript builders."),
+            ]),
+          ])
+        ),
+      ]),
   }),
 ];
