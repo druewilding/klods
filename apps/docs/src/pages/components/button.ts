@@ -19,6 +19,18 @@ export const examples: KlodsNode[] = [
   }),
 
   example({
+    title: "Button as link",
+    description:
+      "Pass href and the builder renders an <a> instead of a <button> — same classes, valid HTML. All variants and extra attributes still work.",
+    render: () =>
+      cluster([
+        button({ href: "#" }, "Default link"),
+        button({ href: "#", variant: "primary" }, "Primary link"),
+        button({ href: "#", variant: "ghost" }, "Ghost link"),
+      ]),
+  }),
+
+  example({
     title: "Extending — pass through any attribute",
     description: "Every builder accepts class, id, data-*, aria-*, style, event handlers, etc.",
     render: () =>
