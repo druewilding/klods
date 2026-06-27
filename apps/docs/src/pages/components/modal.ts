@@ -1,12 +1,11 @@
 import type { KlodsNode } from "klods-js";
 import {
-  button,
-  closeModal,
   div,
   modal,
   modalActions,
   modalBody,
   modalClose,
+  modalDismiss,
   modalHeader,
   modalPanel,
   modalTitle,
@@ -23,27 +22,27 @@ export const examples: KlodsNode[] = [
   example({
     title: "Modal",
     description:
-      "Built on the native `<dialog>` element. Use `modalTrigger` to open and `modalClose` to dismiss — both wire up automatically. The backdrop and entry animation are CSS-only.",
-    render: () =>
-      div([
+      "Built on the native `<dialog>` element. Use `modalTrigger` to open, `modalClose` to dismiss with the × button, and `modalDismiss` for action buttons — all wire up automatically.",
+    render: () => {
+      const dialog = modal(
+        modalPanel([
+          modalHeader([
+            modalTitle("Confirm action"),
+            modalClose(),
+          ]),
+          modalBody("Are you sure you want to continue? This action cannot be undone."),
+          modalActions([
+            modalDismiss({ variant: "primary" }, "Confirm"),
+            modalDismiss("Cancel"),
+          ]),
+        ])
+      );
+
+      return div([
         modalTrigger({ variant: "primary" }, "Open modal"),
-        modal(
-          modalPanel([
-            modalHeader([
-              modalTitle("Confirm action"),
-              modalClose(),
-            ]),
-            modalBody("Are you sure you want to continue? This action cannot be undone."),
-            modalActions([
-              button(
-                { variant: "primary", onClick: (e: Event) => closeModal(e.currentTarget as HTMLElement) },
-                "Confirm"
-              ),
-              button({ onClick: (e: Event) => closeModal(e.currentTarget as HTMLElement) }, "Cancel"),
-            ]),
-          ])
-        ),
-      ]),
+        dialog,
+      ]);
+    },
   }),
 
   example({

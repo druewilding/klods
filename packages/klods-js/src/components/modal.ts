@@ -46,6 +46,24 @@ export function modalClose(props?: Omit<KlodsAttrs, "onClick"> | null): KlodsNod
   });
 }
 
+/** Button that closes the containing `<dialog>` when clicked. Accepts the same props as `button`. */
+export function modalDismiss(): KlodsNode;
+export function modalDismiss(children: KlodsChild | KlodsChild[]): KlodsNode;
+export function modalDismiss(props: (ButtonProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function modalDismiss(
+  a?: (ButtonProps & KlodsAttrs) | KlodsChild | KlodsChild[] | null,
+  b?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  const [props, children] = normalizeArgs<ButtonProps & KlodsAttrs>(a, b);
+  return button(
+    {
+      onClick: (e: Event) => closeModal(e.currentTarget as HTMLElement),
+      ...props,
+    },
+    children
+  );
+}
+
 /** Button that opens the next sibling `<dialog>` as a modal when clicked. Accepts the same props as `button`. */
 export function modalTrigger(): KlodsNode;
 export function modalTrigger(children: KlodsChild | KlodsChild[]): KlodsNode;
