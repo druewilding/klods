@@ -121,10 +121,17 @@ export function cleanEmptyHashes(s: string): string {
  * Expand the `id` JS shorthand prop to explicit `id: id`.
  * This is the only shorthand that appears in the klods docs
  * (it comes from `(id) => builder({ id, ... })`).
+ *
+ * Uses `[ \t]*` (not `\s*`) so it never matches across a newline and
+ * accidentally collapses a multi-line object literal to a single line.
  */
 export function expandShorthandProps(s: string): string {
-  s = s.replace(/\{\s*id(?!\s*:)(\s*,)/g, "{ id: id$1");
-  s = s.replace(/\{\s*id(?!\s*:)\s*\}/g, "{ id: id }");
+  // Same-line: { id, ... } → { id: id, ... }
+  s = s.replace(/\{[ \t]*id(?!\s*:)([ \t]*,)/g, "{ id: id$1");
+  // Same-line: { id } → { id: id }
+  s = s.replace(/\{[ \t]*id(?!\s*:)[ \t]*\}/g, "{ id: id }");
+  // Multi-line: id on its own line as a shorthand prop (followed by ,)
+  s = s.replace(/^([ \t]*)id\b(?![ \t]*:)(?=[ \t]*,)/gm, "$1id: id");
   return s;
 }
 
@@ -177,9 +184,11 @@ export function convertArrowsToBlocks(source: string): string {
         const indent = /^[ \t]*/.exec(currentLineText)?.[0] ?? "";
         const innerIndent = indent + "  ";
 
-        // Determine the original indentation of the first body line so we
-        // can preserve relative indentation within multi-line bodies.
-        const firstLineIndentLen = (/^\n*([ \t]*)/.exec(body)?.[1] ?? "").length;
+        // The arrow regex consumed the trailing `\n<indent>` before the body,
+        // so the body starts directly with the expression (no leading newline).
+        // Recover the original first-line indent from what the match consumed.
+        const lastNlInMatch = fullMatch.lastIndexOf("\n");
+        const firstLineIndentLen = lastNlInMatch >= 0 ? fullMatch.length - lastNlInMatch - 1 : 0;
         const bodyLines = body.trim().split("\n");
         const indented = bodyLines
           .map((l, idx) => {

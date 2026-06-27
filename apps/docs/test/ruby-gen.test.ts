@@ -114,6 +114,11 @@ describe("expandShorthandProps", () => {
   it("does not affect array elements", () => {
     expect(expandShorthandProps("[button, dialog]")).toBe("[button, dialog]");
   });
+
+  it("expands id shorthand in a multi-line object without collapsing lines", () => {
+    const input = 'input({\n  id,\n  type: "text",\n})';
+    expect(expandShorthandProps(input)).toBe('input({\n  id: id,\n  type: "text",\n})');
+  });
 });
 
 describe("convertArrowsToBlocks", () => {
@@ -253,6 +258,27 @@ end`);
     expect(tsToRuby("button({ variant: \"primary\" }, \"Save\");")).toBe(
       "button({ variant: \"primary\" }, \"Save\")"
     );
+  });
+
+  it("handles a multi-line object body inside a do…end block", () => {
+    // The "required field" example: input hash is multi-line, id is shorthand
+    const ts = `field({ label: "Username", required: true }, (id) =>
+  input({
+    id,
+    type: "text",
+    placeholder: "yourname",
+    required: true,
+  })
+)`;
+    const ruby = tsToRuby(ts);
+    expect(ruby).toBe(`field({ label: "Username", required: true }) do |id|
+  input({
+    id: id,
+    type: "text",
+    placeholder: "yourname",
+    required: true,
+  })
+end`);
   });
 
   it("converts field callbacks with correct do…end indentation inside an array", () => {
