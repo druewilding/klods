@@ -100,17 +100,14 @@ export function example(spec: ExampleSpec): KlodsNode {
   const htmlSource = tabsToSpaces(prettyHtml(result.toString()));
 
   // Ruby: false hides the pane; string overrides auto-gen; undefined auto-generates.
-  const rubySource: string | false =
-    spec.hideCode || spec.ruby === false ? false : (spec.ruby ?? tsToRuby(tsSource));
+  const rubySource: string | false = spec.hideCode || spec.ruby === false ? false : (spec.ruby ?? tsToRuby(tsSource));
 
   // Only highlight when the code panes are actually shown.
   const tsHighlighted = !spec.hideCode
     ? hljs.highlight(tsSource, { language: "typescript", ignoreIllegals: true }).value
     : null;
   const rubyHighlighted =
-    rubySource !== false
-      ? hljs.highlight(rubySource, { language: "ruby", ignoreIllegals: true }).value
-      : null;
+    rubySource !== false ? hljs.highlight(rubySource, { language: "ruby", ignoreIllegals: true }).value : null;
   const htmlHighlighted = !spec.hideCode
     ? hljs.highlight(htmlSource, { language: "xml", ignoreIllegals: true }).value
     : null;

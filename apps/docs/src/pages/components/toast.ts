@@ -16,7 +16,10 @@ export const examples: KlodsNode[] = [
         toastTrigger({ message: "File saved successfully." }, "Default"),
         toastTrigger({ message: "Your changes have been saved.", toastVariant: "success" }, "Success"),
         toastTrigger({ message: "Your session expires in 5 minutes.", toastVariant: "warning" }, "Warning"),
-        toastTrigger({ message: "Something went wrong. Please try again.", toastVariant: "danger", variant: "danger" }, "Danger"),
+        toastTrigger(
+          { message: "Something went wrong. Please try again.", toastVariant: "danger", variant: "danger" },
+          "Danger"
+        ),
         toastTrigger({ message: "You have a new message from Alex.", toastVariant: "info" }, "Info"),
       ]),
   }),

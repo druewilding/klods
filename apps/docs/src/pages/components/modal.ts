@@ -30,10 +30,7 @@ export const examples: KlodsNode[] = [
           modalPanel([
             modalHeader([modalTitle("Confirm action"), modalClose()]),
             modalBody("Are you sure you want to continue? This action cannot be undone."),
-            modalActions([
-              modalDismiss({ variant: "primary" }, "Confirm"),
-              modalDismiss("Cancel"),
-            ]),
+            modalActions([modalDismiss({ variant: "primary" }, "Confirm"), modalDismiss("Cancel")]),
           ])
         ),
       ]),

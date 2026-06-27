@@ -6,8 +6,8 @@ import {
   convertCamelIdentifiers,
   expandShorthandProps,
   removeEventHandlers,
-  removeTypeCasts,
   removeTypeAnnotations,
+  removeTypeCasts,
   tsToRuby,
   unwrapBlockBody,
 } from "../src/ruby-gen.js";
@@ -72,9 +72,7 @@ describe("removeEventHandlers", () => {
   });
 
   it("removes onSubmit prop", () => {
-    expect(removeEventHandlers('form({ onSubmit: (e) => e.preventDefault() }, [child])')).toBe(
-      "form({ }, [child])"
-    );
+    expect(removeEventHandlers("form({ onSubmit: (e) => e.preventDefault() }, [child])")).toBe("form({ }, [child])");
   });
 
   it("leaves non-event props untouched", () => {
@@ -82,9 +80,7 @@ describe("removeEventHandlers", () => {
   });
 
   it("does not match event-like words inside strings", () => {
-    expect(removeEventHandlers('button({ label: "onClick handler" })')).toBe(
-      'button({ label: "onClick handler" })'
-    );
+    expect(removeEventHandlers('button({ label: "onClick handler" })')).toBe('button({ label: "onClick handler" })');
   });
 });
 
@@ -103,7 +99,7 @@ describe("cleanEmptyHashes", () => {
 
   it("handles multiline empty hash", () => {
     // The regex consumes whitespace after the empty hash including the indent before the next arg
-    expect(cleanEmptyHashes("button(\n  {\n  },\n  \"Save\"\n)")).toBe('button("Save"\n)');
+    expect(cleanEmptyHashes('button(\n  {\n  },\n  "Save"\n)')).toBe('button("Save"\n)');
   });
 });
 
@@ -149,8 +145,8 @@ describe("convertArrowsToBlocks", () => {
     const input = 'stack([\n  field({ label: "Name" }, (id) =>\n    input({ id: id, type: "text" })\n  )\n])';
     const result = convertArrowsToBlocks(input);
     // end must align with field (2 spaces), body at 4 spaces
-    expect(result).toContain("  field({ label: \"Name\" }) do |id|");
-    expect(result).toContain("    input({ id: id, type: \"text\" })");
+    expect(result).toContain('  field({ label: "Name" }) do |id|');
+    expect(result).toContain('    input({ id: id, type: "text" })');
     expect(result).toContain("  end");
   });
 
@@ -169,7 +165,7 @@ describe("convertArrowsToBlocks", () => {
     ].join("\n");
     const result = convertArrowsToBlocks(input);
     expect(result).toContain("}) do |id|");
-    expect(result).toContain("\n  input({ id: id, type: \"email\" })\n");
+    expect(result).toContain('\n  input({ id: id, type: "email" })\n');
     expect(result).toMatch(/\nend$/);
   });
 
@@ -192,9 +188,7 @@ describe("convertCamelIdentifiers", () => {
   });
 
   it("does not modify string contents", () => {
-    expect(convertCamelIdentifiers('button({ class: "myButtonClass" })')).toBe(
-      'button({ class: "myButtonClass" })'
-    );
+    expect(convertCamelIdentifiers('button({ class: "myButtonClass" })')).toBe('button({ class: "myButtonClass" })');
   });
 
   it("does not modify lowercase-only identifiers", () => {
@@ -218,7 +212,7 @@ describe("tsToRuby (full pipeline)", () => {
   });
 
   it("removes onClick and converts camelCase", () => {
-    const ts = `button({ variant: "primary", onClick: () => alert("x") }, "Save")`;
+    const ts = 'button({ variant: "primary", onClick: () => alert("x") }, "Save")';
     const ruby = tsToRuby(ts);
     // Trailing whitespace before the removed prop is also stripped
     expect(ruby).toBe('button({ variant: "primary"}, "Save")');
@@ -254,7 +248,7 @@ end`);
   });
 
   it("removes onSubmit from form and keeps children", () => {
-    const ts = `form({ onSubmit: (e: Event) => e.preventDefault() }, [child])`;
+    const ts = "form({ onSubmit: (e: Event) => e.preventDefault() }, [child])";
     expect(tsToRuby(ts)).toBe("form([child])");
   });
 
@@ -271,7 +265,7 @@ end`);
   return div([x]);
 }`;
     const ruby = tsToRuby(ts);
-    expect(ruby).toBe(`x = card(card_title("Hi"))\ndiv([x])`);
+    expect(ruby).toBe('x = card(card_title("Hi"))\ndiv([x])');
   });
 
   it("replaces null with nil", () => {
@@ -281,9 +275,7 @@ end`);
   it("strips the trailing semicolon Prettier adds to the expression", () => {
     // Prettier formats render bodies as TS statements, adding a trailing ";"
     expect(tsToRuby("stack([]);")).toBe("stack([])");
-    expect(tsToRuby("button({ variant: \"primary\" }, \"Save\");")).toBe(
-      "button({ variant: \"primary\" }, \"Save\")"
-    );
+    expect(tsToRuby('button({ variant: "primary" }, "Save");')).toBe('button({ variant: "primary" }, "Save")');
   });
 
   it("handles a multi-line object body inside a do…end block", () => {
@@ -322,7 +314,7 @@ end`);
     // end must be at column 0, body at 2 spaces — not 2 and 4 respectively
     expect(ruby).toContain("}) do |id|");
     expect(ruby).toContain('  input({ id: id, type: "email", placeholder: "ari@example.com" })');
-    expect(ruby).not.toContain('    input(');
+    expect(ruby).not.toContain("    input(");
     expect(ruby).toMatch(/\nend$/);
   });
 
@@ -336,10 +328,10 @@ end`);
   ),
 ]);`;
     const ruby = tsToRuby(ts);
-    expect(ruby).toContain("  field({ label: \"Full name\" }) do |id|");
-    expect(ruby).toContain("    input({ id: id, type: \"text\", placeholder: \"Ari Smith\" })");
+    expect(ruby).toContain('  field({ label: "Full name" }) do |id|');
+    expect(ruby).toContain('    input({ id: id, type: "text", placeholder: "Ari Smith" })');
     expect(ruby).toContain("  end,");
-    expect(ruby).toContain("  field({ label: \"Email address\" }) do |id|");
+    expect(ruby).toContain('  field({ label: "Email address" }) do |id|');
     expect(ruby).not.toContain(";");
   });
 });
