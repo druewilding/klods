@@ -1,3 +1,11 @@
 {
-  "extends": "eslint-config-plus-prettier/packagelint"
+  "extends": "eslint-config-plus-prettier/packagelint",
+  "overrides": [
+    {
+      "patterns": ["apps/*/package.json"],
+      "rules": {
+        "prefer-caret-version-dependencies": "off"
+      }
+    }
+  ]
 }
