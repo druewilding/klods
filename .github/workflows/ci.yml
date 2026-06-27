@@ -23,11 +23,14 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
-      - name: Install Linux native rollup binary
+      - name: Install Linux platform binaries
         if: runner.os == 'Linux'
-        run: npm install --no-save @rollup/rollup-linux-x64-gnu@$(node -p "require('./node_modules/rollup/package.json').version")
+        run: |
+          npm install --no-save \
+            @esbuild/linux-x64@$(node -p "require('./node_modules/esbuild/package.json').version") \
+            @rollup/rollup-linux-x64-gnu@$(node -p "require('./node_modules/rollup/package.json').version")
 
       - name: Lint
         run: npm run lint:check
@@ -57,11 +60,14 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
-      - name: Install Linux native rollup binary
+      - name: Install Linux platform binaries
         if: runner.os == 'Linux'
-        run: npm install --no-save @rollup/rollup-linux-x64-gnu@$(node -p "require('./node_modules/rollup/package.json').version")
+        run: |
+          npm install --no-save \
+            @esbuild/linux-x64@$(node -p "require('./node_modules/esbuild/package.json').version") \
+            @rollup/rollup-linux-x64-gnu@$(node -p "require('./node_modules/rollup/package.json').version")
 
       - name: Audit dependencies
         run: npm audit --audit-level=high
