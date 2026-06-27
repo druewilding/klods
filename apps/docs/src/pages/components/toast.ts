@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { a, button, clearToasts, cluster, em, showToast, strong } from "klods-js";
+import { button, clearToasts, clearToastsTrigger, cluster, showToast, toastTrigger } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -10,50 +10,17 @@ export const examples: KlodsNode[] = [
   example({
     title: "Toast",
     description:
-      "Call `showToast(options, message)` to display a transient notification at the bottom-right of the page. Toasts auto-dismiss after 5s and can be closed early with the × button.",
+      "Use `toastTrigger(props, label)` to render a button that shows a transient notification. Toasts auto-dismiss after 5s and can be closed early with the × button.",
     render: () =>
       cluster({ gap: 2 }, [
-        button(
-          {
-            onClick: () => {
-              showToast("File saved successfully.");
-            },
-          },
-          "Default"
-        ),
-        button(
-          {
-            onClick: () => {
-              showToast({ variant: "success" }, "Your changes have been saved.");
-            },
-          },
-          "Success"
-        ),
-        button(
-          {
-            onClick: () => {
-              showToast({ variant: "warning" }, em("Your session expires in 5 minutes."));
-            },
-          },
-          "Warning"
-        ),
-        button(
-          {
-            variant: "danger",
-            onClick: () => {
-              showToast({ variant: "danger" }, "Something went wrong. Please try again.");
-            },
-          },
+        toastTrigger({ message: "File saved successfully." }, "Default"),
+        toastTrigger({ message: "Your changes have been saved.", toastVariant: "success" }, "Success"),
+        toastTrigger({ message: "Your session expires in 5 minutes.", toastVariant: "warning" }, "Warning"),
+        toastTrigger(
+          { message: "Something went wrong. Please try again.", toastVariant: "danger", variant: "danger" },
           "Danger"
         ),
-        button(
-          {
-            onClick: () => {
-              showToast({ variant: "info" }, ["You have a ", a({ href: "#" }, "new message from Alex"), "."]);
-            },
-          },
-          "Info"
-        ),
+        toastTrigger({ message: "You have a new message from Alex.", toastVariant: "info" }, "Info"),
       ]),
   }),
 
@@ -61,22 +28,31 @@ export const examples: KlodsNode[] = [
     title: "Toast — persistent",
     description: "Pass `duration: 0` to keep the toast visible until the user manually dismisses it.",
     render: () =>
-      button(
-        {
-          onClick: () => {
-            showToast({ variant: "warning", duration: 0 }, [
-              strong("Action required:"),
-              " please review the pending changes.",
-            ]);
-          },
-        },
+      toastTrigger(
+        { message: "Action required: please review the pending changes.", toastVariant: "warning", duration: 0 },
         "Show persistent toast"
       ),
   }),
 
   example({
     title: "Toast — clear toasts",
-    description: "Click the button to clear all visible toasts.",
-    render: () => button({ onClick: () => clearToasts() }, "Clear toasts"),
+    description: "Use `clearToastsTrigger` to render a button that dismisses all visible toasts at once.",
+    render: () => clearToastsTrigger("Clear toasts"),
+  }),
+
+  example({
+    title: "Toast — programmatic",
+    description:
+      "Call `showToast()` directly from any event handler, promise callback, or framework action — no pre-wired button needed. Not supported in klods-ruby (server-rendered pages cannot call client-side JS functions directly; use `toast_trigger` instead).",
+    ruby: false,
+    render: () =>
+      cluster({ gap: 2 }, [
+        button({ onClick: () => showToast({ variant: "info" }, "Triggered from a callback.") }, "Show toast"),
+        button(
+          { onClick: () => showToast({ variant: "warning", duration: 0 }, "This one stays until dismissed.") },
+          "Persistent toast"
+        ),
+        button({ onClick: () => clearToasts() }, "Clear toasts"),
+      ]),
   }),
 ];

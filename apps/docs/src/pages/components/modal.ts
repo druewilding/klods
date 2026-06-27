@@ -1,16 +1,15 @@
 import type { KlodsNode } from "klods-js";
 import {
-  button,
-  closeModal,
   div,
   modal,
   modalActions,
   modalBody,
   modalClose,
+  modalDismiss,
   modalHeader,
   modalPanel,
   modalTitle,
-  openModal,
+  modalTrigger,
   p,
 } from "klods-js";
 
@@ -23,30 +22,15 @@ export const examples: KlodsNode[] = [
   example({
     title: "Modal",
     description:
-      "Built on the native `<dialog>` element. Call `openModal(el)` to show it as an overlay and `closeModal(el)` to dismiss. The backdrop and entry animation are CSS-only.",
+      "Built on the native `<dialog>` element. Use `modalTrigger` to open, `modalClose` to dismiss with the × button, and `modalDismiss` for action buttons — all wire up automatically.",
     render: () =>
       div([
-        button(
-          {
-            variant: "primary",
-            onClick: (e: Event) => openModal((e.currentTarget as HTMLElement).nextElementSibling as HTMLElement),
-          },
-          "Open modal"
-        ),
+        modalTrigger({ variant: "primary" }, "Open modal"),
         modal(
           modalPanel([
-            modalHeader([
-              modalTitle("Confirm action"),
-              modalClose({ onClick: (e: Event) => closeModal(e.currentTarget as HTMLElement) }),
-            ]),
+            modalHeader([modalTitle("Confirm action"), modalClose()]),
             modalBody("Are you sure you want to continue? This action cannot be undone."),
-            modalActions([
-              button(
-                { variant: "primary", onClick: (e: Event) => closeModal(e.currentTarget as HTMLElement) },
-                "Confirm"
-              ),
-              button({ onClick: (e: Event) => closeModal(e.currentTarget as HTMLElement) }, "Cancel"),
-            ]),
+            modalActions([modalDismiss({ variant: "primary" }, "Confirm"), modalDismiss("Cancel")]),
           ])
         ),
       ]),
@@ -55,26 +39,18 @@ export const examples: KlodsNode[] = [
   example({
     title: "Modal — info",
     description: "A simpler modal with no footer actions — just a dismiss button in the header.",
-    render: () => {
-      const dialog = modal(
-        modalPanel([
-          modalHeader([
-            modalTitle("What is klods?"),
-            modalClose({ onClick: (e: Event) => closeModal(e.currentTarget as HTMLElement) }),
-          ]),
-          modalBody([
-            p("klods is a tiny, opinionated, fully themeable HTML/CSS/JS component library."),
-            p("It ships two packages — klods-css for styles and klods-js for TypeScript builders."),
-          ]),
-        ])
-      );
-      return div([
-        button(
-          { onClick: (e: Event) => openModal((e.currentTarget as HTMLElement).nextElementSibling as HTMLElement) },
-          "Show info"
+    render: () =>
+      div([
+        modalTrigger("Show info"),
+        modal(
+          modalPanel([
+            modalHeader([modalTitle("What is klods?"), modalClose()]),
+            modalBody([
+              p("klods is a tiny, opinionated, fully themeable HTML/CSS/JS component library."),
+              p("It ships two packages — klods-css for styles and klods-js for TypeScript builders."),
+            ]),
+          ])
         ),
-        dialog,
-      ]);
-    },
+      ]),
   }),
 ];

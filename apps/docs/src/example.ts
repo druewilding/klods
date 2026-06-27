@@ -12,6 +12,7 @@ import type { KlodsNode } from "klods-js";
 import { card, cardBody, cardTitle, el, raw } from "klods-js";
 
 import hljs from "./hljs";
+import { tsToRuby } from "./ruby-gen.js";
 
 export type ExampleSpec = {
   title: string;
@@ -26,6 +27,13 @@ export type ExampleSpec = {
    * the original source (with types, proper indentation) rather than esbuild output.
    */
   _source?: string;
+  /**
+   * Ruby source override.
+   * - Omit → auto-generated from the TypeScript source.
+   * - String → shown verbatim (use for components that need a hand-written example).
+   * - `false` → Ruby pane is hidden (use for JS-only components like modal).
+   */
+  ruby?: string | false;
 };
 
 /** Tiny HTML pretty-printer for the "HTML" tab. */
@@ -91,10 +99,15 @@ export function example(spec: ExampleSpec): KlodsNode {
   const tsSource = spec._source ?? tabsToSpaces(dedent(stripArrow(spec.render.toString())));
   const htmlSource = tabsToSpaces(prettyHtml(result.toString()));
 
+  // Ruby: false hides the pane; string overrides auto-gen; undefined auto-generates.
+  const rubySource: string | false = spec.hideCode || spec.ruby === false ? false : (spec.ruby ?? tsToRuby(tsSource));
+
   // Only highlight when the code panes are actually shown.
   const tsHighlighted = !spec.hideCode
     ? hljs.highlight(tsSource, { language: "typescript", ignoreIllegals: true }).value
     : null;
+  const rubyHighlighted =
+    rubySource !== false ? hljs.highlight(rubySource, { language: "ruby", ignoreIllegals: true }).value : null;
   const htmlHighlighted = !spec.hideCode
     ? hljs.highlight(htmlSource, { language: "xml", ignoreIllegals: true }).value
     : null;
@@ -110,6 +123,12 @@ export function example(spec: ExampleSpec): KlodsNode {
             el("summary", {}, "TypeScript"),
             el("pre", {}, [el("code", { class: "hljs language-typescript" }, raw(tsHighlighted!))]),
           ]),
+      rubySource !== false
+        ? el("details", { class: "docs-example__source" }, [
+            el("summary", {}, "Ruby"),
+            el("pre", {}, [el("code", { class: "hljs language-ruby" }, raw(rubyHighlighted!))]),
+          ])
+        : null,
       spec.hideCode
         ? null
         : el("details", { class: "docs-example__source" }, [
