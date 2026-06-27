@@ -98,9 +98,9 @@ Native-first; smallest possible JS.
 1. ✅ **Table** — `klods-table` component with docs examples.
 2. ✅ **List** — `list`, `listItem` with leading / trailing slot conventions and `href` support for full-row navigation links.
 3. ✅ **Built-in icons** — `packages/klods-js/src/icons.ts` with 19 builders (`checkCircleIcon`, `chevDownIcon`, `chevLeftIcon`, `chevRightIcon`, `chevUpIcon`, `closeIcon`, `copyIcon`, `dangerCircleIcon`, `editIcon`, `externalLinkIcon`, `eyeIcon`, `eyeOffIcon`, `infoCircleIcon`, `menuIcon`, `plusIcon`, `searchIcon`, `trashIcon`, `userIcon`, `warningIcon`). All use `makeIcon` factory; inherit color via `currentColor`; three sizes (small / medium / large); optional accessible label. New Icons section in docs.
-4. **Description list** — `descList`, `descTerm`, `descDetail`.
-5. **Avatar** — image with fallback initials, sizes.
-6. **KBD / code block** helpers — `klods-code` partly there via `code.ts`; promote to first-class.
+4. ✅ **Description list** — `dl`, `dt`, `dd`.
+5. ✅ **Avatar** — image with fallback initials, sizes.
+6. ✅ **Code helpers** — `inlineCode` (`.klods-code`), `codeBlock` (`.klods-pre`), `kbd` (`.klods-kbd`), `samp` (`.klods-samp`), `varEl` (`.klods-var`).
 
 ---
 
@@ -322,7 +322,7 @@ The lowest-risk, highest-leverage path from here:
 | 2b (responsive)         | ✅ done                                        |
 | 2c (builder ergonomics) | ✅ done (klods-js v2.0)                        |
 | 3 (interactive)         | ✅ done (modal, tabs, toast, tooltip, details) |
-| 4 (data)                | partial (table, list, icons done)              |
+| 4 (data)                | ✅ done                                        |
 | 4b (klods-ruby)         | not started — planned after Phase 4 complete   |
 | 5 (theming)             | partial (switcher done)                        |
 | 6                       | not started                                    |
