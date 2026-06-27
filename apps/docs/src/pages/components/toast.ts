@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { button, clearToastsTrigger, cluster, showToast, toastTrigger } from "klods-js";
+import { button, clearToasts, clearToastsTrigger, cluster, showToast, toastTrigger } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -43,9 +43,13 @@ export const examples: KlodsNode[] = [
       "Call `showToast()` directly from any event handler, promise callback, or framework action — no pre-wired button needed. Not supported in klods-ruby (server-rendered pages cannot call client-side JS functions directly; use `toast_trigger` instead).",
     ruby: false,
     render: () =>
-      button(
-        { onClick: () => showToast({ variant: "info" }, "Triggered from a callback.") },
-        "Show via callback"
-      ),
+      cluster({ gap: 2 }, [
+        button({ onClick: () => showToast({ variant: "info" }, "Triggered from a callback.") }, "Show toast"),
+        button(
+          { onClick: () => showToast({ variant: "warning", duration: 0 }, "This one stays until dismissed.") },
+          "Persistent toast"
+        ),
+        button({ onClick: () => clearToasts() }, "Clear toasts"),
+      ]),
   }),
 ];
