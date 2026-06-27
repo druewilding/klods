@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { a, clearToasts, raw, showToast, strong } from "../src/index.js";
+import { a, clearToasts, clearToastsTrigger, raw, showToast, strong, toastTrigger } from "../src/index.js";
 
 describe("showToast / clearToasts", () => {
   // Helpers to access the region element and individual toasts.
@@ -127,5 +127,80 @@ describe("showToast / clearToasts", () => {
     clearToasts();
     expect(getRegion()).toBeNull();
     expect(getToasts().length).toBe(0);
+  });
+});
+
+describe("toastTrigger / clearToastsTrigger", () => {
+  let container: HTMLDivElement;
+
+  beforeEach(() => {
+    document.querySelectorAll(".klods-toast-region").forEach((r) => r.remove());
+    container = document.createElement("div");
+    document.body.appendChild(container);
+  });
+
+  afterEach(() => {
+    container.remove();
+  });
+
+  it("renders a button with the given label", () => {
+    toastTrigger({ message: "Hi" }, "Click me").render(container);
+    const btn = container.querySelector("button");
+    expect(btn).not.toBeNull();
+    expect(btn!.textContent).toBe("Click me");
+  });
+
+  it("clicking shows a toast", () => {
+    toastTrigger({ message: "Hello" }, "Go").render(container);
+    container.querySelector("button")!.click();
+    expect(document.querySelector(".klods-toast")).not.toBeNull();
+  });
+
+  it("uses children as toast message when message is omitted", () => {
+    toastTrigger("Quick save").render(container);
+    container.querySelector("button")!.click();
+    expect(document.querySelector(".klods-toast__body")?.textContent).toBe("Quick save");
+  });
+
+  it("uses message prop for toast content, children for button label", () => {
+    toastTrigger({ message: "File saved." }, "Save").render(container);
+    expect(container.querySelector("button")!.textContent).toBe("Save");
+    container.querySelector("button")!.click();
+    expect(document.querySelector(".klods-toast__body")?.textContent).toBe("File saved.");
+  });
+
+  it("applies toastVariant to the toast element", () => {
+    toastTrigger({ message: "OK", toastVariant: "success" }, "Go").render(container);
+    container.querySelector("button")!.click();
+    expect(document.querySelector(".klods-toast")?.classList.contains("klods-toast--success")).toBe(true);
+  });
+
+  it("passes button variant through to the button class", () => {
+    toastTrigger({ message: "Oops", variant: "danger" }, "Danger").render(container);
+    expect(container.querySelector("button")?.classList.contains("klods-button--danger")).toBe(true);
+  });
+
+  it("duration: 0 keeps the toast visible indefinitely", () => {
+    vi.useFakeTimers();
+    toastTrigger({ message: "Sticky", duration: 0 }, "Show").render(container);
+    container.querySelector("button")!.click();
+    vi.advanceTimersByTime(60_000);
+    vi.useRealTimers();
+    expect(document.querySelector(".klods-toast")?.isConnected).toBe(true);
+  });
+
+  describe("clearToastsTrigger", () => {
+    it("renders a button with the given label", () => {
+      clearToastsTrigger("Clear").render(container);
+      expect(container.querySelector("button")?.textContent).toBe("Clear");
+    });
+
+    it("clicking removes all toasts", () => {
+      showToast("First");
+      showToast("Second");
+      clearToastsTrigger("Clear").render(container);
+      container.querySelector("button")!.click();
+      expect(document.querySelectorAll(".klods-toast").length).toBe(0);
+    });
   });
 });
