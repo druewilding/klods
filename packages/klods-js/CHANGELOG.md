@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.9.1](https://github.com/druewilding/klods/compare/klods-js-v2.9.0...klods-js-v2.9.1) (2026-06-27)
+
+
+### Bug Fixes
+
+* Update vite in the docs and remove it from klods-js ([#110](https://github.com/druewilding/klods/issues/110)) ([daa514b](https://github.com/druewilding/klods/commit/daa514b987c89fa7d3fb3444f46e4dce165a0b2a))
+
 ## [2.9.0](https://github.com/druewilding/klods/compare/klods-js-v2.8.1...klods-js-v2.9.0) (2026-06-27)
 
 
