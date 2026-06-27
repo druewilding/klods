@@ -1,0 +1,100 @@
+@layer klods.components {
+  // ── Button ─────────────────────────────────────────────────────────────
+  .klods-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--klods-space-2);
+    padding: var(--klods-space-2) var(--klods-space-4);
+    font: inherit;
+    font-weight: 600;
+    color: var(--klods-color-fg);
+    background: var(--klods-color-surface-2);
+    border: 1px solid var(--klods-color-border);
+    border-radius: var(--klods-radius-sm);
+    cursor: pointer;
+    transition:
+      background var(--klods-transition),
+      filter var(--klods-transition),
+      transform var(--klods-transition);
+  }
+
+  .klods-button:hover {
+    filter: brightness(0.95);
+  }
+
+  .klods-button:active {
+    transform: translateY(1px);
+  }
+
+  .klods-button--primary {
+    background: var(--klods-color-accent);
+    color: var(--klods-color-accent-fg);
+    border-color: transparent;
+  }
+
+  .klods-button--primary:hover {
+    filter: brightness(0.95);
+    background: var(--klods-color-accent);
+  }
+
+  .klods-button--danger {
+    background: var(--klods-color-danger);
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .klods-button--danger:hover {
+    filter: brightness(0.9);
+    background: var(--klods-color-danger);
+  }
+
+  .klods-button--ghost {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  .klods-button--ghost:hover {
+    background: var(--klods-color-surface-2);
+    filter: none;
+  }
+
+  // ── Button group ───────────────────────────────────────────────────────
+  .klods-button-group {
+    display: inline-flex;
+    border: 1px solid var(--klods-color-border);
+    border-radius: var(--klods-radius-pill);
+
+    > .klods-button {
+      border-radius: 0;
+      border-color: transparent;
+      position: relative;
+
+      &:not(:last-child) {
+        border-inline-end: 1px solid var(--klods-color-border);
+      }
+
+      &:first-child {
+        border-start-start-radius: var(--klods-radius-pill);
+        border-end-start-radius: var(--klods-radius-pill);
+      }
+
+      &:last-child {
+        border-start-end-radius: var(--klods-radius-pill);
+        border-end-end-radius: var(--klods-radius-pill);
+      }
+
+      &:hover,
+      &:focus-visible {
+        z-index: 1;
+      }
+
+      &[aria-pressed="true"] {
+        background: var(--klods-color-accent);
+        color: var(--klods-color-accent-fg);
+        border-color: var(--klods-color-accent);
+        z-index: 1;
+      }
+    }
+  }
+}

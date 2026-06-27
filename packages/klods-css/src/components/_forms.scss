@@ -1,0 +1,326 @@
+@use "../tokens" as t;
+
+@layer klods.components {
+  // ── Forms ─────────────────────────────────────────────────────────────
+  // klods-form          — flex-column container for fields
+  // klods-field         — label + control + help/error wrapper
+  // klods-label         — the field label (use --required for * marker)
+  // klods-input         — styled <input>
+  // klods-select        — styled <select> with custom arrow
+  // klods-textarea      — styled <textarea>
+  // klods-help          — hint text below a control
+  // klods-error         — validation error (shown when klods-field--invalid)
+  // klods-checkbox      — labeled checkbox wrapper
+  // klods-radio         — labeled radio wrapper
+  // klods-switch        — accessible toggle switch
+
+  .klods-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--klods-space-5);
+  }
+
+  .klods-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--klods-space-2);
+  }
+
+  .klods-label {
+    font-size: var(--klods-font-size-sm);
+    font-weight: 600;
+    color: var(--klods-color-fg);
+  }
+
+  .klods-label--required::after {
+    content: " *";
+    color: var(--klods-color-danger);
+    font-weight: 400;
+  }
+
+  // Shared base styles for all text controls
+  .klods-input,
+  .klods-select,
+  .klods-textarea {
+    display: block;
+    width: 100%;
+    padding: var(--klods-space-2) var(--klods-space-3);
+    font: inherit;
+    color: var(--klods-color-fg);
+    background: var(--klods-color-bg);
+    border: 1px solid var(--klods-color-border);
+    border-radius: var(--klods-radius-sm);
+    transition:
+      border-color var(--klods-transition),
+      box-shadow var(--klods-transition);
+    appearance: none;
+  }
+
+  .klods-input::placeholder,
+  .klods-textarea::placeholder {
+    color: var(--klods-color-muted);
+  }
+
+  .klods-input:hover,
+  .klods-select:hover,
+  .klods-textarea:hover {
+    border-color: var(--klods-color-muted);
+  }
+
+  .klods-input:focus,
+  .klods-select:focus,
+  .klods-textarea:focus {
+    outline: none;
+    border-color: var(--klods-color-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--klods-color-accent) 20%, transparent);
+  }
+
+  .klods-input:disabled,
+  .klods-select:disabled,
+  .klods-textarea:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--klods-color-surface-2);
+  }
+
+  .klods-input--sm {
+    padding: var(--klods-space-1) var(--klods-space-2);
+    font-size: var(--klods-font-size-sm);
+  }
+
+  .klods-input--lg {
+    padding: var(--klods-space-3) var(--klods-space-4);
+    font-size: var(--klods-font-size-lg);
+  }
+
+  // Range and color wrappers — the outer element provides the consistent field
+  // height and border; the inner <input> is reset to its native appearance.
+  .klods-input--range {
+    display: flex;
+    align-items: center;
+    gap: var(--klods-space-3);
+    cursor: default;
+
+    input {
+      flex: 1 1 auto;
+      padding: 0;
+      border: none;
+      background: transparent;
+      appearance: auto;
+      accent-color: var(--klods-color-accent);
+    }
+
+    output {
+      min-width: 3ch;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
+  .klods-input--color {
+    display: flex;
+    align-items: center;
+    gap: var(--klods-space-3);
+
+    input {
+      width: 2rem;
+      height: 1.5rem;
+      padding: 0;
+      border: 0;
+      background: none;
+      appearance: auto;
+      cursor: pointer;
+    }
+  }
+
+  // Custom dropdown arrow — drawn with a CSS mask so the chevron colour
+  // comes from var(--klods-color-muted) rather than a baked-in hex value.
+  .klods-select-wrapper {
+    position: relative;
+    display: block;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset-inline-end: var(--klods-space-3);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1rem;
+      height: 1rem;
+      background-color: var(--klods-color-muted);
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      pointer-events: none;
+    }
+
+    &:has(.klods-select:disabled)::after {
+      opacity: 0.5;
+    }
+  }
+
+  .klods-select {
+    padding-inline-end: calc(var(--klods-space-3) * 2 + 1rem);
+  }
+
+  .klods-textarea {
+    resize: vertical;
+    min-height: 7rem;
+  }
+
+  .klods-help {
+    font-size: var(--klods-font-size-sm);
+    color: var(--klods-color-muted);
+    margin-top: calc(var(--klods-space-1) - var(--klods-space-2));
+  }
+
+  .klods-error {
+    font-size: var(--klods-font-size-sm);
+    color: var(--klods-color-danger);
+    display: none;
+    margin-top: calc(var(--klods-space-1) - var(--klods-space-2));
+  }
+
+  // Invalid state — red border, danger focus ring, show error, hide help
+  .klods-field--invalid .klods-input,
+  .klods-field--invalid .klods-select,
+  .klods-field--invalid .klods-textarea {
+    border-color: var(--klods-color-danger);
+  }
+
+  .klods-field--invalid .klods-input:focus,
+  .klods-field--invalid .klods-select:focus,
+  .klods-field--invalid .klods-textarea:focus {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--klods-color-danger) 20%, transparent);
+  }
+
+  .klods-field--invalid .klods-error {
+    display: block;
+  }
+
+  .klods-field--invalid .klods-help {
+    display: none;
+  }
+
+  // ── Checkbox & Radio ──────────────────────────────────────────────────
+  .klods-checkbox,
+  .klods-radio {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--klods-space-2);
+    cursor: pointer;
+    user-select: none;
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      accent-color: var(--klods-color-accent);
+      width: 1rem;
+      height: 1rem;
+      margin: 0;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    &:has(input:disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      input {
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  // ── Switch ────────────────────────────────────────────────────────────
+  .klods-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--klods-space-3);
+    cursor: pointer;
+    user-select: none;
+
+    &:has(.klods-switch__input:disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .klods-switch__input {
+    // Visually hidden but still in the accessibility tree
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .klods-switch__track {
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    width: 2.5rem; // 40px
+    height: 1.5rem; // 24px
+    background: var(--klods-color-border);
+    border-radius: var(--klods-radius-pill);
+    transition: background var(--klods-transition);
+
+    // The sliding thumb
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0.1875rem; // 3px
+      left: 0.1875rem;
+      width: 1.125rem; // 18px
+      height: 1.125rem;
+      background: var(--klods-color-bg);
+      border-radius: 50%;
+      box-shadow: var(--klods-shadow-sm);
+      transition: transform var(--klods-transition);
+    }
+  }
+
+  .klods-switch__input:checked + .klods-switch__track {
+    background: var(--klods-color-accent);
+
+    &::after {
+      transform: translateX(1rem);
+    }
+  }
+
+  .klods-switch__input:focus-visible + .klods-switch__track {
+    outline: 2px solid var(--klods-color-accent);
+    outline-offset: 2px;
+  }
+
+  .klods-switch__label {
+    line-height: var(--klods-line-height-tight);
+  }
+
+  // Reverse layout — label on the left, track on the right.
+  // Use inside settings panels where the label describes the setting.
+  .klods-switch--reverse {
+    display: flex;
+    width: 100%;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+  // ── Mobile form tap targets ────────────────────────────────────────────
+  // WCAG 2.5.8 requires a minimum 24×24px target; aim for ~44px on touch screens.
+  @media (max-width: #{t.$klods-bp-md}) {
+    .klods-input,
+    .klods-select {
+      min-height: 2.75rem; // ~44px
+    }
+
+    .klods-checkbox,
+    .klods-radio {
+      min-height: 2.75rem;
+    }
+  }
+}

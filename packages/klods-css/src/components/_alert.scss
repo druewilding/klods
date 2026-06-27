@@ -1,0 +1,29 @@
+@layer klods.components {
+  // ── Alert ──────────────────────────────────────────────────────────────
+  .klods-alert {
+    padding: var(--klods-space-4);
+    border-radius: var(--klods-radius-md);
+    border: 1px solid var(--klods-color-border);
+    background: var(--klods-color-surface);
+  }
+
+  .klods-alert--info {
+    border-color: var(--klods-color-info);
+    background: color-mix(in srgb, var(--klods-color-info) 12%, var(--klods-color-surface));
+  }
+
+  .klods-alert--success {
+    border-color: var(--klods-color-success);
+    background: color-mix(in srgb, var(--klods-color-success) 12%, var(--klods-color-surface));
+  }
+
+  .klods-alert--warning {
+    border-color: var(--klods-color-warning);
+    background: color-mix(in srgb, var(--klods-color-warning) 12%, var(--klods-color-surface));
+  }
+
+  .klods-alert--danger {
+    border-color: var(--klods-color-danger);
+    background: color-mix(in srgb, var(--klods-color-danger) 12%, var(--klods-color-surface));
+  }
+}

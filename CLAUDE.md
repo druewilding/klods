@@ -34,26 +34,28 @@ npm run format:check        # Prettier --check (for CI)
 
 **Every CSS component must have three things:**
 
-1. **CSS** — BEM classes in `packages/klods-css/src/_components.scss` inside `@layer klods.components`
-2. **JS builder** — exported function in `packages/klods-js/src/components.ts`
-3. **Docs example** — at least one `example()` call in `apps/docs/src/pages/components.ts`
+1. **CSS** — BEM classes in `packages/klods-css/src/components/_<name>.scss` inside `@layer klods.components`
+2. **JS builder** — exported function in `packages/klods-js/src/components/<name>.ts`
+3. **Docs example** — a file in `apps/docs/src/pages/components/<name>.ts`
 
 Never add CSS without a builder. Never add a builder without a docs example. The docs are the proof the component works.
 
 ## Adding a new component — checklist
 
-1. **CSS** in `packages/klods-css/src/_components.scss`:
+1. **CSS** in `packages/klods-css/src/components/_<name>.scss`:
    - Use BEM: `.klods-{name}`, `.klods-{name}__element`, `.klods-{name}--modifier`
    - Use design tokens (`var(--klods-*)`) — never hardcode colours or sizes
    - Put styles inside `@layer klods.components { … }`
+   - Add a `@use` line for the new file in `packages/klods-css/src/_components.scss`
 
-2. **JS builder** in `packages/klods-js/src/components.ts`:
+2. **JS builder** in `packages/klods-js/src/components/<name>.ts`:
    - Use the `builder()` factory for BEM classes with modifier props
    - Export a `{Name}Props` type for any non-HTML props
    - For wrappers with logic (e.g. defaulting `type="button"`), write a named function with the standard three-overload signature (see "Builder call shapes" below)
    - For bare HTML element wrappers with no BEM class, use `tagBuilder("tagName")` from `core.ts` (or, if it's already in `html.ts`, just import it)
+   - Add an `export * from "./components/<name>.js"` line in `packages/klods-js/src/components.ts`
 
-3. **Docs example** in `apps/docs/src/pages/components.ts`:
+3. **Docs example** in `apps/docs/src/pages/components/<name>.ts`:
    - Import the new builder at the top of the file
    - Add one or more `example({ title, render: () => … })` calls
    - Show every meaningful modifier/variant

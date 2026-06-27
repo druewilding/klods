@@ -1,0 +1,106 @@
+@layer klods.components {
+  // ── Code ──────────────────────────────────────────────────────────────
+  code,
+  .klods-code {
+    font-family: var(--klods-font-mono);
+    font-size: 0.9em;
+    padding: 0.1em 0.35em;
+    background: var(--klods-color-surface-2);
+    border-radius: var(--klods-radius-sm);
+  }
+
+  pre,
+  .klods-pre {
+    font-family: var(--klods-font-mono);
+    padding: var(--klods-space-4);
+    overflow-x: auto;
+    background: var(--klods-code-bg);
+    color: var(--klods-code-fg);
+    border-radius: var(--klods-radius-md);
+  }
+
+  pre code,
+  .klods-pre code,
+  .klods-pre .klods-code {
+    padding: 0;
+    background: transparent;
+    font-size: inherit;
+    color: inherit;
+  }
+
+  // ── KBD ───────────────────────────────────────────────────────────────
+  .klods-kbd {
+    font-family: var(--klods-font-mono);
+    font-size: 0.875em;
+    padding: 0.1em 0.4em;
+    background: var(--klods-color-surface);
+    border: 1px solid var(--klods-color-border);
+    border-radius: var(--klods-radius-sm);
+    box-shadow: 0 1px 0 var(--klods-color-border);
+    white-space: nowrap;
+  }
+
+  // ── Samp ──────────────────────────────────────────────────────────────
+  .klods-samp {
+    font-family: var(--klods-font-mono);
+    font-size: 0.9em;
+    padding: 0.1em 0.35em;
+    background: var(--klods-color-surface-2);
+    border-radius: var(--klods-radius-sm);
+  }
+
+  // ── Var ───────────────────────────────────────────────────────────────
+  .klods-var {
+    font-family: var(--klods-font-mono);
+    font-size: 0.9em;
+    font-style: italic;
+  }
+
+  // ── Syntax highlighting (hljs token → klods code token) ───────────────
+  // Any element highlighted by highlight.js gets .hljs — these rules then
+  // map its span classes to the active theme's --klods-code-* tokens.
+  // Works with TypeScript, JavaScript, HTML/XML, and most other grammars.
+  .hljs-keyword,
+  .hljs-operator,
+  .hljs-selector-tag {
+    color: var(--klods-code-keyword);
+  }
+
+  .hljs-string,
+  .hljs-template-literal,
+  .hljs-regexp {
+    color: var(--klods-code-string);
+  }
+
+  .hljs-comment,
+  .hljs-meta {
+    color: var(--klods-code-comment);
+    font-style: italic;
+  }
+
+  .hljs-number,
+  .hljs-literal {
+    color: var(--klods-code-number);
+  }
+
+  .hljs-title,
+  .hljs-title.function_,
+  .hljs-title.class_ {
+    color: var(--klods-code-title);
+  }
+
+  .hljs-type,
+  .hljs-built_in {
+    color: var(--klods-code-type);
+  }
+
+  .hljs-attr,
+  .hljs-attribute {
+    color: var(--klods-code-attr);
+  }
+
+  .hljs-name,
+  .hljs-tag {
+    color: var(--klods-code-tag);
+  }
+}

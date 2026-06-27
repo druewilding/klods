@@ -1,0 +1,131 @@
+@layer klods.components {
+  // ── Modal ──────────────────────────────────────────────────────────────
+  // Built on the native <dialog> element. Use openModal() / closeModal()
+  // helpers from klods-js or call .showModal() / .close() directly.
+
+  dialog.klods-modal {
+    // Reset browser dialog defaults
+    border: none;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    max-width: min(90vw, 32rem);
+    width: 100%;
+    // Center vertically and horizontally in the viewport
+    margin: auto;
+    // Entry/exit animation via @starting-style + allow-discrete
+    opacity: 0;
+    transform: translateY(-0.75rem) scale(0.97);
+    transition:
+      opacity var(--klods-transition),
+      transform var(--klods-transition),
+      overlay var(--klods-transition) allow-discrete,
+      display var(--klods-transition) allow-discrete;
+
+    &[open] {
+      opacity: 1;
+      transform: none;
+    }
+
+    &::backdrop {
+      background: oklch(0% 0 0 / 69%);
+      backdrop-filter: blur(4px);
+      transition:
+        background var(--klods-transition),
+        overlay var(--klods-transition) allow-discrete,
+        display var(--klods-transition) allow-discrete;
+    }
+
+    // Define the starting state so the entry animation plays
+    @starting-style {
+      &[open] {
+        opacity: 0;
+        transform: translateY(-0.75rem) scale(0.97);
+      }
+
+      &[open]::backdrop {
+        background: oklch(0% 0 0 / 0%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  .klods-modal__panel {
+    background: var(--klods-color-surface);
+    border: 1px solid var(--klods-color-border);
+    border-radius: var(--klods-radius-lg);
+    padding: var(--klods-space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--klods-space-4);
+  }
+
+  .klods-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--klods-space-3);
+  }
+
+  .klods-modal__title {
+    font-size: var(--klods-font-size-lg);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .klods-modal__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--klods-space-1);
+    border: 1px solid transparent;
+    border-radius: var(--klods-radius-sm);
+    background: transparent;
+    color: var(--klods-color-muted);
+    cursor: pointer;
+    line-height: 1;
+    transition:
+      background var(--klods-transition),
+      color var(--klods-transition);
+    flex-shrink: 0;
+
+    // × icon via CSS mask so no SVG needs to be baked into the JS builder.
+    &::before {
+      content: "";
+      display: block;
+      width: 16px;
+      height: 16px;
+      background-color: currentColor;
+      // stylelint-disable-next-line function-url-quotes
+      mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='black' stroke-linecap='round' stroke-width='1.75' d='M4 4l8 8M12 4L4 12'/></svg>");
+      mask-repeat: no-repeat;
+      mask-size: contain;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: var(--klods-color-surface-2);
+      color: inherit;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--klods-color-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  .klods-modal__body {
+    color: var(--klods-color-muted);
+    line-height: var(--klods-line-height);
+  }
+
+  .klods-modal__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--klods-space-3);
+    justify-content: flex-end;
+  }
+}

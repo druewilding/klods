@@ -1,0 +1,67 @@
+@layer klods.components {
+  // ── Tabs ──────────────────────────────────────────────────────────────
+  .klods-tabs {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .klods-tabs__list {
+    display: flex;
+    border-bottom: 2px solid var(--klods-color-border);
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .klods-tabs__tab {
+    position: relative;
+    padding: var(--klods-space-2) var(--klods-space-4);
+    background: transparent;
+    border: none;
+    color: var(--klods-color-muted);
+    font: inherit;
+    font-size: var(--klods-font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color var(--klods-transition);
+
+    // Active indicator bar — sits on the border-bottom of the list.
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: transparent;
+      border-radius: var(--klods-radius-sm) var(--klods-radius-sm) 0 0;
+      transition: background var(--klods-transition);
+    }
+
+    &:hover {
+      color: var(--klods-tabs-active);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--klods-color-accent);
+      outline-offset: -2px;
+      border-radius: var(--klods-radius-sm);
+    }
+
+    &--active {
+      color: var(--klods-tabs-active);
+
+      &::after {
+        background: var(--klods-tabs-active);
+      }
+    }
+  }
+
+  .klods-tabs__panel {
+    padding-top: var(--klods-space-4);
+  }
+}
