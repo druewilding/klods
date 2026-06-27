@@ -1,0 +1,127 @@
+@use "../tokens" as t;
+
+@layer klods.components {
+  // ── Nav ────────────────────────────────────────────────────────────────
+  .klods-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--klods-space-4);
+  }
+
+  .klods-nav__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--klods-space-3);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .klods-nav__link {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--klods-space-2) var(--klods-space-3);
+    border-radius: var(--klods-radius-sm);
+    color: inherit;
+    text-decoration: none;
+    transition: background var(--klods-transition);
+  }
+
+  .klods-nav__link:hover,
+  .klods-nav__link:focus-visible {
+    background: var(--klods-color-surface-2);
+  }
+
+  .klods-nav__link--active {
+    background: var(--klods-color-accent);
+    color: var(--klods-color-accent-fg);
+  }
+
+  // ── Nav hamburger toggle ───────────────────────────────────────────────
+  // Visible only inside .klods-nav--collapse on narrow viewports.
+  .klods-nav__toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--klods-space-2);
+    border-radius: var(--klods-radius-sm);
+    background: transparent;
+    border: 1px solid transparent;
+    color: inherit;
+    cursor: pointer;
+    line-height: 1;
+    transition: background var(--klods-transition);
+
+    &:hover,
+    &:focus-visible {
+      background: var(--klods-color-surface-2);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--klods-color-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (max-width: #{t.$klods-bp-md}) {
+    .klods-nav--collapse {
+      flex-wrap: wrap;
+
+      .klods-nav__toggle {
+        display: inline-flex;
+      }
+
+      .klods-nav__list {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--klods-space-1);
+        padding-block: var(--klods-space-2);
+      }
+
+      &[data-nav-open] .klods-nav__list {
+        display: flex;
+      }
+    }
+  }
+
+  // ── Toc ────────────────────────────────────────────────────────────────
+  .klods-toc {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--klods-space-1);
+
+    a {
+      display: block;
+      padding: var(--klods-space-2) var(--klods-space-3);
+      border-radius: var(--klods-radius-sm);
+      color: inherit;
+      text-decoration: none;
+      transition: background var(--klods-transition);
+
+      &:hover {
+        background: var(--klods-color-surface-2);
+      }
+    }
+  }
+
+  .klods-toc--sub {
+    padding-inline-start: var(--klods-space-3);
+    margin-top: var(--klods-space-1);
+
+    a {
+      font-size: var(--klods-font-size-sm);
+      color: var(--klods-color-muted);
+      padding: var(--klods-space-1) var(--klods-space-3);
+
+      &:hover {
+        color: var(--klods-color-fg);
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+@layer klods.components {
+  // ── Avatar ────────────────────────────────────────────────────────────
+  .klods-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--klods-color-surface-2);
+    color: var(--klods-color-muted);
+    overflow: hidden;
+    flex-shrink: 0;
+    font-size: var(--klods-font-size-sm);
+    font-weight: 600;
+    user-select: none;
+    vertical-align: middle;
+  }
+
+  .klods-avatar--small {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 0.625rem;
+  }
+
+  .klods-avatar--large {
+    width: 3rem;
+    height: 3rem;
+    font-size: var(--klods-font-size-lg);
+  }
+
+  .klods-avatar--initials {
+    background: var(--klods-color-accent);
+    color: var(--klods-color-accent-fg);
+  }
+
+  .klods-avatar__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}

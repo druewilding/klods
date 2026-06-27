@@ -1,0 +1,13 @@
+@layer klods.components {
+  // ── Icons ──────────────────────────────────────────────────────────────
+  .klods-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    svg {
+      display: block;
+    }
+  }
+}

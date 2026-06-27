@@ -1,0 +1,28 @@
+@layer klods.components {
+  // ── Badge ──────────────────────────────────────────────────────────────
+  .klods-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem var(--klods-space-2);
+    font-size: var(--klods-font-size-sm);
+    font-weight: 600;
+    color: var(--klods-color-fg);
+    background: var(--klods-color-surface-2);
+    border-radius: var(--klods-radius-pill);
+  }
+
+  .klods-badge--accent {
+    background: var(--klods-color-accent);
+    color: var(--klods-color-accent-fg);
+  }
+
+  .klods-badge--success {
+    background: var(--klods-color-success);
+    color: #fff;
+  }
+
+  .klods-badge--danger {
+    background: var(--klods-color-danger);
+    color: #fff;
+  }
+}

@@ -1,0 +1,34 @@
+@layer klods.components {
+  // ── Prose ──────────────────────────────────────────────────────────────
+  .klods-prose > * + * {
+    margin-block-start: var(--klods-space-4);
+  }
+
+  .klods-prose h1,
+  .klods-prose h2,
+  .klods-prose h3 {
+    line-height: var(--klods-line-height-tight);
+  }
+
+  .klods-prose code {
+    font-family: var(--klods-font-mono);
+    font-size: 0.95em;
+    padding: 0.1em 0.35em;
+    background: var(--klods-color-surface-2);
+    border-radius: var(--klods-radius-sm);
+  }
+
+  .klods-prose pre {
+    font-family: var(--klods-font-mono);
+    padding: var(--klods-space-4);
+    overflow-x: auto;
+    background: var(--klods-code-bg);
+    color: var(--klods-code-fg);
+    border-radius: var(--klods-radius-md);
+  }
+
+  .klods-prose pre code {
+    padding: 0;
+    background: transparent;
+  }
+}
