@@ -1,5 +1,7 @@
 import type { KlodsAttrs, KlodsChild } from "../core.js";
 import { builder, classNames, el, KlodsNode, normalizeArgs } from "../core.js";
+import type { ButtonProps } from "./button.js";
+import { button } from "./button.js";
 
 // Built on the native <dialog> element. Use openModal() / closeModal() to
 // show and hide. openModal() calls .showModal() so the dialog is top-layer
@@ -32,15 +34,34 @@ export const modalTitle = builder({ tag: "h2", base: "klods-modal__title" });
 export const modalBody = builder({ tag: "div", base: "klods-modal__body" });
 export const modalActions = builder({ tag: "div", base: "klods-modal__actions" });
 
-/** Close button — the × icon is provided by CSS via a ::before mask-image. */
-export function modalClose(props?: KlodsAttrs | null): KlodsNode {
+/** Close button — the × icon is provided by CSS via a ::before mask-image. Closes the containing dialog automatically. */
+export function modalClose(props?: Omit<KlodsAttrs, "onClick"> | null): KlodsNode {
   const { class: extraClass, ...rest } = props ?? {};
   return el("button", {
     type: "button",
     "aria-label": "Close",
+    onClick: (e: Event) => closeModal(e.currentTarget as HTMLElement),
     ...rest,
     class: classNames(["klods-modal__close", classNames(extraClass as KlodsAttrs["class"])]) || undefined,
   });
+}
+
+/** Button that opens the next sibling `<dialog>` as a modal when clicked. Accepts the same props as `button`. */
+export function modalTrigger(): KlodsNode;
+export function modalTrigger(children: KlodsChild | KlodsChild[]): KlodsNode;
+export function modalTrigger(props: (ButtonProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function modalTrigger(
+  a?: (ButtonProps & KlodsAttrs) | KlodsChild | KlodsChild[] | null,
+  b?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  const [props, children] = normalizeArgs<ButtonProps & KlodsAttrs>(a, b);
+  return button(
+    {
+      onClick: (e: Event) => openModal((e.currentTarget as HTMLElement).nextElementSibling as HTMLElement),
+      ...props,
+    },
+    children
+  );
 }
 
 /**

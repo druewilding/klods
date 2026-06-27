@@ -19,13 +19,22 @@ describe("unwrapBlockBody", () => {
     expect(unwrapBlockBody('button("Hello")')).toBe('button("Hello")');
   });
 
+  it("normalizes indentation when block is deeply nested in the source file", () => {
+    // Simulates a render function body where code is indented 6 spaces
+    // (inside example() inside an export const array)
+    const src = `{
+      const dialog = modal("x");
+      return div([dialog]);
+    }`;
+    expect(unwrapBlockBody(src)).toBe('dialog = modal("x")\ndiv([dialog])');
+  });
+
   it("strips { }, const, return, and semicolons from a block body", () => {
     const src = `{
   const x = button("A");
   return div([x]);
 }`;
-    // Indentation relative to the original block is preserved
-    expect(unwrapBlockBody(src)).toBe('x = button("A")\n  div([x])');
+    expect(unwrapBlockBody(src)).toBe('x = button("A")\ndiv([x])');
   });
 });
 
@@ -262,9 +271,7 @@ end`);
   return div([x]);
 }`;
     const ruby = tsToRuby(ts);
-    // Indentation relative to the original block is preserved
-    expect(ruby).toBe(`x = card(card_title("Hi"))
-  div([x])`);
+    expect(ruby).toBe(`x = card(card_title("Hi"))\ndiv([x])`);
   });
 
   it("replaces null with nil", () => {

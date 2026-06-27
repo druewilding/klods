@@ -11,11 +11,20 @@
 export function unwrapBlockBody(s: string): string {
   const trimmed = s.trimStart();
   if (!trimmed.startsWith("{")) return s;
-  const inner = trimmed.slice(1, trimmed.lastIndexOf("}")).trim();
-  return inner
+  const raw = trimmed.slice(1, trimmed.lastIndexOf("}"));
+  const processed = raw
     .replace(/\bconst\s+/g, "")
     .replace(/\breturn\s+/g, "")
-    .replace(/;$/gm, "")
+    .replace(/;$/gm, "");
+  // Strip the common leading whitespace from all non-empty lines so that
+  // top-level statements land at column 0 regardless of their indentation
+  // in the source file (the block may be nested inside an example() call).
+  const lines = processed.split("\n");
+  const nonEmpty = lines.filter((l) => l.trim().length > 0);
+  const minIndent = nonEmpty.length > 0 ? Math.min(...nonEmpty.map((l) => /^[ \t]*/.exec(l)![0].length)) : 0;
+  return lines
+    .map((l) => (l.trim().length > 0 ? l.slice(minIndent) : ""))
+    .join("\n")
     .trim();
 }
 
