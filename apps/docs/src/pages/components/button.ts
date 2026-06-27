@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { alert, button, cluster } from "klods-js";
+import { alert, button, cluster, p } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -15,6 +15,18 @@ export const examples: KlodsNode[] = [
         button({ variant: "primary" }, "Primary"),
         button({ variant: "danger" }, "Danger"),
         button({ variant: "ghost" }, "Ghost"),
+      ]),
+  }),
+
+  example({
+    title: "Button as link",
+    description:
+      "Pass href and the builder renders an <a> instead of a <button> — same classes, valid HTML. All variants and extra attributes still work.",
+    render: () =>
+      cluster([
+        button({ href: "#" }, "Default link"),
+        button({ href: "#", variant: "primary" }, "Primary link"),
+        button({ href: "#", variant: "ghost" }, "Ghost link"),
       ]),
   }),
 
