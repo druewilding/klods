@@ -1,5 +1,7 @@
-import type { KlodsChild } from "../core.js";
-import { el, normalizeArgs } from "../core.js";
+import type { KlodsAttrs, KlodsChild } from "../core.js";
+import { KlodsNode, el, normalizeArgs } from "../core.js";
+import type { ButtonProps } from "./button.js";
+import { button } from "./button.js";
 
 // showToast() appends a toast into a .klods-toast-region at the bottom of
 // <body>, creating the region on first call. The toast auto-dismisses after
@@ -97,4 +99,43 @@ export function showToast(a: ToastOptions | KlodsChild | KlodsChild[], b?: Klods
  */
 export function clearToasts(): void {
   document.querySelectorAll<HTMLElement>(".klods-toast-region").forEach((r) => r.remove());
+}
+
+export type ToastTriggerProps = {
+  /** The message to display inside the toast. Falls back to the button's children when omitted. */
+  message?: KlodsChild | KlodsChild[];
+  /** Visual style of the toast. Defaults to "default". */
+  toastVariant?: ToastOptions["variant"];
+  /** Auto-dismiss delay in ms. Pass 0 to keep indefinitely. Defaults to 5000. */
+  duration?: number;
+};
+
+/**
+ * A button that calls `showToast()` when clicked. Wires the event handler
+ * automatically so no `onClick` prop is needed in the call site.
+ */
+export function toastTrigger(children: KlodsChild | KlodsChild[]): KlodsNode;
+export function toastTrigger(props: (ToastTriggerProps & ButtonProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function toastTrigger(
+  a?: (ToastTriggerProps & ButtonProps & KlodsAttrs) | KlodsChild | KlodsChild[] | null,
+  b?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  const [{ message, toastVariant = "default", duration = 5000, ...buttonProps }, children] =
+    normalizeArgs<ToastTriggerProps & ButtonProps & KlodsAttrs>(a, b);
+  const msg = message ?? children;
+  return button({ ...buttonProps, onClick: () => showToast({ variant: toastVariant, duration }, msg as KlodsChild | KlodsChild[]) }, children);
+}
+
+/**
+ * A button that calls `clearToasts()` when clicked.
+ */
+export function clearToastsTrigger(): KlodsNode;
+export function clearToastsTrigger(children: KlodsChild | KlodsChild[]): KlodsNode;
+export function clearToastsTrigger(props: (ButtonProps & KlodsAttrs) | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
+export function clearToastsTrigger(
+  a?: (ButtonProps & KlodsAttrs) | KlodsChild | KlodsChild[] | null,
+  b?: KlodsChild | KlodsChild[]
+): KlodsNode {
+  const [props, children] = normalizeArgs<ButtonProps & KlodsAttrs>(a, b);
+  return button({ ...props, onClick: () => clearToasts() }, children);
 }
