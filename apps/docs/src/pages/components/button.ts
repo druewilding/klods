@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { alert, button, cluster, p } from "klods-js";
+import { alert, button, cluster } from "klods-js";
 
 import { example } from "../../example.js";
 
