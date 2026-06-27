@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.21.0](https://github.com/druewilding/klods/compare/klods-css-v1.20.0...klods-css-v1.21.0) (2026-06-27)
+
+
+### Features
+
+* Add description list elements and styles ([#102](https://github.com/druewilding/klods/issues/102)) ([1b4ee8e](https://github.com/druewilding/klods/commit/1b4ee8ecec4615488a9b665fbf85ab6759079bec))
+
 ## [1.20.0](https://github.com/druewilding/klods/compare/klods-css-v1.19.0...klods-css-v1.20.0) (2026-06-25)
 
 
