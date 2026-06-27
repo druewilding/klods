@@ -16,8 +16,8 @@
     "test": "npm run test --workspaces --if-present"
   },
   "devDependencies": {
-    "eslint-config-plus-prettier": "^4.3.0",
-    "typescript": "^6.0.3"
+    "eslint-config-plus-prettier": "4.3.0",
+    "typescript": "6.0.3"
   },
   "private": true,
   "workspaces": [

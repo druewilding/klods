@@ -4,33 +4,33 @@
   "description": "klods stylesheet — drop-in CSS for layout, utilities and components.",
   "license": "MIT",
   "author": "Drue Wilding",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/druewilding/klods",
-    "directory": "packages/klods-css"
-  },
-  "type": "module",
-  "main": "dist/klods.css",
-  "style": "dist/klods.css",
   "files": [
+    "README.md",
     "dist",
-    "src",
-    "README.md"
+    "src"
   ],
   "exports": {
     ".": "./dist/klods.css",
-    "./min": "./dist/klods.min.css",
     "./js": "./dist/klods.js",
+    "./min": "./dist/klods.min.css",
     "./src/*": "./src/*"
   },
+  "main": "dist/klods.css",
+  "style": "dist/klods.css",
+  "repository": {
+    "directory": "packages/klods-css",
+    "type": "git",
+    "url": "https://github.com/druewilding/klods"
+  },
+  "type": "module",
   "scripts": {
     "build": "npm run build:css && npm run build:min && npm run build:js",
     "build:css": "sass src/klods.scss dist/klods.css --style=expanded --no-source-map",
-    "build:min": "sass src/klods.scss dist/klods.min.css --style=compressed --no-source-map",
     "build:js": "cp src/klods.js dist/klods.js",
+    "build:min": "sass src/klods.scss dist/klods.min.css --style=compressed --no-source-map",
     "dev": "sass src/klods.scss dist/klods.css --watch --style=expanded"
   },
   "devDependencies": {
-    "sass": "^1.81.0"
+    "sass": "1.81.0"
   }
 }
