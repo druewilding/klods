@@ -33,8 +33,8 @@ export const examples: KlodsNode[] = [
     description: "Basic text controls with placeholder and label.",
     render: () =>
       stack({ gap: 4 }, [
-        field({ label: "Full name" }, (id) => input({ id, type: "text", placeholder: "Jane Smith" })),
-        field({ label: "Email address" }, (id) => input({ id, type: "email", placeholder: "jane@example.com" })),
+        field({ label: "Full name" }, (id) => input({ id, type: "text", placeholder: "Ari Smith" })),
+        field({ label: "Email address" }, (id) => input({ id, type: "email", placeholder: "ari@example.com" })),
         field({ label: "Password" }, (id) => input({ id, type: "password", placeholder: "••••••••" })),
       ]),
   }),
@@ -53,7 +53,7 @@ export const examples: KlodsNode[] = [
     description: "Use `help` to add a hint below the control.",
     render: () =>
       field({ label: "Email address", help: "We'll only use this to send your receipt." }, (id) =>
-        input({ id, type: "email", placeholder: "jane@example.com" })
+        input({ id, type: "email", placeholder: "ari@example.com" })
       ),
   }),
 
@@ -188,12 +188,12 @@ export const examples: KlodsNode[] = [
       card([
         form({ onSubmit: (e: Event) => e.preventDefault() }, [
           grid({ cols: 2, gap: 4 }, [
-            field({ label: "First name", required: true }, (id) => input({ id, type: "text", placeholder: "Jane" })),
+            field({ label: "First name", required: true }, (id) => input({ id, type: "text", placeholder: "Ari" })),
             field({ label: "Last name", required: true }, (id) => input({ id, type: "text", placeholder: "Smith" })),
           ]),
           grid({ cols: 2, gap: 4 }, [
             field({ label: "Email address", required: true }, (id) =>
-              input({ id, type: "email", placeholder: "jane@example.com" })
+              input({ id, type: "email", placeholder: "ari@example.com" })
             ),
             field({ label: "Subject" }, (id) =>
               select({ id }, [

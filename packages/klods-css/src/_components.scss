@@ -1340,6 +1340,45 @@
     }
   }
 
+  // ── Description list ──────────────────────────────────────────────────
+  .klods-dl {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .klods-dt {
+    margin: 0;
+    margin-top: var(--klods-space-4);
+    font-size: var(--klods-font-size-sm);
+    font-weight: 600;
+    color: var(--klods-color-muted);
+  }
+
+  .klods-dl > .klods-dt:first-child {
+    margin-top: 0;
+  }
+
+  .klods-dd {
+    margin: 0;
+    padding-inline-start: 0;
+    margin-top: var(--klods-space-1);
+  }
+
+  .klods-dl--inline {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: var(--klods-space-6);
+    row-gap: var(--klods-space-3);
+    align-items: baseline;
+
+    .klods-dt,
+    .klods-dd {
+      margin: 0;
+    }
+  }
+
   // ── Details ────────────────────────────────────────────────────────────
   // Native <details>/<summary> styled with klods tokens.
   // Use details() + summary() builders or the .klods-details BEM class directly.

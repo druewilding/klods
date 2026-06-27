@@ -1130,6 +1130,18 @@ export function listItem(
   return el("li", { ...rest, class: liCls }, children ?? []);
 }
 
+// ── Description list ─────────────────────────────────────────────────────
+export type DlProps = {
+  inline?: boolean;
+};
+export const dl = builder<DlProps>({
+  tag: "dl",
+  base: "klods-dl",
+  modifiers: { inline: "klods-dl--inline" },
+});
+export const dt = builder({ tag: "dt", base: "klods-dt" });
+export const dd = builder({ tag: "dd", base: "klods-dd" });
+
 // ── Details ───────────────────────────────────────────────────────────────
 // Thin builders over the native <details>/<summary> elements.
 // No JS required — the browser handles open/close natively.
