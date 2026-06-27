@@ -13,10 +13,7 @@ export const buttonGroup = builder({ tag: "div", base: "klods-button-group" });
 export function navToggle(): KlodsNode;
 export function navToggle(children: KlodsChild | KlodsChild[]): KlodsNode;
 export function navToggle(attrs: KlodsAttrs | null, children?: KlodsChild | KlodsChild[]): KlodsNode;
-export function navToggle(
-  a?: KlodsAttrs | KlodsChild | KlodsChild[] | null,
-  b?: KlodsChild | KlodsChild[]
-): KlodsNode {
+export function navToggle(a?: KlodsAttrs | KlodsChild | KlodsChild[] | null, b?: KlodsChild | KlodsChild[]): KlodsNode {
   const [attrs, children] = normalizeArgs<KlodsAttrs>(a, b);
   return el(
     "button",

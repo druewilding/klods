@@ -4,10 +4,7 @@ import { builder, classNames, el, KlodsNode, normalizeArgs } from "../core.js";
 export function codeBlock(): KlodsNode;
 export function codeBlock(content: KlodsChild | KlodsChild[]): KlodsNode;
 export function codeBlock(attrs: KlodsAttrs | null, content?: KlodsChild | KlodsChild[]): KlodsNode;
-export function codeBlock(
-  a?: KlodsAttrs | KlodsChild | KlodsChild[] | null,
-  b?: KlodsChild | KlodsChild[]
-): KlodsNode {
+export function codeBlock(a?: KlodsAttrs | KlodsChild | KlodsChild[] | null, b?: KlodsChild | KlodsChild[]): KlodsNode {
   const [{ class: extraClass, ...attrs }, content] = normalizeArgs<KlodsAttrs>(a, b);
   return el(
     "pre",

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { a, clearToasts, raw, showToast, span, strong } from "../src/index.js";
+import { a, clearToasts, raw, showToast, strong } from "../src/index.js";
 
 describe("showToast / clearToasts", () => {
   // Helpers to access the region element and individual toasts.

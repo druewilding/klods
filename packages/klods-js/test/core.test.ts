@@ -20,7 +20,6 @@ import {
   pre,
   raw,
   sidebar,
-  span,
   stack,
   strong,
   ul,
