@@ -47,10 +47,12 @@ type GapProp = { gap?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 };
 const gapModifier = (prefix: string) => (v: number | undefined) =>
   v === undefined ? undefined : `${prefix}--gap-${v}`;
 
-export const stack = builder<GapProp>({
+type StackProps = GapProp & { narrow?: boolean };
+
+export const stack = builder<StackProps>({
   tag: "div",
   base: "klods-stack",
-  modifiers: { gap: gapModifier("klods-stack") },
+  modifiers: { gap: gapModifier("klods-stack"), narrow: "klods-stack--narrow" },
 });
 
 export const cluster = builder<GapProp>({
