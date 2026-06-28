@@ -36,6 +36,11 @@
   .klods-nav__link--active {
     background: var(--klods-color-accent);
     color: var(--klods-color-accent-fg);
+
+    &:hover,
+    &:focus-visible {
+      background: var(--klods-color-accent);
+    }
   }
 
   // ── Nav hamburger toggle ───────────────────────────────────────────────
