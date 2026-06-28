@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.0](https://github.com/druewilding/klods/compare/klods-js-v3.2.0...klods-js-v3.3.0) (2026-06-28)
+
+
+### Features
+
+* Add a link component with plain version ([#128](https://github.com/druewilding/klods/issues/128)) ([2f0516d](https://github.com/druewilding/klods/commit/2f0516ded0c128c25374145b1e8349f740de4382))
+
 ## [3.2.0](https://github.com/druewilding/klods/compare/klods-js-v3.1.0...klods-js-v3.2.0) (2026-06-28)
 
 
