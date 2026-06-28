@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.25.1](https://github.com/druewilding/klods/compare/klods-css-v1.25.0...klods-css-v1.25.1) (2026-06-28)
+
+
+### Bug Fixes
+
+* Fix the active nav link hover color ([#135](https://github.com/druewilding/klods/issues/135)) ([eeffbe6](https://github.com/druewilding/klods/commit/eeffbe6f3079f09c52ec5918b79b5fd6778b5516))
+
 ## [1.25.0](https://github.com/druewilding/klods/compare/klods-css-v1.24.0...klods-css-v1.25.0) (2026-06-28)
 
 
