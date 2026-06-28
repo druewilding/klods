@@ -19,6 +19,15 @@ export const examples: KlodsNode[] = [
       ]),
   }),
   example({
+    title: "Toc — active link",
+    render: () =>
+      toc([
+        tocItem(tocLink({ href: "#" }, "Introduction")),
+        tocItem(tocLink({ href: "#", active: true }, "Getting started")),
+        tocItem(tocLink({ href: "#" }, "API reference")),
+      ]),
+  }),
+  example({
     title: "Toc with sub-items",
     render: () =>
       toc([
@@ -28,6 +37,22 @@ export const examples: KlodsNode[] = [
           toc({ sub: true }, [
             tocItem(tocLink({ href: "#" }, "Page")),
             tocItem(tocLink({ href: "#" }, "Sidebar")),
+            tocItem(tocLink({ href: "#" }, "Header")),
+          ]),
+        ]),
+        tocItem(tocLink({ href: "#" }, "Utilities")),
+      ]),
+  }),
+  example({
+    title: "Toc — active sub-item",
+    render: () =>
+      toc([
+        tocItem(tocLink({ href: "#" }, "Components")),
+        tocItem([
+          tocLink({ href: "#" }, "Layout"),
+          toc({ sub: true }, [
+            tocItem(tocLink({ href: "#" }, "Page")),
+            tocItem(tocLink({ href: "#", active: true }, "Sidebar")),
             tocItem(tocLink({ href: "#" }, "Header")),
           ]),
         ]),
