@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.23.0](https://github.com/druewilding/klods/compare/klods-css-v1.22.0...klods-css-v1.23.0) (2026-06-28)
+
+
+### Features
+
+* Enable narrow stack ([#124](https://github.com/druewilding/klods/issues/124)) ([e1397eb](https://github.com/druewilding/klods/commit/e1397ebac24ca31cddbbc2d1c5098d0ec0c3ffd2))
+
 ## [1.22.0](https://github.com/druewilding/klods/compare/klods-css-v1.21.1...klods-css-v1.22.0) (2026-06-27)
 
 
