@@ -19,4 +19,5 @@ export * from "./components/prose.js";
 export * from "./components/table.js";
 export * from "./components/tabs.js";
 export * from "./components/toast.js";
+export * from "./components/toc.js";
 export * from "./components/tooltip.js";

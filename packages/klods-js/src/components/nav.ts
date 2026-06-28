@@ -1,5 +1,5 @@
 import type { KlodsAttrs, KlodsChild } from "../core.js";
-import { builder, el, KlodsNode, normalizeArgs, tagBuilder } from "../core.js";
+import { builder, el, KlodsNode, normalizeArgs } from "../core.js";
 import { menuIcon } from "../icons.js";
 
 export const nav = builder({ tag: "nav", base: "klods-nav" });
@@ -38,17 +38,6 @@ export function toggleNav(targetEl: HTMLElement): void {
     navEl.setAttribute("data-nav-open", "");
   }
 }
-
-export type TocProps = { sub?: boolean };
-export const toc = builder<TocProps>({ tag: "ul", base: "klods-toc", modifiers: { sub: "klods-toc--sub" } });
-export const tocItem = tagBuilder("li");
-
-export type TocLinkProps = { active?: boolean };
-export const tocLink = builder<TocLinkProps>({
-  tag: "a",
-  base: "klods-toc__link",
-  modifiers: { active: "klods-toc__link--active" },
-});
 
 export type NavLinkProps = {
   href?: string;
