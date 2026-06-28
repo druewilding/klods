@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.23.1](https://github.com/druewilding/klods/compare/klods-css-v1.23.0...klods-css-v1.23.1) (2026-06-28)
+
+
+### Bug Fixes
+
+* The first element of klods prose should not have margin-top ([#126](https://github.com/druewilding/klods/issues/126)) ([12952f6](https://github.com/druewilding/klods/commit/12952f63aaa9357bc530d163e64c821945c4df6d))
+
 ## [1.23.0](https://github.com/druewilding/klods/compare/klods-css-v1.22.0...klods-css-v1.23.0) (2026-06-28)
 
 
