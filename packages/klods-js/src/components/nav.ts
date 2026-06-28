@@ -39,17 +39,6 @@ export function toggleNav(targetEl: HTMLElement): void {
   }
 }
 
-export type TocProps = { sub?: boolean };
-export const toc = builder<TocProps>({ tag: "ul", base: "klods-toc", modifiers: { sub: "klods-toc--sub" } });
-export const tocItem = tagBuilder("li");
-
-export type TocLinkProps = { active?: boolean };
-export const tocLink = builder<TocLinkProps>({
-  tag: "a",
-  base: "klods-toc__link",
-  modifiers: { active: "klods-toc__link--active" },
-});
-
 export type NavLinkProps = {
   href?: string;
   active?: boolean;
