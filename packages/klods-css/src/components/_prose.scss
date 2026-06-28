@@ -1,5 +1,9 @@
 @layer klods.components {
   // ── Prose ──────────────────────────────────────────────────────────────
+  .klods-prose > * {
+    margin-block: 0;
+  }
+
   .klods-prose > * + * {
     margin-block-start: var(--klods-space-4);
   }
