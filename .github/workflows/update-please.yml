@@ -16,7 +16,7 @@ on:
         description: Which packages to upgrade
         default: "*"
   schedule:
-    - cron: "0 0 20 * *"
+    - cron: "0 0 10 * *"
 
 jobs:
   update-please:
