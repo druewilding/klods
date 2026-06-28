@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.0](https://github.com/druewilding/klods/compare/klods-js-v3.3.0...klods-js-v3.4.0) (2026-06-28)
+
+
+### Features
+
+* Enable TOC links to have an active property ([#130](https://github.com/druewilding/klods/issues/130)) ([67cd84d](https://github.com/druewilding/klods/commit/67cd84d6df1811dd64bc96b0aba127bb611d5fe5))
+
 ## [3.3.0](https://github.com/druewilding/klods/compare/klods-js-v3.2.0...klods-js-v3.3.0) (2026-06-28)
 
 
