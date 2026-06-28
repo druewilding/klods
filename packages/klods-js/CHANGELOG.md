@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/druewilding/klods/compare/klods-js-v3.1.0...klods-js-v3.2.0) (2026-06-28)
+
+
+### Features
+
+* Enable narrow stack ([#124](https://github.com/druewilding/klods/issues/124)) ([e1397eb](https://github.com/druewilding/klods/commit/e1397ebac24ca31cddbbc2d1c5098d0ec0c3ffd2))
+
 ## [3.1.0](https://github.com/druewilding/klods/compare/klods-js-v3.0.0...klods-js-v3.1.0) (2026-06-27)
 
 
