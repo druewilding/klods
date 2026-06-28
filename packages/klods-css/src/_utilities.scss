@@ -77,6 +77,13 @@
     min-height: 0;
   }
 
+  // Narrow stack — constrains width for forms and single-column flows
+  .klods-stack--narrow {
+    max-width: var(--klods-content-narrow);
+    margin-inline: auto;
+    width: 100%;
+  }
+
   // Gap modifiers — work on stack / cluster / row / grid
   @for $i from 0 through 8 {
     .klods-stack--gap-#{$i},

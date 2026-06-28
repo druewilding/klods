@@ -11,4 +11,9 @@ export const examples: KlodsNode[] = [
     title: "Stack — vertical with gap",
     render: () => stack({ gap: 3 }, [box("one"), box("two"), box("three")]),
   }),
+  example({
+    title: "Stack — narrow",
+    description: "Constrains width and centers — useful for forms and single-column flows.",
+    render: () => stack({ gap: 3, narrow: true }, [box("one"), box("two"), box("three")]),
+  }),
 ];
