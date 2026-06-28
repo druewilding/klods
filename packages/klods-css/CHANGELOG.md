@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.24.0](https://github.com/druewilding/klods/compare/klods-css-v1.23.1...klods-css-v1.24.0) (2026-06-28)
+
+
+### Features
+
+* Add a link component with plain version ([#128](https://github.com/druewilding/klods/issues/128)) ([2f0516d](https://github.com/druewilding/klods/commit/2f0516ded0c128c25374145b1e8349f740de4382))
+
 ## [1.23.1](https://github.com/druewilding/klods/compare/klods-css-v1.23.0...klods-css-v1.23.1) (2026-06-28)
 
 
