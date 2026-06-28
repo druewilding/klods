@@ -11,6 +11,7 @@ export * from "./components/code.js";
 export * from "./components/details.js";
 export * from "./components/dl.js";
 export * from "./components/form.js";
+export * from "./components/link.js";
 export * from "./components/list.js";
 export * from "./components/modal.js";
 export * from "./components/nav.js";
