@@ -89,12 +89,12 @@ ul([li("Tiny"), li("Themeable"), li("SSR-ready")]);
 
 ## Packages
 
-| Package                                                   | Registry                                                                                  | Description                                      |
-| --------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| [`klods-css`](packages/klods-css)                         | [![npm](https://img.shields.io/npm/v/klods-css)](https://www.npmjs.com/package/klods-css) | The stylesheet. Use it on its own.               |
-| [`klods-js`](packages/klods-js)                           | [![npm](https://img.shields.io/npm/v/klods-js)](https://www.npmjs.com/package/klods-js)   | TypeScript builder API (ESM/CJS/UMD).            |
-| [`klods-ruby`](https://github.com/druewilding/klods-ruby) | [![gem](https://img.shields.io/gem/v/klods-ruby)](https://rubygems.org/gems/klods-ruby)   | Ruby builder API — same components in Rails/ERB. |
-| [`apps/docs`](apps/docs)                                  |                                                                                           | Self-generating documentation site.              |
+| Package                                                   | Registry                                                                                  | Description                                           |
+| --------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| [`klods-css`](packages/klods-css)                         | [![npm](https://img.shields.io/npm/v/klods-css)](https://www.npmjs.com/package/klods-css) | The stylesheet. Use it on its own.                    |
+| [`klods-js`](packages/klods-js)                           | [![npm](https://img.shields.io/npm/v/klods-js)](https://www.npmjs.com/package/klods-js)   | TypeScript builder API (ESM/CJS/UMD).                 |
+| [`klods-ruby`](https://github.com/druewilding/klods-ruby) | [![gem](https://img.shields.io/gem/v/klods-ruby)](https://rubygems.org/gems/klods-ruby)   | Ruby builder API — same components in Rails/ERB/HAML. |
+| [`apps/docs`](apps/docs)                                  |                                                                                           | Self-generating documentation site.                   |
 
 ## Develop
 
