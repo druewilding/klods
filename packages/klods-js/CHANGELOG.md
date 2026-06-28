@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.1](https://github.com/druewilding/klods/compare/klods-js-v3.4.0...klods-js-v3.4.1) (2026-06-28)
+
+
+### Bug Fixes
+
+* Move toc out of nav ([#132](https://github.com/druewilding/klods/issues/132)) ([22a6006](https://github.com/druewilding/klods/commit/22a6006bc03157afa71523f7bb79be37c4cf1684))
+
 ## [3.4.0](https://github.com/druewilding/klods/compare/klods-js-v3.3.0...klods-js-v3.4.0) (2026-06-28)
 
 
