@@ -13,6 +13,7 @@ import {
   fill,
   footer,
   header,
+  link,
   page,
   push,
   row,
@@ -125,7 +126,7 @@ function shell(): KlodsNode {
     header([
       sidebarToggle({ onClick: (e: MouseEvent) => toggleSidebar(e.currentTarget as HTMLElement) }),
       fill([
-        strong({ style: "font-size: 1.25rem;" }, "klods"),
+        link({ href: "/", plain: true }, strong({ style: "font-size: 1.25rem;" }, "klods")),
         span({ class: "klods-badge" }, `v${__KLODS_VERSION__}`),
       ]),
       a(
