@@ -1,5 +1,5 @@
 import type { KlodsAttrs, KlodsChild } from "../core.js";
-import { builder, el, KlodsNode, normalizeArgs, tagBuilder } from "../core.js";
+import { builder, el, KlodsNode, normalizeArgs } from "../core.js";
 import { menuIcon } from "../icons.js";
 
 export const nav = builder({ tag: "nav", base: "klods-nav" });
