@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.28.1](https://github.com/druewilding/klods/compare/klods-css-v1.28.0...klods-css-v1.28.1) (2026-06-29)
+
+
+### Bug Fixes
+
+* Give iframes a default border radius of --klods-radius-md ([#145](https://github.com/druewilding/klods/issues/145)) ([cce615f](https://github.com/druewilding/klods/commit/cce615fbd5491e08a5dcc941937f2fb25baa7370))
+
 ## [1.28.0](https://github.com/druewilding/klods/compare/klods-css-v1.27.0...klods-css-v1.28.0) (2026-06-29)
 
 
