@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.27.0](https://github.com/druewilding/klods/compare/klods-css-v1.26.0...klods-css-v1.27.0) (2026-06-29)
+
+
+### Features
+
+* Implement per-component overriding themes ([#139](https://github.com/druewilding/klods/issues/139)) ([0e21da9](https://github.com/druewilding/klods/commit/0e21da9ade582fa95667bca286ea301440ef5fdb))
+
 ## [1.26.0](https://github.com/druewilding/klods/compare/klods-css-v1.25.1...klods-css-v1.26.0) (2026-06-29)
 
 
