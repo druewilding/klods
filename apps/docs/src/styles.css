@@ -96,35 +96,28 @@
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--klods-color-muted);
-  margin: 0 0 var(--klods-space-2);
+  margin: 0 0 var(--klods-space-3);
 }
 
-.tb__field {
-  display: flex;
-  align-items: center;
-  gap: var(--klods-space-3);
-  padding-block: var(--klods-space-2);
-  border-bottom: 1px solid var(--klods-color-border);
-  cursor: default;
+/* Two-column grid inside the Colors group */
+.tb__fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--klods-space-4);
 }
 
-.tb__field:last-child {
-  border-bottom: none;
-}
-
-.tb__field-token {
-  flex: 1;
-  min-width: 0;
+/* Token name shown as the klods-label — use mono so it reads like CSS */
+.tb__token-field .klods-label {
   font-family: var(--klods-font-mono);
-  font-size: var(--klods-font-size-sm);
-  color: var(--klods-color-muted);
+  font-size: 0.75rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.tb__input {
-  width: 10rem;
+/* Narrow text inputs so Radius/Typography columns stay compact */
+.tb__text-input {
+  width: 100%;
   font-family: var(--klods-font-mono);
   font-size: var(--klods-font-size-sm);
 }

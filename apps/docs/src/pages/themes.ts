@@ -7,8 +7,10 @@ import {
   cardTitle,
   code,
   el,
+  field,
   h2,
   h3,
+  input,
   li,
   p,
   pre,
@@ -28,53 +30,67 @@ export const themesLinks: Array<{ label: string; anchor: string }> = [
 ];
 
 // ── Theme builder ──────────────────────────────────────────────────────────
-const TOKEN_GROUPS = [
+type TokenDef = { token: string; label: string; kind: "color" | "text" };
+
+const TOKEN_GROUPS: Array<{ label: string; tokens: TokenDef[] }> = [
   {
     label: "Colors",
     tokens: [
-      { token: "--klods-color-bg", label: "Background" },
-      { token: "--klods-color-fg", label: "Foreground" },
-      { token: "--klods-color-muted", label: "Muted text" },
-      { token: "--klods-color-surface", label: "Surface" },
-      { token: "--klods-color-surface-2", label: "Surface 2" },
-      { token: "--klods-color-border", label: "Border" },
-      { token: "--klods-color-accent", label: "Accent" },
-      { token: "--klods-color-accent-fg", label: "Accent text" },
-      { token: "--klods-color-danger", label: "Danger" },
-      { token: "--klods-color-success", label: "Success" },
-      { token: "--klods-color-warning", label: "Warning" },
-      { token: "--klods-color-info", label: "Info" },
+      { token: "--klods-color-bg", label: "Background", kind: "color" },
+      { token: "--klods-color-fg", label: "Foreground", kind: "color" },
+      { token: "--klods-color-muted", label: "Muted text", kind: "color" },
+      { token: "--klods-color-surface", label: "Surface", kind: "color" },
+      { token: "--klods-color-surface-2", label: "Surface 2", kind: "color" },
+      { token: "--klods-color-border", label: "Border", kind: "color" },
+      { token: "--klods-color-accent", label: "Accent", kind: "color" },
+      { token: "--klods-color-accent-fg", label: "Accent text", kind: "color" },
+      { token: "--klods-color-danger", label: "Danger", kind: "color" },
+      { token: "--klods-color-success", label: "Success", kind: "color" },
+      { token: "--klods-color-warning", label: "Warning", kind: "color" },
+      { token: "--klods-color-info", label: "Info", kind: "color" },
     ],
   },
   {
     label: "Radius",
     tokens: [
-      { token: "--klods-radius-sm", label: "Small" },
-      { token: "--klods-radius-md", label: "Medium" },
-      { token: "--klods-radius-lg", label: "Large" },
-      { token: "--klods-radius-pill", label: "Pill" },
+      { token: "--klods-radius-sm", label: "Small", kind: "text" },
+      { token: "--klods-radius-md", label: "Medium", kind: "text" },
+      { token: "--klods-radius-lg", label: "Large", kind: "text" },
+      { token: "--klods-radius-pill", label: "Pill", kind: "text" },
     ],
   },
   {
     label: "Typography",
     tokens: [
-      { token: "--klods-font-sans", label: "Sans font" },
-      { token: "--klods-font-mono", label: "Mono font" },
-      { token: "--klods-font-size-base", label: "Base size" },
+      { token: "--klods-font-sans", label: "Sans font", kind: "text" },
+      { token: "--klods-font-mono", label: "Mono font", kind: "text" },
+      { token: "--klods-font-size-base", label: "Base size", kind: "text" },
     ],
   },
 ];
 
-const ALL_TOKENS = TOKEN_GROUPS.flatMap((g) => g.tokens.map((t) => t.token));
+const ALL_TOKEN_DEFS = TOKEN_GROUPS.flatMap((g) => g.tokens);
 
 function tbTokenId(token: string): string {
   return `tb-${token.slice(2)}`; // "--klods-color-bg" → "tb-klods-color-bg"
 }
 
+function cssColorToHex(color: string): string {
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 1;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return "#000000";
+  ctx.fillStyle = "#000000";
+  ctx.fillStyle = color; // may be oklch, rgb, hex — browser normalises it
+  ctx.fillRect(0, 0, 1, 1);
+  const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+  return "#" + [r ?? 0, g ?? 0, b ?? 0].map((x) => x.toString(16).padStart(2, "0")).join("");
+}
+
 function tbUpdateOutput(): void {
-  const overrides = ALL_TOKENS.map((t) => ({
-    token: t,
-    val: document.documentElement.style.getPropertyValue(t).trim(),
+  const overrides = ALL_TOKEN_DEFS.map(({ token }) => ({
+    token,
+    val: document.documentElement.style.getPropertyValue(token).trim(),
   })).filter(({ val }) => val !== "");
 
   const textarea = document.getElementById("tb-output") as HTMLTextAreaElement | null;
@@ -85,11 +101,27 @@ function tbUpdateOutput(): void {
     : "/* No overrides yet — change a token above */";
 }
 
-function tbSyncPlaceholders(): void {
+function tbSetColorInputValue(token: string, hex: string): void {
+  const inp = document.getElementById(tbTokenId(token)) as HTMLInputElement | null;
+  if (!inp) return;
+  inp.value = hex;
+  // also sync the klods <output> element that shows the hex string
+  const out = inp.closest(".klods-input--color")?.querySelector("output");
+  if (out) out.textContent = hex;
+}
+
+function tbSyncValues(): void {
   const cs = getComputedStyle(document.documentElement);
-  for (const token of ALL_TOKENS) {
-    const input = document.getElementById(tbTokenId(token)) as HTMLInputElement | null;
-    if (input) input.placeholder = cs.getPropertyValue(token).trim();
+  for (const { token, kind } of ALL_TOKEN_DEFS) {
+    const hasOverride = document.documentElement.style.getPropertyValue(token).trim() !== "";
+    if (hasOverride) continue; // don't clobber user's active override
+    const raw = cs.getPropertyValue(token).trim();
+    if (kind === "color") {
+      tbSetColorInputValue(token, cssColorToHex(raw));
+    } else {
+      const inp = document.getElementById(tbTokenId(token)) as HTMLInputElement | null;
+      if (inp) inp.value = raw;
+    }
   }
 }
 
@@ -109,22 +141,48 @@ function tbCopy(): void {
 }
 
 function tbReset(): void {
-  for (const token of ALL_TOKENS) {
+  for (const { token, kind } of ALL_TOKEN_DEFS) {
     document.documentElement.style.removeProperty(token);
-    const input = document.getElementById(tbTokenId(token)) as HTMLInputElement | null;
-    if (input) input.value = "";
+    if (kind === "text") {
+      const inp = document.getElementById(tbTokenId(token)) as HTMLInputElement | null;
+      if (inp) inp.value = "";
+    }
   }
-  tbSyncPlaceholders();
+  tbSyncValues();
   tbUpdateOutput();
 }
 
 export function initThemeBuilder(): void {
-  tbSyncPlaceholders();
+  tbSyncValues();
   tbUpdateOutput();
-  // Re-sync placeholders when the active theme changes so they reflect the new theme's values.
+  // Re-sync values when the active theme changes so pickers reflect the new theme.
   for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-theme-id]")) {
-    btn.addEventListener("click", () => requestAnimationFrame(tbSyncPlaceholders));
+    btn.addEventListener("click", () => requestAnimationFrame(tbSyncValues));
   }
+}
+
+function tokenField({ token, label, kind }: TokenDef): KlodsNode {
+  return field(
+    { label, id: tbTokenId(token), class: "tb__token-field" },
+    (id) =>
+      input({
+        id,
+        type: kind,
+        // Use camelCase onInput so it goes into ...rest and reaches the DOM
+        // directly — the form builder only destructures lowercase `oninput`.
+        onInput: (e: Event) => {
+          const inp = e.target as HTMLInputElement;
+          const val = inp.value.trim();
+          if (kind === "text" && !val) {
+            document.documentElement.style.removeProperty(token);
+          } else if (val) {
+            document.documentElement.style.setProperty(token, val);
+          }
+          tbUpdateOutput();
+        },
+        ...(kind === "text" ? { class: "tb__text-input" } : {}),
+      })
+  );
 }
 
 function themeBuilderSection(): KlodsNode {
@@ -136,32 +194,17 @@ function themeBuilderSection(): KlodsNode {
         " When you're happy, copy the generated ",
         code(":root { … }"),
         " block into your own stylesheet.",
-        " Clearing a field restores the active theme's value.",
+        " Clearing a text field restores the active theme's value.",
+        " Switching themes re-syncs the color pickers.",
       ]),
     ]),
     el("div", { class: "tb__groups" }, TOKEN_GROUPS.map((group) =>
       el("div", { class: "tb__group" }, [
         el("p", { class: "tb__group-label" }, group.label),
-        ...group.tokens.map(({ token, label }) =>
-          el("label", { class: "tb__field", title: label }, [
-            el("span", { class: "tb__field-token" }, token),
-            el("input", {
-              id: tbTokenId(token),
-              type: "text",
-              class: "klods-input tb__input",
-              "data-token": token,
-              spellcheck: "false",
-              onInput: (e: Event) => {
-                const val = (e.target as HTMLInputElement).value.trim();
-                if (val) {
-                  document.documentElement.style.setProperty(token, val);
-                } else {
-                  document.documentElement.style.removeProperty(token);
-                }
-                tbUpdateOutput();
-              },
-            }),
-          ])
+        el(
+          "div",
+          { class: group.label === "Colors" ? "tb__fields-grid" : "tb__fields" },
+          group.tokens.map(tokenField)
         ),
       ])
     )),
