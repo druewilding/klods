@@ -1,3 +1,3 @@
 // Establish the cascade-layer order. Consumer styles outside these layers
 // always win, so themes can be overridden without specificity tricks.
-@layer klods.reset, klods.tokens, klods.themes, klods.layout, klods.components, klods.utilities;
+@layer klods.reset, klods.tokens, klods.themes, klods.layout, klods.components, klods.utilities, klods.print;

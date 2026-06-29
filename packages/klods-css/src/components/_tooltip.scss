@@ -74,9 +74,5 @@
       opacity: 1;
       pointer-events: auto;
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
   }
 }

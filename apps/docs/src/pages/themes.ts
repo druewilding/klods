@@ -1,10 +1,29 @@
 import type { KlodsNode } from "klods-js";
-import { card, cardBody, cardTitle, code, h2, li, p, pre, prose, stack, ul } from "klods-js";
+import {
+  badge,
+  button,
+  card,
+  cardBody,
+  cardTitle,
+  code,
+  el,
+  h2,
+  h3,
+  li,
+  p,
+  pre,
+  prose,
+  row,
+  stack,
+  ul,
+} from "klods-js";
 
 export function renderThemesSection(): KlodsNode {
-  return stack({ gap: 5 }, [
+  return stack({ gap: 6 }, [
     h2("Themes"),
     p({ class: "klods-lead" }, "Switch the theme using the buttons in the header — the whole site re-skins."),
+
+    // ── Theming basics ─────────────────────────────────────────────────────
     prose([
       p([
         "Themes are pure CSS-variable overrides keyed off ",
@@ -22,7 +41,7 @@ export function renderThemesSection(): KlodsNode {
         li([code("playful"), " — pink and round."]),
         li([code("brutalist"), " — black borders, hard shadows."]),
       ]),
-      p("Roll your own by overriding any of the --klods-* tokens. There is no compile-time required."),
+      p("Roll your own by overriding any of the --klods-* tokens. No compile step required."),
       pre(
         code(`:root[data-theme="ocean"] {
   --klods-color-bg: #001b29;
@@ -35,6 +54,7 @@ export function renderThemesSection(): KlodsNode {
 }`)
       ),
     ]),
+
     card([
       cardTitle("Tokens cheat-sheet"),
       cardBody([
@@ -50,6 +70,86 @@ export function renderThemesSection(): KlodsNode {
 --klods-content-max / -sidebar-width / -header-height / -gutter
 --klods-transition`)
         ),
+      ]),
+    ]),
+
+    // ── Compact density ────────────────────────────────────────────────────
+    h3("Compact density"),
+    prose([
+      p([
+        "Set ",
+        code('data-density="compact"'),
+        " on ",
+        code("<html>"),
+        " (or any container) to tighten all spacing tokens to roughly 75% of their defaults.",
+        " Useful for data-dense UIs or when fitting more content on screen.",
+      ]),
+      pre(code('document.documentElement.setAttribute("data-density", "compact")')),
+    ]),
+    card([
+      cardTitle("Default density"),
+      cardBody(
+        stack({ gap: 4 }, [
+          row({ gap: 3 }, [button("Action"), button({ variant: "primary" }, "Primary"), badge("New")]),
+          p({ class: "klods-muted" }, "Standard spacing — --klods-space-4 is 1rem (16px)."),
+        ])
+      ),
+    ]),
+    el("div", { "data-density": "compact" }, [
+      card([
+        cardTitle("Compact density"),
+        cardBody(
+          stack({ gap: 4 }, [
+            row({ gap: 3 }, [button("Action"), button({ variant: "primary" }, "Primary"), badge("New")]),
+            p({ class: "klods-muted" }, "Compact spacing — --klods-space-4 is 0.75rem (12px)."),
+          ])
+        ),
+      ]),
+    ]),
+
+    // ── Reduced motion ─────────────────────────────────────────────────────
+    h3("Reduced motion"),
+    prose([
+      p([
+        "klods respects the system ",
+        code("prefers-reduced-motion"),
+        " preference automatically.",
+        " When it is set to ",
+        code("reduce"),
+        ", the ",
+        code("--klods-transition"),
+        " token is set to ",
+        code("0ms"),
+        ", eliminating all transitions and shortening animation durations to zero.",
+      ]),
+      p(["You can simulate this in CSS without changing system settings:"]),
+      pre(code(":root { --klods-transition: 0ms; }")),
+    ]),
+
+    // ── Print styles ───────────────────────────────────────────────────────
+    h3("Print styles"),
+    prose([
+      p([
+        "klods ships ",
+        code("@layer klods.print"),
+        " with sensible print defaults.",
+        " The layer sits at the top of the cascade so it wins cleanly without ",
+        code("!important"),
+        ".",
+      ]),
+      ul([
+        li([
+          "Hides ",
+          code(".klods-sidebar"),
+          ", ",
+          code(".klods-sidebar-toggle"),
+          ", modals, toasts, and tooltip tips.",
+        ]),
+        li("Collapses the sidebar grid to a single column."),
+        li("Removes sticky header positioning."),
+        li("Expands all closed disclosure elements so their content prints."),
+        li("Removes box shadows."),
+        li(["Adds ", code("break-inside: avoid"), " to cards, list items, and description lists."]),
       ]),
     ]),
   ]);

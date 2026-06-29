@@ -50,6 +50,10 @@
 
     @media (prefers-reduced-motion: reduce) {
       transition: none;
+
+      &::backdrop {
+        transition: none;
+      }
     }
   }
 
