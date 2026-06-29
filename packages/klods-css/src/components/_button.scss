@@ -8,10 +8,10 @@
     padding: var(--klods-space-2) var(--klods-space-4);
     font: inherit;
     font-weight: 600;
-    color: var(--klods-color-fg);
-    background: var(--klods-color-surface-2);
-    border: 1px solid var(--klods-color-border);
-    border-radius: var(--klods-radius-sm);
+    color: var(--klods-button-fg);
+    background: var(--klods-button-bg);
+    border: 1px solid var(--klods-button-border);
+    border-radius: var(--klods-button-radius);
     cursor: pointer;
     text-decoration: none;
     transition:

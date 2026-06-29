@@ -73,6 +73,96 @@ export function renderThemesSection(): KlodsNode {
       ]),
     ]),
 
+    // ── Per-component theming ──────────────────────────────────────────────
+    h3("Per-component theming"),
+    prose([
+      p([
+        "Key components expose their own scoped tokens that fall back to global design tokens.",
+        " Set the scoped token anywhere in the DOM — the custom property inherits down — and only",
+        " that component type is affected inside that scope.",
+      ]),
+      pre(
+        code(`/* Re-skin cards in one section — global tokens stay untouched */
+.my-panel {
+  --klods-card-bg: color-mix(in srgb, var(--klods-color-accent) 8%, var(--klods-color-bg));
+  --klods-card-border: var(--klods-color-accent);
+  --klods-card-radius: var(--klods-radius-lg);
+}
+
+/* Pill buttons in one form */
+.my-form {
+  --klods-button-radius: var(--klods-radius-pill);
+}
+
+/* Green tabs in a sidebar widget */
+.my-widget {
+  --klods-tabs-active: var(--klods-color-success);
+}`)
+      ),
+      p("All scoped tokens and their defaults:"),
+      pre(
+        code(`/* Card */
+--klods-card-bg:     var(--klods-color-surface)
+--klods-card-border: var(--klods-color-border)
+--klods-card-radius: var(--klods-radius-md)
+
+/* Button (default variant) */
+--klods-button-bg:     var(--klods-color-surface-2)
+--klods-button-fg:     var(--klods-color-fg)
+--klods-button-border: var(--klods-color-border)
+--klods-button-radius: var(--klods-radius-sm)
+
+/* Badge (default variant) */
+--klods-badge-bg: var(--klods-color-surface-2)
+--klods-badge-fg: var(--klods-color-fg)
+
+/* Modal */
+--klods-modal-bg:     var(--klods-color-surface)
+--klods-modal-radius: var(--klods-radius-lg)
+
+/* Tabs */
+--klods-tabs-active: var(--klods-color-accent)
+
+/* Tooltip */
+--klods-tooltip-bg: oklch(20% 0.01 264)
+--klods-tooltip-fg: oklch(98% 0 0)`)
+      ),
+    ]),
+    row({ gap: 4 }, [
+      el(
+        "div",
+        { style: "flex:1" },
+        card([
+          cardTitle("Default card"),
+          cardBody(
+            p({ class: "klods-muted" }, "No overrides — uses --klods-card-bg which defaults to --klods-color-surface.")
+          ),
+        ])
+      ),
+      el(
+        "div",
+        {
+          style: [
+            "flex:1",
+            "--klods-card-bg: color-mix(in srgb, var(--klods-color-accent) 8%, var(--klods-color-bg))",
+            "--klods-card-border: var(--klods-color-accent)",
+            "--klods-card-radius: var(--klods-radius-lg)",
+            "--klods-button-radius: var(--klods-radius-pill)",
+          ].join(";"),
+        },
+        card([
+          cardTitle("Scoped overrides"),
+          cardBody([
+            p(
+              { class: "klods-muted" },
+              "Parent sets --klods-card-bg, --klods-card-border, --klods-card-radius, --klods-button-radius."
+            ),
+            button("Pill button"),
+          ]),
+        ])
+      ),
+    ]),
+
     // ── Compact density ────────────────────────────────────────────────────
     h3("Compact density"),
     prose([
