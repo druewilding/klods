@@ -154,9 +154,7 @@ export function input(props: InputProps & KlodsAttrs): KlodsNode {
         oninput: (e: Event) => {
           const hexInp = e.target as HTMLInputElement;
           if (/^#[0-9a-fA-F]{6}$/.test(hexInp.value)) {
-            const colorInp = hexInp
-              .closest(".klods-input--color")
-              ?.querySelector<HTMLInputElement>('[type="color"]');
+            const colorInp = hexInp.closest(".klods-input--color")?.querySelector<HTMLInputElement>('[type="color"]');
             if (colorInp) {
               colorInp.value = hexInp.value;
               // Dispatch on the color input so userOninput fires with the right target.
