@@ -58,9 +58,9 @@
   }
 
   .klods-modal__panel {
-    background: var(--klods-color-surface);
-    border: 1px solid var(--klods-color-border);
-    border-radius: var(--klods-radius-lg);
+    background: var(--klods-modal-bg);
+    border: 1px solid var(--klods-card-border);
+    border-radius: var(--klods-modal-radius);
     padding: var(--klods-space-6);
     display: flex;
     flex-direction: column;

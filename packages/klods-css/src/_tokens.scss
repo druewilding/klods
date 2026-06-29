@@ -70,6 +70,17 @@ $klods-bp-lg: 64rem; // 1024px — desktop
     // ── Component-scoped tokens ────────────────────────────────────────────
     // These fall back to global tokens by default and can be overridden per
     // theme or per component instance.
+    --klods-card-bg: var(--klods-color-surface);
+    --klods-card-border: var(--klods-color-border);
+    --klods-card-radius: var(--klods-radius-md);
+    --klods-button-bg: var(--klods-color-surface-2);
+    --klods-button-fg: var(--klods-color-fg);
+    --klods-button-border: var(--klods-color-border);
+    --klods-button-radius: var(--klods-radius-sm);
+    --klods-badge-bg: var(--klods-color-surface-2);
+    --klods-badge-fg: var(--klods-color-fg);
+    --klods-modal-bg: var(--klods-color-surface);
+    --klods-modal-radius: var(--klods-radius-lg);
     --klods-tabs-active: var(--klods-color-accent);
     --klods-tooltip-bg: oklch(20% 0.01 264);
     --klods-tooltip-fg: oklch(98% 0 0);

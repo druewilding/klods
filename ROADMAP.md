@@ -136,12 +136,12 @@ Both `klods-js` and `klods-ruby` needed a way to render a button-styled link. Th
 ## Phase 5 — Theming polish & DX
 
 1. **Theme builder page** in the docs — sliders / inputs that mutate `--klods-*` on `<html>` so users can hand-tune a theme and copy a `:root` block out. (Still no editable code, just visual token tuning.)
-2. **Per-component theming guide** — show overriding `--klods-card-bg` etc. Introduce **scoped tokens**: each component reads its own `--klods-card-bg` falling back to `--klods-color-surface`.
+2. ✅ **Per-component theming guide** — scoped tokens added for card (`--klods-card-bg/border/radius`), button (`--klods-button-bg/fg/border/radius`), badge (`--klods-badge-bg/fg`), and modal (`--klods-modal-bg/radius`). Each falls back to the corresponding global token so there are zero breaking changes. Tabs, tooltip, and code syntax tokens already existed. Docs section added with a live side-by-side demo and full token reference.
 3. ✅ **Reduced motion** — `prefers-reduced-motion: reduce` sets `--klods-transition: 0ms` in `@layer klods.tokens`, eliminating all transitions in one place. Modal `::backdrop` gets an explicit `transition: none` for safety with `allow-discrete`.
 4. ✅ **Print styles** — `@layer klods.print` (last in the cascade stack, wins without `!important`). Hides sidebar, nav toggle, modals, toasts, tooltips; collapses sidebar grid; removes sticky headers; expands closed `<details>`; removes shadows; adds `break-inside: avoid` on cards and list items.
 5. ✅ **Density modifier** — `[data-density="compact"]` in `@layer klods.tokens` drops all `--klods-space-*` tokens to ~75% of defaults. Inherits via CSS custom properties so it works on `<html>` or any container.
 
-_Partially done: `data-theme` switching with URL persistence ships in v1.5. Items 3–5 shipped together. The theme builder page and scoped tokens are still to come._
+_Partially done: `data-theme` switching with URL persistence ships in v1.5. Items 2–5 shipped. Only the theme builder page remains._
 
 ---
 
@@ -203,7 +203,7 @@ The lowest-risk, highest-leverage path from here:
 | 4 (data)                | ✅ done                                                                                                                 |
 | 4b (klods-ruby)         | ✅ done (v1.0.0, druewilding/klods-ruby)                                                                                |
 | 4c (button as link)     | ✅ done (CSS-only; documented `a.klods-button` pattern)                                                                 |
-| 5 (theming)             | partial — reduced motion, print, density done; builder & scoped tokens still to come                                    |
+| 5 (theming)             | partial — scoped tokens, reduced motion, print, density done; theme builder page still to come                          |
 | 6                       | partial — rails-server-template & express-server-template exist; CDN docs, CodeSandbox, pre-rendered docs still to come |
 | 7                       | not started                                                                                                             |
 | 8 (stability)           | ongoing                                                                                                                 |
