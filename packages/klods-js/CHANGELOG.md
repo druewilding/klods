@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.0](https://github.com/druewilding/klods/compare/klods-js-v3.4.1...klods-js-v3.5.0) (2026-06-29)
+
+
+### Features
+
+* Make color input fields have editable hex codes ([#141](https://github.com/druewilding/klods/issues/141)) ([d64dca9](https://github.com/druewilding/klods/commit/d64dca9023ec9b060b72e204902b6019e68b9693))
+
 ## [3.4.1](https://github.com/druewilding/klods/compare/klods-js-v3.4.0...klods-js-v3.4.1) (2026-06-28)
 
 
