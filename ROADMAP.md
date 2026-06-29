@@ -193,16 +193,16 @@ The lowest-risk, highest-leverage path from here:
 
 | Phase                   | Status                                                                                                                  |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| 0                       | ✅ done                                                                                                                  |
-| 1                       | ✅ done                                                                                                                  |
-| Post-Phase-1            | ✅ done (v1.1–v1.10)                                                                                                     |
-| 2 (forms)               | ✅ done                                                                                                                  |
-| 2b (responsive)         | ✅ done                                                                                                                  |
-| 2c (builder ergonomics) | ✅ done (klods-js v2.0)                                                                                                  |
-| 3 (interactive)         | ✅ done (modal, tabs, toast, tooltip, details)                                                                           |
-| 4 (data)                | ✅ done                                                                                                                  |
-| 4b (klods-ruby)         | ✅ done (v1.0.0, druewilding/klods-ruby)                                                                                 |
-| 4c (button as link)     | ✅ done (CSS-only; documented `a.klods-button` pattern)                                                                  |
+| 0                       | ✅ done                                                                                                                 |
+| 1                       | ✅ done                                                                                                                 |
+| Post-Phase-1            | ✅ done (v1.1–v1.10)                                                                                                    |
+| 2 (forms)               | ✅ done                                                                                                                 |
+| 2b (responsive)         | ✅ done                                                                                                                 |
+| 2c (builder ergonomics) | ✅ done (klods-js v2.0)                                                                                                 |
+| 3 (interactive)         | ✅ done (modal, tabs, toast, tooltip, details)                                                                          |
+| 4 (data)                | ✅ done                                                                                                                 |
+| 4b (klods-ruby)         | ✅ done (v1.0.0, druewilding/klods-ruby)                                                                                |
+| 4c (button as link)     | ✅ done (CSS-only; documented `a.klods-button` pattern)                                                                 |
 | 5 (theming)             | partial — reduced motion, print, density done; builder & scoped tokens still to come                                    |
 | 6                       | partial — rails-server-template & express-server-template exist; CDN docs, CodeSandbox, pre-rendered docs still to come |
 | 7                       | not started                                                                                                             |

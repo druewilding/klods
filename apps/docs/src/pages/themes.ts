@@ -90,11 +90,7 @@ export function renderThemesSection(): KlodsNode {
       cardTitle("Default density"),
       cardBody(
         stack({ gap: 4 }, [
-          row({ gap: 3 }, [
-            button("Action"),
-            button({ variant: "primary" }, "Primary"),
-            badge("New"),
-          ]),
+          row({ gap: 3 }, [button("Action"), button({ variant: "primary" }, "Primary"), badge("New")]),
           p({ class: "klods-muted" }, "Standard spacing — --klods-space-4 is 1rem (16px)."),
         ])
       ),
@@ -104,11 +100,7 @@ export function renderThemesSection(): KlodsNode {
         cardTitle("Compact density"),
         cardBody(
           stack({ gap: 4 }, [
-            row({ gap: 3 }, [
-              button("Action"),
-              button({ variant: "primary" }, "Primary"),
-              badge("New"),
-            ]),
+            row({ gap: 3 }, [button("Action"), button({ variant: "primary" }, "Primary"), badge("New")]),
             p({ class: "klods-muted" }, "Compact spacing — --klods-space-4 is 0.75rem (12px)."),
           ])
         ),
@@ -157,11 +149,7 @@ export function renderThemesSection(): KlodsNode {
         li("Removes sticky header positioning."),
         li("Expands all closed disclosure elements so their content prints."),
         li("Removes box shadows."),
-        li([
-          "Adds ",
-          code("break-inside: avoid"),
-          " to cards, list items, and description lists.",
-        ]),
+        li(["Adds ", code("break-inside: avoid"), " to cards, list items, and description lists."]),
       ]),
     ]),
   ]);
