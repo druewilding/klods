@@ -76,6 +76,80 @@
   user-select: none;
 }
 
+/* Theme builder */
+.tb__groups {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--klods-space-6);
+  margin-block: var(--klods-space-4);
+}
+
+@media (max-width: 48rem) {
+  .tb__groups {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tb__group-label {
+  font-size: var(--klods-font-size-sm);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--klods-color-muted);
+  margin: 0 0 var(--klods-space-3);
+}
+
+/* Two-column grid inside the Colors group */
+.tb__fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--klods-space-3) var(--klods-space-4);
+}
+
+/* Stacked layout for Radius and Typography groups */
+.tb__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--klods-space-3);
+}
+
+/* Token name shown as the klods-label — use mono so it reads like CSS */
+.tb__token-field .klods-label {
+  font-family: var(--klods-font-mono);
+  font-size: 0.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Narrow text inputs so Radius/Typography columns stay compact */
+.tb__text-input {
+  width: 100%;
+  font-family: var(--klods-font-mono);
+  font-size: var(--klods-font-size-sm);
+}
+
+.tb__preview {
+  padding: var(--klods-space-5);
+  border: 1px dashed var(--klods-color-border);
+  border-radius: var(--klods-radius-md);
+  background: var(--klods-color-bg);
+}
+
+.tb__output {
+  display: flex;
+  flex-direction: column;
+  gap: var(--klods-space-3);
+}
+
+.tb__textarea {
+  font-family: var(--klods-font-mono);
+  font-size: var(--klods-font-size-sm);
+  width: 100%;
+  min-height: 8rem;
+  resize: vertical;
+}
+
 .docs-example__source pre {
   margin: 0;
   padding: var(--klods-space-4);
