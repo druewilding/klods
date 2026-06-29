@@ -3,6 +3,7 @@ import {
   alert,
   badge,
   button,
+  buttonGroup,
   card,
   cardBody,
   cardTitle,
@@ -12,7 +13,9 @@ import {
   h2,
   h3,
   input,
+  lead,
   li,
+  muted,
   p,
   pre,
   prose,
@@ -212,22 +215,33 @@ function themeBuilderSection(): KlodsNode {
       card([
         cardTitle("Preview card"),
         cardBody([
-          p({ class: "klods-muted" }, "Changes apply instantly — try editing accent, surface, or radius above."),
-          row({ gap: 2, style: "margin-top:var(--klods-space-4)" }, [
-            button("Default"),
-            button({ variant: "primary" }, "Primary"),
-            button({ variant: "danger" }, "Danger"),
-          ]),
-          row({ gap: 2, style: "margin-top:var(--klods-space-4)" }, [
-            badge("Default"),
-            badge({ variant: "accent" }, "Accent"),
-            badge({ variant: "success" }, "Success"),
+          prose([
+            lead("Changes apply instantly."),
+            muted("Try editing some of the values above and see the changes here.")
           ]),
           stack({ gap: 2, style: "margin-top:var(--klods-space-4)" }, [
-            alert({ variant: "info" }, "This is an info alert."),
-            alert({ variant: "success" }, "This is a success alert."),
-            alert({ variant: "warning" }, "This is a warning alert."),
-            alert({ variant: "danger" }, "This is a danger alert."),
+            alert({ variant: "info" }, "Info alert"),
+            alert({ variant: "success" }, "Success alert"),
+            alert({ variant: "warning" }, "Warning alert"),
+            alert({ variant: "danger" }, "Danger alert"),
+          ]),
+          row({ gap: 2, style: "margin-top:var(--klods-space-4)" }, [
+            button("Default button"),
+            button({ variant: "primary" }, "Primary button"),
+            button({ variant: "danger" }, "Danger button"),
+            button({ variant: "ghost" }, "Ghost button"),
+          ]),
+          row({ gap: 2, style: "margin-top:var(--klods-space-4)" }, [
+            badge("Default badge"),
+            badge({ variant: "accent" }, "Accent badge"),
+            badge({ variant: "success" }, "Success badge"),
+            badge({ variant: "danger" }, "Danger badge"),
+          ]),
+          row({ gap: 2, style: "margin-top:var(--klods-space-4)" }, [
+            buttonGroup({ role: "group", "aria-label": "View" }, [
+              button({ variant: "ghost", "aria-pressed": "true" }, "Active"),
+              button({ variant: "ghost", "aria-pressed": "false" }, "Inactive"),
+            ])
           ]),
         ]),
       ]),
