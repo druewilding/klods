@@ -103,7 +103,14 @@
 .tb__fields-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: var(--klods-space-4);
+  gap: var(--klods-space-3) var(--klods-space-4);
+}
+
+/* Stacked layout for Radius and Typography groups */
+.tb__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--klods-space-3);
 }
 
 /* Token name shown as the klods-label — use mono so it reads like CSS */
