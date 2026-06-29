@@ -1,0 +1,50 @@
+@layer klods.print {
+  @media print {
+    @page {
+      margin: 1.5cm;
+    }
+
+    // Remove box shadows — they look bad on paper.
+    :root {
+      --klods-shadow-sm: none;
+      --klods-shadow-md: none;
+      --klods-shadow-lg: none;
+    }
+
+    // Hide interactive chrome that makes no sense in print.
+    .klods-sidebar,
+    .klods-sidebar-toggle,
+    .klods-toast-region,
+    dialog.klods-modal,
+    .klods-tooltip__tip {
+      display: none;
+    }
+
+    // Collapse the sidebar grid — single column for print.
+    .klods-page--with-sidebar,
+    .klods-page--with-sidebar.klods-page--sidebar-trailing {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "header"
+        "content"
+        "footer";
+    }
+
+    // Sticky header doesn't make sense on a printed page.
+    .klods-page--sticky-header .klods-header {
+      position: static;
+    }
+
+    // Expand all disclosure elements so their content prints.
+    details:not([open]) > *:not(summary) {
+      display: block;
+    }
+
+    // Avoid splitting cards, list items, and description lists across pages.
+    .klods-card,
+    .klods-list__item,
+    .klods-dl {
+      break-inside: avoid;
+    }
+  }
+}

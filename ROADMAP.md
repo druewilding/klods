@@ -127,19 +127,9 @@ All builders use `camelCase` → `snake_case`, otherwise 1-to-1 with TypeScript.
 
 ---
 
-## Phase 4c — Button as link
+## Phase 4c — Button as link (done ✅)
 
-Both `klods-js` and `klods-ruby` need a way to render a button-styled link — an `<a>` element that looks like a button. Currently `button` always renders `<button>` and passing `href` silently produces invalid HTML.
-
-**Needs implementation in both packages — keep HTML output identical.**
-
-Options to evaluate:
-
-- `button({ href: "/path" }, "Go")` → renders `<a class="klods-button" href="/path">` when `href` is present (auto-detect)
-- Separate `buttonLink` / `button_link` builder
-- CSS-only: document that `<a class="klods-button">` works as-is (no builder change needed)
-
-The CSS-only path may be the right answer — the BEM class already does all the styling work, so `a({ class: "klods-button" }, "Go")` works today. If the builder approach is chosen, make sure both packages ship the change in the same release so the API stays in sync.
+Both `klods-js` and `klods-ruby` needed a way to render a button-styled link. The CSS-only path was the right answer — the BEM class does all the styling work, so `a({ class: "klods-button" }, "Go")` works today and the same applies in klods-ruby with `a(class: "klods-button")`. No builder change needed; documented as the canonical pattern.
 
 ---
 
@@ -147,11 +137,11 @@ The CSS-only path may be the right answer — the BEM class already does all the
 
 1. **Theme builder page** in the docs — sliders / inputs that mutate `--klods-*` on `<html>` so users can hand-tune a theme and copy a `:root` block out. (Still no editable code, just visual token tuning.)
 2. **Per-component theming guide** — show overriding `--klods-card-bg` etc. Introduce **scoped tokens**: each component reads its own `--klods-card-bg` falling back to `--klods-color-surface`.
-3. **Reduced motion** — honour `prefers-reduced-motion` for transitions / animations.
-4. **Print styles** — `@layer klods.print` with sensible defaults.
-5. **Density modifier** — `[data-density="compact"]` shrinks all spacing tokens.
+3. ✅ **Reduced motion** — `prefers-reduced-motion: reduce` sets `--klods-transition: 0ms` in `@layer klods.tokens`, eliminating all transitions in one place. Modal `::backdrop` gets an explicit `transition: none` for safety with `allow-discrete`.
+4. ✅ **Print styles** — `@layer klods.print` (last in the cascade stack, wins without `!important`). Hides sidebar, nav toggle, modals, toasts, tooltips; collapses sidebar grid; removes sticky headers; expands closed `<details>`; removes shadows; adds `break-inside: avoid` on cards and list items.
+5. ✅ **Density modifier** — `[data-density="compact"]` in `@layer klods.tokens` drops all `--klods-space-*` tokens to ~75% of defaults. Inherits via CSS custom properties so it works on `<html>` or any container.
 
-_Partially done: `data-theme` switching with URL persistence ships in v1.5. The builder page and scoped tokens are still to come._
+_Partially done: `data-theme` switching with URL persistence ships in v1.5. Items 3–5 shipped together. The theme builder page and scoped tokens are still to come._
 
 ---
 
@@ -159,8 +149,8 @@ _Partially done: `data-theme` switching with URL persistence ships in v1.5. The 
 
 1. **CDN-friendly UMD bundle** — already built; add a `<script>`-tag example in docs and pin a jsDelivr / unpkg URL.
 2. **Tailwind preset** (optional) — exports spacing / colour tokens as a Tailwind config.
-3. **Rails example app** in `examples/rails-todo` — a tiny Rails 7 app using only `klods-css` via importmap. Doubles as a regression test.
-4. **Express / HTML example app** in `examples/express-ssr` — uses `klods-js` server-side via `.toString()`. Demonstrates SSR.
+3. **Rails example app** — [`druewilding/rails-server-template`](https://github.com/druewilding/rails-server-template) already smoke-tests klods-ruby in a real Rails 8 app (page layout, sidebar, TOC, API endpoint). The original `examples/rails-todo` plan is superseded by this; a more feature-complete standalone demo may follow.
+4. **Express / HTML example app** — [`druewilding/express-server-template`](https://github.com/druewilding/express-server-template) demonstrates `klods-js` used server-side via `.toString()`. Supersedes the original `examples/express-ssr` plan.
 5. **CodeSandbox templates** linked from the docs.
 6. **Pre-rendered docs** — the docs site is currently a client-side SPA (blank body with JS disabled). Two options: (a) a build-time SSG step that runs `main.ts` under Node, calls `.toString()` on every section, and writes static HTML into `dist/index.html`; or (b) a Vite SSG plugin (`vite-ssg` etc.). Option (a) is the most klods-native approach since `.toString()` is already designed for SSR. The library itself works perfectly without JS — this is purely a docs-site gap.
 
@@ -201,19 +191,19 @@ The lowest-risk, highest-leverage path from here:
 
 ## Status
 
-| Phase                   | Status                                         |
-| ----------------------- | ---------------------------------------------- |
-| 0                       | ✅ done                                        |
-| 1                       | ✅ done                                        |
-| Post-Phase-1            | ✅ done (v1.1–v1.10)                           |
-| 2 (forms)               | ✅ done                                        |
-| 2b (responsive)         | ✅ done                                        |
-| 2c (builder ergonomics) | ✅ done (klods-js v2.0)                        |
-| 3 (interactive)         | ✅ done (modal, tabs, toast, tooltip, details) |
-| 4 (data)                | ✅ done                                        |
-| 4b (klods-ruby)         | ✅ done (v1.0.0, druewilding/klods-ruby)       |
-| 4c (button as link)     | not started — see options in phase section     |
-| 5 (theming)             | partial (switcher done)                        |
-| 6                       | not started                                    |
-| 7                       | not started                                    |
-| 8 (stability)           | ongoing                                        |
+| Phase                   | Status                                                                                                                  |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| 0                       | ✅ done                                                                                                                  |
+| 1                       | ✅ done                                                                                                                  |
+| Post-Phase-1            | ✅ done (v1.1–v1.10)                                                                                                     |
+| 2 (forms)               | ✅ done                                                                                                                  |
+| 2b (responsive)         | ✅ done                                                                                                                  |
+| 2c (builder ergonomics) | ✅ done (klods-js v2.0)                                                                                                  |
+| 3 (interactive)         | ✅ done (modal, tabs, toast, tooltip, details)                                                                           |
+| 4 (data)                | ✅ done                                                                                                                  |
+| 4b (klods-ruby)         | ✅ done (v1.0.0, druewilding/klods-ruby)                                                                                 |
+| 4c (button as link)     | ✅ done (CSS-only; documented `a.klods-button` pattern)                                                                  |
+| 5 (theming)             | partial — reduced motion, print, density done; builder & scoped tokens still to come                                    |
+| 6                       | partial — rails-server-template & express-server-template exist; CDN docs, CodeSandbox, pre-rendered docs still to come |
+| 7                       | not started                                                                                                             |
+| 8 (stability)           | ongoing                                                                                                                 |

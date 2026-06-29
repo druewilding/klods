@@ -94,4 +94,23 @@ $klods-bp-lg: 64rem; // 1024px — desktop
       --klods-gutter: var(--klods-space-4);
     }
   }
+
+  // Kill all transitions for users who prefer reduced motion.
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --klods-transition: 0ms;
+    }
+  }
+
+  // Compact density — reduces all spacing tokens to ~75% of default.
+  [data-density="compact"] {
+    --klods-space-1: 0.1875rem; //  3px (default:  4px)
+    --klods-space-2: 0.375rem;  //  6px (default:  8px)
+    --klods-space-3: 0.5rem;    //  8px (default: 12px)
+    --klods-space-4: 0.75rem;   // 12px (default: 16px)
+    --klods-space-5: 1rem;      // 16px (default: 24px)
+    --klods-space-6: 1.5rem;    // 24px (default: 32px)
+    --klods-space-7: 2rem;      // 32px (default: 48px)
+    --klods-space-8: 3rem;      // 48px (default: 64px)
+  }
 }

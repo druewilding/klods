@@ -63,10 +63,5 @@
       padding: var(--klods-space-3) var(--klods-space-4);
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      > summary::after {
-        transition: none;
-      }
-    }
   }
 }
