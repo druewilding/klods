@@ -138,12 +138,31 @@ export function input(props: InputProps & KlodsAttrs): KlodsNode {
         id,
         oninput: (e: Event) => {
           const inp = e.target as HTMLInputElement;
-          inp.closest(".klods-input--color")?.querySelector("output")?.textContent !== undefined &&
-            (inp.closest(".klods-input--color")!.querySelector("output")!.textContent = inp.value);
+          const hex = inp.value;
+          const hexInp = inp.closest(".klods-input--color")?.querySelector<HTMLInputElement>(".klods-color-hex");
+          if (hexInp) hexInp.value = hex;
           (userOninput as ((e: Event) => void) | undefined)?.(e);
         },
       }),
-      el("output", { for: id }, initial),
+      el("input", {
+        type: "text",
+        class: "klods-color-hex",
+        value: initial,
+        maxlength: "7",
+        spellcheck: "false",
+        "aria-label": "Hex color value",
+        oninput: (e: Event) => {
+          const hexInp = e.target as HTMLInputElement;
+          if (/^#[0-9a-fA-F]{6}$/.test(hexInp.value)) {
+            const colorInp = hexInp.closest(".klods-input--color")?.querySelector<HTMLInputElement>('[type="color"]');
+            if (colorInp) {
+              colorInp.value = hexInp.value;
+              // Dispatch on the color input so userOninput fires with the right target.
+              colorInp.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+          }
+        },
+      }),
     ]);
   }
 

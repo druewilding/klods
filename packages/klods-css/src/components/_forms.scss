@@ -122,7 +122,7 @@
     align-items: center;
     gap: var(--klods-space-3);
 
-    input {
+    input[type="color"] {
       width: 2rem;
       height: 1.5rem;
       padding: 0;
@@ -130,6 +130,25 @@
       background: none;
       appearance: auto;
       cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .klods-color-hex {
+      flex: 1;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: inherit;
+      font-family: var(--klods-font-mono);
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &:focus-within {
+      border-color: var(--klods-color-accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--klods-color-accent) 20%, transparent);
     }
   }
 
