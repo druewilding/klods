@@ -1,5 +1,6 @@
 import type { KlodsNode } from "klods-js";
 import {
+  alert,
   badge,
   button,
   card,
@@ -208,21 +209,25 @@ function themeBuilderSection(): KlodsNode {
       ])
     )),
     el("div", { class: "tb__preview" }, [
-      row({ gap: 4, style: "flex-wrap:wrap; align-items:flex-start" }, [
-        card([
-          cardTitle("Preview card"),
-          cardBody([
-            p({ class: "klods-muted" }, "Changes apply instantly — try editing accent, surface, or radius above."),
-            row({ gap: 2, style: "margin-top:var(--klods-space-3)" }, [
-              button("Default"),
-              button({ variant: "primary" }, "Primary"),
-              button({ variant: "danger" }, "Danger"),
-            ]),
-            row({ gap: 2, style: "margin-top:var(--klods-space-2)" }, [
-              badge("Default"),
-              badge({ variant: "accent" }, "Accent"),
-              badge({ variant: "success" }, "Success"),
-            ]),
+      card([
+        cardTitle("Preview card"),
+        cardBody([
+          p({ class: "klods-muted" }, "Changes apply instantly — try editing accent, surface, or radius above."),
+          row({ gap: 2, style: "margin-top:var(--klods-space-4)" }, [
+            button("Default"),
+            button({ variant: "primary" }, "Primary"),
+            button({ variant: "danger" }, "Danger"),
+          ]),
+          row({ gap: 2, style: "margin-top:var(--klods-space-4)" }, [
+            badge("Default"),
+            badge({ variant: "accent" }, "Accent"),
+            badge({ variant: "success" }, "Success"),
+          ]),
+          stack({ gap: 2, style: "margin-top:var(--klods-space-4)" }, [
+            alert({ variant: "info" }, "This is an info alert."),
+            alert({ variant: "success" }, "This is a success alert."),
+            alert({ variant: "warning" }, "This is a warning alert."),
+            alert({ variant: "danger" }, "This is a danger alert."),
           ]),
         ]),
       ]),
