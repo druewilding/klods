@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.26.0](https://github.com/druewilding/klods/compare/klods-css-v1.25.1...klods-css-v1.26.0) (2026-06-29)
+
+
+### Features
+
+* Implement reduced motion, print styles and compact modifier ([#137](https://github.com/druewilding/klods/issues/137)) ([eb168f2](https://github.com/druewilding/klods/commit/eb168f20a611514573015699079ca9d47b67639c))
+
 ## [1.25.1](https://github.com/druewilding/klods/compare/klods-css-v1.25.0...klods-css-v1.25.1) (2026-06-28)
 
 
