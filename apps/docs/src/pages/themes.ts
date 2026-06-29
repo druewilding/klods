@@ -18,6 +18,187 @@ import {
   ul,
 } from "klods-js";
 
+// ── TOC sub-links ──────────────────────────────────────────────────────────
+export const themesLinks: Array<{ label: string; anchor: string }> = [
+  { label: "Per-component theming", anchor: "themes-per-component" },
+  { label: "Compact density", anchor: "themes-compact" },
+  { label: "Reduced motion", anchor: "themes-reduced-motion" },
+  { label: "Print styles", anchor: "themes-print" },
+  { label: "Theme builder", anchor: "themes-builder" },
+];
+
+// ── Theme builder ──────────────────────────────────────────────────────────
+const TOKEN_GROUPS = [
+  {
+    label: "Colors",
+    tokens: [
+      { token: "--klods-color-bg", label: "Background" },
+      { token: "--klods-color-fg", label: "Foreground" },
+      { token: "--klods-color-muted", label: "Muted text" },
+      { token: "--klods-color-surface", label: "Surface" },
+      { token: "--klods-color-surface-2", label: "Surface 2" },
+      { token: "--klods-color-border", label: "Border" },
+      { token: "--klods-color-accent", label: "Accent" },
+      { token: "--klods-color-accent-fg", label: "Accent text" },
+      { token: "--klods-color-danger", label: "Danger" },
+      { token: "--klods-color-success", label: "Success" },
+      { token: "--klods-color-warning", label: "Warning" },
+      { token: "--klods-color-info", label: "Info" },
+    ],
+  },
+  {
+    label: "Radius",
+    tokens: [
+      { token: "--klods-radius-sm", label: "Small" },
+      { token: "--klods-radius-md", label: "Medium" },
+      { token: "--klods-radius-lg", label: "Large" },
+      { token: "--klods-radius-pill", label: "Pill" },
+    ],
+  },
+  {
+    label: "Typography",
+    tokens: [
+      { token: "--klods-font-sans", label: "Sans font" },
+      { token: "--klods-font-mono", label: "Mono font" },
+      { token: "--klods-font-size-base", label: "Base size" },
+    ],
+  },
+];
+
+const ALL_TOKENS = TOKEN_GROUPS.flatMap((g) => g.tokens.map((t) => t.token));
+
+function tbTokenId(token: string): string {
+  return `tb-${token.slice(2)}`; // "--klods-color-bg" → "tb-klods-color-bg"
+}
+
+function tbUpdateOutput(): void {
+  const overrides = ALL_TOKENS.map((t) => ({
+    token: t,
+    val: document.documentElement.style.getPropertyValue(t).trim(),
+  })).filter(({ val }) => val !== "");
+
+  const textarea = document.getElementById("tb-output") as HTMLTextAreaElement | null;
+  if (!textarea) return;
+
+  textarea.value = overrides.length
+    ? `:root {\n${overrides.map(({ token, val }) => `  ${token}: ${val};`).join("\n")}\n}`
+    : "/* No overrides yet — change a token above */";
+}
+
+function tbSyncPlaceholders(): void {
+  const cs = getComputedStyle(document.documentElement);
+  for (const token of ALL_TOKENS) {
+    const input = document.getElementById(tbTokenId(token)) as HTMLInputElement | null;
+    if (input) input.placeholder = cs.getPropertyValue(token).trim();
+  }
+}
+
+function tbCopy(): void {
+  const textarea = document.getElementById("tb-output") as HTMLTextAreaElement | null;
+  if (!textarea) return;
+  navigator.clipboard.writeText(textarea.value).catch(() => {
+    textarea.select();
+    document.execCommand("copy");
+  });
+  const btn = document.getElementById("tb-copy");
+  if (!btn) return;
+  btn.textContent = "Copied!";
+  setTimeout(() => {
+    btn.textContent = "Copy CSS";
+  }, 2000);
+}
+
+function tbReset(): void {
+  for (const token of ALL_TOKENS) {
+    document.documentElement.style.removeProperty(token);
+    const input = document.getElementById(tbTokenId(token)) as HTMLInputElement | null;
+    if (input) input.value = "";
+  }
+  tbSyncPlaceholders();
+  tbUpdateOutput();
+}
+
+export function initThemeBuilder(): void {
+  tbSyncPlaceholders();
+  tbUpdateOutput();
+  // Re-sync placeholders when the active theme changes so they reflect the new theme's values.
+  for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-theme-id]")) {
+    btn.addEventListener("click", () => requestAnimationFrame(tbSyncPlaceholders));
+  }
+}
+
+function themeBuilderSection(): KlodsNode {
+  return stack({ gap: 4 }, [
+    h3({ id: "themes-builder" }, "Theme builder"),
+    prose([
+      p([
+        "Edit any token below — changes apply live to this entire page.",
+        " When you're happy, copy the generated ",
+        code(":root { … }"),
+        " block into your own stylesheet.",
+        " Clearing a field restores the active theme's value.",
+      ]),
+    ]),
+    el("div", { class: "tb__groups" }, TOKEN_GROUPS.map((group) =>
+      el("div", { class: "tb__group" }, [
+        el("p", { class: "tb__group-label" }, group.label),
+        ...group.tokens.map(({ token, label }) =>
+          el("label", { class: "tb__field", title: label }, [
+            el("span", { class: "tb__field-token" }, token),
+            el("input", {
+              id: tbTokenId(token),
+              type: "text",
+              class: "klods-input tb__input",
+              "data-token": token,
+              spellcheck: "false",
+              onInput: (e: Event) => {
+                const val = (e.target as HTMLInputElement).value.trim();
+                if (val) {
+                  document.documentElement.style.setProperty(token, val);
+                } else {
+                  document.documentElement.style.removeProperty(token);
+                }
+                tbUpdateOutput();
+              },
+            }),
+          ])
+        ),
+      ])
+    )),
+    el("div", { class: "tb__preview" }, [
+      row({ gap: 4, style: "flex-wrap:wrap; align-items:flex-start" }, [
+        card([
+          cardTitle("Preview card"),
+          cardBody([
+            p({ class: "klods-muted" }, "Changes apply instantly — try editing accent, surface, or radius above."),
+            row({ gap: 2, style: "margin-top:var(--klods-space-3)" }, [
+              button("Default"),
+              button({ variant: "primary" }, "Primary"),
+              button({ variant: "danger" }, "Danger"),
+            ]),
+            row({ gap: 2, style: "margin-top:var(--klods-space-2)" }, [
+              badge("Default"),
+              badge({ variant: "accent" }, "Accent"),
+              badge({ variant: "success" }, "Success"),
+            ]),
+          ]),
+        ]),
+      ]),
+    ]),
+    el("div", { class: "tb__output" }, [
+      el("textarea", {
+        id: "tb-output",
+        class: "klods-input tb__textarea",
+        spellcheck: "false",
+      }),
+      row({ gap: 3 }, [
+        button({ id: "tb-copy", variant: "primary", onClick: tbCopy }, "Copy CSS"),
+        button({ id: "tb-reset", onClick: tbReset }, "Reset"),
+      ]),
+    ]),
+  ]);
+}
+
 export function renderThemesSection(): KlodsNode {
   return stack({ gap: 6 }, [
     h2("Themes"),
@@ -74,7 +255,7 @@ export function renderThemesSection(): KlodsNode {
     ]),
 
     // ── Per-component theming ──────────────────────────────────────────────
-    h3("Per-component theming"),
+    h3({ id: "themes-per-component" }, "Per-component theming"),
     prose([
       p([
         "Key components expose their own scoped tokens that fall back to global design tokens.",
@@ -164,7 +345,7 @@ export function renderThemesSection(): KlodsNode {
     ]),
 
     // ── Compact density ────────────────────────────────────────────────────
-    h3("Compact density"),
+    h3({ id: "themes-compact" }, "Compact density"),
     prose([
       p([
         "Set ",
@@ -198,7 +379,7 @@ export function renderThemesSection(): KlodsNode {
     ]),
 
     // ── Reduced motion ─────────────────────────────────────────────────────
-    h3("Reduced motion"),
+    h3({ id: "themes-reduced-motion" }, "Reduced motion"),
     prose([
       p([
         "klods respects the system ",
@@ -217,7 +398,7 @@ export function renderThemesSection(): KlodsNode {
     ]),
 
     // ── Print styles ───────────────────────────────────────────────────────
-    h3("Print styles"),
+    h3({ id: "themes-print" }, "Print styles"),
     prose([
       p([
         "klods ships ",
@@ -242,5 +423,8 @@ export function renderThemesSection(): KlodsNode {
         li(["Adds ", code("break-inside: avoid"), " to cards, list items, and description lists."]),
       ]),
     ]),
+
+    // ── Theme builder ──────────────────────────────────────────────────────
+    themeBuilderSection(),
   ]);
 }

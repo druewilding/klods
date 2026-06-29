@@ -33,7 +33,7 @@ import { componentLinks, renderComponentsSection } from "./pages/components.js";
 import { iconLinks, renderIconsSection } from "./pages/icons.js";
 import { renderIntroSection } from "./pages/intro.js";
 import { layoutLinks, renderLayoutSection } from "./pages/layout.js";
-import { renderThemesSection } from "./pages/themes.js";
+import { initThemeBuilder, renderThemesSection, themesLinks } from "./pages/themes.js";
 import { renderUtilitiesSection, utilityLinks } from "./pages/utilities.js";
 
 type SubLink = { label: string; anchor: string };
@@ -65,7 +65,7 @@ const SECTIONS: Section[] = [
     render: renderIconsSection,
     links: iconLinks,
   },
-  { id: "themes", title: "Themes", render: renderThemesSection },
+  { id: "themes", title: "Themes", render: renderThemesSection, links: themesLinks },
 ];
 
 const THEMES: Array<{ id: string; label: string }> = [
@@ -161,3 +161,4 @@ else document.documentElement.removeAttribute("data-theme");
 const root = document.querySelector<HTMLDivElement>("#app");
 if (!root) throw new Error("Missing #app root");
 shell().render(root);
+initThemeBuilder();
