@@ -165,26 +165,24 @@ export function initThemeBuilder(): void {
 }
 
 function tokenField({ token, label, kind }: TokenDef): KlodsNode {
-  return field(
-    { label, id: tbTokenId(token), class: "tb__token-field" },
-    (id) =>
-      input({
-        id,
-        type: kind,
-        // Use camelCase onInput so it goes into ...rest and reaches the DOM
-        // directly — the form builder only destructures lowercase `oninput`.
-        onInput: (e: Event) => {
-          const inp = e.target as HTMLInputElement;
-          const val = inp.value.trim();
-          if (kind === "text" && !val) {
-            document.documentElement.style.removeProperty(token);
-          } else if (val) {
-            document.documentElement.style.setProperty(token, val);
-          }
-          tbUpdateOutput();
-        },
-        ...(kind === "text" ? { class: "tb__text-input" } : {}),
-      })
+  return field({ label, id: tbTokenId(token), class: "tb__token-field" }, (id) =>
+    input({
+      id,
+      type: kind,
+      // Use camelCase onInput so it goes into ...rest and reaches the DOM
+      // directly — the form builder only destructures lowercase `oninput`.
+      onInput: (e: Event) => {
+        const inp = e.target as HTMLInputElement;
+        const val = inp.value.trim();
+        if (kind === "text" && !val) {
+          document.documentElement.style.removeProperty(token);
+        } else if (val) {
+          document.documentElement.style.setProperty(token, val);
+        }
+        tbUpdateOutput();
+      },
+      ...(kind === "text" ? { class: "tb__text-input" } : {}),
+    })
   );
 }
 
@@ -201,23 +199,27 @@ function themeBuilderSection(): KlodsNode {
         " Switching themes re-syncs the color pickers.",
       ]),
     ]),
-    el("div", { class: "tb__groups" }, TOKEN_GROUPS.map((group) =>
-      el("div", { class: "tb__group" }, [
-        el("p", { class: "tb__group-label" }, group.label),
-        el(
-          "div",
-          { class: group.label === "Colors" ? "tb__fields-grid" : "tb__fields" },
-          group.tokens.map(tokenField)
-        ),
-      ])
-    )),
+    el(
+      "div",
+      { class: "tb__groups" },
+      TOKEN_GROUPS.map((group) =>
+        el("div", { class: "tb__group" }, [
+          el("p", { class: "tb__group-label" }, group.label),
+          el(
+            "div",
+            { class: group.label === "Colors" ? "tb__fields-grid" : "tb__fields" },
+            group.tokens.map(tokenField)
+          ),
+        ])
+      )
+    ),
     el("div", { class: "tb__preview" }, [
       card([
         cardTitle("Preview card"),
         cardBody([
           prose([
             lead("Changes apply instantly."),
-            muted("Try editing some of the values above and see the changes here.")
+            muted("Try editing some of the values above and see the changes here."),
           ]),
           stack({ gap: 2, style: "margin-top:var(--klods-space-4)" }, [
             alert({ variant: "info" }, "Info alert"),
@@ -241,7 +243,7 @@ function themeBuilderSection(): KlodsNode {
             buttonGroup({ role: "group", "aria-label": "View" }, [
               button({ variant: "ghost", "aria-pressed": "true" }, "Active"),
               button({ variant: "ghost", "aria-pressed": "false" }, "Inactive"),
-            ])
+            ]),
           ]),
         ]),
       ]),
