@@ -28,6 +28,10 @@
     max-width: 100%;
   }
 
+  iframe {
+    border-radius: var(--klods-radius-md);
+  }
+
   pre,
   code {
     font-family: var(--klods-font-mono);
