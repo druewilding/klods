@@ -105,9 +105,8 @@ function tbSetColorInputValue(token: string, hex: string): void {
   const inp = document.getElementById(tbTokenId(token)) as HTMLInputElement | null;
   if (!inp) return;
   inp.value = hex;
-  // also sync the klods <output> element that shows the hex string
-  const out = inp.closest(".klods-input--color")?.querySelector("output");
-  if (out) out.textContent = hex;
+  const hexInp = inp.closest(".klods-input--color")?.querySelector<HTMLInputElement>(".klods-color-hex");
+  if (hexInp) hexInp.value = hex;
 }
 
 function tbSyncValues(): void {
