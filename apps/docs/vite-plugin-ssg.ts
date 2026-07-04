@@ -6,7 +6,7 @@
  *      exampleSourcePlugin transforms, and the __KLODS_VERSION__ define).
  *   2. Requires the resulting bundle and calls render() to get the full HTML string.
  *   3. Injects that HTML into the <div id="app"> placeholder in dist/index.html.
- *   4. Cleans up the temporary SSR build artefacts.
+ *   4. Cleans up the temporary SSR build artifacts.
  *
  * The SSG step only runs during the browser build (not during the nested SSR
  * build that this plugin itself triggers) — guarded by the `isSsr` flag.
@@ -100,7 +100,7 @@ export function ssgPlugin(options: SsgPluginOptions): Plugin {
       const patched = template.replace('<div id="app"></div>', `<div id="app">${rendered}</div>`);
       writeFileSync(distIndex, patched);
 
-      // Remove the temporary SSR artefacts — they're not part of the site.
+      // Remove the temporary SSR artifacts — they're not part of the site.
       rmSync(ssrOutDir, { recursive: true, force: true });
 
       resolvedConfig.logger.info("[klods-ssg] Pre-rendered HTML injected into dist/index.html");
