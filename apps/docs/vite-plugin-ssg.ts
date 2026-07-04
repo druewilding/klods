@@ -12,13 +12,13 @@
  * build that this plugin itself triggers) — guarded by the `isSsr` flag.
  */
 
-import { createRequire } from "module";
 import { existsSync, readFileSync, rmSync, writeFileSync } from "fs";
+import { createRequire } from "module";
 import { join } from "path";
+import type { Options as PrettierOptions } from "prettier";
 import type { Plugin, ResolvedConfig } from "vite";
 import { build } from "vite";
 
-import type { Options as PrettierOptions } from "prettier";
 import { exampleSourcePlugin } from "./vite-plugin-example-source.js";
 
 export interface SsgPluginOptions {

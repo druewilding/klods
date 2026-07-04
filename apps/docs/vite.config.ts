@@ -1,6 +1,6 @@
 import { createRequire } from "module";
-import { fileURLToPath } from "url";
 import { dirname } from "path";
+import { fileURLToPath } from "url";
 import { defineConfig } from "vite";
 
 import { exampleSourcePlugin } from "./vite-plugin-example-source.js";

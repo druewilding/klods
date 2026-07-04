@@ -3,8 +3,8 @@
 import "klods-css/src/klods.scss";
 import "./styles.css";
 
-import { shell } from "./shell.js";
 import { initThemeBuilder } from "./pages/themes.js";
+import { shell } from "./shell.js";
 
 // Restore theme from URL on load (before render so aria-pressed is correct)
 const initialTheme = new URLSearchParams(location.search).get("theme") ?? "";
