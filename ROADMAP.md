@@ -150,7 +150,7 @@ Both `klods-js` and `klods-ruby` needed a way to render a button-styled link. Th
 3. **Rails example app** — [`druewilding/rails-server-template`](https://github.com/druewilding/rails-server-template) already smoke-tests klods-ruby in a real Rails 8 app (page layout, sidebar, TOC, API endpoint). The original `examples/rails-todo` plan is superseded by this; a more feature-complete standalone demo may follow.
 4. **Express / HTML example app** — [`druewilding/express-server-template`](https://github.com/druewilding/express-server-template) demonstrates `klods-js` used server-side via `.toString()`. Supersedes the original `examples/express-ssr` plan.
 5. **CodeSandbox templates** linked from the docs.
-6. **Pre-rendered docs** — the docs site is currently a client-side SPA (blank body with JS disabled). Two options: (a) a build-time SSG step that runs `main.ts` under Node, calls `.toString()` on every section, and writes static HTML into `dist/index.html`; or (b) a Vite SSG plugin (`vite-ssg` etc.). Option (a) is the most klods-native approach since `.toString()` is already designed for SSR. The library itself works perfectly without JS — this is purely a docs-site gap.
+6. **Pre-rendered docs** ✅ — `vite-plugin-ssg.ts` builds `src/ssg.ts` as a Node CJS bundle after the browser build, calls `shell().toString()`, and injects the result into `dist/index.html`. The JS still runs on load and re-renders interactively; the pre-rendered markup gives immediate first paint and crawlable content. Uses the klods-native `.toString()` SSR path — no extra dependencies.
 
 ---
 
