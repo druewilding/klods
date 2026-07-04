@@ -100,9 +100,9 @@ ul([li("Tiny"), li("Themeable"), li("SSR-ready")]);
 
 ```sh
 npm install
-npm run dev    # docs site at http://localhost:5173
-npm run build  # builds CSS, TS package, and docs
-npm test       # runs klods-js unit tests
+npm run dev      # docs site at http://localhost:5173
+npm run build    # builds CSS + TS packages, then docs with SSG pre-rendering
+npm test         # runs klods-js unit tests
 ```
 
 ## License
