@@ -98,11 +98,18 @@ export function ssgPlugin(options: SsgPluginOptions): Plugin {
 
       const template = readFileSync(distIndex, "utf8");
       const patched = template.replace('<div id="app"></div>', `<div id="app">${rendered}</div>`);
-      writeFileSync(distIndex, patched);
 
       // Remove the temporary SSR artifacts — they're not part of the site.
       rmSync(ssrOutDir, { recursive: true, force: true });
 
+      if (patched === template) {
+        resolvedConfig.logger.warn(
+          '[klods-ssg] <div id="app"></div> placeholder not found in dist/index.html — inject skipped'
+        );
+        return;
+      }
+
+      writeFileSync(distIndex, patched);
       resolvedConfig.logger.info("[klods-ssg] Pre-rendered HTML injected into dist/index.html");
     },
   };
