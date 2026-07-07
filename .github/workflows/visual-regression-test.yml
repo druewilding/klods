@@ -1,4 +1,4 @@
-name: Visual regression
+name: Visual regression test
 
 on:
   push:
