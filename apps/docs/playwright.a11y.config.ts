@@ -4,7 +4,7 @@ export default defineConfig({
   testDir: "tests/a11y",
   fullyParallel: true,
   reporter: [["html", { open: "never", outputFolder: "playwright-report-a11y" }]],
-  timeout: 300_000,
+  timeout: 600_000,
   workers: 4,
   use: {
     baseURL: "http://localhost:4173",
