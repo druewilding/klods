@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.29.0](https://github.com/druewilding/klods/compare/klods-css-v1.28.1...klods-css-v1.29.0) (2026-07-07)
+
+
+### Features
+
+* Add warning and info style badges and update to fix accessibility issues ([#153](https://github.com/druewilding/klods/issues/153)) ([73643f4](https://github.com/druewilding/klods/commit/73643f4c572d0e9f67ee9753611a4f025bb33859))
+
 ## [1.28.1](https://github.com/druewilding/klods/compare/klods-css-v1.28.0...klods-css-v1.28.1) (2026-06-29)
 
 
