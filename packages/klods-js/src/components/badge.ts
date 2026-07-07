@@ -1,7 +1,7 @@
 import { builder } from "../core.js";
 
 export type BadgeProps = {
-  variant?: "default" | "accent" | "success" | "danger";
+  variant?: "default" | "accent" | "success" | "warning" | "info" | "danger";
 };
 export const badge = builder<BadgeProps>({
   tag: "span",

@@ -25,4 +25,14 @@
     background: var(--klods-color-danger);
     color: var(--klods-color-danger-fg);
   }
+
+  .klods-badge--warning {
+    background: var(--klods-color-warning);
+    color: var(--klods-color-warning-fg);
+  }
+
+  .klods-badge--info {
+    background: var(--klods-color-info);
+    color: var(--klods-color-info-fg);
+  }
 }
