@@ -2,6 +2,9 @@ import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "tests/visual",
+  fullyParallel: true,
+  workers: 4,
+  reporter: [["html", { open: "never" }]],
   snapshotDir: "tests/visual/snapshots",
   snapshotPathTemplate: "{snapshotDir}/{arg}{ext}",
   use: {

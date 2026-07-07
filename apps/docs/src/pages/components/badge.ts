@@ -14,6 +14,8 @@ export const examples: KlodsNode[] = [
         badge("default"),
         badge({ variant: "accent" }, "accent"),
         badge({ variant: "success" }, "success"),
+        badge({ variant: "warning" }, "warning"),
+        badge({ variant: "info" }, "info"),
         badge({ variant: "danger" }, "danger"),
       ]),
   }),

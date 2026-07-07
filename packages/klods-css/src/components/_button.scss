@@ -41,7 +41,7 @@
 
   .klods-button--danger {
     background: var(--klods-color-danger);
-    color: #fff;
+    color: var(--klods-color-danger-fg);
     border-color: transparent;
   }
 

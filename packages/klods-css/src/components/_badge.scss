@@ -18,11 +18,21 @@
 
   .klods-badge--success {
     background: var(--klods-color-success);
-    color: #fff;
+    color: var(--klods-color-success-fg);
   }
 
   .klods-badge--danger {
     background: var(--klods-color-danger);
-    color: #fff;
+    color: var(--klods-color-danger-fg);
+  }
+
+  .klods-badge--warning {
+    background: var(--klods-color-warning);
+    color: var(--klods-color-warning-fg);
+  }
+
+  .klods-badge--info {
+    background: var(--klods-color-info);
+    color: var(--klods-color-info-fg);
   }
 }

@@ -8,6 +8,7 @@
     "dev": "vite",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:a11y": "playwright test --config playwright.a11y.config.ts",
     "test:visual": "playwright test",
     "test:visual:pr": "playwright test --grep 'default theme'",
     "test:visual:update": "playwright test --update-snapshots",
@@ -20,6 +21,7 @@
     "klods-js": "*"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.12.1",
     "@playwright/test": "1.61.1",
     "prettier": "3.8.3",
     "sass": "1.81.0",

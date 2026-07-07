@@ -156,8 +156,8 @@ Both `klods-js` and `klods-ruby` needed a way to render a button-styled link. Th
 
 ## Phase 7 — Quality & longevity
 
-1. **Visual regression tests** — Playwright, screenshot every example in every theme, fail PRs on unintended changes. Reuses the `playwright-cucumber-template` setup.
-2. **a11y audit** — axe-core on every docs example in CI.
+1. ✅ **Visual regression tests** — Playwright screenshots every docs example in every theme; commits 392 baseline PNGs; PRs test default theme only (~12s); push to main tests all 4 themes (~12s with 4 parallel workers). Path-filtered to `packages/klods-css/**` and `packages/klods-js/**` changes. External images stubbed so screenshots are fully deterministic.
+2. ✅ **a11y audit** — axe-core (via `@axe-core/playwright`) on every docs example in all 4 themes, always runs on every PR/push (~1.1m with 4 parallel workers). Real violations fixed: semantic color contrast tokens (`--klods-color-success-fg`, `--klods-color-danger-fg`, `--klods-color-warning-fg`, `--klods-color-info-fg`) added across all themes; link `color` tied to `--klods-color-link` token so theme overrides take effect.
 3. **Bundle-size budget** — fail CI if `klods-css` > 25 kB min or `klods-js` ESM > 15 kB min.
 4. **Type tests** — `tsd` or `expect-type` to verify the public API never silently changes.
 5. **Migration & contribution guides** in the repo.
@@ -203,5 +203,5 @@ The lowest-risk, highest-leverage path from here:
 | 4c (button as link)     | ✅ done (CSS-only; documented `a.klods-button` pattern)                                                                 |
 | 5 (theming)             | ✅ done (theme builder, scoped tokens, reduced motion, print, density)                                                  |
 | 6                       | partial — rails-server-template & express-server-template exist; CDN docs, CodeSandbox, pre-rendered docs still to come |
-| 7                       | not started                                                                                                             |
+| 7                       | partial — visual regression (✅) and a11y audit (✅) done; bundle budget, type tests, guides still to do                |
 | 8 (stability)           | ongoing                                                                                                                 |

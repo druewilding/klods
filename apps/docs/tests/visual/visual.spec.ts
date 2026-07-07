@@ -10,7 +10,8 @@ const THEMES = [
 for (const { name: theme, param } of THEMES) {
   test(`${theme} theme`, async ({ page }) => {
     const url = param ? `/klods/?theme=${param}` : "/klods/";
-    await page.goto(url);
+    await page.goto(url, { waitUntil: "networkidle" });
+    await page.evaluate(() => document.fonts.ready);
 
     const examples = page.locator(".docs-example");
     const count = await examples.count();
