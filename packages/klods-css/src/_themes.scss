@@ -13,8 +13,13 @@
     --klods-color-accent-fg: #0f1115;
     --klods-color-info: #60a5fa;
     --klods-color-success: #4ade80;
+    --klods-color-success-fg: var(--klods-color-bg);
     --klods-color-warning: #fbbf24;
+    --klods-color-warning-fg: var(--klods-color-bg);
     --klods-color-danger: #f87171;
+    --klods-color-danger-fg: var(--klods-color-bg);
+    --klods-color-info: #60a5fa;
+    --klods-color-info-fg: var(--klods-color-bg);
 
     // Tooltip flips to light-on-dark → light bg with dark text in dark theme
     --klods-tooltip-bg: oklch(92% 0.005 264);
@@ -39,12 +44,12 @@
     --klods-color-surface: #ffe8f3;
     --klods-color-surface-2: #ffd6ea;
     --klods-color-border: #f4bfd9;
-    --klods-color-accent: #e63990;
+    --klods-color-accent: #c4206e;
     --klods-color-accent-fg: #ffffff;
     --klods-color-info: #7c3aed;
     --klods-color-success: #0d9488;
     --klods-color-warning: #ff6b35;
-    --klods-color-danger: #e63990;
+    --klods-color-danger: #c4206e;
     --klods-radius-sm: 8px;
     --klods-radius-md: 16px;
     --klods-radius-lg: 28px;

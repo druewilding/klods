@@ -1,7 +1,7 @@
 @layer klods.components {
   // ── Link ───────────────────────────────────────────────────────────────
   .klods-link {
-    color: var(--klods-color-accent);
+    color: var(--klods-color-link);
     text-decoration: underline;
     text-underline-offset: var(--klods-space-1);
 
