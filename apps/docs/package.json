@@ -21,7 +21,7 @@
     "klods-js": "*"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.12.1",
+    "@axe-core/playwright": "4.12.1",
     "@playwright/test": "1.61.1",
     "prettier": "3.8.3",
     "sass": "1.81.0",
