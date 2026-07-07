@@ -1,0 +1,57 @@
+name: Visual regression
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "packages/klods-css/**"
+      - "packages/klods-js/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "packages/klods-css/**"
+      - "packages/klods-js/**"
+
+permissions:
+  contents: read
+
+jobs:
+  visual:
+    name: Visual regression tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Install Linux platform binaries
+        run: |
+          npm install --no-save \
+            @esbuild/linux-x64@$(node -p "require('./node_modules/esbuild/package.json').version") \
+            @rollup/rollup-linux-x64-gnu@$(node -p "require('./node_modules/rollup/package.json').version")
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+        working-directory: apps/docs
+
+      - name: Build
+        run: npm run build
+
+      - name: Run visual tests
+        run: npm run test:visual
+        working-directory: apps/docs
+
+      - name: Upload report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: apps/docs/playwright-report/
+          retention-days: 7
