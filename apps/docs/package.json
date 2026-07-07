@@ -10,6 +10,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:visual": "playwright test",
+    "test:visual:pr": "playwright test --grep 'default theme'",
     "test:visual:update": "playwright test --update-snapshots"
   },
   "dependencies": {

@@ -44,7 +44,13 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Run visual tests
+      - name: Run visual tests (default theme — PR)
+        if: github.event_name == 'pull_request'
+        run: npm run test:visual:pr
+        working-directory: apps/docs
+
+      - name: Run visual tests (all themes — main)
+        if: github.event_name == 'push'
         run: npm run test:visual
         working-directory: apps/docs
 
