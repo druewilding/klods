@@ -105,6 +105,24 @@ npm run build    # builds CSS + TS packages, then docs with SSG pre-rendering
 npm test         # runs klods-js unit tests
 ```
 
+### Testing
+
+```sh
+# Accessibility audit — axe-core on every docs example, all 4 themes (~1 min)
+cd apps/docs && CI=true npm run test:a11y
+
+# Visual regression — screenshot every example (all 4 themes)
+cd apps/docs && CI=true npm run test:visual
+
+# Visual regression — default theme only (fast, ~12s)
+cd apps/docs && CI=true npm run test:visual:pr
+
+# Update baseline snapshots after intentional visual changes
+cd apps/docs && CI=true npm run test:visual:update
+```
+
+> Use `CI=true` locally to force a fresh preview server instead of reusing any running dev server.
+
 ## License
 
 MIT © Drue Wilding
