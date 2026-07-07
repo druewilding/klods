@@ -85,7 +85,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: playwright-a11y-report
-          path: apps/docs/playwright-report/
+          path: apps/docs/playwright-report-a11y/
           retention-days: 7
 
   npm-audit:

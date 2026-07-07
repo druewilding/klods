@@ -3,6 +3,7 @@ import { defineConfig } from "@playwright/test";
 export default defineConfig({
   testDir: "tests/a11y",
   fullyParallel: true,
+  reporter: [["html", { open: "never", outputFolder: "playwright-report-a11y" }]],
   timeout: 120_000,
   workers: 4,
   use: {
