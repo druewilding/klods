@@ -22,9 +22,9 @@ export const examples: KlodsNode[] = [
     title: "Avatar — with image",
     render: () =>
       cluster({ gap: 3, align: "center" }, [
-        avatar({ size: "small", src: "https://i.pravatar.cc/96", name: "Ari Smith" }),
-        avatar({ src: "https://i.pravatar.cc/96", name: "Ari Smith" }),
-        avatar({ size: "large", src: "https://i.pravatar.cc/96", name: "Ari Smith" }),
+        avatar({ size: "small", src: "https://i.pravatar.cc/96?img=53", name: "Ari Smith" }),
+        avatar({ src: "https://i.pravatar.cc/96?img=53", name: "Ari Smith" }),
+        avatar({ size: "large", src: "https://i.pravatar.cc/96?img=53", name: "Ari Smith" }),
       ]),
   }),
 
