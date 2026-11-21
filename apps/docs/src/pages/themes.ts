@@ -398,6 +398,9 @@ export function renderThemesSection(): KlodsNode {
 --klods-badge-bg: var(--klods-color-surface-2)
 --klods-badge-fg: var(--klods-color-fg)
 
+/* Status (default variant) */
+--klods-status-dot: var(--klods-color-muted)
+
 /* Modal */
 --klods-modal-bg:     var(--klods-color-surface)
 --klods-modal-radius: var(--klods-radius-lg)

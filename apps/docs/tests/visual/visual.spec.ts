@@ -22,6 +22,18 @@ for (const { name: theme, param } of THEMES) {
       const preview = example.locator(".docs-example__preview");
 
       await preview.scrollIntoViewIfNeeded();
+      // Each example sits wherever the examples above it end, often part way
+      // through a pixel. Text and borders are drawn differently at different
+      // fractions, so adding one example would change the screenshots of every
+      // example below it. A margin of under a pixel moves each one down onto a
+      // whole pixel, so its screenshot doesn't depend on what's above it.
+      await preview.evaluate((el: HTMLElement) => {
+        el.style.marginTop = "";
+        // Its position on the page, not in the window: at the bottom of the
+        // page the scroll position itself can be part way through a pixel
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        el.style.marginTop = `${Math.ceil(top) - top}px`;
+      });
       // Soft, so one run reports every changed example, not just the first
       await expect.soft(preview).toHaveScreenshot([theme, `${id}.png`]);
     }

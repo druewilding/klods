@@ -1,0 +1,70 @@
+@layer klods.components {
+  // ── Status ────────────────────────────────────────────────────────────
+  // A colored dot beside text, for a live state: "Your turn", "Online",
+  // "Deploying". Lighter than a badge, so it can sit in a header or a list row
+  // without shouting. The text keeps the normal text color so it stays
+  // readable; the dot carries the color.
+  //
+  // The dot is decoration: the text must say the state on its own. Add
+  // role="status" when the text changes while the page is open, so screen
+  // readers announce it.
+  .klods-status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--klods-space-2);
+    font-size: var(--klods-font-size-sm);
+    font-weight: 600;
+
+    &::before {
+      content: "";
+      flex-shrink: 0;
+      width: 0.5625rem; // 9px
+      height: 0.5625rem;
+      border-radius: 50%;
+      background: var(--klods-status-dot);
+    }
+  }
+
+  .klods-status--accent {
+    --klods-status-dot: var(--klods-color-accent);
+  }
+
+  .klods-status--success {
+    --klods-status-dot: var(--klods-color-success);
+  }
+
+  .klods-status--warning {
+    --klods-status-dot: var(--klods-color-warning);
+  }
+
+  .klods-status--info {
+    --klods-status-dot: var(--klods-color-info);
+  }
+
+  .klods-status--danger {
+    --klods-status-dot: var(--klods-color-danger);
+  }
+
+  // A soft ring that keeps spreading from the dot, for something happening now.
+  // With reduced motion it's a still halo instead.
+  .klods-status--pulse::before {
+    animation: klods-status-pulse 2s ease-out infinite;
+  }
+
+  @keyframes klods-status-pulse {
+    from {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--klods-status-dot) 60%, transparent);
+    }
+
+    to {
+      box-shadow: 0 0 0 0.375rem transparent;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .klods-status--pulse::before {
+      animation: none;
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--klods-status-dot) 30%, transparent);
+    }
+  }
+}
