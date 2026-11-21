@@ -16,6 +16,7 @@ export * from "./components/list.js";
 export * from "./components/modal.js";
 export * from "./components/nav.js";
 export * from "./components/prose.js";
+export * from "./components/status.js";
 export * from "./components/table.js";
 export * from "./components/tabs.js";
 export * from "./components/toast.js";
