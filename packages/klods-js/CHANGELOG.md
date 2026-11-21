@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.0](https://github.com/druewilding/klods/compare/klods-js-v4.1.0...klods-js-v4.2.0) (2026-11-21)
+
+
+### Features
+
+* Add a segmented control: radio buttons drawn as one pill ([#165](https://github.com/druewilding/klods/issues/165)) ([27b11b0](https://github.com/druewilding/klods/commit/27b11b0601f527d3204225d50286f6e0f0b85851))
+
 ## [4.1.0](https://github.com/druewilding/klods/compare/klods-js-v4.0.0...klods-js-v4.1.0) (2026-11-21)
 
 
