@@ -1,0 +1,66 @@
+@layer klods.components {
+  // ── Segmented control ─────────────────────────────────────────────────
+  // A row of radio buttons drawn as one pill, for picking one of a few short
+  // options: "Day / Week / Month", "Auto / Light / Dark". Smaller and quieter
+  // than a button group. The options are real radio buttons, so arrow keys move
+  // between them and the choice is sent with a form, with no JS needed.
+  //
+  // klods-segmented          — the pill (role="radiogroup")
+  // klods-segmented__option  — one option: a <label> around its input
+  // klods-segmented__input   — the radio button, hidden but still focusable
+  .klods-segmented {
+    display: inline-flex;
+    flex-wrap: wrap;
+    // Only as wide as its options, even in a stack or grid that would stretch it
+    width: fit-content;
+    max-width: 100%;
+    gap: var(--klods-space-1);
+    padding: var(--klods-space-1);
+    border: 1px solid var(--klods-color-border);
+    border-radius: var(--klods-radius-pill);
+  }
+
+  .klods-segmented__option {
+    padding: var(--klods-space-1) var(--klods-space-4);
+    border-radius: var(--klods-radius-pill);
+    font-size: var(--klods-font-size-sm);
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background var(--klods-transition),
+      color var(--klods-transition);
+
+    &:hover {
+      background: var(--klods-color-surface-2);
+    }
+
+    &:has(.klods-segmented__input:checked) {
+      background: var(--klods-color-accent);
+      color: var(--klods-color-accent-fg);
+    }
+
+    &:has(.klods-segmented__input:focus-visible) {
+      outline: 2px solid var(--klods-color-accent);
+      outline-offset: 2px;
+    }
+
+    &:has(.klods-segmented__input:disabled) {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: none;
+    }
+  }
+
+  .klods-segmented__input {
+    // Visually hidden but still in the accessibility tree
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
