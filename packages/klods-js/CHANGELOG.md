@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/druewilding/klods/compare/klods-js-v3.6.0...klods-js-v4.0.0) (2026-11-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* Follow the system light or dark setting by default ([#155](https://github.com/druewilding/klods/issues/155))
+
+### Features
+
+* Follow the system light or dark setting by default ([#155](https://github.com/druewilding/klods/issues/155)) ([827d629](https://github.com/druewilding/klods/commit/827d629703c056b4c0e0c2e6c32f9e31332a5b4c))
+
 ## [3.6.0](https://github.com/druewilding/klods/compare/klods-js-v3.5.0...klods-js-v3.6.0) (2026-07-07)
 
 
