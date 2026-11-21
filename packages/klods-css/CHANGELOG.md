@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/druewilding/klods/compare/klods-css-v2.2.0...klods-css-v2.2.1) (2026-11-21)
+
+
+### Bug Fixes
+
+* Make switches easier to see when they're off, especially in dark mode ([#167](https://github.com/druewilding/klods/issues/167)) ([f6f5586](https://github.com/druewilding/klods/commit/f6f5586b4a046de07dfa5e090d6ac5d6e6a1948b))
+
 ## [2.2.0](https://github.com/druewilding/klods/compare/klods-css-v2.1.0...klods-css-v2.2.0) (2026-11-21)
 
 
