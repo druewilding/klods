@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { codeBlock, inlineCode, kbd, p, samp, varEl } from "klods-js";
+import { code, codeBlock, el, inlineCode, kbd, p, pre, samp, span, varEl } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -17,6 +17,39 @@ export const examples: KlodsNode[] = [
     render: () =>
       codeBlock(
         'import { page, header, content } from "klods-js";\n\npage([\n  header("Hello"),\n  content("World"),\n]).render(document.body);'
+      ),
+  }),
+
+  example({
+    title: "Code — Rouge, Pygments and Chroma",
+    description:
+      "Code highlighted by Rouge (Jekyll and GitHub Pages), Pygments (Sphinx, MkDocs) or Chroma (Hugo) picks up the theme's code colors automatically, just like highlight.js. No extra stylesheet needed.",
+    render: () =>
+      el(
+        "div",
+        { class: "highlight" },
+        pre(
+          { class: "highlight" },
+          code([
+            span({ class: "c1" }, "# Say hello"),
+            "\n",
+            span({ class: "k" }, "def"),
+            " ",
+            span({ class: "nf" }, "greet"),
+            "(name)\n  ",
+            span({ class: "nb" }, "puts"),
+            " ",
+            span({ class: "s2" }, '"Hello, #{name}!"'),
+            "\n  ",
+            span({ class: "vi" }, "@count"),
+            " ",
+            span({ class: "o" }, "+="),
+            " ",
+            span({ class: "mi" }, "1"),
+            "\n",
+            span({ class: "k" }, "end"),
+          ])
+        )
       ),
   }),
 

@@ -90,7 +90,8 @@ $klods-bp-lg: 64rem; // 1024px — desktop
     --klods-tooltip-fg: oklch(98% 0 0);
 
     // ── Code syntax ────────────────────────────────────────────────────────
-    // GitHub Light palette — maps to hljs token spans via _components.scss
+    // GitHub Light palette — highlight.js and Rouge/Pygments token classes map
+    // to these in components/_code.scss
     --klods-code-bg: #f6f8fa;
     --klods-code-fg: #24292f;
     --klods-code-keyword: #cf222e;

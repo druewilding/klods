@@ -103,4 +103,60 @@
   .hljs-tag {
     color: var(--klods-code-tag);
   }
+
+  // ── Syntax highlighting (Rouge / Pygments / Chroma → klods code token) ─
+  // Rouge (Jekyll, GitHub Pages), Pygments (Sphinx, MkDocs) and Chroma (Hugo)
+  // share short class names like .k and .s1 inside a .highlight or .chroma
+  // wrapper. These rules map them to the same --klods-code-* tokens.
+  :is(.highlight, .chroma) {
+    :is(.k, .kd, .kn, .kp, .kr, .kv, .o, .ow) {
+      color: var(--klods-code-keyword);
+    }
+
+    :is(.s, .s1, .s2, .sa, .sb, .sc, .sd, .se, .sh, .si, .sr, .ss, .sx, .dl) {
+      color: var(--klods-code-string);
+    }
+
+    :is(.c, .c1, .ch, .cm, .cp, .cpf, .cs) {
+      color: var(--klods-code-comment);
+      font-style: italic;
+    }
+
+    :is(.m, .mb, .mf, .mh, .mi, .mo, .mx, .il, .kc) {
+      color: var(--klods-code-number);
+    }
+
+    :is(.nf, .fm, .nd) {
+      color: var(--klods-code-title);
+    }
+
+    :is(.kt, .nc, .nn, .no, .ne, .nb, .bp) {
+      color: var(--klods-code-type);
+    }
+
+    :is(.na, .nv, .vc, .vg, .vi, .vm) {
+      color: var(--klods-code-attr);
+    }
+
+    .nt {
+      color: var(--klods-code-tag);
+    }
+
+    // Diffs
+    .gd {
+      color: var(--klods-code-keyword);
+    }
+
+    .gi {
+      color: var(--klods-code-attr);
+    }
+
+    .ge {
+      font-style: italic;
+    }
+
+    .gs {
+      font-weight: bold;
+    }
+  }
 }

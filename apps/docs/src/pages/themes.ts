@@ -26,6 +26,7 @@ import {
 
 // ── TOC sub-links ──────────────────────────────────────────────────────────
 export const themesLinks: Array<{ label: string; anchor: string }> = [
+  { label: "Follow the system setting", anchor: "themes-system" },
   { label: "Per-component theming", anchor: "themes-per-component" },
   { label: "Compact density", anchor: "themes-compact" },
   { label: "Reduced motion", anchor: "themes-reduced-motion" },
@@ -281,6 +282,7 @@ export function renderThemesSection(): KlodsNode {
       p("Bundled presets:"),
       ul([
         li([code("default"), " — clean, neutral light theme."]),
+        li([code("system"), " — follows the visitor's operating system: default when light, dark when dark."]),
         li([code("dark"), " — high-contrast dark theme."]),
         li([code("playful"), " — pink and round."]),
         li([code("brutalist"), " — black borders, hard shadows."]),
@@ -315,6 +317,39 @@ export function renderThemesSection(): KlodsNode {
 --klods-transition`)
         ),
       ]),
+    ]),
+
+    // ── Follow the system setting ──────────────────────────────────────────
+    h3({ id: "themes-system" }, "Follow the system setting"),
+    prose([
+      p([
+        "Set ",
+        code('data-theme="system"'),
+        " on ",
+        code("<html>"),
+        " and klods uses the default light theme or the dark theme to match the visitor's",
+        " operating system, switching live if they change it. No JavaScript needed.",
+        " It also sets ",
+        code("color-scheme"),
+        ", so scrollbars and native form controls match.",
+      ]),
+      pre(code('<html lang="en" data-theme="system">')),
+      p([
+        "To give your own colors a dark version, override the tokens inside a ",
+        code("prefers-color-scheme"),
+        " media query:",
+      ]),
+      pre(
+        code(`[data-theme="system"] {
+  --klods-color-accent: #0a7d5a;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    --klods-color-accent: #5fe0b4;
+  }
+}`)
+      ),
     ]),
 
     // ── Per-component theming ──────────────────────────────────────────────
