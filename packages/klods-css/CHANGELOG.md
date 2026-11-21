@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/druewilding/klods/compare/klods-css-v1.29.0...klods-css-v2.0.0) (2026-11-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* Follow the system light or dark setting by default ([#155](https://github.com/druewilding/klods/issues/155))
+
+### Features
+
+* Follow the system light or dark setting by default ([#155](https://github.com/druewilding/klods/issues/155)) ([827d629](https://github.com/druewilding/klods/commit/827d629703c056b4c0e0c2e6c32f9e31332a5b4c))
+
 ## [1.29.0](https://github.com/druewilding/klods/compare/klods-css-v1.28.1...klods-css-v1.29.0) (2026-07-07)
 
 
