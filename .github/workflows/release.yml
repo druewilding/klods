@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
 
+# Trusted publishing: npm trusts this workflow directly (via GitHub's OIDC
+# token, hence id-token: write), so there's no npm token to store or renew
 permissions:
   contents: write
   pull-requests: write
@@ -39,9 +41,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version-file: .node-version
           cache: npm
           registry-url: https://registry.npmjs.org
 
@@ -53,8 +55,6 @@ jobs:
 
       - name: Publish klods-css@${{ needs.release-please.outputs.klods_css_version }}
         run: npm publish --workspace packages/klods-css --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   # Publishes klods-js to npm when its release PR is merged.
   publish-klods-js:
@@ -68,7 +68,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version-file: .node-version
           cache: npm
           registry-url: https://registry.npmjs.org
 
@@ -80,5 +80,3 @@ jobs:
 
       - name: Publish klods-js@${{ needs.release-please.outputs.klods_js_version }}
         run: npm publish --workspace packages/klods-js --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

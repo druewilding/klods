@@ -22,7 +22,8 @@ for (const { name: theme, param } of THEMES) {
       const preview = example.locator(".docs-example__preview");
 
       await preview.scrollIntoViewIfNeeded();
-      await expect(preview).toHaveScreenshot([theme, `${id}.png`]);
+      // Soft, so one run reports every changed example, not just the first
+      await expect.soft(preview).toHaveScreenshot([theme, `${id}.png`]);
     }
   });
 }

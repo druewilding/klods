@@ -5,26 +5,15 @@ $klods-bp-sm: 30rem; //  480px — phone landscape
 $klods-bp-md: 48rem; //  768px — tablet
 $klods-bp-lg: 64rem; // 1024px — desktop
 
+@use "palettes";
+
 @layer klods.tokens {
   :root {
-    // ── Colour ─────────────────────────────────────────────────────────────
-    --klods-color-bg: #ffffff;
-    --klods-color-fg: #1a1a1a;
-    --klods-color-muted: #64697a;
-    --klods-color-surface: #f5f5f7;
-    --klods-color-surface-2: #ececef;
-    --klods-color-border: #e5e7eb;
-    --klods-color-accent: #5b5bd6;
-    --klods-color-accent-fg: #ffffff;
-    --klods-color-link: var(--klods-color-accent);
-    --klods-color-danger: #d1335b;
-    --klods-color-danger-fg: #ffffff;
-    --klods-color-success: #1a7a30;
-    --klods-color-success-fg: #ffffff;
-    --klods-color-warning: #d97706;
-    --klods-color-warning-fg: #1a1a1a;
-    --klods-color-info: #2563eb;
-    --klods-color-info-fg: #ffffff;
+    // Follows the visitor's light or dark setting unless a theme says otherwise
+    // (see _themes.scss). Colors live in _palettes.scss.
+    color-scheme: light dark;
+    @include palettes.light-colors;
+    @include palettes.derived-tokens;
 
     // ── Typography ─────────────────────────────────────────────────────────
     --klods-font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -70,37 +59,6 @@ $klods-bp-lg: 64rem; // 1024px — desktop
 
     // ── Motion ─────────────────────────────────────────────────────────────
     --klods-transition: 150ms ease;
-
-    // ── Component-scoped tokens ────────────────────────────────────────────
-    // These fall back to global tokens by default and can be overridden per
-    // theme or per component instance.
-    --klods-card-bg: var(--klods-color-surface);
-    --klods-card-border: var(--klods-color-border);
-    --klods-card-radius: var(--klods-radius-md);
-    --klods-button-bg: var(--klods-color-surface-2);
-    --klods-button-fg: var(--klods-color-fg);
-    --klods-button-border: var(--klods-color-border);
-    --klods-button-radius: var(--klods-radius-sm);
-    --klods-badge-bg: var(--klods-color-surface-2);
-    --klods-badge-fg: var(--klods-color-fg);
-    --klods-modal-bg: var(--klods-color-surface);
-    --klods-modal-radius: var(--klods-radius-lg);
-    --klods-tabs-active: var(--klods-color-accent);
-    --klods-tooltip-bg: oklch(20% 0.01 264);
-    --klods-tooltip-fg: oklch(98% 0 0);
-
-    // ── Code syntax ────────────────────────────────────────────────────────
-    // GitHub Light palette — maps to hljs token spans via _components.scss
-    --klods-code-bg: #f6f8fa;
-    --klods-code-fg: #24292f;
-    --klods-code-keyword: #cf222e;
-    --klods-code-string: #0a3069;
-    --klods-code-comment: #6e7781;
-    --klods-code-number: #0550ae;
-    --klods-code-type: #953800;
-    --klods-code-attr: #116329;
-    --klods-code-tag: #116329;
-    --klods-code-title: #8250df;
   }
 
   // Reduce gutter on small screens so content isn't over-padded on phones.

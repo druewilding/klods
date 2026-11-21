@@ -26,6 +26,7 @@ import {
 
 // ── TOC sub-links ──────────────────────────────────────────────────────────
 export const themesLinks: Array<{ label: string; anchor: string }> = [
+  { label: "Follow the system setting", anchor: "themes-system" },
   { label: "Per-component theming", anchor: "themes-per-component" },
   { label: "Compact density", anchor: "themes-compact" },
   { label: "Reduced motion", anchor: "themes-reduced-motion" },
@@ -280,8 +281,9 @@ export function renderThemesSection(): KlodsNode {
       ]),
       p("Bundled presets:"),
       ul([
-        li([code("default"), " — clean, neutral light theme."]),
-        li([code("dark"), " — high-contrast dark theme."]),
+        li(["No attribute — follows the visitor's operating system: light or dark."]),
+        li([code("light"), " — clean, neutral light theme, whatever the system says."]),
+        li([code("dark"), " — high-contrast dark theme, whatever the system says."]),
         li([code("playful"), " — pink and round."]),
         li([code("brutalist"), " — black borders, hard shadows."]),
       ]),
@@ -315,6 +317,42 @@ export function renderThemesSection(): KlodsNode {
 --klods-transition`)
         ),
       ]),
+    ]),
+
+    // ── Follow the system setting ──────────────────────────────────────────
+    h3({ id: "themes-system" }, "Follow the system setting"),
+    prose([
+      p([
+        "Out of the box, klods follows the visitor's operating system: light normally, dark when they",
+        " prefer dark. It switches live if they change it, with no JavaScript. It also sets ",
+        code("color-scheme"),
+        ", so scrollbars and native form controls match. Pages always print in light colors.",
+      ]),
+      p([
+        "To choose one mode whatever the system says, set ",
+        code('data-theme="light"'),
+        " or ",
+        code('data-theme="dark"'),
+        " on ",
+        code("<html>"),
+        " or any container. Themes nest, so a light card inside a dark page gets the full light palette.",
+      ]),
+      p([
+        "To give your own colors a dark version, override the tokens inside a ",
+        code("prefers-color-scheme"),
+        " media query:",
+      ]),
+      pre(
+        code(`:root {
+  --klods-color-accent: #0a7d5a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --klods-color-accent: #5fe0b4;
+  }
+}`)
+      ),
     ]),
 
     // ── Per-component theming ──────────────────────────────────────────────

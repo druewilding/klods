@@ -1,0 +1,94 @@
+// Color palettes as mixins, so the same tokens can be written on :root and on
+// any [data-theme] container. No CSS is output by this file on its own.
+
+// ── Light ─────────────────────────────────────────────────────────────────
+@mixin light-colors {
+  --klods-color-bg: #ffffff;
+  --klods-color-fg: #1a1a1a;
+  --klods-color-muted: #64697a;
+  --klods-color-surface: #f5f5f7;
+  --klods-color-surface-2: #ececef;
+  --klods-color-border: #e5e7eb;
+  --klods-color-accent: #5b5bd6;
+  --klods-color-accent-fg: #ffffff;
+  --klods-color-danger: #d1335b;
+  --klods-color-danger-fg: #ffffff;
+  --klods-color-success: #1a7a30;
+  --klods-color-success-fg: #ffffff;
+  --klods-color-warning: #d97706;
+  --klods-color-warning-fg: #1a1a1a;
+  --klods-color-info: #2563eb;
+  --klods-color-info-fg: #ffffff;
+
+  --klods-tooltip-bg: oklch(20% 0.01 264);
+  --klods-tooltip-fg: oklch(98% 0 0);
+
+  // GitHub Light palette — highlight.js and Rouge/Pygments token classes map
+  // to these in components/_code.scss
+  --klods-code-bg: #f6f8fa;
+  --klods-code-fg: #24292f;
+  --klods-code-keyword: #cf222e;
+  --klods-code-string: #0a3069;
+  --klods-code-comment: #59636e;
+  --klods-code-number: #0550ae;
+  --klods-code-type: #953800;
+  --klods-code-attr: #116329;
+  --klods-code-tag: #116329;
+  --klods-code-title: #8250df;
+}
+
+// ── Dark ──────────────────────────────────────────────────────────────────
+@mixin dark-colors {
+  --klods-color-bg: #0f1115;
+  --klods-color-fg: #ececef;
+  --klods-color-muted: #9aa0aa;
+  --klods-color-surface: #181b22;
+  --klods-color-surface-2: #1f232c;
+  --klods-color-border: #2a2f3a;
+  --klods-color-accent: #8a8aff;
+  --klods-color-accent-fg: #0f1115;
+  --klods-color-danger: #f87171;
+  --klods-color-danger-fg: var(--klods-color-bg);
+  --klods-color-success: #4ade80;
+  --klods-color-success-fg: var(--klods-color-bg);
+  --klods-color-warning: #fbbf24;
+  --klods-color-warning-fg: var(--klods-color-bg);
+  --klods-color-info: #60a5fa;
+  --klods-color-info-fg: var(--klods-color-bg);
+
+  // Tooltip flips to light-on-dark → light bg with dark text in dark theme
+  --klods-tooltip-bg: oklch(92% 0.005 264);
+  --klods-tooltip-fg: oklch(12% 0.01 264);
+
+  // GitHub Dark palette
+  --klods-code-bg: #161b22;
+  --klods-code-fg: #e6edf3;
+  --klods-code-keyword: #ff7b72;
+  --klods-code-string: #a5d6ff;
+  --klods-code-comment: #8b949e;
+  --klods-code-number: #79c0ff;
+  --klods-code-type: #ffa657;
+  --klods-code-attr: #7ee787;
+  --klods-code-tag: #7ee787;
+  --klods-code-title: #d2a8ff;
+}
+
+// ── Derived tokens ────────────────────────────────────────────────────────
+// Tokens that point at other tokens. A custom property's var() is resolved
+// where it's declared, so every theme declares these again. Otherwise a
+// themed container would inherit values worked out from the page's colors.
+@mixin derived-tokens {
+  --klods-color-link: var(--klods-color-accent);
+  --klods-card-bg: var(--klods-color-surface);
+  --klods-card-border: var(--klods-color-border);
+  --klods-card-radius: var(--klods-radius-md);
+  --klods-button-bg: var(--klods-color-surface-2);
+  --klods-button-fg: var(--klods-color-fg);
+  --klods-button-border: var(--klods-color-border);
+  --klods-button-radius: var(--klods-radius-sm);
+  --klods-badge-bg: var(--klods-color-surface-2);
+  --klods-badge-fg: var(--klods-color-fg);
+  --klods-modal-bg: var(--klods-color-surface);
+  --klods-modal-radius: var(--klods-radius-lg);
+  --klods-tabs-active: var(--klods-color-accent);
+}
