@@ -281,9 +281,9 @@ export function renderThemesSection(): KlodsNode {
       ]),
       p("Bundled presets:"),
       ul([
-        li([code("default"), " — clean, neutral light theme."]),
-        li([code("system"), " — follows the visitor's operating system: default when light, dark when dark."]),
-        li([code("dark"), " — high-contrast dark theme."]),
+        li(["No attribute — follows the visitor's operating system: light or dark."]),
+        li([code("light"), " — clean, neutral light theme, whatever the system says."]),
+        li([code("dark"), " — high-contrast dark theme, whatever the system says."]),
         li([code("playful"), " — pink and round."]),
         li([code("brutalist"), " — black borders, hard shadows."]),
       ]),
@@ -323,29 +323,32 @@ export function renderThemesSection(): KlodsNode {
     h3({ id: "themes-system" }, "Follow the system setting"),
     prose([
       p([
-        "Set ",
-        code('data-theme="system"'),
+        "Out of the box, klods follows the visitor's operating system: light normally, dark when they",
+        " prefer dark. It switches live if they change it, with no JavaScript. It also sets ",
+        code("color-scheme"),
+        ", so scrollbars and native form controls match. Pages always print in light colors.",
+      ]),
+      p([
+        "To choose one mode whatever the system says, set ",
+        code('data-theme="light"'),
+        " or ",
+        code('data-theme="dark"'),
         " on ",
         code("<html>"),
-        " and klods uses the default light theme or the dark theme to match the visitor's",
-        " operating system, switching live if they change it. No JavaScript needed.",
-        " It also sets ",
-        code("color-scheme"),
-        ", so scrollbars and native form controls match.",
+        " or any container. Themes nest, so a light card inside a dark page gets the full light palette.",
       ]),
-      pre(code('<html lang="en" data-theme="system">')),
       p([
         "To give your own colors a dark version, override the tokens inside a ",
         code("prefers-color-scheme"),
         " media query:",
       ]),
       pre(
-        code(`[data-theme="system"] {
+        code(`:root {
   --klods-color-accent: #0a7d5a;
 }
 
 @media (prefers-color-scheme: dark) {
-  [data-theme="system"] {
+  :root:not([data-theme]) {
     --klods-color-accent: #5fe0b4;
   }
 }`)

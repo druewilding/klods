@@ -46,8 +46,8 @@ const SECTIONS: Section[] = [
 ];
 
 const THEMES: Array<{ id: string; label: string }> = [
-  { id: "", label: "Default" },
-  { id: "system", label: "System" },
+  { id: "", label: "System" },
+  { id: "light", label: "Light" },
   { id: "dark", label: "Dark" },
   { id: "playful", label: "Playful" },
   { id: "brutalist", label: "Brutalist" },

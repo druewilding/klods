@@ -69,7 +69,8 @@ Never add CSS without a builder. Never add a builder without a docs example. The
 - Token naming: `--klods-{category}-{name}` (e.g. `--klods-color-accent`, `--klods-space-4`)
 - BEM naming: `klods-{block}`, `klods-{block}__element`, `klods-{block}--modifier`
 - Never use `!important`. Never hardcode colours or spacing values.
-- Themes override tokens in `_themes.scss` via `[data-theme="dark|playful|brutalist"]`
+- Colors live as mixins in `_palettes.scss` (`light-colors`, `dark-colors`, `derived-tokens`)
+- With no `data-theme`, klods follows the system light/dark setting. Themes override tokens in `_themes.scss` via `[data-theme="light|dark|playful|brutalist"]`, and each theme writes a full palette plus `derived-tokens` so themes nest cleanly
 
 ### Icons in CSS vs inline SVG in JS
 

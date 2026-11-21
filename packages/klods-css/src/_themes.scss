@@ -1,62 +1,41 @@
 // Themes are pure token overrides. Apply with [data-theme="..."] on <html> or any
-// container. Default (no attribute) is the light theme defined in _tokens.scss.
+// container.
 //
-// data-theme="system" follows the visitor's operating system setting: the
-// default light theme normally, the dark theme when they prefer dark.
+// With no data-theme, klods follows the visitor's operating system setting:
+// light normally, dark when they prefer dark. data-theme="light" and
+// data-theme="dark" choose one, whatever the system says.
+//
+// Every theme writes a full palette, so themes nest cleanly: a light card
+// inside a dark page gets all the light colors, not a mix.
 
-// The dark tokens, shared by data-theme="dark" and data-theme="system".
-@mixin dark-tokens {
-  --klods-color-bg: #0f1115;
-  --klods-color-fg: #ececef;
-  --klods-color-muted: #9aa0aa;
-  --klods-color-surface: #181b22;
-  --klods-color-surface-2: #1f232c;
-  --klods-color-border: #2a2f3a;
-  --klods-color-accent: #8a8aff;
-  --klods-color-accent-fg: #0f1115;
-  --klods-color-info: #60a5fa;
-  --klods-color-success: #4ade80;
-  --klods-color-success-fg: var(--klods-color-bg);
-  --klods-color-warning: #fbbf24;
-  --klods-color-warning-fg: var(--klods-color-bg);
-  --klods-color-danger: #f87171;
-  --klods-color-danger-fg: var(--klods-color-bg);
-  --klods-color-info-fg: var(--klods-color-bg);
-
-  // Tooltip flips to light-on-dark → light bg with dark text in dark theme
-  --klods-tooltip-bg: oklch(92% 0.005 264);
-  --klods-tooltip-fg: oklch(12% 0.01 264);
-
-  // GitHub Dark palette
-  --klods-code-bg: #161b22;
-  --klods-code-fg: #e6edf3;
-  --klods-code-keyword: #ff7b72;
-  --klods-code-string: #a5d6ff;
-  --klods-code-comment: #8b949e;
-  --klods-code-number: #79c0ff;
-  --klods-code-type: #ffa657;
-  --klods-code-attr: #7ee787;
-  --klods-code-tag: #7ee787;
-  --klods-code-title: #d2a8ff;
-}
+@use "palettes" as *;
 
 @layer klods.themes {
-  [data-theme="dark"] {
-    color-scheme: dark;
-    @include dark-tokens;
-  }
-
-  [data-theme="system"] {
-    color-scheme: light dark;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    [data-theme="system"] {
-      @include dark-tokens;
+  // Screen only, so pages still print in light colors
+  @media screen and (prefers-color-scheme: dark) {
+    :root:not([data-theme]),
+    :root[data-theme=""] {
+      @include dark-colors;
     }
   }
 
+  [data-theme="light"] {
+    color-scheme: light;
+    @include light-colors;
+    @include derived-tokens;
+  }
+
+  [data-theme="dark"] {
+    color-scheme: dark;
+    @include dark-colors;
+    @include derived-tokens;
+  }
+
   [data-theme="playful"] {
+    color-scheme: light;
+    @include light-colors;
+    @include derived-tokens;
+
     --klods-color-bg: #fff7fb;
     --klods-color-fg: #2a1a3a;
     --klods-color-surface: #ffe8f3;
@@ -76,17 +55,21 @@
 
     --klods-code-bg: #ffeef8;
     --klods-code-fg: #2a1a3a;
-    --klods-code-keyword: #e63990;
+    --klods-code-keyword: #c4206e;
     --klods-code-string: #7c3aed;
-    --klods-code-comment: #b06090;
-    --klods-code-number: #ff6b35;
-    --klods-code-type: #ff8c00;
-    --klods-code-attr: #0d9488;
-    --klods-code-tag: #0d9488;
+    --klods-code-comment: #94457a;
+    --klods-code-number: #c2410c;
+    --klods-code-type: #a64b00;
+    --klods-code-attr: #0f766e;
+    --klods-code-tag: #0f766e;
     --klods-code-title: #9333ea;
   }
 
   [data-theme="brutalist"] {
+    color-scheme: light;
+    @include light-colors;
+    @include derived-tokens;
+
     --klods-color-bg: #ffffff;
     --klods-color-fg: #000000;
     --klods-color-surface: #ffffff;

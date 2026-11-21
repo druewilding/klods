@@ -83,7 +83,7 @@ ul([li("Tiny"), li("Themeable"), li("SSR-ready")]);
 
 - **No-JS path** — every layout and component works with plain HTML and one `<link>` tag.
 - **Typed builders** — `button({ variant: "primary" }, "Save")` generates the right markup automatically, with full TypeScript autocompletion.
-- **Themeable** — four built-in themes (`default`, `dark`, `playful`, `brutalist`), plus `system` to follow the visitor's light or dark setting; override anything with CSS custom properties.
+- **Themeable** — follows the visitor's light or dark setting out of the box, with four built-in themes to choose instead (`light`, `dark`, `playful`, `brutalist`); override anything with CSS custom properties.
 - **Any highlighter** — code colors work with highlight.js, Rouge (Jekyll), Pygments and Chroma (Hugo) out of the box.
 - **Cascade layers** — klods lives inside `@layer klods.*` so your own styles always win without needing `!important`.
 - **SSR-ready** — every builder has a `.toString()` that returns valid HTML, so it works in Node, Rails, or any server-side template.
