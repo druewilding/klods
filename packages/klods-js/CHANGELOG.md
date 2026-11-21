@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.0](https://github.com/druewilding/klods/compare/klods-js-v4.0.0...klods-js-v4.1.0) (2026-11-21)
+
+
+### Features
+
+* Add a status component: a colored dot beside text ([#163](https://github.com/druewilding/klods/issues/163)) ([7f36699](https://github.com/druewilding/klods/commit/7f366990a4afa0b359b65475e62c4fbdc73b6506))
+
 ## [4.0.0](https://github.com/druewilding/klods/compare/klods-js-v3.6.0...klods-js-v4.0.0) (2026-11-21)
 
 
