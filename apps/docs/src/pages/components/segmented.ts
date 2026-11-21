@@ -1,5 +1,5 @@
 import type { KlodsNode } from "klods-js";
-import { p, segmented, stack } from "klods-js";
+import { cluster, p, segmented } from "klods-js";
 
 import { example } from "../../example.js";
 
@@ -28,7 +28,7 @@ export const examples: KlodsNode[] = [
     description:
       "When a label on the page names it, point aria-labelledby at that label instead. Options can be plain strings, used as both the text and the value.",
     render: () =>
-      stack({ gap: 2 }, [
+      cluster([
         p({ id: "segmented-play-as", class: "klods-label" }, "Play as"),
         segmented({
           name: "color",
