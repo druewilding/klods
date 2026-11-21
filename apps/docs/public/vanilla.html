@@ -97,8 +97,14 @@
 
               <div class="klods-prose">
                 <h2>Get started</h2>
+                <p>
+                  With no <code>data-theme</code>, klods follows the visitor's light or dark setting. To choose a theme,
+                  add <code>data-theme="light"</code>, <code>"dark"</code>, <code>"playful"</code> or
+                  <code>"brutalist"</code> to the <code>&lt;html&gt;</code> tag. Pick one at the top of this page and
+                  the code below follows.
+                </p>
                 <p>A simple page structure with a collapsible sidebar on mobile looks like this:</p>
-                <pre><code class="language-xml">&lt;!doctype html&gt;
+                <pre><code id="get-started-code" class="language-xml">&lt;!doctype html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8" /&gt;
@@ -428,6 +434,23 @@
       if (docsLink) docsLink.href = docsHref(active);
       const fullDocsLink = document.getElementById("full-docs-link");
       if (fullDocsLink) fullDocsLink.href = docsHref(active);
+
+      updateStarter(active);
+    }
+
+    // Keep the get-started code's <html> tag in step with the chosen theme
+    const starter = document.getElementById("get-started-code");
+    const starterText = starter?.textContent ?? "";
+
+    function updateStarter(themeId) {
+      if (!starter) return;
+      const html = themeId ? `<html lang="en" data-theme="${themeId}">` : '<html lang="en">';
+      starter.textContent = starterText.replace('<html lang="en">', html);
+      // Highlight again, unless the first highlightAll() hasn't run yet
+      if (typeof hljs !== "undefined" && starter.dataset.highlighted) {
+        delete starter.dataset.highlighted;
+        hljs.highlightElement(starter);
+      }
     }
 
     // Restore from URL on load
