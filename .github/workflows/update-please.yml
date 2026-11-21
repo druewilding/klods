@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
           cache: npm
@@ -66,7 +66,7 @@ jobs:
         run: npm audit fix --omit=dev
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.UPDATE_PLEASE_TOKEN }}
           commit-message: ${{ steps.format-summary.outputs.pr_title }}
