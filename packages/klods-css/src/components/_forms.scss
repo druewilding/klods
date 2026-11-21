@@ -284,7 +284,9 @@
     flex-shrink: 0;
     width: 2.5rem; // 40px
     height: 1.5rem; // 24px
-    background: var(--klods-color-border);
+    // Muted, not the border color, so an off switch still reads as a switch
+    // (at least 3:1 against the page, in light and dark)
+    background: var(--klods-color-muted);
     border-radius: var(--klods-radius-pill);
     transition: background var(--klods-transition);
 
