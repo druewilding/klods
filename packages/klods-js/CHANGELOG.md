@@ -1,5 +1,22 @@
 # Changelog
 
+## [4.0.0](https://github.com/druewilding/klods/compare/klods-js-v3.6.0...klods-js-v4.0.0) (2026-11-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* Pages without data-theme now switch to dark when the visitor prefers dark.
+
+### Features
+
+* Add Rouge, Pygments and Chroma code colors ([827d629](https://github.com/druewilding/klods/commit/827d629703c056b4c0e0c2e6c32f9e31332a5b4c))
+* Follow the system light or dark setting by default ([827d629](https://github.com/druewilding/klods/commit/827d629703c056b4c0e0c2e6c32f9e31332a5b4c))
+
+
+### Bug Fixes
+
+* Give playful danger its own red so it differs from primary ([827d629](https://github.com/druewilding/klods/commit/827d629703c056b4c0e0c2e6c32f9e31332a5b4c))
+
 ## [3.6.0](https://github.com/druewilding/klods/compare/klods-js-v3.5.0...klods-js-v3.6.0) (2026-07-07)
 
 
